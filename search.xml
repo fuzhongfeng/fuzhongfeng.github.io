@@ -1469,27 +1469,6 @@ UMD(Universal Module Definition 通用模块规范)，因为AMD，CommonJS规范
     </entry>
     
     <entry>
-      <title><![CDATA[jQuery-基础]]></title>
-      <url>https://fuzhongfeng.github.io/2016/11/14/jQuery-base/</url>
-      <content type="html"><![CDATA[<p>parent([expr]) – 获得当前匹配元素集合中每个元素的<strong>父元素</strong>，使用选择器进行筛选是可选的，沿 DOM 树向上遍历单一层级<br>parents([expr]) – 获得当前匹配元素集合中每个元素的<strong>祖先元素</strong>，一直向上查找直到根元素，再使用选择器进行筛选可选的<br>closest([expr]) – 首先检查<strong>当前元素</strong>是否匹配，如果匹配则直接返回元素本身，如果不匹配则向上查找父元素，一层一层往上，直到找到匹配选择器的元素就停止了，如果什么都没找到则返回一个空的jQuery对象  </p>
-]]></content>
-      
-        <categories>
-            
-            <category> Jquery </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Jquery </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
       <title><![CDATA[Webpack-基础]]></title>
       <url>https://fuzhongfeng.github.io/2016/11/06/webpack-base/</url>
       <content type="html"><![CDATA[<h2 id="前端模块管理器简介"><a href="#前端模块管理器简介" class="headerlink" title="前端模块管理器简介"></a><a href="http://www.ruanyifeng.com/blog/2014/09/package-management.html" target="_blank" rel="noopener">前端模块管理器简介</a></h2><p>浏览器本身并不提供模块管理的机制，为了调用各个模块，有时不得不在网页中，加入一大堆script标签。这样就使得网页体积臃肿，难以维护，还产生大量的HTTP请求，拖慢显示速度，影响用户体验。<br>为了解决这个问题，前端的模块管理器（package management）应运而生。它可以轻松管理各种JavaScript脚本的依赖关系，自动加载各个模块，使得网页结构清晰合理。不夸张地说，将来所有的前端JavaScript项目，应该都会采用这种方式开发。</p>
