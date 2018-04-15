@@ -1,0 +1,949 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="付忠峰的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="长度单位绝对长度单位 in（英寸）、cm（厘米）、mm（毫米）、pt（磅）、pc（pica）   相对长度单位    px 像素   em 是相对于文字大小的值，实际大小是受到字体尺寸影响的。例如：定义某个元素的文字大小为12pt，那么，对于这个元素来说1em就是12pt。   ex 和em类似，指的是相对于文本中字母x的高度，因为不同的字体的x的高度是不同的，所以ex的实际大小，受到字体和字体尺">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS-布局基础2">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2016/09/21/css-layout2/index.html">
+<meta property="og:site_name" content="付忠峰的博客">
+<meta property="og:description" content="长度单位绝对长度单位 in（英寸）、cm（厘米）、mm（毫米）、pt（磅）、pc（pica）   相对长度单位    px 像素   em 是相对于文字大小的值，实际大小是受到字体尺寸影响的。例如：定义某个元素的文字大小为12pt，那么，对于这个元素来说1em就是12pt。   ex 和em类似，指的是相对于文本中字母x的高度，因为不同的字体的x的高度是不同的，所以ex的实际大小，受到字体和字体尺">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-09T11:16:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS-布局基础2">
+<meta name="twitter:description" content="长度单位绝对长度单位 in（英寸）、cm（厘米）、mm（毫米）、pt（磅）、pc（pica）   相对长度单位    px 像素   em 是相对于文字大小的值，实际大小是受到字体尺寸影响的。例如：定义某个元素的文字大小为12pt，那么，对于这个元素来说1em就是12pt。   ex 和em类似，指的是相对于文本中字母x的高度，因为不同的字体的x的高度是不同的，所以ex的实际大小，受到字体和字体尺">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6325922180978705000,
+      author: 'Kevin'
+    }
+  };
+</script>
+
+  <title> CSS-布局基础2 | 付忠峰的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?41d77ee7657d4e19a7f8a6361fe2121f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">付忠峰的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+  
+</nav>
+
+ </div>
+      
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/me.jpg"
+               alt="付忠峰" />
+          <p class="site-author-name" itemprop="name">付忠峰</p>
+          <p class="site-description motion-element" itemprop="description">学习记录</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fuzhongfeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jikexueyuan.com/" title="极客学院" target="_blank">极客学院</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://caniuse.com" title="caniuse" target="_blank">caniuse</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://codepen.io" title="codepen" target="_blank">codepen</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://babeljs.io/repl/" title="Babel在线编译" target="_blank">Babel在线编译</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.iconfinder.com/iconsets/miu" title="Iconfinder图标" target="_blank">Iconfinder图标</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bejson.com/" title="在线JSON格式化" target="_blank">在线JSON格式化</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#长度单位"><span class="nav-number">1.</span> <span class="nav-text">长度单位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#替换元素和非替换元素"><span class="nav-number">2.</span> <span class="nav-text">替换元素和非替换元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#块级元素和行内元素"><span class="nav-number">3.</span> <span class="nav-text">块级元素和行内元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浏览器的标准模式和怪异模式"><span class="nav-number">4.</span> <span class="nav-text">浏览器的标准模式和怪异模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#margin属性"><span class="nav-number">5.</span> <span class="nav-text">margin属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#float属性"><span class="nav-number">6.</span> <span class="nav-text">float属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#盒模型"><span class="nav-number">7.</span> <span class="nav-text">盒模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#W3C标准盒模型"><span class="nav-number">7.1.</span> <span class="nav-text">W3C标准盒模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IE传统盒模型-IE6以下"><span class="nav-number">7.2.</span> <span class="nav-text">IE传统盒模型(IE6以下)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#box-sizing属性"><span class="nav-number">8.</span> <span class="nav-text">box-sizing属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#outline属性"><span class="nav-number">9.</span> <span class="nav-text">outline属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#position属性"><span class="nav-number">10.</span> <span class="nav-text">position属性</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+    </header>
+ 
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS-布局基础2
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T22:52:59+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/21/css-layout2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/css-layout2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="长度单位"><a href="#长度单位" class="headerlink" title="长度单位"></a>长度单位</h2><p><strong>绝对长度单位</strong></p>
+<p>in（英寸）、cm（厘米）、mm（毫米）、pt（磅）、pc（pica）  </p>
+<p><strong>相对长度单位</strong>  </p>
+<ul>
+<li>px 像素  </li>
+<li>em 是相对于文字大小的值，实际大小是受到字体尺寸影响的。例如：定义某个元素的文字大小为12pt，那么，对于这个元素来说1em就是12pt。  </li>
+<li>ex 和em类似，指的是相对于文本中字母x的高度，因为不同的字体的x的高度是不同的，所以ex的实际大小，受到字体和字体尺寸两个因素的影响。 </li>
+<li>% 相对于包含块的计量单位  </li>
+<li>vw 基于视窗宽度的大小，10vw表示视窗宽度的10%</li>
+<li>vh 基于视窗高度的大小，10vh表示视窗高度的10%</li>
+</ul>
+<h2 id="替换元素和非替换元素"><a href="#替换元素和非替换元素" class="headerlink" title="替换元素和非替换元素"></a>替换元素和非替换元素</h2><p><strong>替换元素</strong></p>
+<p>替换元素是浏览器根据其标签的元素与属性来判断显示具体的内容，如<code>&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;</code></p>
+<p><strong>非替换元素</strong></p>
+<p>大多数元素是不可替换元素，他们将内容直接告诉浏览器，将其显示出来，如<code>&lt;p&gt;</code></p>
+<h2 id="块级元素和行内元素"><a href="#块级元素和行内元素" class="headerlink" title="块级元素和行内元素"></a>块级元素和行内元素</h2><p><strong>块级元素</strong></p>
+<p>最明显的特征就是独自占领一行，自动充满父级元素的内容区域，如<code>div、p、form、header、footer、section</code><br>通过CSS设定了浮动（float）以及设定显示（display）属性为’block’或’list-item’的元素都是块级元素</p>
+<p><strong>行内元素</strong></p>
+<p>允许左右都可以有元素，最常见的就是<a></a><br>通过display:’inline’设置以后都会变成行内元素</p>
+<h2 id="浏览器的标准模式和怪异模式"><a href="#浏览器的标准模式和怪异模式" class="headerlink" title="浏览器的标准模式和怪异模式"></a>浏览器的标准模式和怪异模式</h2><ul>
+<li>标准模式(strict mode)：浏览器按W3C标准解析执行代码</li>
+<li><p>怪异模式(quirks mode)：使用浏览器自己的方式解析执行代码</p>
+<p>  浏览器解析时到底使用标准模式还是怪异模式，与网页中的DTD声明直接相关，DTD声明定义了标准文档的类型（标准模式解析）文档类型，会使浏览器使用相应的方式加载网页并显示，忽略DTD声明,将使网页进入怪异模式(quirks mode)。  </p>
+</li>
+</ul>
+<p>怪异模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;重庆PHP&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;h3&gt;重庆PHP，最专业的PHP社区&lt;/h3&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>标准模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;重庆PHP&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;h3&gt;重庆PHP，最专业的PHP社区&lt;/h3&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="margin属性"><a href="#margin属性" class="headerlink" title="margin属性"></a>margin属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">margin:2cm 4cm 3cm 4cm;// 值分别代表上外边距、右外边距、下外边距、左外边距</span><br><span class="line">margin:10px 5px 15px;// 值分别代表上外边距、右外和左外边距、下外边距</span><br><span class="line">margin:10px 5px;// 值分别代表上外和下外边距、右外和左外边距</span><br><span class="line">margin:10px;// 值代表四个外边据</span><br></pre></td></tr></table></figure>
+<p>可选的属性值如下：  </p>
+<blockquote>
+<p><strong>auto:</strong> 浏览器计算外边距<br><strong>length:</strong> 具体单位计的外边距值，比如<code>px、cm</code>等，默认值是 0px<br><strong>%:</strong> 基于父元素的宽度的百分比<br><strong>inherit:</strong> 从父元素继承  </p>
+</blockquote>
+<p>说明如下：  </p>
+<ul>
+<li>块级元素的垂直相邻外边距会合并，由于块级元素独占一行，不考虑水平外边距 </li>
+<li>行内元素实际上不占上下外边距，左右外边距不会合并</li>
+<li>浮动元素的外边距也不会合并  </li>
+<li>允许指定负的外边距值，不过使用时要小心</li>
+</ul>
+<p>设置块级元素的 width 可以阻止它从左到右撑满容器，再设置左右外边距为 auto 来使其水平居中。但是，当浏览器窗口比元素的宽度还要窄时，浏览器会显示一个水平滚动条来容纳页面。此时可以使用 max-width 替代 width 可以使浏览器更好地处理小窗口的情况。</p>
+<h2 id="float属性"><a href="#float属性" class="headerlink" title="float属性"></a>float属性</h2><p>可选的属性值如下： </p>
+<blockquote>
+<p><strong>left:</strong> 元素向左浮动<br><strong>right:</strong> 元素向右浮动<br><strong>none(默认):</strong> 元素不浮动，并会显示在其在文本中出现的位置<br><strong>inherit:</strong> 从父元素继承 </p>
+</blockquote>
+<p>说明如下：</p>
+<ul>
+<li>用来定义元素在哪个方向浮动，浮动元素会生成一个块级框，而不论它本身是何种元素  </li>
+<li>这个属性总应用于图像，使文本围绕在图像周围</li>
+<li>如果浮动非替换元素，如div，则要指定一个明确的宽度；否则，它们会按元素内容尽可能地窄</li>
+<li>如果行内有极少的空间可供浮动元素，那么这个元素会跳至下一行，直到某一行拥有足够的空间为止</li>
+<li>如果浮动元素超出父容器，在父容器添加overflow:auto即可根据浮动的元素撑开容器</li>
+<li>clear属性可清除浮动，值可为left或right，分别表示清除向左浮动或向右浮动 </li>
+</ul>
+<h2 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h2><h3 id="W3C标准盒模型"><a href="#W3C标准盒模型" class="headerlink" title="W3C标准盒模型"></a>W3C标准盒模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">外盒尺寸计算(元素空间尺寸)</span><br><span class="line">element 空间高度 = 内容高度 + 内距 + 边框 + 外距</span><br><span class="line">element 空间宽度 = 内容宽度 + 内距 + 边框 + 外距</span><br><span class="line">内盒尺寸计算(元素大小)</span><br><span class="line">element 高度 = 内容高度 + 内距 + 边框 （height为内容高度）</span><br><span class="line">element 宽度 = 内容宽度 + 内距 + 边框 （width为内容宽度）</span><br></pre></td></tr></table></figure>
+<h3 id="IE传统盒模型-IE6以下"><a href="#IE传统盒模型-IE6以下" class="headerlink" title="IE传统盒模型(IE6以下)"></a>IE传统盒模型(IE6以下)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">外盒尺寸计算(元素空间尺寸)</span><br><span class="line">element 空间高度 = 内容高度 + 外距（height包含了元素内容高度、边框、内距）</span><br><span class="line">element 空间宽度 = 内容宽度 + 外距（height包含了元素内容高度、边框、内距）</span><br><span class="line">内盒尺寸计算(元素大小)</span><br><span class="line">element 高度 = 内容高度（height包含了元素内容高度、边框、内距）</span><br><span class="line">element 宽度 = 内容宽度（width包含了元素内容宽度、边框、内距）</span><br></pre></td></tr></table></figure>
+<p>边框和内距都包含在宽度或高度内！！！</p>
+<h2 id="box-sizing属性"><a href="#box-sizing属性" class="headerlink" title="box-sizing属性"></a>box-sizing属性</h2><p>可选的属性值如下： </p>
+<blockquote>
+<p><strong>content-box(默认):</strong> 维持W3C的标准盒模型<br><strong>border-box:</strong> 维持IE的传统盒模型<br><strong>padding-box(Firefox浏览器):</strong> 指定元素的宽度或高度包含内容的宽度或高度和内距<br><strong>inherit:</strong> 从父元素继承 </p>
+</blockquote>
+<p>说明如下：</p>
+<ul>
+<li>定义盒模型的尺寸解析方式，主要目的是控制元素的总宽度  </li>
+</ul>
+<h2 id="outline属性"><a href="#outline属性" class="headerlink" title="outline属性"></a>outline属性</h2><ul>
+<li><p>外轮廓outline的效果和边框border的效果极其相似，不同之处在于outline不占用网页布局空间，不一定是矩形，属于一种动态样式，可以向内扩展。</p>
+</li>
+<li><p>将outline属性设置在:focus上，可以实现在元素获取到焦点或者被激活时呈现边框的效果。</p>
+</li>
+<li><p>为了给元素添加边框效果又不影响页面布局，可以使用outline属性。</p>
+</li>
+</ul>
+<h2 id="position属性"><a href="#position属性" class="headerlink" title="position属性"></a>position属性</h2><p>可选的属性值如下： </p>
+<blockquote>
+<p><strong>static(默认):</strong> 元素不会被特殊的定位，top, right, bottom, left 和 z-index 属性无效<br><strong>relative:</strong> 相对定位，相对于其正常位置进行定位。<br><strong>absolute:</strong> 绝对定位，不为元素预留空间。元素相对于最近的非static定位的祖先元素来定位。<br><strong>fixed:</strong> 固定定位，不为元素预留空间。元素会相对于视窗来来定位，当出现滚动条时，对象不会随着滚动。<br><strong>inherit:</strong> 从父元素继承 </p>
+</blockquote>
+<p>说明如下：</p>
+<ul>
+<li>不会被特殊的定位的的元素，top, right, bottom, left 和 z-index 属性无效。</li>
+<li>position:sticky，类似relative和fixed的合体，当目标区域在屏幕中可见时，它的行为就像relative; 当页面滚动超出目标区域时，它的行为就像fixed，固定在目标位置。目前支持该属性的浏览器比较少。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/21/scattered-knowledge/" rel="next" title="零散知识">
+                <i class="fa fa-chevron-left"></i> 零散知识
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/28/css-scattered/" rel="prev" title="CSS-零散知识">
+                CSS-零散知识 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/21/css-layout2/"
+     data-title="CSS-布局基础2"
+     data-content=""
+     data-url="https://fuzhongfeng.github.io/2016/09/21/css-layout2/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/21/css-layout2/"
+           data-title="CSS-布局基础2" data-url="https://fuzhongfeng.github.io/2016/09/21/css-layout2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+       
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">付忠峰</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"zlc10"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+
+            $('.popup').detach().appendTo('.container');
+            //$('.popup').detach().appendTo('.header-inner');
+
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
