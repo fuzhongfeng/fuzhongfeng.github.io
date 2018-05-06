@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -388,6 +388,140 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/25/2017-8-25-redux-experience1/" itemprop="url">
+                  Redux-学习经验
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-25T08:47:18+08:00" content="2017-08-25">
+              2017-08-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Redux/" itemprop="url" rel="index">
+                    <span itemprop="name">Redux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="进行网络请求"><a href="#进行网络请求" class="headerlink" title="进行网络请求"></a>进行网络请求</h2><p>发起网络请求的操作通常放在组件的componentDidMount方法中，使用redux进行网络请求就是发起一个action，但这个action比较特殊，它的内部还会发起其它action，形式如下：</p>
+<ul>
+<li><p>需要使用redux需要使用<a href="https://github.com/gaearon/redux-thunk" target="_blank" rel="noopener">redux-thunk</a>中间件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createStore, applyMiddleware, compose &#125; from &apos;redux&apos;;</span><br><span class="line">import thunk from &apos;redux-thunk&apos;;</span><br><span class="line">const store = createStore(reducer, initialState, compose(</span><br><span class="line">    applyMiddleware(..., thunk),</span><br><span class="line">    window.devToolsExtension ? window.devToolsExtension() : f =&gt; f // 可使用浏览器的Redux DevTools插件进行redux调试</span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>action文件主要内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function xxxRequest() &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    type: REQUEST,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">function xxxSuccess(data) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    type: SUCCESS,</span><br><span class="line">    data: data,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">function xxxFailure(error) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    type: FAILURE,</span><br><span class="line">    error: error,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export function xxx(url, objParam) &#123;</span><br><span class="line">  return (dispatch, getState) =&gt; &#123;</span><br><span class="line">    dispatch(xxxRequest());</span><br><span class="line">    return fetch(url, &#123;</span><br><span class="line">        method: &apos;post&apos;,</span><br><span class="line">        headers: &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">        body: JSON.stringify(objParam)</span><br><span class="line">    &#125;).then(data =&gt; dispatch(xxxSuccess(data)))</span><br><span class="line">      .catch(errors =&gt; dispatch(xxxFailure(error)));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="保证请求按序进行"><a href="#保证请求按序进行" class="headerlink" title="保证请求按序进行"></a>保证请求按序进行</h2><p>使用<a href="https://github.com/jasonslyvia/redux-sequence-action" target="_blank" rel="noopener">redux-sequence-action</a>中间件</p>
+<p>这里说的按序请求，不是指上面的发起一个网络请求时发起的多个action的情况，而是指按序发起多个网络请求、每个网络请求是在上个网络请求完成再执行的情况，比如点击保存先调用save网络请求，再调用refresh网络请求。至于为什么不能直接用dispatch(save)，再dispatch(refresh)，是因为进行网络请求是异步的，可能在save请求还没完成，就进行了refresh请求并返回了结果，这时的结果是未更新的结果。</p>
+<ul>
+<li><p>安装依赖</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save redux-sequence-action</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>createStore.js中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import sequenceAction from &apos;redux-sequence-action&apos;;</span><br><span class="line">...</span><br><span class="line">const store = createStore(reducer, initialState, compose(</span><br><span class="line">    applyMiddleware(invariant(), thunk, sequenceAction),</span><br><span class="line">    window.devToolsExtension ? window.devToolsExtension() : f =&gt; f</span><br><span class="line">));</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>containers/下引用的组件中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">...</span><br><span class="line">class MyComponent extends Component &#123;</span><br><span class="line">    ...</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        // 发起actionA</span><br><span class="line">        this.props.allActions.actionA(&apos;a&apos;,&apos;b&apos;);</span><br><span class="line">        // 发起actionC</span><br><span class="line">        this.props.allActions.actionC(&apos;c&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function mapStateToProps(state) &#123;</span><br><span class="line">  return state;</span><br><span class="line">&#125;</span><br><span class="line">function mapDispatchToProps(dispatch) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    allActions: &#123;</span><br><span class="line">        ...bindActionCreators(&#123;</span><br><span class="line">            actionA,</span><br><span class="line">            actionB,</span><br><span class="line">        &#125;, dispatch),</span><br><span class="line">        // actionC中先发起actionB，actionB结束后再发起actionC</span><br><span class="line">        actionC: (arg1, arg2, arg3) =&gt; dispatch([actionA(arg1, arg2), actionB(arg3)]),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1693,125 +1827,6 @@ UMD(Universal Module Definition 通用模块规范)，因为AMD，CommonJS规范
 <p>  AngularJS。以HTML为中心，适配和扩展了传统的HTML来呈现动态内容，双向数据绑定，自定义指令，是一个比较完善的前端框架，适合大型项目。入门很容易，但框架复杂、深入后概念很多，学习中较难理解，文档例子非常少。使用脏检查，当watcher越来越多时会变得越来越慢。</p>
 </li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/03/14/recursion/" itemprop="url">
-                  递归用法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-03-14T08:03:20+08:00" content="2017-03-14">
-              2017-03-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>前段时间有个刚学编程的人找我做了几道编程题，都用到了递归，让我写个使用递归的总结，我个人用到的递归不多，就这几道编程题总结如下，后期如有新的体会再补充。</p>
-<h2 id="适用点"><a href="#适用点" class="headerlink" title="适用点"></a>适用点</h2><p>想一下规模为n的问题是否可以经过计算换算成规模为n-1的问题，如阶乘计算，n!=n*(n-1)!，这时就可以用递归。使用递归主要是代码写起来比较方便，大多数情况使用栈和循环都可以替代使用递归。</p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>写递归算法时，要最先思考边界值，就是递归算法在什么情况下不应该再递归下去，如对于阶乘问题的n为1、0的时候，防止出现死循环。</p>
-<h2 id="优化点"><a href="#优化点" class="headerlink" title="优化点"></a>优化点</h2><p>用递归算法去解决问题，经常会比较耗性能，因为进行了大量循环，多进行一次递归可能会进行很多次循环，所以控制在哪些条件下无需递归很容易优化性能，如递归求最短路径时，如果当前递归处理的路径长度已经超过了当前最短路径的长度，那就不用再向下递归了。还要会利用数据结构，比如Map能够快速取值，如果是数组取值时需要进行遍历，尽量减少循环的次数。</p>
-<h2 id="调试点"><a href="#调试点" class="headerlink" title="调试点"></a>调试点</h2><p>递归问题最大的难点可能就在调试上了，因为进行了很多循环，无法跟进每一个循环去看当前的值对不对。这时一定要将问题范围缩小，比如题目要求100个点，可以先拿10个以内的点去调试，这时可以通过断点调试跟进每一次循环，看到所有变量当前的值，这样就容易看出问题出在哪了。如果有问题的标准答案，还要会利用答案，如果解题需要大量循环无法跟进时，可以写一个if条件在满足正确答案时进行输出，也可以在这里打个断点，看看为什么没有获得这个标准的答案，这时比较容易看出问题。</p>
-<p>以上都是我做那几个题时的思路和方法，以前我也就写过一两次递归，其实没什么经验，大多数方法都是以前调程序的经验。如果打算深入的往编程这方面发展，有如下建议：</p>
-<p>1、要进行编程练习，就像递归，完全自己手动去解决两三个问题也就会用了，也有调试的经验了；<br>2、一定要会分析问题，拆分问题，这个问题分几步，每一步都做什么，这样比较容易写出程序，容易调试，容易定位问题出在哪步了，其它地方就不用看了，也方便解决问题，问题细化后就容易描述小问题了，可以上网找找现成的例子；<br>3、一定要会分析现象，现在程序运行的结果不对，是什么样的现象，这个现象表明什么本质，切记不要直接一遍一遍的看代码，找哪里不对，这样很难找到问题的，如果你知道这样写有问题，那当时也就不会这样写了，一定要仔细思考、分析现象，找到问题本质，然后定位有问题的代码范围，再看代码。</p>
 
           
         

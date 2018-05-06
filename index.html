@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -388,6 +388,188 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
+                  JavaScript-基础2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p>
+<h2 id="1-setTimeout-（参考：小红书-p203，MDN）"><a href="#1-setTimeout-（参考：小红书-p203，MDN）" class="headerlink" title="1. setTimeout （参考：小红书 p203，MDN）"></a>1. setTimeout （参考：小红书 p203，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN</a>）</h2><h3 id="setTimeout-的基本概念："><a href="#setTimeout-的基本概念：" class="headerlink" title="setTimeout 的基本概念："></a>setTimeout 的基本概念：</h3><ul>
+<li>setTimeout 方法是 window 对象下的。</li>
+<li>JavaScript 是一个单线程序的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个 JavaScript 任务队列。这些任务会按照将它们添加到队列的顺序执行。setTimeout()的第二个参数告诉 JavaScript 再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。</li>
+<li><p>接收多个参数（function, delay, param1…paramN）这里的 parma 会在 delay 延迟后自动作为参数传入 function里，但在 IE9 及以下不支持这种写法。</p>
+<pre><code>setTimeout(function(p1, p2) {
+    console.log(p1, p2); // param1 param2
+}, 1000, &quot;param1&quot;, &quot;param2&quot;);
+</code></pre></li>
+<li><p>setTimeout()会返回一个表示超时调用的数值ID。这个超时调用 ID 是计划执行代码的唯一标识符，可以通过它来取消超时调用（clearTimeout()）。</p>
+</li>
+<li><p>超时延迟</p>
+<pre><code>function foo() {
+  console.log(&apos;foo has been called&apos;);
+}
+setTimeout(foo, 0);
+console.log(&apos;After setTimeout&apos;);
+// After setTimeout, foo has been called
+出现这个结果的原因是，尽管hsetTimeout 以0ms的延迟来调用函数，但这个任务已经被放入了队列中并且等待下一次执行；并不是立即执行；队列中的等待函数被调用之前，当前代码必须全部运行完毕，因此这里运行结果并非预想的那样。
+</code></pre></li>
+<li><p>最小延迟</p>
+<p>最小延时 &gt;=4ms（MDN说法），但是看下面的例子却是 2ms 甚至不到 2ms ？？？</p>
+<pre><code>// 转换为时间戳看一下
+console.log(new Date().getTime());
+setTimeout(function() {
+    console.log(new Date().getTime());
+}, 0);
+
+// 1525534082199, 1525534082201
+
+//  使用 console.time() 和 console.timeEnd() 来统计时间
+function testTimeout() {
+    //  启动任务计时器
+    console.time(&quot;Timeout&quot;)
+    //  启动浏览器定时任务 
+    setTimeout(function() {
+        //  统计任务消耗的时间
+        console.timeEnd(&quot;Timeout&quot;)
+    }, 0)
+}
+testTimeout(); 
+// Timeout: 1.34130859375ms
+</code></pre></li>
+<li>最大延时值<br>浏览器包括 IE, , Chrome, Safari, Firefox 以32个bit字节存储整数。这就会导致如果一个整数大于 2147483647 (大约24.8 天)时就会溢出，导致定时器将会被立即执行</li>
+</ul>
+<h3 id="看下面的例子："><a href="#看下面的例子：" class="headerlink" title="看下面的例子："></a>看下面的例子：</h3><pre><code>for (var i = 0; i &lt; 10; i++) {
+   setTimeout(function(){
+       console.log(new Date, i);
+   }, 1000) 
+}
+console.log(new Date, i);
+</code></pre><p>打印结果：</p>
+<ul>
+<li>last Sat May 05 2018 21:39:42 GMT+0800 (CST) 10 //  setTimeout 由于添加到队列的时间较晚（delay），所以会等到队列中其他任务结束之后再执行。</li>
+<li>last Sat May 05 2018 21:39:43 GMT+0800 (CST) 10 // 十次,注意这里不是重复打印而是分别打印共十次， for 循环里面的 setTimeout 只是在 delay 时间后将其添加到队列中，所以 setTimeout 并不会阻碍 for 循环的时间</li>
+</ul>
+<h4 id="下面是转成时间戳的打印："><a href="#下面是转成时间戳的打印：" class="headerlink" title="下面是转成时间戳的打印："></a>下面是转成时间戳的打印：</h4><pre><code>for (var i = 0; i &lt; 10; i++) {
+   setTimeout(function(){
+       console.log(new Date().getTime(), i);
+   }, 1000) 
+}
+console.log(&quot;last&quot;, new Date().getTime(), i);
+</code></pre><p>打印结果：</p>
+<ul>
+<li>last 1525527917027 10</li>
+<li>(3)1525527918030 10</li>
+<li>(3)1525527918031 10</li>
+<li>(4)1525527918032 10</li>
+</ul>
+<p>以上结果中的重复打印次数不是固定的，在执行一次也可能是：2，2，6；</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1927,140 +2109,6 @@
 <p>自我管理，是指您能根据自我情绪的感知，灵活积极地调控自身行为。</p>
 <p>关系管理，是指您感知到周遭的“情绪场”之后，能够掌控自我情绪并把握他人情绪值，来让双方进行更好的互动。</p>
 <img src="https://fuzhongfeng.github.io/2017/09/23/full-stack-developer/timg.jpg" title="时间管理四象限">
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/08/25/2017-8-25-redux-experience1/" itemprop="url">
-                  Redux-学习经验
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-08-25T08:47:18+08:00" content="2017-08-25">
-              2017-08-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Redux/" itemprop="url" rel="index">
-                    <span itemprop="name">Redux</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="进行网络请求"><a href="#进行网络请求" class="headerlink" title="进行网络请求"></a>进行网络请求</h2><p>发起网络请求的操作通常放在组件的componentDidMount方法中，使用redux进行网络请求就是发起一个action，但这个action比较特殊，它的内部还会发起其它action，形式如下：</p>
-<ul>
-<li><p>需要使用redux需要使用<a href="https://github.com/gaearon/redux-thunk" target="_blank" rel="noopener">redux-thunk</a>中间件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createStore, applyMiddleware, compose &#125; from &apos;redux&apos;;</span><br><span class="line">import thunk from &apos;redux-thunk&apos;;</span><br><span class="line">const store = createStore(reducer, initialState, compose(</span><br><span class="line">    applyMiddleware(..., thunk),</span><br><span class="line">    window.devToolsExtension ? window.devToolsExtension() : f =&gt; f // 可使用浏览器的Redux DevTools插件进行redux调试</span><br><span class="line">));</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>action文件主要内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">function xxxRequest() &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    type: REQUEST,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">function xxxSuccess(data) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    type: SUCCESS,</span><br><span class="line">    data: data,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">function xxxFailure(error) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    type: FAILURE,</span><br><span class="line">    error: error,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">export function xxx(url, objParam) &#123;</span><br><span class="line">  return (dispatch, getState) =&gt; &#123;</span><br><span class="line">    dispatch(xxxRequest());</span><br><span class="line">    return fetch(url, &#123;</span><br><span class="line">        method: &apos;post&apos;,</span><br><span class="line">        headers: &#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;,</span><br><span class="line">        body: JSON.stringify(objParam)</span><br><span class="line">    &#125;).then(data =&gt; dispatch(xxxSuccess(data)))</span><br><span class="line">      .catch(errors =&gt; dispatch(xxxFailure(error)));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="保证请求按序进行"><a href="#保证请求按序进行" class="headerlink" title="保证请求按序进行"></a>保证请求按序进行</h2><p>使用<a href="https://github.com/jasonslyvia/redux-sequence-action" target="_blank" rel="noopener">redux-sequence-action</a>中间件</p>
-<p>这里说的按序请求，不是指上面的发起一个网络请求时发起的多个action的情况，而是指按序发起多个网络请求、每个网络请求是在上个网络请求完成再执行的情况，比如点击保存先调用save网络请求，再调用refresh网络请求。至于为什么不能直接用dispatch(save)，再dispatch(refresh)，是因为进行网络请求是异步的，可能在save请求还没完成，就进行了refresh请求并返回了结果，这时的结果是未更新的结果。</p>
-<ul>
-<li><p>安装依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save redux-sequence-action</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>createStore.js中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import sequenceAction from &apos;redux-sequence-action&apos;;</span><br><span class="line">...</span><br><span class="line">const store = createStore(reducer, initialState, compose(</span><br><span class="line">    applyMiddleware(invariant(), thunk, sequenceAction),</span><br><span class="line">    window.devToolsExtension ? window.devToolsExtension() : f =&gt; f</span><br><span class="line">));</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>containers/下引用的组件中</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">...</span><br><span class="line">class MyComponent extends Component &#123;</span><br><span class="line">    ...</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">        // 发起actionA</span><br><span class="line">        this.props.allActions.actionA(&apos;a&apos;,&apos;b&apos;);</span><br><span class="line">        // 发起actionC</span><br><span class="line">        this.props.allActions.actionC(&apos;c&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function mapStateToProps(state) &#123;</span><br><span class="line">  return state;</span><br><span class="line">&#125;</span><br><span class="line">function mapDispatchToProps(dispatch) &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    allActions: &#123;</span><br><span class="line">        ...bindActionCreators(&#123;</span><br><span class="line">            actionA,</span><br><span class="line">            actionB,</span><br><span class="line">        &#125;, dispatch),</span><br><span class="line">        // actionC中先发起actionB，actionB结束后再发起actionC</span><br><span class="line">        actionC: (arg1, arg2, arg3) =&gt; dispatch([actionA(arg1, arg2), actionB(arg3)]),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">export default connect(mapStateToProps, mapDispatchToProps)(MyComponent);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
 
           
         

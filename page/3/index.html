@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -388,6 +388,125 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/14/recursion/" itemprop="url">
+                  递归用法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-14T08:03:20+08:00" content="2017-03-14">
+              2017-03-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>前段时间有个刚学编程的人找我做了几道编程题，都用到了递归，让我写个使用递归的总结，我个人用到的递归不多，就这几道编程题总结如下，后期如有新的体会再补充。</p>
+<h2 id="适用点"><a href="#适用点" class="headerlink" title="适用点"></a>适用点</h2><p>想一下规模为n的问题是否可以经过计算换算成规模为n-1的问题，如阶乘计算，n!=n*(n-1)!，这时就可以用递归。使用递归主要是代码写起来比较方便，大多数情况使用栈和循环都可以替代使用递归。</p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>写递归算法时，要最先思考边界值，就是递归算法在什么情况下不应该再递归下去，如对于阶乘问题的n为1、0的时候，防止出现死循环。</p>
+<h2 id="优化点"><a href="#优化点" class="headerlink" title="优化点"></a>优化点</h2><p>用递归算法去解决问题，经常会比较耗性能，因为进行了大量循环，多进行一次递归可能会进行很多次循环，所以控制在哪些条件下无需递归很容易优化性能，如递归求最短路径时，如果当前递归处理的路径长度已经超过了当前最短路径的长度，那就不用再向下递归了。还要会利用数据结构，比如Map能够快速取值，如果是数组取值时需要进行遍历，尽量减少循环的次数。</p>
+<h2 id="调试点"><a href="#调试点" class="headerlink" title="调试点"></a>调试点</h2><p>递归问题最大的难点可能就在调试上了，因为进行了很多循环，无法跟进每一个循环去看当前的值对不对。这时一定要将问题范围缩小，比如题目要求100个点，可以先拿10个以内的点去调试，这时可以通过断点调试跟进每一次循环，看到所有变量当前的值，这样就容易看出问题出在哪了。如果有问题的标准答案，还要会利用答案，如果解题需要大量循环无法跟进时，可以写一个if条件在满足正确答案时进行输出，也可以在这里打个断点，看看为什么没有获得这个标准的答案，这时比较容易看出问题。</p>
+<p>以上都是我做那几个题时的思路和方法，以前我也就写过一两次递归，其实没什么经验，大多数方法都是以前调程序的经验。如果打算深入的往编程这方面发展，有如下建议：</p>
+<p>1、要进行编程练习，就像递归，完全自己手动去解决两三个问题也就会用了，也有调试的经验了；<br>2、一定要会分析问题，拆分问题，这个问题分几步，每一步都做什么，这样比较容易写出程序，容易调试，容易定位问题出在哪步了，其它地方就不用看了，也方便解决问题，问题细化后就容易描述小问题了，可以上网找找现成的例子；<br>3、一定要会分析现象，现在程序运行的结果不对，是什么样的现象，这个现象表明什么本质，切记不要直接一遍一遍的看代码，找哪里不对，这样很难找到问题的，如果你知道这样写有问题，那当时也就不会这样写了，一定要仔细思考、分析现象，找到问题本质，然后定位有问题的代码范围，再看代码。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1728,141 +1847,6 @@
 <h2 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h2><p><strong>双冒号与单冒号在CSS3中主要用来区分伪类和伪元素</strong></p>
 <p>::first-letter 用来选择文本块的第一个字母<br>::first-line 用来选择文本块的第一行<br>::before 和 ::after 需配合content属性，不是指存在与标记中的内容，而是可以插入额外内容的位置<br>::selection 用来匹配选中的文本，紧接收background和color属性  </p>
 <h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h2><p>E[attr] 选择匹配具有属性attr的E元素<br>E[attr=val] 选择匹配具有属性attr的E元素，且attr属性值为val<br>E[attr|=val] 选择匹配E元素，且E元素定义了属性attr，attr属性值是一个具有val或者以val-开始的属性值<br>E[attr~=val] 选择匹配E元素，且E元素定义了属性attr，attr属性值具有多个空格分隔的值，其中一个值等于val<br>E[attr*=val] 选择匹配元素E，且E元素定义了属性attr，其属性值任意位置包含了val<br>E[attr^=val] 选择匹配元素E，且E元素定义了属性attr，其属性值以val开头<br>E[attr$=val] 选择匹配元素E，且E元素定义了属性attr，其属性值以val结尾  </p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/28/css-scattered/" itemprop="url">
-                  CSS-零散知识
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-28T08:08:35+08:00" content="2016-09-28">
-              2016-09-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="text-indent"><a href="#text-indent" class="headerlink" title="text-indent"></a>text-indent</h2><p>段落的第一行缩进</p>
-<h2 id="css-hack"><a href="#css-hack" class="headerlink" title="css hack"></a>css hack</h2><p><a href="http://baike.baidu.com/view/1119452.htm?subLemmaId=1119452&amp;fromenter=CSShack" target="_blank" rel="noopener">css hack</a> 目的就是使你的CSS代码兼容不同的浏览器</p>
-<h2 id="CSS-border实现各个方向等腰直角三角"><a href="#CSS-border实现各个方向等腰直角三角" class="headerlink" title="CSS border实现各个方向等腰直角三角"></a>CSS border实现各个方向等腰直角三角</h2><p>HTML代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;span class=&quot;border_cort&quot;&gt;&lt;/span&gt;</span><br><span class="line">&lt;span class=&quot;border_corb&quot;&gt;&lt;/span&gt;</span><br><span class="line">&lt;span class=&quot;border_corl&quot;&gt;&lt;/span&gt;</span><br><span class="line">&lt;span class=&quot;border_corr&quot;&gt;&lt;/span&gt;</span><br></pre></td></tr></table></figure></p>
-<p>CSS代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">.border_cort, .border_corr, .border_corb, .border_corl &#123;</span><br><span class="line">    display: inline-block;</span><br><span class="line">    width: 0;</span><br><span class="line">    height: 0;</span><br><span class="line">    border-width: 6px;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    background-color: red;</span><br><span class="line">&#125;</span><br><span class="line">.border_cort &#123;</span><br><span class="line">    border-color: #333 transparent transparent;</span><br><span class="line">    border-style: solid dotted dotted;</span><br><span class="line">&#125;</span><br><span class="line">.border_corr &#123;</span><br><span class="line">    border-color: transparent #333 transparent transparent;</span><br><span class="line">    border-style: dotted solid dotted dotted;</span><br><span class="line">&#125;</span><br><span class="line">.border_corb &#123;</span><br><span class="line">    border-color: transparent transparent #333;</span><br><span class="line">    border-style: dotted dotted solid;</span><br><span class="line">&#125;</span><br><span class="line">.border_corl &#123;</span><br><span class="line">    border-color: transparent transparent transparent #333;</span><br><span class="line">    border-style: dotted dotted dotted solid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<img src="https://fuzhongfeng.github.io/2016/09/28/css-scattered/transparent.png" title="结果如图">
-<img src="https://fuzhongfeng.github.io/2016/09/28/css-scattered/transparent2.png" title="原理如图">
-<h2 id="important"><a href="#important" class="headerlink" title="!important"></a>!important</h2><p>使用!important定义的样式拥有最高的优先级，IE6不支持，会按正常优先级显示，可以解决一些浏览器的兼容性问题。</p>
-<h2 id="两个div显示在一行，分居左右"><a href="#两个div显示在一行，分居左右" class="headerlink" title="两个div显示在一行，分居左右"></a>两个div显示在一行，分居左右</h2><p>对两个div元素A、B都添加diaplay:inline-block属性，对居右元素B添加float:right属性，在B元素的后面需添加一个div并有clear:both属性用于清除float。</p>
-<h2 id="min-height"><a href="#min-height" class="headerlink" title="min-height"></a>min-height</h2><p>由于某些原因导致相同元素不同高度，在IE浏览器下导致页面布局发生变化(有空位)，可以给这些相同元素添加min-height属性，取值大于等于这些不同高度中的最大值，即可是页面布局恢复正常。</p>
-<h2 id="必填样式"><a href="#必填样式" class="headerlink" title="必填样式"></a>必填样式</h2><p>常见的必填样式都是在label前添加一个红色星号，可以在判断该项为必填项时给label添加一个class如notNull，并使用伪类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.notNull::before &#123;</span><br><span class="line">    color: red;</span><br><span class="line">    content: &quot;*&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="元素居中"><a href="#元素居中" class="headerlink" title="元素居中"></a>元素居中</h2><p>top: 50%;<br>left: 50%;<br>margin-top: 50px;// 居中元素的高度/2<br>margin-left: 50px;// 居中元素的宽度/2</p>
-<p>img {<br>    display: block;<br>    margin: 0 auto;<br>}</p>
-<h2 id="文字居中"><a href="#文字居中" class="headerlink" title="文字居中"></a>文字居中</h2><p>text-align: center; // 水平居中<br>line-height: @divHeight; // 垂直居中，属性值等于文字所在块的高度</p>
-<h2 id="word-break属性"><a href="#word-break属性" class="headerlink" title="word-break属性"></a>word-break属性</h2><p>word-break属性规定自动换行的处理方法，通过使用该属性，可以让浏览器实现在任意位置的换行。</p>
-<blockquote>
-<p>normal，使用浏览器默认的换行规则<br>break-all，允许在单词内换行<br>keep-all，只能在半角空格或连字符处换行</p>
-</blockquote>
-<img src="https://fuzhongfeng.github.io/2016/09/28/css-scattered/word-break.png" title="word-break属性">
-<h2 id="word-wrap属性"><a href="#word-wrap属性" class="headerlink" title="word-wrap属性"></a>word-wrap属性</h2><p>word-wrap属性允许长单词或URL地址换行到下一行。</p>
-<blockquote>
-<p>normal，只在允许的断字点换行（浏览器保持默认处理）<br>break-word，在长单词或URL地址内部进行换行</p>
-</blockquote>
-<img src="https://fuzhongfeng.github.io/2016/09/28/css-scattered/word-wrap.png" title="word-wrap属性">
 
           
         

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fuzhongfeng.github.io/"/>
-  <updated>2018-04-15T06:14:28.000Z</updated>
+  <updated>2018-05-06T03:28:21.000Z</updated>
   <id>https://fuzhongfeng.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript-基础2</title>
+    <link href="https://fuzhongfeng.github.io/2018/05/06/2108-5-06-javascript-setTimeout/"/>
+    <id>https://fuzhongfeng.github.io/2018/05/06/2108-5-06-javascript-setTimeout/</id>
+    <published>2018-05-06T03:07:50.000Z</published>
+    <updated>2018-05-06T03:28:21.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p><h2 id="1-setTimeout-（参考：小红书-p203，MDN）"><a href="#1-setTimeout-（参考：小红书-p203，MDN）" class="headerlink" title="1. setTimeout （参考：小红书 p203，MDN）"></a>1. setTimeout （参考：小红书 p203，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN</a>）</h2><h3 id="setTimeout-的基本概念："><a href="#setTimeout-的基本概念：" class="headerlink" title="setTimeout 的基本概念："></a>setTimeout 的基本概念：</h3><ul><li>setTimeout 方法是 window 对象下的。</li><li>JavaScript 是一个单线程序的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个 JavaScript 任务队列。这些任务会按照将它们添加到队列的顺序执行。setTimeout()的第二个参数告诉 JavaScript 再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。</li><li><p>接收多个参数（function, delay, param1…paramN）这里的 parma 会在 delay 延迟后自动作为参数传入 function里，但在 IE9 及以下不支持这种写法。</p><pre><code>setTimeout(function(p1, p2) {    console.log(p1, p2); // param1 param2}, 1000, &quot;param1&quot;, &quot;param2&quot;);</code></pre></li><li><p>setTimeout()会返回一个表示超时调用的数值ID。这个超时调用 ID 是计划执行代码的唯一标识符，可以通过它来取消超时调用（clearTimeout()）。</p></li><li><p>超时延迟</p><pre><code>function foo() {  console.log(&apos;foo has been called&apos;);}setTimeout(foo, 0);console.log(&apos;After setTimeout&apos;);// After setTimeout, foo has been called出现这个结果的原因是，尽管hsetTimeout 以0ms的延迟来调用函数，但这个任务已经被放入了队列中并且等待下一次执行；并不是立即执行；队列中的等待函数被调用之前，当前代码必须全部运行完毕，因此这里运行结果并非预想的那样。</code></pre></li><li><p>最小延迟</p><p>最小延时 &gt;=4ms（MDN说法），但是看下面的例子却是 2ms 甚至不到 2ms ？？？</p><pre><code>// 转换为时间戳看一下console.log(new Date().getTime());setTimeout(function() {    console.log(new Date().getTime());}, 0);// 1525534082199, 1525534082201//  使用 console.time() 和 console.timeEnd() 来统计时间function testTimeout() {    //  启动任务计时器    console.time(&quot;Timeout&quot;)    //  启动浏览器定时任务     setTimeout(function() {        //  统计任务消耗的时间        console.timeEnd(&quot;Timeout&quot;)    }, 0)}testTimeout(); // Timeout: 1.34130859375ms</code></pre></li><li>最大延时值<br>浏览器包括 IE, , Chrome, Safari, Firefox 以32个bit字节存储整数。这就会导致如果一个整数大于 2147483647 (大约24.8 天)时就会溢出，导致定时器将会被立即执行</li></ul><h3 id="看下面的例子："><a href="#看下面的例子：" class="headerlink" title="看下面的例子："></a>看下面的例子：</h3><pre><code>for (var i = 0; i &lt; 10; i++) {   setTimeout(function(){       console.log(new Date, i);   }, 1000) }console.log(new Date, i);</code></pre><p>打印结果：</p><ul><li>last Sat May 05 2018 21:39:42 GMT+0800 (CST) 10 //  setTimeout 由于添加到队列的时间较晚（delay），所以会等到队列中其他任务结束之后再执行。</li><li>last Sat May 05 2018 21:39:43 GMT+0800 (CST) 10 // 十次,注意这里不是重复打印而是分别打印共十次， for 循环里面的 setTimeout 只是在 delay 时间后将其添加到队列中，所以 setTimeout 并不会阻碍 for 循环的时间</li></ul><h4 id="下面是转成时间戳的打印："><a href="#下面是转成时间戳的打印：" class="headerlink" title="下面是转成时间戳的打印："></a>下面是转成时间戳的打印：</h4><pre><code>for (var i = 0; i &lt; 10; i++) {   setTimeout(function(){       console.log(new Date().getTime(), i);   }, 1000) }console.log(&quot;last&quot;, new Date().getTime(), i);</code></pre><p>打印结果：</p><ul><li>last 1525527917027 10</li><li>(3)1525527918030 10</li><li>(3)1525527918031 10</li><li>(4)1525527918032 10</li></ul><p>以上结果中的重复打印次数不是固定的，在执行一次也可能是：2，2，6；</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于&lt;code&gt;最小延迟&lt;/code&gt;和&lt;code&gt;超时延迟&lt;/code&gt;还是不太理解&lt;/p&gt;
+&lt;h2 id=&quot;1-setTimeout-（参考：小红书-p203，MDN）&quot;&gt;&lt;a href=&quot;#1-setT
+      
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="https://fuzhongfeng.github.io/categories/JavaScript/"/>
+    
+    
+      <category term="JavaScript" scheme="https://fuzhongfeng.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript-小代码</title>
@@ -506,32 +532,6 @@
     
     
       <category term="React" scheme="https://fuzhongfeng.github.io/tags/React/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>递归用法</title>
-    <link href="https://fuzhongfeng.github.io/2017/03/14/recursion/"/>
-    <id>https://fuzhongfeng.github.io/2017/03/14/recursion/</id>
-    <published>2017-03-14T00:03:20.000Z</published>
-    <updated>2017-10-09T11:16:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>前段时间有个刚学编程的人找我做了几道编程题，都用到了递归，让我写个使用递归的总结，我个人用到的递归不多，就这几道编程题总结如下，后期如有新的体会再补充。</p><h2 id="适用点"><a href="#适用点" class="headerlink" title="适用点"></a>适用点</h2><p>想一下规模为n的问题是否可以经过计算换算成规模为n-1的问题，如阶乘计算，n!=n*(n-1)!，这时就可以用递归。使用递归主要是代码写起来比较方便，大多数情况使用栈和循环都可以替代使用递归。</p><h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>写递归算法时，要最先思考边界值，就是递归算法在什么情况下不应该再递归下去，如对于阶乘问题的n为1、0的时候，防止出现死循环。</p><h2 id="优化点"><a href="#优化点" class="headerlink" title="优化点"></a>优化点</h2><p>用递归算法去解决问题，经常会比较耗性能，因为进行了大量循环，多进行一次递归可能会进行很多次循环，所以控制在哪些条件下无需递归很容易优化性能，如递归求最短路径时，如果当前递归处理的路径长度已经超过了当前最短路径的长度，那就不用再向下递归了。还要会利用数据结构，比如Map能够快速取值，如果是数组取值时需要进行遍历，尽量减少循环的次数。</p><h2 id="调试点"><a href="#调试点" class="headerlink" title="调试点"></a>调试点</h2><p>递归问题最大的难点可能就在调试上了，因为进行了很多循环，无法跟进每一个循环去看当前的值对不对。这时一定要将问题范围缩小，比如题目要求100个点，可以先拿10个以内的点去调试，这时可以通过断点调试跟进每一次循环，看到所有变量当前的值，这样就容易看出问题出在哪了。如果有问题的标准答案，还要会利用答案，如果解题需要大量循环无法跟进时，可以写一个if条件在满足正确答案时进行输出，也可以在这里打个断点，看看为什么没有获得这个标准的答案，这时比较容易看出问题。</p><p>以上都是我做那几个题时的思路和方法，以前我也就写过一两次递归，其实没什么经验，大多数方法都是以前调程序的经验。如果打算深入的往编程这方面发展，有如下建议：</p><p>1、要进行编程练习，就像递归，完全自己手动去解决两三个问题也就会用了，也有调试的经验了；<br>2、一定要会分析问题，拆分问题，这个问题分几步，每一步都做什么，这样比较容易写出程序，容易调试，容易定位问题出在哪步了，其它地方就不用看了，也方便解决问题，问题细化后就容易描述小问题了，可以上网找找现成的例子；<br>3、一定要会分析现象，现在程序运行的结果不对，是什么样的现象，这个现象表明什么本质，切记不要直接一遍一遍的看代码，找哪里不对，这样很难找到问题的，如果你知道这样写有问题，那当时也就不会这样写了，一定要仔细思考、分析现象，找到问题本质，然后定位有问题的代码范围，再看代码。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;前段时间有个刚学编程的人找我做了几道编程题，都用到了递归，让我写个使用递归的总结，我个人用到的递归不多，就这几道编程题总结如下，后期如有新的体会再补充。&lt;/p&gt;
-&lt;h2 id=&quot;适用点&quot;&gt;&lt;a href=&quot;#适用点&quot; class=&quot;headerlink&quot; title=&quot;适用
-      
-    
-    </summary>
-    
-      <category term="JavaScript" scheme="https://fuzhongfeng.github.io/categories/JavaScript/"/>
-    
-    
-      <category term="JavaScript" scheme="https://fuzhongfeng.github.io/tags/JavaScript/"/>
     
   </entry>
   
