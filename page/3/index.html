@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -290,7 +290,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -299,7 +299,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -388,6 +388,190 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/26/findjob-react1/" itemprop="url">
+                  React-基础知识
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-26T14:22:55+08:00" content="2017-03-26">
+              2017-03-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/FJ/" itemprop="url" rel="index">
+                    <span itemprop="name">FJ</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>react的优缺点</p>
+<p>  优点：</p>
+<blockquote>
+<p>虚拟dom加diff算法减少dom操作来提高渲染性能<br>虚拟dom也帮助我们解决了跨浏览器问题<br>使用声明式语法JSX来重新定义视图开发<br>代码更加模块化，重用代码更容易<br>单向数据流，灵活、可预计、可控制<br>将DOM操作抽象为状态的改变<br>只从this.props和this.state生成HTML，非常的函数式编程<br>能够快速上手react-native开发ios或者android项目</p>
+</blockquote>
+<p>  缺点：</p>
+<blockquote>
+<p>本身只是View，如果是大型项目基本都需要加上React Router和Redux<br>大多数坑没踩出来  </p>
+</blockquote>
+</li>
+<li><p>AMD(Asynchronous Module Definition)、CMD(Common Module Definition)、CommonJS</p>
+<p>  AMD、CMD、CommonJS是JS模块化开发的标准，CommonJS是用在服务器端的，同步的，如Node.js。AMD、CMD是用在浏览器端的，异步的，如RequireJS和SeaJS。其中，AMD先提出，CMD是根据CommonJS和AMD基础上提出的。 </p>
+<p>  CommonJS 加载模块是同步的，所以只有加载完成才能执行后面的操作。像Node.js主要用于服务器的编程，加载的模块文件一般都已经存在本地硬盘，所以加载起来比较快，不用考虑异步加载的方式，所以CommonJS规范比较适用。但如果是浏览器环境，要从服务器加载模块，这是就必须采用异步模式，所以就有了AMD和CMD解决方案。 </p>
+<p>  AMD和CMD的区别有以下几点： </p>
+</li>
+</ul>
+<pre><code>&gt; **AMD推崇依赖前置，CMD推崇依赖就近。AMD和CMD最大的区别是对依赖模块的执行时机处理不同** 
+&gt; 对于依赖的模块AMD是提前执行，CMD是延迟执行。不过RequireJS从2.0开始，也改成可以延迟执行。 
+&gt; AMD的api默认是一个当多个用，CMD严格的区分推崇职责单一。例如：AMD里require分全局的和局部的。CMD里面没有全局的require，提供seajs.use()来实现模块系统的加载启动。CMD里每个API都简单纯粹。 
+
+UMD(Universal Module Definition 通用模块规范)，因为AMD，CommonJS规范是两种不一致的规范，虽然他们应用的场景也不太一致，但是人们仍然是期望有一种统一的规范来支持这两种规范。于是，UMD规范诞生了。
+</code></pre><ul>
+<li><p>为什么不能改变原有state，需要使用setState并传入修改的部分state，执行setState后怎么更新</p>
+<p>  是否调用render进行再次渲染是由state是否变化决定的。setState本质是通过一个队列机制实现state更新的，执行setState时，会将要更新的state合并后放入状态队列，而不会立刻更新state，队列机制可以批量更新state。如果不通过setState而直接修改this.state，那么这次state的变化不会放入状态队列中，下次调用setState再进行状态队列进行合并时，会忽略之前直接直接对state修改，这样就无法合并到这次变化，实际也就没有将想要的state更新上去。setState是异步的。</p>
+<p>  只要调用了setState，就会在合并后生成一个新的state，只要判断state指向的是否是同一个内存地址就知道state是否发生了变化，以此来决定是否进行render重新渲染。如果不用这种方式都直接操作this.state，也就是同一块内存，要侦测state是否发生变化（如angular中的deepwatch）来决定是否重新渲染会非常复杂和低效。redux的reducer中返回新的对象也是同理。react状态管理库还有redux-sagas、redux-observable、MobX等。</p>
+</li>
+<li><p>为什么组件中定义的方法要bind(this)</p>
+<p>  ES5里，function内部的this默认为window，在严格模式下，this为undefined。ES5的写法React.createClass会自动绑定每个方法的this到当前组件实例，ES6的写法class XXX extends Component则不会自动为方法绑定this。</p>
+<p>  bind()方法会创建一个新函数，当这个新函数被调用时，它的this值是传递给bind()的第一个参数，它的参数是bind()的其它参数和原本参数，这个函数不论怎么调用都有同样的this，也就是当前类的实例，否则this为undefined。绑定this的几种方式：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 方式一</span><br><span class="line">&lt;div onClick=&#123;this.handleClick.bind(this)&#125;&gt;save&lt;/div&gt;</span><br><span class="line">// 方式二</span><br><span class="line">constructor() &#123;</span><br><span class="line">    ...</span><br><span class="line">    this.handleClick = this.handleClick.bind(this);</span><br><span class="line">&#125;</span><br><span class="line">// 方式三</span><br><span class="line">&lt;div onClick=&#123;() =&gt; this.handleClick()&#125;&gt;save&lt;/div&gt;</span><br><span class="line">// 方式四</span><br><span class="line">handleClik = () =&gt; &#123;&#125;</span><br><span class="line">&lt;div onClick=&#123;this.handleClick&#125;&gt;save&lt;/div&gt;</span><br><span class="line">// 方式五</span><br><span class="line">ES6 Decorator,core-decorator.js提供了@autobind修饰器</span><br></pre></td></tr></table></figure>
+<p>  方式一会在每次点击时通过bind创建一个新方法，一般使用方式二、方式三或方式四，其中方式三的箭头函数总是匿名的，如果打算移除监听事件可使用方式四。方式二在构造函数里绑定this后方法是属于实例的，而定义在类里的是非静态函数，在类的<code>prototype</code>上，实例的<code>__proto__</code>原型上。方式四使用箭头函数定义的方法也是这个效果。</p>
+</li>
+<li><p>数据获取为什么一定要在componentDidMount里面调用</p>
+<p>  不建议在constructor和componentWillMount里写的原因是：会阻碍组件的实例化，阻碍组件的渲染；在componentWillMount里面触发setState不会重新渲染，在componentDidMount里面会触发setState会重新渲染，有副作用的代码都会集中在componentDidMount方法里。</p>
+</li>
+<li><p>webpack 打包常用</p>
+<blockquote>
+<p>webpack.optimize.CommonsChunkPlugin 分离应用和第三方</p>
+</blockquote>
+<blockquote>
+<p>webpack.optimize.UglifyJsPlugin 清除打包后文件中的注释和copyright</p>
+</blockquote>
+<blockquote>
+<p>webpack.optimize.DedupePlugin 保证重复的代码不被打包到bundle文件</p>
+</blockquote>
+<blockquote>
+<p>extract-text-webpack-plugin 独立打包样式</p>
+</blockquote>
+<blockquote>
+<p>optimize-css-assets-webpack-plugin css去重 </p>
+</blockquote>
+<blockquote>
+<p>html-webpack-plugin 根据模板创建html入口文件，为引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题</p>
+</blockquote>
+<blockquote>
+<p>require.ensure 代码分割，可跟react-router的getComponent配合使用</p>
+</blockquote>
+<p>  常用loader：style-loader、css-loader、less-loader、url-loader、file-loader、babel-loader、react-hot</p>
+</li>
+<li><p>redux-thunk源码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// ES6 写法</span><br><span class="line">function createThunkMiddleware(extraArgument) &#123;</span><br><span class="line">  return (&#123; dispatch, getState &#125;) =&gt; next =&gt; action =&gt; &#123;</span><br><span class="line">    if (typeof action === &apos;function&apos;) &#123;</span><br><span class="line">      return action(dispatch, getState, extraArgument);</span><br><span class="line">    &#125;</span><br><span class="line">    return next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ES5写法</span><br><span class="line">function createThunkMiddleware(extraArgument) &#123;</span><br><span class="line">  return function (_ref) &#123;</span><br><span class="line">    var dispatch = _ref.dispatch,</span><br><span class="line">        getState = _ref.getState;</span><br><span class="line">    return function (next) &#123;</span><br><span class="line">      return function (action) &#123;</span><br><span class="line">        if (typeof action === &apos;function&apos;) &#123;</span><br><span class="line">          return action(dispatch, getState, extraArgument);</span><br><span class="line">        &#125;</span><br><span class="line">        return next(action);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>web端路由react-router和react-native的navigator有什么区别</p>
+<p>  纯属个人理解：web端路由是保证url和UI一致的，进行的是局部刷新；react-native的Navigator是管理导航堆栈的，让用户清楚的知道自己当前所处的页面和返回的页面，进行的是整屏刷新。</p>
+</li>
+<li><p>Vue，React，Angular</p>
+<p>  Vue。轻量级框架，双向数据绑定，语法和原理所需要的学习成本不是很高。具有高覆盖率的文档，绝大部分操作已被记录在案。但是如果一个操作没有文档记录，能在线上找到解决方案的几率也很小，因为Vue不如Angular或React更流行。Vue也有被称为Flux架构实现的Vuex，移动端跨平台方案Weex使用Vue的语法，但是Weex并不太完善。</p>
+<p>  React。React通过使用VirtualDOM获得高效，单向数据流，可以使用JSX语法。与框架相关的Redux是一个非常棒的类Flux架构的实现，掌握React的知识后，可以直接上手基于ReactNative的移动客户端开发。随着React将会有一个能够向后兼容的重写版React Fiber的消息放出，React的”第二春”很快就会到来。</p>
+<p>  AngularJS。以HTML为中心，适配和扩展了传统的HTML来呈现动态内容，双向数据绑定，自定义指令，是一个比较完善的前端框架，适合大型项目。入门很容易，但框架复杂、深入后概念很多，学习中较难理解，文档例子非常少。使用脏检查，当watcher越来越多时会变得越来越慢。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1743,143 +1927,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/15/css-selector/" itemprop="url">
-                  CSS-选择器
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-15T23:48:09+08:00" content="2016-10-15">
-              2016-10-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="通配选择器"><a href="#通配选择器" class="headerlink" title="通配选择器"></a>通配选择器</h2><p>*{ margin:0; padding: 0; }</p>
-<h2 id="元素选择器"><a href="#元素选择器" class="headerlink" title="元素选择器"></a>元素选择器</h2><p>div { background: grey; }</p>
-<h2 id="ID选择器"><a href="#ID选择器" class="headerlink" title="ID选择器"></a>ID选择器</h2><p>#id { background: grey; }</p>
-<h2 id="类选择器"><a href="#类选择器" class="headerlink" title="类选择器"></a>类选择器</h2><p>.class { background: grey; }<br>.class1.class2 { background: grey; } // 需要同时具有指定的类才能匹配</p>
-<h2 id="群组选择器"><a href="#群组选择器" class="headerlink" title="群组选择器"></a>群组选择器</h2><p>selector1,selector2 { background: grey; } // 匹配为selector1和selector2的所有元素</p>
-<h2 id="后代选择器"><a href="#后代选择器" class="headerlink" title="后代选择器"></a>后代选择器</h2><p>E F { background: grey; } // 匹配E的元素包含的所有匹配F的元素</p>
-<h2 id="子选择器"><a href="#子选择器" class="headerlink" title="子选择器"></a>子选择器</h2><p>E&gt;F { background: grey; } // 匹配E的元素包含的匹配F的直接子元素</p>
-<h2 id="相邻兄弟选择器"><a href="#相邻兄弟选择器" class="headerlink" title="相邻兄弟选择器"></a>相邻兄弟选择器</h2><p>E+F { background: grey; } // 匹配E的元素后紧挨着的匹配F的元素</p>
-<h2 id="通用选择器"><a href="#通用选择器" class="headerlink" title="通用选择器"></a>通用选择器</h2><p>E~F { background: grey; } // 匹配E的元素后的所有匹配F的元素</p>
-<h2 id="动态伪类选择器"><a href="#动态伪类选择器" class="headerlink" title="动态伪类选择器"></a>动态伪类选择器</h2><p>:link 未被访问过的超链接<br>:visited 已被访问过的超链接<br>:hover 鼠标停留<br>:ative 被激活，常用于锚点和按钮上<br>:focus 获得焦点  </p>
-<p>锚点伪类的设置必须遵守”link-visited-hover-active”</p>
-<h2 id="目标伪类选择器"><a href="#目标伪类选择器" class="headerlink" title="目标伪类选择器"></a>目标伪类选择器</h2><p>只有存在URL指向该匹配元素时，样式效果才会生效</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 点击按钮时，跳到target位置，target背景为红色</span><br><span class="line">&lt;div id=&quot;target&quot;&gt;target&lt;/div&gt;</span><br><span class="line">&lt;a href=&quot;#target&quot; class=&quot;btn&quot;&gt;View project on GitHbu&lt;/a&gt;</span><br><span class="line">...</span><br><span class="line">#target:target &#123;</span><br><span class="line">  background: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="语言伪类选择器"><a href="#语言伪类选择器" class="headerlink" title="语言伪类选择器"></a>语言伪类选择器</h2><p>需要指定html或bogy的lang属性<br><code>&lt;html lang=&quot;en-US&quot;&gt;或&lt;body lang=&quot;fr&quot;&gt;</code><br>E:lang(language) 表示选择匹配E的所有元素，且匹配元素指定了lang属性，而且其值为language。</p>
-<h2 id="UI元素状态伪类选择器"><a href="#UI元素状态伪类选择器" class="headerlink" title="UI元素状态伪类选择器"></a>UI元素状态伪类选择器</h2><p>:checked 选中状态，适用复选或单选<br>:enabled 启用状态，匹配启用的表单元素<br>:disabled 不可用状态，匹配禁用的表单元素  </p>
-<h2 id="结构伪类选择器"><a href="#结构伪类选择器" class="headerlink" title="结构伪类选择器"></a>结构伪类选择器</h2><p>E:first-child 作为父元素的第一个子元素的元素E，与E:nth-child(1)相同<br>E:first-child 作为父元素的最后一个子元素的元素E，与E:nth-last-child(1)相同<br>E:root 选择匹配元素E所在文档的根元素，在HTML文档中，根元素始终是html，此时该选择器与html类型选择器匹配的内容相同<br>E F:nth-child(n) 选择父元素E的第n个子元素F，n的起始值为1<br>E F:nth-last-child(n) 选择父元素E的倒数第n个子元素F<br>E:nth-of-type(n) 选择父元素内具有指定类型的第n个E元素<br>E:nth-last-of-type(n) 选择父元素具有指定类型的倒数第n个E元素<br>E:first-of-type 选择父元素内具有指定类型的第一个E元素，与E:nth-of-type(1)相同<br>E:last-of-type 选择父元素内具有指定类型的最后一个E元素，与E:nth-last-of-type(1)相同<br>E:only-child 选择父元素只包含一个子元素，且该子元素匹配E元素<br>E:only-of-type 选择父元素只包含一个同类型的子元素，且该子元素匹配E元素<br>E:empty 选择没有子元素的元素，且该元素也不包含任何文本节点</p>
-<h2 id="否定伪类选择器"><a href="#否定伪类选择器" class="headerlink" title="否定伪类选择器"></a>否定伪类选择器</h2><p>:not(footer){} // 选择页面中所有元素，除了”footer”元素</p>
-<h2 id="伪元素"><a href="#伪元素" class="headerlink" title="伪元素"></a>伪元素</h2><p><strong>双冒号与单冒号在CSS3中主要用来区分伪类和伪元素</strong></p>
-<p>::first-letter 用来选择文本块的第一个字母<br>::first-line 用来选择文本块的第一行<br>::before 和 ::after 需配合content属性，不是指存在与标记中的内容，而是可以插入额外内容的位置<br>::selection 用来匹配选中的文本，紧接收background和color属性  </p>
-<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h2><p>E[attr] 选择匹配具有属性attr的E元素<br>E[attr=val] 选择匹配具有属性attr的E元素，且attr属性值为val<br>E[attr|=val] 选择匹配E元素，且E元素定义了属性attr，attr属性值是一个具有val或者以val-开始的属性值<br>E[attr~=val] 选择匹配E元素，且E元素定义了属性attr，attr属性值具有多个空格分隔的值，其中一个值等于val<br>E[attr*=val] 选择匹配元素E，且E元素定义了属性attr，其属性值任意位置包含了val<br>E[attr^=val] 选择匹配元素E，且E元素定义了属性attr，其属性值以val开头<br>E[attr$=val] 选择匹配元素E，且E元素定义了属性attr，其属性值以val结尾  </p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
