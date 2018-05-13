@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://fuzhongfeng.github.io/"/>
-  <updated>2018-05-13T15:06:06.528Z</updated>
+  <updated>2018-05-13T15:09:26.755Z</updated>
   <id>https://fuzhongfeng.github.io/</id>
   
   <author>
@@ -21,19 +21,16 @@
     <link href="https://fuzhongfeng.github.io/2018/05/06/2108-5-13-vue-base/"/>
     <id>https://fuzhongfeng.github.io/2018/05/06/2108-5-13-vue-base/</id>
     <published>2018-05-06T03:07:50.000Z</published>
-    <updated>2018-05-13T15:06:06.528Z</updated>
+    <updated>2018-05-13T15:09:26.755Z</updated>
     
-    <content type="html"><![CDATA[<p>先写一些简单的研究，后续研究一些源码再完善</p><p>##简单实现 vue 双向数据绑定</p><pre><code>var keyValue = 1;var obj = {};Object.defineProperty(obj, &quot;key&quot;, {    enumerable: true, // 默认为 true    configurable: true,  // 默认为 true    get: function(){        return keyValue;    },    set: function(newValue) {        keyValue = newValue;        console.log(&quot;set keyValue:&quot;, keyValue)    },});console.log(obj.key);obj.key = 2;console.log(&quot;keyValue:&quot;, keyValue);keyValue = 3;console.log(obj.key);</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p><h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p><ul><li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li><li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li><li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li><li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li></ul>]]></content>
+    <content type="html"><![CDATA[<p>先写一些简单的研究，后续研究一些源码再完善</p><h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;var obj = {};Object.defineProperty(obj, &quot;key&quot;, {    enumerable: true, // 默认为 true    configurable: true,  // 默认为 true    get: function(){        return keyValue;    },    set: function(newValue) {        keyValue = newValue;        console.log(&quot;set keyValue:&quot;, keyValue)    },});console.log(obj.key);obj.key = 2;console.log(&quot;keyValue:&quot;, keyValue);keyValue = 3;console.log(obj.key);</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p><h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p><ul><li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li><li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li><li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li><li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li></ul>]]></content>
     
     <summary type="html">
     
       
       
         &lt;p&gt;先写一些简单的研究，后续研究一些源码再完善&lt;/p&gt;
-&lt;p&gt;##简单实现 vue 双向数据绑定&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;var keyValue = 1;
-var obj = {};
-Object.defineProperty(obj, &amp;quot;key&amp;quot;,
+&lt;h2 id=&quot;简单实现-vue-双向数据绑定&quot;&gt;&lt;a href=&quot;#简单实现-vue-双向数据绑定&quot; class=&quot;headerlink&quot; title=&quot;简单实现 vue 双向数据绑定&quot;&gt;&lt;/a&gt;简单实现 vue 双向数
       
     
     </summary>
