@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -388,6 +388,399 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/24/javascript-asyncAwait/" itemprop="url">
+                  JavaScript-async/await
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-24T11:02:18+08:00" content="2018-05-24">
+              2018-05-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="async-await-双刃剑"><a href="#async-await-双刃剑" class="headerlink" title="async/await 双刃剑"></a>async/await 双刃剑</h1><h2 id="async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案"><a href="#async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案" class="headerlink" title="async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案"></a>async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案</h2><h3 id="我们之前写回调是这样的"><a href="#我们之前写回调是这样的" class="headerlink" title="我们之前写回调是这样的"></a>我们之前写回调是这样的</h3><pre><code>// 通常写法
+a(() =&gt; {
+    b(() =&gt; {
+        c()
+    })
+})
+
+// promise
+new Promise(function (resolve, reject) {
+    resolve()
+}).then(function () {
+    return new Promise(function (resolve, reject) {
+        resolve()
+    });
+}).then(function () {
+});
+</code></pre><h3 id="async-await-写法"><a href="#async-await-写法" class="headerlink" title="async/await 写法"></a>async/await 写法</h3><pre><code>// 是不是很清新
+(async () =&gt; {
+    await a()
+    await b()
+    await c()
+})()
+</code></pre><h3 id="async-await-描述"><a href="#async-await-描述" class="headerlink" title="async/await 描述"></a>async/await 描述</h3><ul>
+<li><p>当调用一个 async 函数时，会返回一个 Promise 对象。当这个 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise 的 reject 方法也会传递这个异常值。（可以用.then 接收 return 值 或 遇到 reject直接用 .catch 抓取）</p>
+</li>
+<li><p>async 函数中可能会有 await 表达式，这会使 async 函数暂停执行，等待表达式中的 Promise 解析完成后继续执行 async 函数并返回解决结果</p>
+</li>
+</ul>
+<h3 id="一些优点："><a href="#一些优点：" class="headerlink" title="一些优点："></a>一些优点：</h3><ul>
+<li>使用Async/Await明显节约了不少代码。我们不需要写.then，不需要写匿名函数处理 Promise 的 resolve值，也不需要定义多余的 data 变量，还避免了嵌套代码。这些小的优点会迅速累计起来，这在之后的代码示例中会更加明显</li>
+<li>Generator 函数的执行必须靠执行器，所以才有了co 模块，而async函数自带执行器。也就是说，async函数的执行，与普通函数一模一样，只要一行。</li>
+<li>更好的语义，更广的适用性，await 命令后面，可以跟 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）</li>
+</ul>
+<h2 id="一些使用中的问题："><a href="#一些使用中的问题：" class="headerlink" title="一些使用中的问题："></a>一些使用中的问题：</h2><h3 id="下面是随处可见的前端代码"><a href="#下面是随处可见的前端代码" class="headerlink" title="下面是随处可见的前端代码"></a>下面是随处可见的前端代码</h3><pre><code>// 先写ABCD4个列表请求
+
+function getAList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getAList&quot;)
+    })
+}
+
+function getBList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getBList&quot;)
+    })
+}
+
+function getCList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getCList&quot;)
+    })
+}
+
+function getDList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+        resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getDList&quot;)
+    })
+}
+
+// 一个页面发送 getAList getBList 两个请求之后进行的渲染
+(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    await getAList()
+    await getBList()
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+})()
+// 用时 6ms
+</code></pre><ul>
+<li>当 getAList 和 getBList 之间没有依赖的时候顺序的 await 会最多让执行时间增加一倍的 getAList 函数时间（如果 getBList 的执行时间大于 getAList 的执行时间）,因为 getAList 与 getBList 应该并行执行。</li>
+</ul>
+<h3 id="正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数"><a href="#正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数" class="headerlink" title="正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:"></a>正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:</h3><pre><code>(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    const getAListResult = getAList()
+    const getBListResult = getBList()
+    await getAListResult
+    await getBListResult
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+})()
+// 用时 3ms
+
+
+// Promise.all 写法并发执行多个 promise
+(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    Promise.all([getAList(), getBList()]).then(() =&gt; {
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+    })
+})()
+// 用时 3ms
+</code></pre><h2 id="看来不要随意的-await，它很可能让你的代码性能降低！！！"><a href="#看来不要随意的-await，它很可能让你的代码性能降低！！！" class="headerlink" title="看来不要随意的 await，它很可能让你的代码性能降低！！！"></a><em>看来不要随意的 await，它很可能让你的代码性能降低！！！</em></h2><h3 id="async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："><a href="#async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：" class="headerlink" title="async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："></a>async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：</h3><pre><code>a(() =&gt; {
+    b()
+})
+
+c(() =&gt; {
+    d()
+})
+</code></pre><h4 id="1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："><a href="#1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：" class="headerlink" title="1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："></a>1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：</h4><pre><code>await a();
+await b();
+await c();
+await d();
+
+// 因为翻译成回调，就变成了下面这样，async/await 会让我们倾向于在 b 执行完后，再执行 c
+a(() =&gt; {
+    b(() =&gt; {
+        c(() =&gt; {
+            d()
+        });
+    });
+});
+</code></pre><h4 id="2-我们想到上面的例子，可以优化一下性能："><a href="#2-我们想到上面的例子，可以优化一下性能：" class="headerlink" title="2. 我们想到上面的例子，可以优化一下性能："></a>2. 我们想到上面的例子，可以优化一下性能：</h4><pre><code>const resA = a();
+const resC = c();
+await resA;
+b();
+await resC;
+d();
+
+// 但是，d 原本只要等待 c 执行完，现在如果 a 执行时间比 c 长，就变成了这样：
+a(() =&gt; {
+    d();
+});
+</code></pre><h4 id="3-看来只有完全隔离成两个函数："><a href="#3-看来只有完全隔离成两个函数：" class="headerlink" title="3. 看来只有完全隔离成两个函数："></a>3. 看来只有完全隔离成两个函数：</h4><pre><code>(async () =&gt; {
+    await a();
+    b();
+})()
+
+(async () =&gt; {
+    await c();
+    d();
+})();
+</code></pre><h4 id="4-或者利用-Promise-all"><a href="#4-或者利用-Promise-all" class="headerlink" title="4. 或者利用 Promise.all"></a>4. 或者利用 Promise.all</h4><pre><code>const ab = async () =&gt; {
+    await getAList();
+    getBList();
+}
+const cd = async () =&gt; {
+    await getCList();
+    getDList();
+}
+Promise.all([ab(), cd()])
+</code></pre><h3 id="现在我们回头来看一下原来两对的回调函数："><a href="#现在我们回头来看一下原来两对的回调函数：" class="headerlink" title="现在我们回头来看一下原来两对的回调函数："></a>现在我们回头来看一下原来两对的回调函数：</h3><pre><code>a(() =&gt; {
+    b()
+})
+
+c(() =&gt; {
+    d()
+})
+</code></pre><h3 id="现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家"><a href="#现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家" class="headerlink" title="现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家"></a>现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家</h3>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/19/algorithm-questions/" itemprop="url">
+                  算法题目
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-19T17:27:53+08:00" content="2018-05-19">
+              2018-05-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><ol>
+<li>给定一个整数数组和一个目标值，找出数组中和为目标值的两个数的做索引组成的数组。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。例子如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [2, 7, 11, 15], target = 9</span><br><span class="line">因为 nums[0] + nums[1] = 2 + 7 = 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure>
+<p>答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @param &#123;number&#125; target</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> */</span><br><span class="line">var twoSum = function(nums, target) &#123;</span><br><span class="line">    let arr = [];</span><br><span class="line">    for (let i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">        for (let j = 0; j &lt; nums.length; j++) &#123;</span><br><span class="line">            if ((nums[i] + nums[j] === target) &amp;&amp; (i !== j)) &#123;</span><br><span class="line">                arr = [j, i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -550,7 +943,7 @@ console.log(obj.key);
               
                 
                 <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
-                  JavaScript-基础2
+                  JavaScript-setTimeout
                 </a>
               
             
@@ -1737,263 +2130,6 @@ console.log(&quot;last&quot;, new Date().getTime(), i);
   <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        * &#123;</span></span><br><span class="line"><span class="undefined">            margin: 0;</span></span><br><span class="line"><span class="undefined">            padding: 0;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .rec &#123;</span></span><br><span class="line"><span class="undefined">            width: 200px;</span></span><br><span class="line"><span class="undefined">            height: 100px;</span></span><br><span class="line"><span class="undefined">            background-color: #000;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        /* 第一个 */</span></span><br><span class="line"><span class="undefined">        .main1 &#123;</span></span><br><span class="line"><span class="undefined">            position: relative;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        #triangle-right1 &#123;</span></span><br><span class="line"><span class="undefined">            width: 0;</span></span><br><span class="line"><span class="undefined">            height: 0;</span></span><br><span class="line"><span class="undefined">            border-top: 20px solid transparent;</span></span><br><span class="line"><span class="undefined">            border-left: 50px solid red;</span></span><br><span class="line"><span class="undefined">            border-bottom: 20px solid transparent;</span></span><br><span class="line"><span class="undefined">            position: absolute;</span></span><br><span class="line"><span class="undefined">            top: 50%;</span></span><br><span class="line"><span class="undefined">            left: 200px;</span></span><br><span class="line"><span class="undefined">            margin-top: -20px;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        /* 第二个 */</span></span><br><span class="line"><span class="undefined">        .main2 &#123;</span></span><br><span class="line"><span class="undefined">            margin-top: 10px;</span></span><br><span class="line"><span class="undefined">            display: -webkit-flex; </span></span><br><span class="line"><span class="undefined">            display: -o-flex;   // 欧鹏浏览器</span></span><br><span class="line"><span class="undefined">            display: -ms-flex;  // ie</span></span><br><span class="line"><span class="undefined">            display: -moz-flex; //火狐</span></span><br><span class="line"><span class="undefined">            display: flex;</span></span><br><span class="line"><span class="undefined">            align-items: center; // 侧轴，垂直方向</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        #triangle-right2 &#123;</span></span><br><span class="line"><span class="undefined">            width: 0;</span></span><br><span class="line"><span class="undefined">            height: 0;</span></span><br><span class="line"><span class="undefined">            border-top: 20px solid transparent;</span></span><br><span class="line"><span class="undefined">            border-left: 50px solid red;</span></span><br><span class="line"><span class="undefined">            border-bottom: 20px solid transparent;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"main1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"rec"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"triangle-right1"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"main2"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"rec"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"triangle-right2"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/12/18/react-lifecycle/" itemprop="url">
-                  React-生命周期
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-12-18T11:11:56+08:00" content="2017-12-18">
-              2017-12-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/React/" itemprop="url" rel="index">
-                    <span itemprop="name">React</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>单个组件的生命周期执行过程已经很清楚了，但是关于多个组件之间怎么进入生命周期方法的还是不确定，现在好好学习一下。</p>
-<h2 id="单个组件的生命周期过程"><a href="#单个组件的生命周期过程" class="headerlink" title="单个组件的生命周期过程"></a>单个组件的生命周期过程</h2><p>组件的生命周期函数按如下顺序执行，每个方法的说明如下：</p>
-<ul>
-<li><p>constructor</p>
-<p>  构造函数，对组件的state进行初始化，对函数进行this绑定。</p>
-</li>
-<li><p>componentWillMount</p>
-<p>  初始渲染前进入，只执行一次，如果这个函数里调用setState，不会执行渲染操作，而是等这个函数执行完成后再执行初始渲染。如果组件需要从本地存储中读取数据，一般放在这里执行。</p>
-</li>
-<li><p>render</p>
-<p>  返回值为页面要显示的组件，组件的重新渲染后触发所有子组件的重新渲染。</p>
-</li>
-<li><p>componentDidMount</p>
-<p>  初始渲染完成后进入，只执行一次。如果组件需要从网络侧读取数据，一般放在这里执行。</p>
-</li>
-<li><p>componentWillReceiveProps(nextProps, nextContext)</p>
-<p>  组件在初始渲染完成后，当接收到新的props时进入，state发生变化时不会进入，而无论props的内容是否发生变化都会进入。如果在这个函数中调用setState，不会执行渲染操作，而是等该方法执行完成一起渲染。</p>
-</li>
-<li><p>shouldComponentUpdate(nextProps, nextState, nextContext)</p>
-<p>  当组件接收到新的state或props时，这个函数将被调用，如果返回false可以阻止组件的重新渲染，也就不会进入本组件的componentWillUpdate、componentDidUpdate方法了。通过这个函数来阻止无必要的重新渲染可以提高程序的性能。</p>
-</li>
-<li><p>componentWillUpdate(nextProps, nextState, nextContext)</p>
-<p>  组件在重新渲染前进入，<strong>切记不能在这个函数中通过setState更新状态，</strong> 如果需要改变，则在componentWillReceiveProps函数中进行改变，否则会导致死循环。</p>
-</li>
-<li><p>componentDidUpdate(prevProps, prevState, prevContext)</p>
-<p>  组件在重新渲染完成时进入。</p>
-</li>
-<li><p>componentWillUnmount()</p>
-<p>  组件在卸载前进入，如果组件申请了某些资源或订阅了某些消息，需要要在这个函数中释放资源或取消订阅，常见的是在这里清除定时器。</p>
-</li>
-</ul>
-<img src="https://fuzhongfeng.github.io/2017/02/18/react-lifecycle/life.gif" title="单个组件的生命周期过程">
-<h2 id="多个组件的生命周期过程"><a href="#多个组件的生命周期过程" class="headerlink" title="多个组件的生命周期过程"></a>多个组件的生命周期过程</h2><p>父组件每次执行过setState更新了state后，无论state内容是否发生变化，都会进行所有子孙组件的重新渲染。</p>
-<p>先进入父组件的componentWillUnmount，再进入子组件的componentWillUnmount，就像先进入父组件的componentWillUpdate，再进入子组件的componentWillUpdate一样，只是React没有componentDidUnmount方法，看不到是先卸载子组件完成，再卸载父组件完成的。</p>
-<img src="https://fuzhongfeng.github.io/2017/02/18/react-lifecycle/mount.png" title="初始化">
-<img src="https://fuzhongfeng.github.io/2017/02/18/react-lifecycle/update.png" title="更新">
-<img src="https://fuzhongfeng.github.io/2017/02/18/react-lifecycle/unmount.png" title="卸载">
-<h2 id="forceUpdate函数"><a href="#forceUpdate函数" class="headerlink" title="forceUpdate函数"></a>forceUpdate函数</h2><p>forceUpdate函数不是组件的生命周期函数，组件通过调用<code>this.forceUpdate()</code>可以强制进行组件的重新渲染，并且会连带所有子组件都重新渲染。通过这种方式的重新渲染，不会进入本组件shouldComponentUpdate方法，会进入子组件的shouldComponentUpdate和componentWillReceiveProps方法及其它生命周期方法。</p>
-<img src="https://fuzhongfeng.github.io/2017/02/18/react-lifecycle/forceUpdate.png" title="forceUpdate操作">
-<h2 id="HOC（High-Order-Component-）高阶组件"><a href="#HOC（High-Order-Component-）高阶组件" class="headerlink" title="HOC（High Order Component ）高阶组件"></a>HOC（High Order Component ）高阶组件</h2><p>参考<a href="http://www.tuicool.com/articles/RFJJniN" target="_blank" rel="noopener">初识React中的High Order Component</a><br>HOC是一个抽象和公用代码的方案，它接受一个包含共用逻辑或者是状态的ReactComponent，并返回一个包含特定逻辑或者是状态的新ReactComponent，相当于对原组件做了一层包装，react-redux中的connect就算是HOC。组件的生命周期执行顺序与父子组件类型的执行顺序一样。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">class App extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">      super(props);</span><br><span class="line">      this.state = &#123;</span><br><span class="line">        value: &apos;&apos;,</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">      return (</span><br><span class="line">        &lt;input ref=&quot;app&quot; value=&#123;this.state.value&#125; onChange=&#123;this.onChange&#125;/&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">const connect = (mapStateFromStore) =&gt; (WrappedComponent) =&gt; &#123;</span><br><span class="line">    class InnerComponent extends React.Component &#123;</span><br><span class="line">      constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">      &#125;</span><br><span class="line">      render () &#123;console.log(this)</span><br><span class="line">        return (</span><br><span class="line">          &lt;WrappedComponent ref=&quot;middle&quot; /&gt;</span><br><span class="line">        );</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 将新组件返回</span><br><span class="line">    return InnerComponent;</span><br><span class="line">&#125;</span><br><span class="line">const HOC = connect(() =&gt; (&#123;&#125;))(App);</span><br><span class="line"></span><br><span class="line">class Root extends React.Component &#123;</span><br><span class="line">    render() &#123;console.log(this)</span><br><span class="line">      return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">          &lt;HOC ref=&quot;hoc&quot;/&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Root /&gt;,</span><br><span class="line">    document.getElementById(&apos;example&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<img src="https://fuzhongfeng.github.io/2017/12/18/react-lifecycle/hoc.png" title="HOC的ref结构">
-<img src="https://fuzhongfeng.github.io/2017/12/18/react-lifecycle/hocHtml.png" title="HOC渲染出的DOM结构">
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/10/09/hello-world/" itemprop="url">
-                  Hello World
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-10-09T19:16:44+08:00" content="2017-10-09">
-              2017-10-09
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
           
         

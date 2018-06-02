@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="TCP," />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -90,21 +90,18 @@
 
 
 
-<meta name="description" content="三次握手 第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认。 第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己还要发送SYN请求信息，将">
-<meta name="keywords" content="TCP">
+<meta name="description" content="async/await 双刃剑async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案我们之前写回调是这样的// 通常写法 a(() =&amp;gt; {     b(() =&amp;gt; {         c()     }) })  // promise new Promise(function (resolve, reject) {     resol">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP-基础">
-<meta property="og:url" content="https://fuzhongfeng.github.io/2017/05/02/tcp-base/index.html">
+<meta property="og:title" content="JavaScript-async&#x2F;await">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2018/05/24/javascript-asyncAwait/index.html">
 <meta property="og:site_name" content="付忠峰的博客">
-<meta property="og:description" content="三次握手 第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认。 第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己还要发送SYN请求信息，将">
+<meta property="og:description" content="async/await 双刃剑async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案我们之前写回调是这样的// 通常写法 a(() =&amp;gt; {     b(() =&amp;gt; {         c()     }) })  // promise new Promise(function (resolve, reject) {     resol">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://fuzhongfeng.github.io/2017/05/02/tcp-base/connect.png">
-<meta property="og:image" content="https://fuzhongfeng.github.io/2017/05/02/tcp-base/close.png">
-<meta property="og:updated_time" content="2018-04-15T04:14:00.015Z">
+<meta property="og:updated_time" content="2018-05-25T05:42:56.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TCP-基础">
-<meta name="twitter:description" content="三次握手 第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认。 第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己还要发送SYN请求信息，将">
-<meta name="twitter:image" content="https://fuzhongfeng.github.io/2017/05/02/tcp-base/connect.png">
+<meta name="twitter:title" content="JavaScript-async&#x2F;await">
+<meta name="twitter:description" content="async/await 双刃剑async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案我们之前写回调是这样的// 通常写法 a(() =&amp;gt; {     b(() =&amp;gt; {         c()     }) })  // promise new Promise(function (resolve, reject) {     resol">
 
 
 
@@ -122,7 +119,7 @@
   };
 </script>
 
-  <title> TCP-基础 | 付忠峰的博客 </title>
+  <title> JavaScript-async/await | 付忠峰的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -392,7 +389,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#三次握手"><span class="nav-number">1.</span> <span class="nav-text">三次握手</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四次挥手"><span class="nav-number">2.</span> <span class="nav-text">四次挥手</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#async-await-双刃剑"><span class="nav-number">1.</span> <span class="nav-text">async/await 双刃剑</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案"><span class="nav-number">1.1.</span> <span class="nav-text">async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#我们之前写回调是这样的"><span class="nav-number">1.1.1.</span> <span class="nav-text">我们之前写回调是这样的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-await-写法"><span class="nav-number">1.1.2.</span> <span class="nav-text">async/await 写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-await-描述"><span class="nav-number">1.1.3.</span> <span class="nav-text">async/await 描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些优点："><span class="nav-number">1.1.4.</span> <span class="nav-text">一些优点：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些使用中的问题："><span class="nav-number">1.2.</span> <span class="nav-text">一些使用中的问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下面是随处可见的前端代码"><span class="nav-number">1.2.1.</span> <span class="nav-text">下面是随处可见的前端代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数"><span class="nav-number">1.2.2.</span> <span class="nav-text">正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#看来不要随意的-await，它很可能让你的代码性能降低！！！"><span class="nav-number">1.3.</span> <span class="nav-text">看来不要随意的 await，它很可能让你的代码性能降低！！！</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："><span class="nav-number">1.3.1.</span> <span class="nav-text">async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："><span class="nav-number">1.3.1.1.</span> <span class="nav-text">1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-我们想到上面的例子，可以优化一下性能："><span class="nav-number">1.3.1.2.</span> <span class="nav-text">2. 我们想到上面的例子，可以优化一下性能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-看来只有完全隔离成两个函数："><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3. 看来只有完全隔离成两个函数：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-或者利用-Promise-all"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">4. 或者利用 Promise.all</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#现在我们回头来看一下原来两对的回调函数："><span class="nav-number">1.3.2.</span> <span class="nav-text">现在我们回头来看一下原来两对的回调函数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家"><span class="nav-number">1.3.3.</span> <span class="nav-text">现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -432,7 +429,7 @@
             
             
               
-                TCP-基础
+                JavaScript-async/await
               
             
           </h1>
@@ -444,8 +441,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-02T14:29:14+08:00" content="2017-05-02">
-              2017-05-02
+            <time itemprop="dateCreated" datetime="2018-05-24T11:02:18+08:00" content="2018-05-24">
+              2018-05-24
             </time>
           </span>
 
@@ -458,8 +455,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/TCP/" itemprop="url" rel="index">
-                    <span itemprop="name">TCP</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -491,28 +488,171 @@
       
 
       
-        <h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><ul>
-<li>第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认。</li>
-<li>第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己还要发送SYN请求信息，将SYN位置为1，Sequence Number为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入SYN_RECV状态。</li>
-<li><p>第三次握手：客户端收到服务器的SYN+ACK报文段。然后将Acknowledgment Number设置为y+1，向服务器发送ACK报文段，这个报文段发送完毕以后，客户端和服务器端都进入ESTABLISHED状态，完成TCP三次握手。</p>
-  <img src="https://fuzhongfeng.github.io/2017/05/02/tcp-base/connect.png" title="三次握手">
-<p>  第一个包，即Client发给Server的SYN中途被丢，Client会周期性超时重传，直到收到Server的确认；<br>  第二个包，即Server发给Client的SYN+ACK中途被丢，Server会周期性超时重传，直到收到Client的确认；<br>  第三个包，即Client发给Server的ACK中途被丢：<br>&emsp; a）假定此时双方都没有数据发送，Server会周期性超时重传SYN+ACK，直到收到Client的确认收到之后Server的TCP连接业也为established状态；<br>&emsp; b）假定此时Client有数据发送，Server收到Client的Data+ACK，自然会切换为established状态，并接受Client的Data；<br>&emsp; c）假定Server有数据发送，数据发送不了，会一直周期性超时重传SYN+ACK，直到收到Client的确认才可以发送数据。</p>
-</li>
-</ul>
-<p><strong>为什么连接的时候需要三次握手？</strong></p>
-<p>在谢希仁的《计算机网络》中是这样说的：“为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。”书中举例：“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”</p>
-<p>网上查到：“这个问题的本质是，信道不可靠，但是通信双发需要就某个问题达成一致，而要解决这个问题，无论你在消息中包含什么信息，三次通信是理论上的最小值。所以三次握手不是TCP本身的要求，而是为了满足”在不可靠信道上可靠地传输信息”这一需求所导致的。这可视为对“三次握手”目的的另一种解答思路。</p>
-<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><ul>
-<li>第一次挥手：主机1（<strong>可以使客户端，也可以是服务器端</strong>），设置Sequence Number和Acknowledgment Number，向主机2发送一个FIN报文段；此时，主机1进入FIN_WAIT_1状态；这表示主机1没有数据要发送给主机2了。</li>
-<li>第二次挥手：主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，Acknowledgment Number为Sequence Number加1；主机1进入FIN_WAIT_2状态；主机2告诉主机1，我“同意”你的关闭请求。</li>
-<li>第三次挥手：主机2向主机1发送FIN报文段，请求关闭连接，同时主机2进入LAST_ACK状态。</li>
-<li><p>第四次挥手：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。</p>
-  <img src="https://fuzhongfeng.github.io/2017/05/02/tcp-base/close.png" title="四次挥手">
-</li>
-</ul>
-<p><strong>为什么断开的时候需要四次挥手？</strong></p>
-<p>因为TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。</p>
+        <h1 id="async-await-双刃剑"><a href="#async-await-双刃剑" class="headerlink" title="async/await 双刃剑"></a>async/await 双刃剑</h1><h2 id="async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案"><a href="#async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案" class="headerlink" title="async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案"></a>async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案</h2><h3 id="我们之前写回调是这样的"><a href="#我们之前写回调是这样的" class="headerlink" title="我们之前写回调是这样的"></a>我们之前写回调是这样的</h3><pre><code>// 通常写法
+a(() =&gt; {
+    b(() =&gt; {
+        c()
+    })
+})
 
+// promise
+new Promise(function (resolve, reject) {
+    resolve()
+}).then(function () {
+    return new Promise(function (resolve, reject) {
+        resolve()
+    });
+}).then(function () {
+});
+</code></pre><h3 id="async-await-写法"><a href="#async-await-写法" class="headerlink" title="async/await 写法"></a>async/await 写法</h3><pre><code>// 是不是很清新
+(async () =&gt; {
+    await a()
+    await b()
+    await c()
+})()
+</code></pre><h3 id="async-await-描述"><a href="#async-await-描述" class="headerlink" title="async/await 描述"></a>async/await 描述</h3><ul>
+<li><p>当调用一个 async 函数时，会返回一个 Promise 对象。当这个 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise 的 reject 方法也会传递这个异常值。（可以用.then 接收 return 值 或 遇到 reject直接用 .catch 抓取）</p>
+</li>
+<li><p>async 函数中可能会有 await 表达式，这会使 async 函数暂停执行，等待表达式中的 Promise 解析完成后继续执行 async 函数并返回解决结果</p>
+</li>
+</ul>
+<h3 id="一些优点："><a href="#一些优点：" class="headerlink" title="一些优点："></a>一些优点：</h3><ul>
+<li>使用Async/Await明显节约了不少代码。我们不需要写.then，不需要写匿名函数处理 Promise 的 resolve值，也不需要定义多余的 data 变量，还避免了嵌套代码。这些小的优点会迅速累计起来，这在之后的代码示例中会更加明显</li>
+<li>Generator 函数的执行必须靠执行器，所以才有了co 模块，而async函数自带执行器。也就是说，async函数的执行，与普通函数一模一样，只要一行。</li>
+<li>更好的语义，更广的适用性，await 命令后面，可以跟 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）</li>
+</ul>
+<h2 id="一些使用中的问题："><a href="#一些使用中的问题：" class="headerlink" title="一些使用中的问题："></a>一些使用中的问题：</h2><h3 id="下面是随处可见的前端代码"><a href="#下面是随处可见的前端代码" class="headerlink" title="下面是随处可见的前端代码"></a>下面是随处可见的前端代码</h3><pre><code>// 先写ABCD4个列表请求
+
+function getAList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getAList&quot;)
+    })
+}
+
+function getBList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getBList&quot;)
+    })
+}
+
+function getCList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getCList&quot;)
+    })
+}
+
+function getDList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+        resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getDList&quot;)
+    })
+}
+
+// 一个页面发送 getAList getBList 两个请求之后进行的渲染
+(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    await getAList()
+    await getBList()
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+})()
+// 用时 6ms
+</code></pre><ul>
+<li>当 getAList 和 getBList 之间没有依赖的时候顺序的 await 会最多让执行时间增加一倍的 getAList 函数时间（如果 getBList 的执行时间大于 getAList 的执行时间）,因为 getAList 与 getBList 应该并行执行。</li>
+</ul>
+<h3 id="正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数"><a href="#正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数" class="headerlink" title="正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:"></a>正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:</h3><pre><code>(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    const getAListResult = getAList()
+    const getBListResult = getBList()
+    await getAListResult
+    await getBListResult
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+})()
+// 用时 3ms
+
+
+// Promise.all 写法并发执行多个 promise
+(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    Promise.all([getAList(), getBList()]).then(() =&gt; {
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+    })
+})()
+// 用时 3ms
+</code></pre><h2 id="看来不要随意的-await，它很可能让你的代码性能降低！！！"><a href="#看来不要随意的-await，它很可能让你的代码性能降低！！！" class="headerlink" title="看来不要随意的 await，它很可能让你的代码性能降低！！！"></a><em>看来不要随意的 await，它很可能让你的代码性能降低！！！</em></h2><h3 id="async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："><a href="#async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：" class="headerlink" title="async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："></a>async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：</h3><pre><code>a(() =&gt; {
+    b()
+})
+
+c(() =&gt; {
+    d()
+})
+</code></pre><h4 id="1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："><a href="#1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：" class="headerlink" title="1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："></a>1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：</h4><pre><code>await a();
+await b();
+await c();
+await d();
+
+// 因为翻译成回调，就变成了下面这样，async/await 会让我们倾向于在 b 执行完后，再执行 c
+a(() =&gt; {
+    b(() =&gt; {
+        c(() =&gt; {
+            d()
+        });
+    });
+});
+</code></pre><h4 id="2-我们想到上面的例子，可以优化一下性能："><a href="#2-我们想到上面的例子，可以优化一下性能：" class="headerlink" title="2. 我们想到上面的例子，可以优化一下性能："></a>2. 我们想到上面的例子，可以优化一下性能：</h4><pre><code>const resA = a();
+const resC = c();
+await resA;
+b();
+await resC;
+d();
+
+// 但是，d 原本只要等待 c 执行完，现在如果 a 执行时间比 c 长，就变成了这样：
+a(() =&gt; {
+    d();
+});
+</code></pre><h4 id="3-看来只有完全隔离成两个函数："><a href="#3-看来只有完全隔离成两个函数：" class="headerlink" title="3. 看来只有完全隔离成两个函数："></a>3. 看来只有完全隔离成两个函数：</h4><pre><code>(async () =&gt; {
+    await a();
+    b();
+})()
+
+(async () =&gt; {
+    await c();
+    d();
+})();
+</code></pre><h4 id="4-或者利用-Promise-all"><a href="#4-或者利用-Promise-all" class="headerlink" title="4. 或者利用 Promise.all"></a>4. 或者利用 Promise.all</h4><pre><code>const ab = async () =&gt; {
+    await getAList();
+    getBList();
+}
+const cd = async () =&gt; {
+    await getCList();
+    getDList();
+}
+Promise.all([ab(), cd()])
+</code></pre><h3 id="现在我们回头来看一下原来两对的回调函数："><a href="#现在我们回头来看一下原来两对的回调函数：" class="headerlink" title="现在我们回头来看一下原来两对的回调函数："></a>现在我们回头来看一下原来两对的回调函数：</h3><pre><code>a(() =&gt; {
+    b()
+})
+
+c(() =&gt; {
+    d()
+})
+</code></pre><h3 id="现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家"><a href="#现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家" class="headerlink" title="现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家"></a>现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家</h3>
       
     </div>
 
@@ -533,7 +673,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/TCP/" rel="tag">#TCP</a>
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
           
         </div>
       
@@ -542,17 +682,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/28/react-dependencies/" rel="next" title="React-依赖">
-                <i class="fa fa-chevron-left"></i> React-依赖
+              <a href="/2018/05/19/algorithm-questions/" rel="next" title="算法题目">
+                <i class="fa fa-chevron-left"></i> 算法题目
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/17/fetch-timeout-wrapper/" rel="prev" title="Fetch-Timeout-Wrapper">
-                Fetch-Timeout-Wrapper <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

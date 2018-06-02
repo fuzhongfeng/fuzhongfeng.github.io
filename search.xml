@@ -4,6 +4,215 @@
   
     
     <entry>
+      <title><![CDATA[JavaScript-async/await]]></title>
+      <url>https://fuzhongfeng.github.io/2018/05/24/javascript-asyncAwait/</url>
+      <content type="html"><![CDATA[<h1 id="async-await-双刃剑"><a href="#async-await-双刃剑" class="headerlink" title="async/await 双刃剑"></a>async/await 双刃剑</h1><h2 id="async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案"><a href="#async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案" class="headerlink" title="async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案"></a>async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案</h2><h3 id="我们之前写回调是这样的"><a href="#我们之前写回调是这样的" class="headerlink" title="我们之前写回调是这样的"></a>我们之前写回调是这样的</h3><pre><code>// 通常写法
+a(() =&gt; {
+    b(() =&gt; {
+        c()
+    })
+})
+
+// promise
+new Promise(function (resolve, reject) {
+    resolve()
+}).then(function () {
+    return new Promise(function (resolve, reject) {
+        resolve()
+    });
+}).then(function () {
+});
+</code></pre><h3 id="async-await-写法"><a href="#async-await-写法" class="headerlink" title="async/await 写法"></a>async/await 写法</h3><pre><code>// 是不是很清新
+(async () =&gt; {
+    await a()
+    await b()
+    await c()
+})()
+</code></pre><h3 id="async-await-描述"><a href="#async-await-描述" class="headerlink" title="async/await 描述"></a>async/await 描述</h3><ul>
+<li><p>当调用一个 async 函数时，会返回一个 Promise 对象。当这个 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise 的 reject 方法也会传递这个异常值。（可以用.then 接收 return 值 或 遇到 reject直接用 .catch 抓取）</p>
+</li>
+<li><p>async 函数中可能会有 await 表达式，这会使 async 函数暂停执行，等待表达式中的 Promise 解析完成后继续执行 async 函数并返回解决结果</p>
+</li>
+</ul>
+<h3 id="一些优点："><a href="#一些优点：" class="headerlink" title="一些优点："></a>一些优点：</h3><ul>
+<li>使用Async/Await明显节约了不少代码。我们不需要写.then，不需要写匿名函数处理 Promise 的 resolve值，也不需要定义多余的 data 变量，还避免了嵌套代码。这些小的优点会迅速累计起来，这在之后的代码示例中会更加明显</li>
+<li>Generator 函数的执行必须靠执行器，所以才有了co 模块，而async函数自带执行器。也就是说，async函数的执行，与普通函数一模一样，只要一行。</li>
+<li>更好的语义，更广的适用性，await 命令后面，可以跟 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）</li>
+</ul>
+<h2 id="一些使用中的问题："><a href="#一些使用中的问题：" class="headerlink" title="一些使用中的问题："></a>一些使用中的问题：</h2><h3 id="下面是随处可见的前端代码"><a href="#下面是随处可见的前端代码" class="headerlink" title="下面是随处可见的前端代码"></a>下面是随处可见的前端代码</h3><pre><code>// 先写ABCD4个列表请求
+
+function getAList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getAList&quot;)
+    })
+}
+
+function getBList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getBList&quot;)
+    })
+}
+
+function getCList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+            resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getCList&quot;)
+    })
+}
+
+function getDList() {
+    return new Promise((resolve) =&gt; {
+        setTimeout(() =&gt; {
+        resolve()
+        }, 3000)
+    }).then(() =&gt; {
+        console.log(&quot;getDList&quot;)
+    })
+}
+
+// 一个页面发送 getAList getBList 两个请求之后进行的渲染
+(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    await getAList()
+    await getBList()
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+})()
+// 用时 6ms
+</code></pre><ul>
+<li>当 getAList 和 getBList 之间没有依赖的时候顺序的 await 会最多让执行时间增加一倍的 getAList 函数时间（如果 getBList 的执行时间大于 getAList 的执行时间）,因为 getAList 与 getBList 应该并行执行。</li>
+</ul>
+<h3 id="正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数"><a href="#正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数" class="headerlink" title="正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:"></a>正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:</h3><pre><code>(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    const getAListResult = getAList()
+    const getBListResult = getBList()
+    await getAListResult
+    await getBListResult
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+})()
+// 用时 3ms
+
+
+// Promise.all 写法并发执行多个 promise
+(async () =&gt; {
+    console.time(&quot;Time&quot;)
+    Promise.all([getAList(), getBList()]).then(() =&gt; {
+    console.log(&quot;finish&quot;)
+    console.timeEnd(&quot;Time&quot;)
+    })
+})()
+// 用时 3ms
+</code></pre><h2 id="看来不要随意的-await，它很可能让你的代码性能降低！！！"><a href="#看来不要随意的-await，它很可能让你的代码性能降低！！！" class="headerlink" title="看来不要随意的 await，它很可能让你的代码性能降低！！！"></a><em>看来不要随意的 await，它很可能让你的代码性能降低！！！</em></h2><h3 id="async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："><a href="#async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：" class="headerlink" title="async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："></a>async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：</h3><pre><code>a(() =&gt; {
+    b()
+})
+
+c(() =&gt; {
+    d()
+})
+</code></pre><h4 id="1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："><a href="#1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：" class="headerlink" title="1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："></a>1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：</h4><pre><code>await a();
+await b();
+await c();
+await d();
+
+// 因为翻译成回调，就变成了下面这样，async/await 会让我们倾向于在 b 执行完后，再执行 c
+a(() =&gt; {
+    b(() =&gt; {
+        c(() =&gt; {
+            d()
+        });
+    });
+});
+</code></pre><h4 id="2-我们想到上面的例子，可以优化一下性能："><a href="#2-我们想到上面的例子，可以优化一下性能：" class="headerlink" title="2. 我们想到上面的例子，可以优化一下性能："></a>2. 我们想到上面的例子，可以优化一下性能：</h4><pre><code>const resA = a();
+const resC = c();
+await resA;
+b();
+await resC;
+d();
+
+// 但是，d 原本只要等待 c 执行完，现在如果 a 执行时间比 c 长，就变成了这样：
+a(() =&gt; {
+    d();
+});
+</code></pre><h4 id="3-看来只有完全隔离成两个函数："><a href="#3-看来只有完全隔离成两个函数：" class="headerlink" title="3. 看来只有完全隔离成两个函数："></a>3. 看来只有完全隔离成两个函数：</h4><pre><code>(async () =&gt; {
+    await a();
+    b();
+})()
+
+(async () =&gt; {
+    await c();
+    d();
+})();
+</code></pre><h4 id="4-或者利用-Promise-all"><a href="#4-或者利用-Promise-all" class="headerlink" title="4. 或者利用 Promise.all"></a>4. 或者利用 Promise.all</h4><pre><code>const ab = async () =&gt; {
+    await getAList();
+    getBList();
+}
+const cd = async () =&gt; {
+    await getCList();
+    getDList();
+}
+Promise.all([ab(), cd()])
+</code></pre><h3 id="现在我们回头来看一下原来两对的回调函数："><a href="#现在我们回头来看一下原来两对的回调函数：" class="headerlink" title="现在我们回头来看一下原来两对的回调函数："></a>现在我们回头来看一下原来两对的回调函数：</h3><pre><code>a(() =&gt; {
+    b()
+})
+
+c(() =&gt; {
+    d()
+})
+</code></pre><h3 id="现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家"><a href="#现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家" class="headerlink" title="现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家"></a>现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家</h3>]]></content>
+      
+        <categories>
+            
+            <category> JavaScript </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[算法题目]]></title>
+      <url>https://fuzhongfeng.github.io/2018/05/19/algorithm-questions/</url>
+      <content type="html"><![CDATA[<h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><ol>
+<li>给定一个整数数组和一个目标值，找出数组中和为目标值的两个数的做索引组成的数组。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。例子如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [2, 7, 11, 15], target = 9</span><br><span class="line">因为 nums[0] + nums[1] = 2 + 7 = 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure>
+<p>答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @param &#123;number&#125; target</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> */</span><br><span class="line">var twoSum = function(nums, target) &#123;</span><br><span class="line">    let arr = [];</span><br><span class="line">    for (let i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">        for (let j = 0; j &lt; nums.length; j++) &#123;</span><br><span class="line">            if ((nums[i] + nums[j] === target) &amp;&amp; (i !== j)) &#123;</span><br><span class="line">                arr = [j, i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Algorithm </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Vue-基础(未完)]]></title>
       <url>https://fuzhongfeng.github.io/2018/05/06/2108-5-13-vue-base/</url>
       <content type="html"><![CDATA[<p>先写一些简单的研究，后续研究一些源码再完善</p>
@@ -51,7 +260,7 @@ console.log(obj.key);
     </entry>
     
     <entry>
-      <title><![CDATA[JavaScript-基础2]]></title>
+      <title><![CDATA[JavaScript-setTimeout]]></title>
       <url>https://fuzhongfeng.github.io/2018/05/06/2108-5-06-javascript-setTimeout/</url>
       <content type="html"><![CDATA[<p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p>
 <h2 id="1-setTimeout-（参考：小红书-p203，MDN）"><a href="#1-setTimeout-（参考：小红书-p203，MDN）" class="headerlink" title="1. setTimeout （参考：小红书 p203，MDN）"></a>1. setTimeout （参考：小红书 p203，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN</a>）</h2><h3 id="setTimeout-的基本概念："><a href="#setTimeout-的基本概念：" class="headerlink" title="setTimeout 的基本概念："></a>setTimeout 的基本概念：</h3><ul>

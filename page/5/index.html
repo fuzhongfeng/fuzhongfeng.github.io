@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -388,6 +388,399 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/12/2017-4-28-react-experience1/" itemprop="url">
+                  React-学习经验1
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-12T14:05:21+08:00" content="2016-09-12">
+              2016-09-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="React基础知识"><a href="#React基础知识" class="headerlink" title="React基础知识"></a>React基础知识</h2><p><strong>React</strong> 是一个声明式、高效、灵活的、创建用户界面的JavaScript库，本质是将图形界面（GUI）函数化。</p>
+<p><strong>Universal渲染</strong> 指的是一套代码可以同时在服务端和客户端渲染。</p>
+<p><strong>Redux</strong> 是一个JavaScript状态容器，提供可预测的状态管理。</p>
+<p><strong>Webpack</strong> 是当下最热门的前端资源模块化管理和打包工具。</p>
+<p><strong>开发服务器</strong>是可以为程序提供资源服务的服务器。通常情况下，在页面中引入的脚本文件等静态资源都放在硬盘中，使用了开发服务器，这些资源将被读到内存里，然后可以通过开发服务器的端口访问这些资源。webpack-dev-server就是开发服务器。</p>
+<p><strong>组件</strong> 是一个函数或类，它决定了如何把数据变为视图。ReactElement是一个普通对象，描述了组件实例或DOM节点；组件实例则是组件类的实例化对象。</p>
+<p><strong>ReactElement</strong> 就是大名鼎鼎的“虚拟DOM”，其本质是一个不可变对象，描述了一个组件的实例或一个DOM节点，包含组件的类型、属性以及子元素等信息。ReactElement不是组件的实例，不能在ReactElement中调用React组件的任何方法，它只是告诉React你想在屏幕上显示什么。JSX中的闭合标签就是ReactElement。对一个组件而言，props就是输入，ReactElement就是输出，也就是render方法的返回值。</p>
+<p><strong>组件实例</strong> 是组件类的实例化对象，同样被用来管理内部状态、处理生命周期函数。ReactDOM.render方法返回的就是组件实例，某些组件方法中的this也指向组件实例，利用组件的Refs也可以获取组件实例。无状态函数是没有实例化对象的，因此无法使用生命周期函数，也没有内部状态。</p>
+<h2 id="JSX返回多个组件"><a href="#JSX返回多个组件" class="headerlink" title="JSX返回多个组件"></a>JSX返回多个组件</h2><p>JSX中返回多个组件，如果不想包面包一层父节点，可以使用数组，注意要有key属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const arr = [</span><br><span class="line">    &lt;h3 key=&#123;0&#125;&gt;第一个组件&lt;/h3&gt;,</span><br><span class="line">    &lt;h2 key=&#123;1&#125;&gt;第二个组件&lt;/h2&gt;,</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<h2 id="组件间交互方式"><a href="#组件间交互方式" class="headerlink" title="组件间交互方式"></a>组件间交互方式</h2><p>我个人常用的组件间交互的方式有：</p>
+<ul>
+<li>如果是父子关系的组件，可以通过props由父组件将属性和回调方法传递给子组件进行交互</li>
+<li>如果是兄弟关系的组件，可以将需要交互的属性和方法提取到共同的父组件中，通过props传递给这两个兄弟组件进行交互</li>
+<li>如果是兄弟关系的组件，如A、B，且需要在B中使用A的属性，这个属性是A特有的，不能直接提取到公共父组件中，那么可以在父组件的state中添加一个属性，如form，初始值为null，在A的可以componentDidMount方法中对父组件的form属性进行赋值，这样就可以让B使用A特有的属性</li>
+<li>可以使用redux进行交互</li>
+</ul>
+<h2 id="render方法外渲染组件"><a href="#render方法外渲染组件" class="headerlink" title="render方法外渲染组件"></a>render方法外渲染组件</h2><p>在render方法外也可以渲染组件，但需要在render方法中预留好div，如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 正常渲染的组件</span><br><span class="line">class CommonComponent extends Component &#123;</span><br><span class="line">	render() &#123;</span><br><span class="line">		return (</span><br><span class="line">			&lt;div&gt;</span><br><span class="line">				&lt;Button&gt;正常显示的组件&lt;/Button&gt;</span><br><span class="line">				&lt;div id=&quot;specialComponent&quot;&gt;&lt;/div&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 在其他地方，个人认为应该在componentDidMount方法中</span><br><span class="line">componentDidMount() &#123;</span><br><span class="line">	const dom = document.getElementById(&apos;specialComponent&apos;);</span><br><span class="line">	if (dom !== null) &#123;</span><br><span class="line">		ReactDOM.render(&lt;Input placeholder=&quot;render外渲染的组件&quot; /&gt;, dom);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>注意：</strong><br>如果采用这种特殊方式渲染的组件引用到了其父组件的props或state，还需要在componentDidUpdate方法中进行同样的在操作，否则这个特殊方式渲染的组件不会刷新。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">componentDidUpdate() &#123;</span><br><span class="line">	const dom = document.getElementById(&apos;specialComponent&apos;);</span><br><span class="line">	if (dom !== null) &#123;</span><br><span class="line">		ReactDOM.render(&lt;Input placeholder=&quot;render外渲染的组件&quot; /&gt;, dom);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="应避免使用style属性"><a href="#应避免使用style属性" class="headerlink" title="应避免使用style属性"></a>应避免使用style属性</h2><p>React可以通过给组件设置style属性，进行CSS样式控制，但是不建议这么做，最好是通过指定className来进行样式控制，方便维护。</p>
+<h2 id="使用数据结构解决问题"><a href="#使用数据结构解决问题" class="headerlink" title="使用数据结构解决问题"></a>使用数据结构解决问题</h2><p>如果组件本身的属性无法支持某些功能，可以考虑通过定义数据结构进行解决，如对属性值进行拼接，再拆分，如菜单的key以ID%|%NAME的形式出现。</p>
+<h2 id="与redux关联的组件ref问题"><a href="#与redux关联的组件ref问题" class="headerlink" title="与redux关联的组件ref问题"></a>与redux关联的组件ref问题</h2><p>如果组件（如QueryChoose）组件，是与redux相关联的，对于使用react-redux的情况，也就是组件外调用了connect方法，需要在connect方法的mapStateToProps参数的返回对象中，添加ref属性（如ref:’innerQueryChoose’），在外层组件A引用到QueryChoose时指定ref属性（如ref:’wapperQueryChoose’），则在A中调用QueryChoose组件的方法或属性时，这样引用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// A组件中</span><br><span class="line">this.refs.wapperQueryChoose.refs.innerQueryChoose.someMethod();</span><br></pre></td></tr></table></figure></p>
+<h2 id="setTimeout更新state"><a href="#setTimeout更新state" class="headerlink" title="setTimeout更新state"></a>setTimeout更新state</h2><p>有时使用this.setState()更新组件的状态，不会反映到页面上，具体什么时候可以反映到页面上还不清楚，目前发现会出现这种现象的地方有两处：Tabs.TabPane内部的组件、Modal内部的组件。需要使用setTimeout才能达到更新状态的效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(() =&gt; &#123;</span><br><span class="line">	this.setState(&#123;</span><br><span class="line">		newState</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;,0);</span><br></pre></td></tr></table></figure></p>
+<h2 id="带着信息跳转路由"><a href="#带着信息跳转路由" class="headerlink" title="带着信息跳转路由"></a>带着信息跳转路由</h2><p>跳转到新路由时，需要带有某些信息，并且不想在url中显示这些信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">this.context.router.push(&#123;</span><br><span class="line">	pathname: &apos;xxxx&apos;,// 跳转的新路由</span><br><span class="line">	state: &#123;&#125;// 信息放在这里</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>在路由跳转的页面中，获取这些信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const urlInfo = this.props.location.state;</span><br></pre></td></tr></table></figure></p>
+<h2 id="Smart-Components-and-Dumb-Components"><a href="#Smart-Components-and-Dumb-Components" class="headerlink" title="Smart Components and Dumb Components"></a>Smart Components and Dumb Components</h2><p>也有叫Container Components and Presentational components的。</p>
+<p><strong>Smart component：</strong><br>是连接Redux的组件(@connect)，一般不可复用，类似MVC的C层  </p>
+<blockquote>
+<p>描述事物怎样工作<br>不提供DOM标签和样式<br>提供数据，进行数据获取<br>发起action<br>存放在containers目录  </p>
+</blockquote>
+<p><strong>Dumb component：</strong><br>是纯粹的组件，一般可复用，类似MVC的V层  </p>
+<blockquote>
+<p>描述事物的样子<br>不依赖应用<br>直接收props，包括数据和回调方法<br>很少有自己的state，有也是跟UI相关的<br>存放在components目录  </p>
+</blockquote>
+<p>两者的共同点是：无状态，或者说状态提取到上层，统一由 redux 的 store 来管理。redux state -&gt; Smart component -&gt; Dumb component -&gt; Dumb component（通过 props 传递）。在实践中，少量 Dumb component 允许自带 UI 状态信息（组件 unmount 后，不需要保留 UI 状态）。<br>值得注意的是：Smart component 是应用更新状态的最小单元。实践中，可以将 route handlers 作为 Smart component，一个 Smart component 对应一个 reducer。</p>
+<img src="https://fuzhongfeng.github.io/2016/09/12/react-experience1/smart-dumb-components.png" title="结果如图">
+<h2 id="ref回调函数"><a href="#ref回调函数" class="headerlink" title="ref回调函数"></a>ref回调函数</h2><p>今天无意看到了ref可以使用回调函数的用法，这个回调函数在组件安装后立即执行，被引用的组件作为一个参数传递，且回调函数可以立即使用这个组件，或保存供以后使用(或实现这两种行为)。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;TextInput ref=&#123;(node) =&gt; (this._input = node)&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="将函数传递到父组件的state中"><a href="#将函数传递到父组件的state中" class="headerlink" title="将函数传递到父组件的state中"></a>将函数传递到父组件的state中</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">+---------------------------------------------------------+</span><br><span class="line">| +---------+                                             |</span><br><span class="line">| |C        |                                           A |</span><br><span class="line">| +---------+                                             |</span><br><span class="line">+---------------------------------------------------------+</span><br><span class="line">|                                                         |</span><br><span class="line">|                        Dashboard                        |</span><br><span class="line">|                                                         |</span><br><span class="line">|                                                         |</span><br><span class="line">|   +---------------------+    +----------------------+   |</span><br><span class="line">|   |    B                |    |                      |   |</span><br><span class="line">|   | +              +    |    +---------&gt;            |   |</span><br><span class="line">|   | |              |    |    |                      |   |</span><br><span class="line">|   | |   +          |    |    +-------------&gt;        |   |</span><br><span class="line">|   | |   |    +     |    |    |                      |   |</span><br><span class="line">|   | |   |    |     |    |    |                      |   |</span><br><span class="line">|   +-+---+----+-----+----+    +----------------------+   |</span><br><span class="line">|                                                         |</span><br><span class="line">+---------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p>A组件是B、C组件的公共祖先组件，C组件需要用到B组件的方法method，首先想到的是把method放到A中定义，然后传入B和C。但是如果不使用ref在A中定义无法获取B私有的状态和其它信息，而且实际中C是A的第一层子组件，B是A的第。我想到的解决方法是：A定义一个方法update接收参数更新自己的state，将update方法传入B中，B将method作为参数调用update方法，这样就将method定义为了A的state的一个属性，再传入C中，即可实现C中调用B中定义的方法。</p>
+<h2 id="修改state的问题"><a href="#修改state的问题" class="headerlink" title="修改state的问题"></a>修改state的问题</h2><p>特别注意，当state中的属性是一个对象是，获取该对象进行属性值的修改后，页面当前不会按新状态显示，从react调试工具看该组件的状态时是修改后的值，可能操作几下页面会按新状态显示。原因是react不能直接修改state，如果是属性值是对象，需要进行深拷贝，修改值后在setState就没问题了。</p>
+<h2 id="依赖更新的问题"><a href="#依赖更新的问题" class="headerlink" title="依赖更新的问题"></a>依赖更新的问题</h2><p>我和同事是同一套代码，没有任何不同，由于他npm install太慢，我把我的node_modules打成压缩包发给他，他的项目启动后会报一些奇怪的警告，我的就没有。执行完npm update就好了，很不明白这是为什么。</p>
+<p>还有一个奇怪的问题，更新了antd依赖后，使用Tabs组件直接使用&lt;Tabs.TabPane&gt;定义的内容可以显示，而调用一个方法返回&lt;Tabs.TabPane&gt;会正常显示切换标签，切换后内容是空的，不报任何错误或警告。将整个node_modules删除后，重新安装依赖就正常了。</p>
+<h2 id="Controller-View-Pattern"><a href="#Controller-View-Pattern" class="headerlink" title="Controller View Pattern"></a>Controller View Pattern</h2><p><a href="http://blog.andrewray.me/the-reactjs-controller-view-pattern/" target="_blank" rel="noopener">The ReactJS Controller View Pattern</a></p>
+<h2 id="refs取不到组件的方法"><a href="#refs取不到组件的方法" class="headerlink" title="refs取不到组件的方法"></a>refs取不到组件的方法</h2><p>refs如果能取到组件的state和props，但是取不到组件定义的方法，可能是因为这些方法没有在构造函数中bind(this)。</p>
+<h2 id="关于setState"><a href="#关于setState" class="headerlink" title="关于setState"></a>关于setState</h2><ul>
+<li>如果setState函数的新状态没有改变当前状态，也会重新执行render方法</li>
+<li>setState第二个参数可以是个回调函数，如果有些操作要求在界面重新渲染完成后进行，可以放在回调函数中<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">class CompB extends React.Component &#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">		console.log(&quot;触发了CompB重新render&quot;)</span><br><span class="line">          	return (</span><br><span class="line">	            &lt;div&gt;</span><br><span class="line">	              	&lt;h1&gt;&#123;this.props.value&#125;&lt;/h1&gt;</span><br><span class="line">	            &lt;/div&gt;</span><br><span class="line">          	);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">class CompA extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            value: &apos;Hello, world!&apos;,</span><br><span class="line">        &#125;</span><br><span class="line">        this.onClick = this.onClick.bind(this);</span><br><span class="line">    &#125;</span><br><span class="line">    onClick() &#123;</span><br><span class="line">        this.setState(&#123;</span><br><span class="line">            value: &apos;你好！&apos;</span><br><span class="line">        &#125;, () =&gt; console.log(&quot;CompA的setState回调！&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        console.log(&quot;触发了CompA重新render&quot;)</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">              	&lt;h1&gt;&#123;this.state.value&#125;&lt;/h1&gt;</span><br><span class="line">              	&lt;button onClick=&#123;this.onClick&#125;&gt;点击&lt;/button&gt;</span><br><span class="line">             	 &lt;hr/&gt;</span><br><span class="line">              	&lt;CompB value=&#123;this.state.value&#125; /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<img src="https://fuzhongfeng.github.io/2016/09/12/react-experience1/setState1.png" title="运行结果如图">
+<h2 id="forceUpdate函数"><a href="#forceUpdate函数" class="headerlink" title="forceUpdate函数"></a>forceUpdate函数</h2><ul>
+<li>会导致组件本身及其包含的所有级别的子组件重新读取、计算与渲染，与其同级的无关组件不会重新渲染</li>
+<li>所有UI组件的生命周期函数都会按生命周期规则来执行，如先进入componentWillUpdate再进入render</li>
+<li>不会调用shouldComponentUpdate来检查是否允许重新渲染</li>
+<li>可以提供一个回调函数，这个回调函数将在所有组件渲染完成后被调用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">class CompB extends React.Component &#123;</span><br><span class="line">    componentWillUpdate()&#123;</span><br><span class="line">        console.log(&quot;触发了CompB的componentWillUpdate：&quot;,this.props.value)</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        console.log(&quot;触发了CompB重新render：&quot;,this.props.value)</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">            	&lt;h1&gt;&#123;this.props.value&#125;&lt;/h1&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class CompA extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            value: &apos;Hello, world!&apos;,</span><br><span class="line">        &#125;</span><br><span class="line">        this.onClick = this.onClick.bind(this);</span><br><span class="line">    &#125;</span><br><span class="line">    shouldComponentUpdate() &#123;</span><br><span class="line">        console.log(&quot;进入shouldComponentUpdate&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    onClick() &#123;</span><br><span class="line">        this.forceUpdate(() =&gt; console.log(&quot;渲染完成!!!&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        console.log(&quot;触发了CompA重新render&quot;)</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">              	&lt;h1&gt;&#123;this.state.value&#125;&lt;/h1&gt;</span><br><span class="line">              	&lt;button onClick=&#123;this.onClick&#125;&gt;点击&lt;/button&gt;</span><br><span class="line">              	&lt;hr/&gt;</span><br><span class="line">              	&lt;CompB value=&quot;CompA的子组件&quot; /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;div&gt;&lt;CompA /&gt;&lt;CompB value=&quot;与CompA无关的组件&quot;/&gt;&lt;/div&gt;,</span><br><span class="line">    document.getElementById(&apos;example&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<img src="https://fuzhongfeng.github.io/2016/09/12/react-experience1/forceUpdate1.png" title="运行结果如图">
+<h2 id="关于render函数"><a href="#关于render函数" class="headerlink" title="关于render函数"></a>关于render函数</h2><p>可以在自己的代码中调用这个函数以重新刷新组件，注意只刷新了组件本身，不会刷新子组件，但这不是一个好办法。如在点击按钮的onClick方法中可直接调用this.render()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class CompB extends React.Component &#123;</span><br><span class="line">	render()&#123;</span><br><span class="line">		console.log(&quot;触发了CompB重新render&quot;)</span><br><span class="line">		return (</span><br><span class="line">			&lt;div&gt;</span><br><span class="line">				&lt;h1&gt;&#123;this.props.value&#125;&lt;/h1&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">class CompA extends React.Component &#123;</span><br><span class="line">	constructor(props) &#123;</span><br><span class="line">		super(props);</span><br><span class="line">		this.state = &#123;</span><br><span class="line">			value: &apos;Hello, world!&apos;,</span><br><span class="line">		&#125;</span><br><span class="line">		this.onClick = this.onClick.bind(this);</span><br><span class="line">	&#125;</span><br><span class="line">	onClick() &#123;</span><br><span class="line">		this.render();</span><br><span class="line">	&#125;</span><br><span class="line">	render()&#123;</span><br><span class="line">		console.log(&quot;触发了CompA重新render&quot;)</span><br><span class="line">		return (</span><br><span class="line">			&lt;div&gt;</span><br><span class="line">				&lt;h1&gt;&#123;this.state.value&#125;&lt;/h1&gt;</span><br><span class="line">				&lt;button onClick=&#123;this.onClick&#125;&gt;点击&lt;/button&gt;</span><br><span class="line">				&lt;hr/&gt;</span><br><span class="line">				&lt;CompB value=&#123;this.state.value&#125; /&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<img src="https://fuzhongfeng.github.io/2016/09/12/react-experience1/render1.png" title="运行结果如图">
+<h2 id="组件定义外的代码"><a href="#组件定义外的代码" class="headerlink" title="组件定义外的代码"></a>组件定义外的代码</h2><p>在React和React Native都发现，在每次系统刷新时（刷新浏览器或重新打开App程序），个人感觉会执行一遍所有文件（在几类文件中都输出了日志），就像此时是对所有的组件进行一遍声明一样，后面用到的地方才是正式的引用。<strong>这里需要注意的是，所有的文件都会在系统刷新时执行一遍，如果在组件定义外部进行了一些操作，如获取数据，那这个时候获取对不对，如果获取数据需要用户登录信息，这是很可能没有登录信息，有没有做处理。</strong></p>
+<h2 id="children属性"><a href="#children属性" class="headerlink" title="children属性"></a>children属性</h2><p>如果使用了<code>{this.props.children}</code>显示子组件，想给子组件传递一些属性，可以使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;React.cloneElement(this.props.children, &#123;changeOpenState: this.changeOpenState&#125;)&#125;</span><br></pre></td></tr></table></figure>
+<p>注意此时<code>this.props.children</code>是Object，如果<code>this.props.children</code>是数组，则需要遍历每个元素执行上面的cloneElement。</p>
+<h2 id="监听浏览器窗口大小变化"><a href="#监听浏览器窗口大小变化" class="headerlink" title="监听浏览器窗口大小变化"></a>监听浏览器窗口大小变化</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">handleResize() &#123;</span><br><span class="line">    console.log(&quot;输出&quot;)</span><br><span class="line">&#125;</span><br><span class="line">componentDidMount() &#123;</span><br><span class="line">    window.addEventListener(&apos;resize&apos;, this.handleResize);</span><br><span class="line">&#125;</span><br><span class="line">componentWillUnmount() &#123;</span><br><span class="line">    window.removeEventListener(&apos;resize&apos;, this.handleResize);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="巧用setTimeout"><a href="#巧用setTimeout" class="headerlink" title="巧用setTimeout"></a>巧用setTimeout</h2><p>项目中遇到一个问题，点击按钮执行了一个更新值的操作，然后调用保存方法，发现保存方法中获取的值并不是更新后的值，感觉是更新后的值没有执行完页面刷新呢，就进入了保存方法。由于setTimeout是在下一轮开始时进行，所以使用setTimeout可使更新在本轮刷新完成后在执行保存操作，达到保存更新后的效果。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">export function callSaveClickHandler() &#123;</span><br><span class="line">    const newData = &#123;</span><br><span class="line">        &apos;COL1&apos;: &apos;改变一个字段值&apos;,</span><br><span class="line">    &#125;;</span><br><span class="line">    this.props.cardActions.modifyCardChangedData(this.state.servDef.servDef.SERV_ID, newData, true, this.props.servType);</span><br><span class="line">    // 这样做的目的是样保存操作在下一轮开始时执行，这样才能获取到页面更新的内容</span><br><span class="line">    setTimeout(()=&gt;this.refs.btnBar.saveClickHandler(), 0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="巧用路由"><a href="#巧用路由" class="headerlink" title="巧用路由"></a>巧用路由</h2><p>/list路由对应的是List组件，该组件主体是一个Tabs组件，默认选中的是第一个Tab。在什么都不处理的情况下，选中不同的Tab不会改变路由，当进入下一个页面并想返回时，总是返回到同一个路由，并且每次选中的只能是第一个Tab，这样的用户体验不好，用户想要的是在进入其它页面前选中的是哪个Tab，返回到上一页面也应该选中哪个Tab。</p>
+<p>我的解决方法是，在点击不同Tab时添加回调函数，在里面根据当前选中哪个Tab更新一次路由（this.context.router.replace），也就是路由为/list/tab1、/list/tab2、…这种形式，这样无论是哪种方式进入到相应的路由，只要从路由中取出第二个斜杠后的值，就可以知道当前页面应该选中哪个Tab了。</p>
+<h2 id="阻止默认事件"><a href="#阻止默认事件" class="headerlink" title="阻止默认事件"></a>阻止默认事件</h2><p>项目中遇到的问题是，在使用Table组件时，定义了行点击事件，这时行首部的复选框、行中带连接的文字、输入框等，点击的时候都会触发行点击事件。解决方式是在Table行上的组件外包一层div，并添加如下点击事件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function stopPropagation(e) &#123;</span><br><span class="line">  e.stopPropagation();</span><br><span class="line">  e.nativeEvent.stopImmediatePropagation();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h2><p>使用props可以进行上下层组件间属性的传递，使用context可以实现跨层组件间属性的传递。适合使用context的场景包括床底登录信息、当前语言以及主题信息等。而且，react-redux的Provider组件就使用了context来传递store。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">class Level2 extends React.Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div id=&quot;parent2&quot;&gt;</span><br><span class="line">                &lt;p&gt;&#123;this.context.name&#125;&lt;/p&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">Level2.contextTypes = &#123;</span><br><span class="line">    name: React.PropTypes.string.isRequired,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Level1 extends React.Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div id=&quot;parent1&quot;&gt;</span><br><span class="line">                &lt;Level2 /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class Root extends React.Component &#123;</span><br><span class="line">    // 注意如果name的属性值为null，会报警告，如下图所示</span><br><span class="line">    getChildContext() &#123;</span><br><span class="line">        return &#123;name: &apos;顶层属性&apos;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div id=&quot;parent&quot;&gt;</span><br><span class="line">                &lt;Level1 /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">Root.childContextTypes = &#123;</span><br><span class="line">    name: React.PropTypes.string.isRequired,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Root /&gt;,</span><br><span class="line">    document.getElementById(&apos;example&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<img src="https://fuzhongfeng.github.io/2016/09/12/react-experience1/null.png" title="getChildContext返回name为null">
+<p>在使用中发现了一个问题，在一个组件提供的context值改变时，使用这个值的子节点并没有接受到context的改变，没有达到要跨级共享数据的效果。网上说可以在这个提供context组件值改变时执行setState这样就会更新了，但通常使用context都是在组件顶层，这样进行整个重新渲染感觉不太好。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/04/html5-base/" itemprop="url">
+                  HTML5-基础
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-04T14:55:34+08:00" content="2016-09-04">
+              2016-09-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/HTML/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近看的《HTML秘籍》，对HTML5有了初步的了解，总结如下。</p>
+<h2 id="推出理由"><a href="#推出理由" class="headerlink" title="推出理由"></a>推出理由</h2><ul>
+<li>Web浏览器之间兼容性低</li>
+<li>文档结构不明确</li>
+<li>Web应用程序功能受限制</li>
+</ul>
+<h2 id="主要原理"><a href="#主要原理" class="headerlink" title="主要原理"></a>主要原理</h2><ul>
+<li>标准不应该引入导致已有网页无法工作的改变</li>
+<li>标准化了非官方、但广泛应用的技术</li>
+<li>以实用为目的</li>
+</ul>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ul>
+<li>包含可选的<code>&lt;html&gt;&lt;body&gt;&lt;head&gt;</code>元素</li>
+<li>标签全部小写</li>
+<li>为属性值加引号</li>
+</ul>
+<h2 id="元素家族"><a href="#元素家族" class="headerlink" title="元素家族"></a>元素家族</h2><p><strong>新增的元素</strong></p>
+<blockquote>
+<p>用于构建页面的语义元素 <code>&lt;article&gt;&lt;aside&gt;&lt;figcaption&gt;&lt;figure&gt;&lt;footer&gt;&lt;header&gt;&lt;nav&gt;&lt;section&gt;&lt;details&gt;&lt;summary&gt;</code></p>
+</blockquote>
+<blockquote>
+<p>用于标识文本的语义元素 <code>&lt;mark&gt;&lt;time&gt;&lt;wbr&gt;</code></p>
+</blockquote>
+<blockquote>
+<p>Web表单及交互 <code>&lt;input&gt;&lt;datalist&gt;&lt;keygen&gt;&lt;meter&gt;&lt;progress&gt;&lt;command&gt;&lt;menu&gt;&lt;output&gt;</code></p>
+</blockquote>
+<blockquote>
+<p>音频、视频及插件 <code>&lt;autio&gt;&lt;video&gt;&lt;source&gt;&lt;embed&gt;</code></p>
+</blockquote>
+<blockquote>
+<p>Canvas <code>&lt;canvas&gt;</code></p>
+</blockquote>
+<blockquote>
+<p>非英语支持 <code>&lt;bdo&gt;&lt;rp&gt;&lt;rt&gt;&lt;ruby&gt;</code></p>
+</blockquote>
+<p><strong>删除的元素</strong></p>
+<blockquote>
+<p>为网页添加样式的元素，如 <code>&lt;big&gt;&lt;center&gt;&lt;font&gt;&lt;tt&gt;&lt;strike&gt;</code></p>
+</blockquote>
+<blockquote>
+<p>HTML框架，如 <code>&lt;frameset&gt;&lt;frame&gt;</code>，但保留了 <code>&lt;iframe&gt;</code></p>
+</blockquote>
+<blockquote>
+<p>冗余或容易导致误会的元素，如 <code>&lt;acronym&gt;&lt;applet&gt;</code></p>
+</blockquote>
+<p><strong>改变的元素</strong></p>
+<blockquote>
+<p>将旧元素用于新目的，如 <code>&lt;small&gt;&lt;hr&gt;&lt;s&gt;</code></p>
+</blockquote>
+<blockquote>
+<p>停止从格式角度看问题，转换成具有真实逻辑含义的元素，如 <code>&lt;b&gt;&lt;i&gt;</code> 分别被 <code>&lt;strong&gt;&lt;em&gt;</code> 取代</p>
+</blockquote>
+<p><strong>调整的元素</strong></p>
+<blockquote>
+<p>调整了元素的使用规则，如 <code>&lt;address&gt;&lt;cite&gt;</code></p>
+</blockquote>
+<p><strong>标准化的元素</strong></p>
+<blockquote>
+<p><code>&lt;embed&gt;&lt;wbr&gt;</code></p>
+</blockquote>
+<h2 id="构建更好的表单"><a href="#构建更好的表单" class="headerlink" title="构建更好的表单"></a>构建更好的表单</h2><blockquote>
+<p>改良了input元素，url、email、date、number、range等类型</p>
+</blockquote>
+<blockquote>
+<p>占位水印 placeholder、自动获取焦点 autofocus</p>
+</blockquote>
+<blockquote>
+<p>增加了表单验证，required、pattern、自定义验证</p>
+</blockquote>
+<blockquote>
+<p>进度条 <code>&lt;progerss&gt;</code>、计量条 <code>&lt;meter&gt;</code></p>
+</blockquote>
+<h2 id="新增功能"><a href="#新增功能" class="headerlink" title="新增功能"></a>新增功能</h2><blockquote>
+<p>音频、视频、canvas</p>
+</blockquote>
+<blockquote>
+<p>File API，有说 File API 不是HTML5规范的内容，但得到了浏览器较好的支持</p>
+</blockquote>
+<blockquote>
+<p>Web存储，localStorage 和 sessionStorage</p>
+</blockquote>
+<blockquote>
+<p>通过描述文件缓存资源</p>
+</blockquote>
+<blockquote>
+<p>服务器发送事件</p>
+</blockquote>
+<blockquote>
+<p>WebSocket</p>
+</blockquote>
+<blockquote>
+<p>地理定位</p>
+</blockquote>
+<blockquote>
+<p>Web Worker</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
