@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -290,7 +290,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -299,7 +299,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -388,6 +388,254 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/17/fetch-timeout-wrapper/" itemprop="url">
+                  Fetch-Timeout-Wrapper
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-17T09:52:18+08:00" content="2017-06-17">
+              2017-06-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在使用react-native进行开发时，用到网络请求的地方，如果服务端未启动或存在网络问题，会弹出Network request failed，想自己设置客户端超时时间及超时提示信息，在react-native问题列表和网上查找后，已确认react-native用的fetch没有直接提供timeout设置的。</p>
+<p>在网上查到了使用ES6的promise封装fetch的方式，自己修改成如下timeout_fetch.js工具类，经过验证可以解决使用fetch时timeout的设置问题，将项目所有使用fetch的地方替换成使用timeout_fetch即可。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">config中配置了系统默认的请求超时时间，方便后期统一修改</span><br><span class="line">*/</span><br><span class="line">import &#123; default as config &#125; from &apos;../config/base&apos;;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @param &#123;Promise&#125; fetch_promise fetch请求返回的Promise</span><br><span class="line"> * @param &#123;number&#125; timeout 超时时间，单位为毫秒</span><br><span class="line"> * @return 返回Promise</span><br><span class="line"> */</span><br><span class="line">function promise_fetch(fetch_promise, timeout) &#123;</span><br><span class="line">  let timeout_fn = null;</span><br><span class="line">  // 这是一个可以被reject的promise</span><br><span class="line">  let timeout_promise = new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    timeout_fn = () =&gt; &#123;</span><br><span class="line">      const error = new Error(&apos;网络请求超时&apos;);</span><br><span class="line">      reject(error);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">  /*</span><br><span class="line">  这里使用Promise.race，以先返回的 resolve 或 reject 的结果来传入后续绑定的回调。</span><br><span class="line">  timeout不是请求连接超时的含义，它表示请求的response时间，fetch的timeout即使超时发生了，本次请求也不会被abort丢弃掉，它在后台仍然会发送到服务器端，只是本次请求的响应内容被丢弃而已。</span><br><span class="line">  */</span><br><span class="line">  const abortable_promise = Promise.race([</span><br><span class="line">    fetch_promise,</span><br><span class="line">    timeout_promise</span><br><span class="line">  ]);</span><br><span class="line">  setTimeout(function() &#123;</span><br><span class="line">    timeout_fn();</span><br><span class="line">  &#125;, timeout);</span><br><span class="line">  return abortable_promise;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * @param &#123;string&#125; url 请求地址</span><br><span class="line"> * @param &#123;object&#125; params 请求参数，其中timeout是超时设置，如果没有取全局配置的默认值</span><br><span class="line"> * @return 返回Promise</span><br><span class="line"> */</span><br><span class="line">export function timeout_fetch(url, params) &#123;</span><br><span class="line">  return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">    promise_fetch(fetch(url, params), params.timeout ? params.timeout : config.clientTimeout * 1000)</span><br><span class="line">      .then((responseData) =&gt; &#123;</span><br><span class="line">          resolve(responseData);</span><br><span class="line">      &#125;)</span><br><span class="line">      .catch((err) =&gt; &#123;</span><br><span class="line">          reject(err);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/02/tcp-base/" itemprop="url">
+                  TCP-基础
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-02T14:29:14+08:00" content="2017-05-02">
+              2017-05-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/TCP/" itemprop="url" rel="index">
+                    <span itemprop="name">TCP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h2><ul>
+<li>第一次握手：建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认。</li>
+<li>第二次握手：服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己还要发送SYN请求信息，将SYN位置为1，Sequence Number为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入SYN_RECV状态。</li>
+<li><p>第三次握手：客户端收到服务器的SYN+ACK报文段。然后将Acknowledgment Number设置为y+1，向服务器发送ACK报文段，这个报文段发送完毕以后，客户端和服务器端都进入ESTABLISHED状态，完成TCP三次握手。</p>
+  <img src="https://fuzhongfeng.github.io/2017/05/02/tcp-base/connect.png" title="三次握手">
+<p>  第一个包，即Client发给Server的SYN中途被丢，Client会周期性超时重传，直到收到Server的确认；<br>  第二个包，即Server发给Client的SYN+ACK中途被丢，Server会周期性超时重传，直到收到Client的确认；<br>  第三个包，即Client发给Server的ACK中途被丢：<br>&emsp; a）假定此时双方都没有数据发送，Server会周期性超时重传SYN+ACK，直到收到Client的确认收到之后Server的TCP连接业也为established状态；<br>&emsp; b）假定此时Client有数据发送，Server收到Client的Data+ACK，自然会切换为established状态，并接受Client的Data；<br>&emsp; c）假定Server有数据发送，数据发送不了，会一直周期性超时重传SYN+ACK，直到收到Client的确认才可以发送数据。</p>
+</li>
+</ul>
+<p><strong>为什么连接的时候需要三次握手？</strong></p>
+<p>在谢希仁的《计算机网络》中是这样说的：“为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。”书中举例：“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”</p>
+<p>网上查到：“这个问题的本质是，信道不可靠，但是通信双发需要就某个问题达成一致，而要解决这个问题，无论你在消息中包含什么信息，三次通信是理论上的最小值。所以三次握手不是TCP本身的要求，而是为了满足”在不可靠信道上可靠地传输信息”这一需求所导致的。这可视为对“三次握手”目的的另一种解答思路。</p>
+<h2 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h2><ul>
+<li>第一次挥手：主机1（<strong>可以使客户端，也可以是服务器端</strong>），设置Sequence Number和Acknowledgment Number，向主机2发送一个FIN报文段；此时，主机1进入FIN_WAIT_1状态；这表示主机1没有数据要发送给主机2了。</li>
+<li>第二次挥手：主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，Acknowledgment Number为Sequence Number加1；主机1进入FIN_WAIT_2状态；主机2告诉主机1，我“同意”你的关闭请求。</li>
+<li>第三次挥手：主机2向主机1发送FIN报文段，请求关闭连接，同时主机2进入LAST_ACK状态。</li>
+<li><p>第四次挥手：主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。</p>
+  <img src="https://fuzhongfeng.github.io/2017/05/02/tcp-base/close.png" title="四次挥手">
+</li>
+</ul>
+<p><strong>为什么断开的时候需要四次挥手？</strong></p>
+<p>因为TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1570,255 +1818,6 @@ UMD(Universal Module Definition 通用模块规范)，因为AMD，CommonJS规范
 <h2 id="fork的项目与原项目同步"><a href="#fork的项目与原项目同步" class="headerlink" title="fork的项目与原项目同步"></a>fork的项目与原项目同步</h2><p>fork一个项目并clone到本地，如果原项目已经更新了，要保持github上fork的项目和本地的项目与原项目同步，只需执行以下操作。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 远程拉取更新项目，先将原包作为 remote 加到本地项目中，A_REPOSITORY_URL需替换</span><br><span class="line">git remote add upstream A_REPOSITORY_URL</span><br><span class="line"># 拉取远程代码</span><br><span class="line">git pull upstream master</span><br><span class="line"># 提交到自己的 fork</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
 <h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git remote add origin https://github.com/fuzhongfeng/react-native-hello.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/29/babel-base/" itemprop="url">
-                  Babel-入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-29T12:13:35+08:00" content="2016-10-29">
-              2016-10-29
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Babel/" itemprop="url" rel="index">
-                    <span itemprop="name">Babel</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://babeljs.io/" target="_blank" rel="noopener">Babel</a>是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。</p>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>Babel的配置文件是.babelrc，存放在项目的根目录下，该文件用来设置转码规则和插件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;presets&quot;: [], -- 设定转码规则</span><br><span class="line">    &quot;plugins&quot;: []  -- 设定支持的插件，如&apos;antd&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>ES2015转码规则<br><code>npm install --save-dev babel-preset-es2015</code><br>react转码规则<br><code>npm install --save-dev babel-preset-react</code><br>ES7不同阶段语法提案的转码规则（共有4个阶段），选装一个<br><code>npm install --save-dev babel-preset-stage-0</code><br><code>npm install --save-dev babel-preset-stage-1</code><br><code>npm install --save-dev babel-preset-stage-2</code><br><code>npm install --save-dev babel-preset-stage-3</code>  </p>
-<h3 id="babel-cli"><a href="#babel-cli" class="headerlink" title="babel-cli"></a>babel-cli</h3><p><code>npm install --global babel-cli</code> 用于命令行转码的工具</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 转码结果输出到标准输出</span><br><span class="line">$ babel example.js</span><br><span class="line"></span><br><span class="line"># 转码结果写入一个文件</span><br><span class="line"># --out-file 或 -o 参数指定输出文件</span><br><span class="line">$ babel example.js --out-file compiled.js</span><br><span class="line"># 或者</span><br><span class="line">$ babel example.js -o compiled.js</span><br><span class="line"></span><br><span class="line"># 整个目录转码</span><br><span class="line"># --out-dir 或 -d 参数指定输出目录</span><br><span class="line">$ babel src --out-dir lib</span><br><span class="line"># 或者</span><br><span class="line">$ babel src -d lib</span><br><span class="line"></span><br><span class="line"># -s 参数生成source map文件</span><br><span class="line">$ babel src -d lib -s</span><br></pre></td></tr></table></figure>
-<p>babel-cli工具自带一个babel-node命令，提供一个支持ES6的REPL环境。它支持Node的REPL环境的所有功能，而且可以直接运行ES6代码。</p>
-<h3 id="babel-register"><a href="#babel-register" class="headerlink" title="babel-register"></a>babel-register</h3><p>babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载.js、.jsx、.es和.es6后缀名的文件，就会先用Babel进行转码。注意，它只会对require命令加载的文件转码，而不会对当前文件转码。另外，由于它是实时转码，所以只适合在开发环境使用。</p>
-<h3 id="babel-core"><a href="#babel-core" class="headerlink" title="babel-core"></a>babel-core</h3><p>如果某些代码需要调用Babel的API进行转码，就要使用babel-core模块，配置对象为<a href="http://babeljs.io/docs/usage/options/" target="_blank" rel="noopener">options</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var babel = require(&apos;babel-core&apos;);</span><br><span class="line"></span><br><span class="line">// 字符串转码</span><br><span class="line">babel.transform(&apos;code();&apos;, options);</span><br><span class="line">// =&gt; &#123; code, map, ast &#125;</span><br><span class="line"></span><br><span class="line">// 文件转码（异步）</span><br><span class="line">babel.transformFile(&apos;filename.js&apos;, options, function(err, result) &#123;</span><br><span class="line">  result; // =&gt; &#123; code, map, ast &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 文件转码（同步）</span><br><span class="line">babel.transformFileSync(&apos;filename.js&apos;, options);</span><br><span class="line">// =&gt; &#123; code, map, ast &#125;</span><br><span class="line"></span><br><span class="line">// Babel AST转码</span><br><span class="line">babel.transformFromAst(ast, code, options);</span><br><span class="line">// =&gt; &#123; code, map, ast &#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="babel-polyfill"><a href="#babel-polyfill" class="headerlink" title="babel-polyfill"></a>babel-polyfill</h3><p>Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。如果想让这些代码执行，必须使用babel-polyfill，为当前环境提供一个垫片。</p>
-<h3 id="浏览器环境"><a href="#浏览器环境" class="headerlink" title="浏览器环境"></a>浏览器环境</h3><p>Babel也可以用于浏览器环境。可在网页中插入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;node_modules/babel-core/browser.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/babel&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.4.4/babel.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/babel&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-<p>网页中实时将ES6代码转为ES5，对性能会有影响。生产环境需要加载已经转码完成的脚本。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/22/fetch-ajax/" itemprop="url">
-                  Fetch替代Ajax
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-22T21:31:18+08:00" content="2016-10-22">
-              2016-10-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Fetch/" itemprop="url" rel="index">
-                    <span itemprop="name">Fetch</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Fetch出现原因"><a href="#Fetch出现原因" class="headerlink" title="Fetch出现原因"></a>Fetch出现原因</h2><p><a href="https://segmentfault.com/a/1190000003810652" target="_blank" rel="noopener">传统 Ajax 已死，Fetch 永生</a>  传统 Ajax 指的是 XMLHttpRequest（XHR）</p>
-<p>XMLHttpRequest 是一个设计粗糙的 API，不符合关注分离（Separation of Concerns）的原则，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。Fetch 的出现就是为了解决 XHR 的问题，它是替代XMLHttpRequest用来发送网络请求的非常新的API。由于目前大多数浏览器原生还不支持它，建议你使用 isomorphic-fetch 库。</p>
-<p>使用async/await对fetch的使用进行优化后，写异步代码就像写同步代码一样爽。async/await是非常新的 API，属于 ES7。</p>
-<p>Promise，generator/yield，await/async都是现在和未来JS解决异步的标准做法，可以完美搭配使用。另外，Fetch 也很适合做现在流行的同构应用。同构(isomorphic/universal)就是使前后端运行同一套代码的意思，后端一般是指 NodeJS 环境。</p>
-<p>Fetch 优点主要有：</p>
-<blockquote>
-<p>语法简洁，更加语义化<br>基于标准 Promise 实现，支持 async/await<br>同构方便，使用 isomorphic-fetch  </p>
-</blockquote>
-<h2 id="支持状况及解决方案"><a href="#支持状况及解决方案" class="headerlink" title="支持状况及解决方案"></a>支持状况及解决方案</h2><p>原生支持率并不高，幸运的是，引入下面这些 polyfill 后可以完美支持 IE8+ ：</p>
-<blockquote>
-<p>由于 IE8 是 ES3，需要引入 ES5 的 polyfill: es5-shim, es5-sham<br>引入 Promise 的 polyfill: es6-promise<br>引入 fetch 探测库：fetch-detector<br>引入 fetch 的 polyfill: fetch-ie8<br>可选：如果你还使用了 jsonp，引入 fetch-jsonp<br>可选：开启 Babel 的 runtime 模式，现在就使用 async/await</p>
-</blockquote>
-<p>JSONP(JSON with Padding)是JSON的一种”使用模式”，可用于解决主流浏览器的跨域数据访问的问题<br><a href="http://www.cnblogs.com/yuzhongwusan/archive/2012/12/11/2812849.html" target="_blank" rel="noopener">jsonp详解</a></p>
 
           
         

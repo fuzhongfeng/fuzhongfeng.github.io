@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">43</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -290,7 +290,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -299,7 +299,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -410,6 +410,255 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/29/babel-base/" itemprop="url">
+                  Babel-入门
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-29T12:13:35+08:00" content="2016-10-29">
+              2016-10-29
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Babel/" itemprop="url" rel="index">
+                    <span itemprop="name">Babel</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://babeljs.io/" target="_blank" rel="noopener">Babel</a>是一个广泛使用的转码器，可以将ES6代码转为ES5代码，从而在现有环境执行。</p>
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>Babel的配置文件是.babelrc，存放在项目的根目录下，该文件用来设置转码规则和插件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;presets&quot;: [], -- 设定转码规则</span><br><span class="line">    &quot;plugins&quot;: []  -- 设定支持的插件，如&apos;antd&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ES2015转码规则<br><code>npm install --save-dev babel-preset-es2015</code><br>react转码规则<br><code>npm install --save-dev babel-preset-react</code><br>ES7不同阶段语法提案的转码规则（共有4个阶段），选装一个<br><code>npm install --save-dev babel-preset-stage-0</code><br><code>npm install --save-dev babel-preset-stage-1</code><br><code>npm install --save-dev babel-preset-stage-2</code><br><code>npm install --save-dev babel-preset-stage-3</code>  </p>
+<h3 id="babel-cli"><a href="#babel-cli" class="headerlink" title="babel-cli"></a>babel-cli</h3><p><code>npm install --global babel-cli</code> 用于命令行转码的工具</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"># 转码结果输出到标准输出</span><br><span class="line">$ babel example.js</span><br><span class="line"></span><br><span class="line"># 转码结果写入一个文件</span><br><span class="line"># --out-file 或 -o 参数指定输出文件</span><br><span class="line">$ babel example.js --out-file compiled.js</span><br><span class="line"># 或者</span><br><span class="line">$ babel example.js -o compiled.js</span><br><span class="line"></span><br><span class="line"># 整个目录转码</span><br><span class="line"># --out-dir 或 -d 参数指定输出目录</span><br><span class="line">$ babel src --out-dir lib</span><br><span class="line"># 或者</span><br><span class="line">$ babel src -d lib</span><br><span class="line"></span><br><span class="line"># -s 参数生成source map文件</span><br><span class="line">$ babel src -d lib -s</span><br></pre></td></tr></table></figure>
+<p>babel-cli工具自带一个babel-node命令，提供一个支持ES6的REPL环境。它支持Node的REPL环境的所有功能，而且可以直接运行ES6代码。</p>
+<h3 id="babel-register"><a href="#babel-register" class="headerlink" title="babel-register"></a>babel-register</h3><p>babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载.js、.jsx、.es和.es6后缀名的文件，就会先用Babel进行转码。注意，它只会对require命令加载的文件转码，而不会对当前文件转码。另外，由于它是实时转码，所以只适合在开发环境使用。</p>
+<h3 id="babel-core"><a href="#babel-core" class="headerlink" title="babel-core"></a>babel-core</h3><p>如果某些代码需要调用Babel的API进行转码，就要使用babel-core模块，配置对象为<a href="http://babeljs.io/docs/usage/options/" target="_blank" rel="noopener">options</a>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var babel = require(&apos;babel-core&apos;);</span><br><span class="line"></span><br><span class="line">// 字符串转码</span><br><span class="line">babel.transform(&apos;code();&apos;, options);</span><br><span class="line">// =&gt; &#123; code, map, ast &#125;</span><br><span class="line"></span><br><span class="line">// 文件转码（异步）</span><br><span class="line">babel.transformFile(&apos;filename.js&apos;, options, function(err, result) &#123;</span><br><span class="line">  result; // =&gt; &#123; code, map, ast &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 文件转码（同步）</span><br><span class="line">babel.transformFileSync(&apos;filename.js&apos;, options);</span><br><span class="line">// =&gt; &#123; code, map, ast &#125;</span><br><span class="line"></span><br><span class="line">// Babel AST转码</span><br><span class="line">babel.transformFromAst(ast, code, options);</span><br><span class="line">// =&gt; &#123; code, map, ast &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="babel-polyfill"><a href="#babel-polyfill" class="headerlink" title="babel-polyfill"></a>babel-polyfill</h3><p>Babel默认只转换新的JavaScript句法（syntax），而不转换新的API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。如果想让这些代码执行，必须使用babel-polyfill，为当前环境提供一个垫片。</p>
+<h3 id="浏览器环境"><a href="#浏览器环境" class="headerlink" title="浏览器环境"></a>浏览器环境</h3><p>Babel也可以用于浏览器环境。可在网页中插入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;node_modules/babel-core/browser.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/babel&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.4.4/babel.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/babel&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p>网页中实时将ES6代码转为ES5，对性能会有影响。生产环境需要加载已经转码完成的脚本。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/22/fetch-ajax/" itemprop="url">
+                  Fetch替代Ajax
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-22T21:31:18+08:00" content="2016-10-22">
+              2016-10-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Fetch/" itemprop="url" rel="index">
+                    <span itemprop="name">Fetch</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Fetch出现原因"><a href="#Fetch出现原因" class="headerlink" title="Fetch出现原因"></a>Fetch出现原因</h2><p><a href="https://segmentfault.com/a/1190000003810652" target="_blank" rel="noopener">传统 Ajax 已死，Fetch 永生</a>  传统 Ajax 指的是 XMLHttpRequest（XHR）</p>
+<p>XMLHttpRequest 是一个设计粗糙的 API，不符合关注分离（Separation of Concerns）的原则，配置和调用方式非常混乱，而且基于事件的异步模型写起来也没有现代的 Promise，generator/yield，async/await 友好。Fetch 的出现就是为了解决 XHR 的问题，它是替代XMLHttpRequest用来发送网络请求的非常新的API。由于目前大多数浏览器原生还不支持它，建议你使用 isomorphic-fetch 库。</p>
+<p>使用async/await对fetch的使用进行优化后，写异步代码就像写同步代码一样爽。async/await是非常新的 API，属于 ES7。</p>
+<p>Promise，generator/yield，await/async都是现在和未来JS解决异步的标准做法，可以完美搭配使用。另外，Fetch 也很适合做现在流行的同构应用。同构(isomorphic/universal)就是使前后端运行同一套代码的意思，后端一般是指 NodeJS 环境。</p>
+<p>Fetch 优点主要有：</p>
+<blockquote>
+<p>语法简洁，更加语义化<br>基于标准 Promise 实现，支持 async/await<br>同构方便，使用 isomorphic-fetch  </p>
+</blockquote>
+<h2 id="支持状况及解决方案"><a href="#支持状况及解决方案" class="headerlink" title="支持状况及解决方案"></a>支持状况及解决方案</h2><p>原生支持率并不高，幸运的是，引入下面这些 polyfill 后可以完美支持 IE8+ ：</p>
+<blockquote>
+<p>由于 IE8 是 ES3，需要引入 ES5 的 polyfill: es5-shim, es5-sham<br>引入 Promise 的 polyfill: es6-promise<br>引入 fetch 探测库：fetch-detector<br>引入 fetch 的 polyfill: fetch-ie8<br>可选：如果你还使用了 jsonp，引入 fetch-jsonp<br>可选：开启 Babel 的 runtime 模式，现在就使用 async/await</p>
+</blockquote>
+<p>JSONP(JSON with Padding)是JSON的一种”使用模式”，可用于解决主流浏览器的跨域数据访问的问题<br><a href="http://www.cnblogs.com/yuzhongwusan/archive/2012/12/11/2812849.html" target="_blank" rel="noopener">jsonp详解</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/20/npm-base/" itemprop="url">
                   NPM-基础
                 </a>
@@ -473,7 +722,7 @@
       
         
           
-            <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>npm search antd # 在已发布模块的name、tags、description字段中搜索关键字<br>npm view antd # 看该模块的package.json文件以及与NPM仓库相关的属性<br>npm ls antd # 查看本地antd模块版本</p>
+            <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>npm search antd # 在已发布模块的name、tags、description字段中搜索关键字<br>npm view antd # 看该模块的package.json文件以及与NPM仓库相关的属性<br>npm ls antd # 查看本地antd模块版本<br>npm install <a href="mailto:antd@2.6.4" target="_blank" rel="noopener">antd@2.6.4</a> # 安装指定版本的 antd, 注意这里 @ 前不能有空格</p>
 <p><a href="http://www.ruanyifeng.com/blog/2016/10/npm_scripts.html" target="_blank" rel="noopener">npm scripts 使用指南</a></p>
 
           
@@ -1674,236 +1923,6 @@
 <h2 id="引用图片"><a href="#引用图片" class="headerlink" title="引用图片"></a>引用图片</h2><p>使用require静态资源，打包时会自动打入，不需要再处理静态资源。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&#123;require(&apos;../../resources/images/logo.png&apos;)&#125; /&gt;</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const url = `url($&#123;require(&quot;../../resources/images/banner-home.jpg&quot;)&#125;)`;</span><br><span class="line">&lt;div style=&#123;&#123;backgroundImage: url&#125;&#125; /&gt;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/13/es6-study/" itemprop="url">
-                  ES6-学习
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-13T08:22:05+08:00" content="2016-09-13">
-              2016-09-13
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近看了<a href="http://es6.ruanyifeng.com/#docs/intro" target="_blank" rel="noopener">《ES6标准入门》</a>第二版，在对语法有了初步了解的基础上，首先建议真正开发前看一下该书第21章——编程风格，从开始就养成良好的编程风格。</p>
-<h1 id="ES6语法"><a href="#ES6语法" class="headerlink" title="ES6语法"></a>ES6语法</h1><h2 id="编程风格"><a href="#编程风格" class="headerlink" title="编程风格"></a>编程风格</h2><p>let取代var，const优先<br>静态字符串使用单引号或反引号<br>为变量赋数组优先使用解构赋值<br>函数的参数如果是对象优先使用解构赋值<br>如果函数的返回多个值，优先使用对象的解构赋值而不是数组的解构赋值<br>单行定义的对象，最后一个成员不以逗号结尾，多行定义的对象，最后一个成员以逗号结尾<br>对象尽量静态化，可以使用Object.assign()添加属性<br>使用扩展运算符（…）赋值数组<br>需要使用函数表达式的场合尽量使用箭头函数<br>函数的所有配置项应集中在一个对象，防在最后一个参数<br>只有模拟实体对象时才使用Object，如果只是要key:value的数据结构则使用Map<br>不要export default 与 普通的export同时使用  </p>
-<p><strong>以下是我在项目开发中使用到的、个人认为比较有用的ES6语法，总结如下：</strong></p>
-<h2 id="let和const"><a href="#let和const" class="headerlink" title="let和const"></a>let和const</h2><p>let、const与var相比：</p>
-<blockquote>
-<p>使用未声明的变量，直接报错<br>重复声明同一个变量，直接报错<br>是块级作用域<br>必须声明 ‘use strict’ 后才能使用let声明变量</p>
-</blockquote>
-<p>声明宣称一个名字的存在，定义则为这个名字分配存储空间，而初始化则是为名字分配的存储空间赋初值。</p>
-<h2 id="对象的扩展"><a href="#对象的扩展" class="headerlink" title="对象的扩展"></a>对象的扩展</h2><p>Object.keys()   – 返回对象的键组成的数组<br>Object.values() – 返回对象的值组成的数组<br>Object.assign() – 对象的合并    </p>
-<h2 id="Generator函数"><a href="#Generator函数" class="headerlink" title="Generator函数"></a>Generator函数</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 定义</span><br><span class="line">function* helloWorldGenerator() &#123;</span><br><span class="line">    yield &apos;hello&apos;;</span><br><span class="line">    yield &apos;world&apos;;</span><br><span class="line">    return &apos;ending&apos;;</span><br><span class="line">&#125;</span><br><span class="line">// 调用</span><br><span class="line">var hw = helloWorldGenerator();</span><br><span class="line">hw.next();// &#123;value: &apos;hello&apos;, done: false&#125;</span><br><span class="line">hw.next();// &#123;value: &apos;world&apos;, done: false&#125;</span><br><span class="line">hw.next();// &#123;value: &apos;ending&apos;, done: true&#125;</span><br></pre></td></tr></table></figure>
-<p>调用Generator函数后，函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的指针对象（Iterator对象），必须调用next方法，是的指针移向下一个状态。总之，Generator函数是分段执行的，yield语句是暂停执行的标记，而next方法可以恢复执行。<br><strong>Generator函数可以达到多个return的效果。</strong><br>for…of循环、扩展运算符（…）、解构赋值和Array.from方法内部调用的都是遍历器接口，因此可以将Generator函数返回的Iterator对象作为参数使用。<br><strong>调用Generator函数的返回结果可以类似数组使用</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...hw()]// [&apos;hello&apos;, &apos;world&apos;, &apos;ending&apos;]</span><br></pre></td></tr></table></figure></p>
-<h2 id="字符串的扩展"><a href="#字符串的扩展" class="headerlink" title="字符串的扩展"></a>字符串的扩展</h2><p>includes()   – 返回布尔值，表示是否找到了参数字符串<br>startsWith() – 返回布尔值，表示参数字符串是否在源字符串的头部<br>endsWith()   – 返回布尔值，表示参数字符串是否在源字符串的尾部</p>
-<h2 id="Class的取值函数（getter）和赋值函数（setter）"><a href="#Class的取值函数（getter）和赋值函数（setter）" class="headerlink" title="Class的取值函数（getter）和赋值函数（setter）"></a>Class的取值函数（getter）和赋值函数（setter）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyClass &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    // ...</span><br><span class="line">  &#125;</span><br><span class="line">  get prop() &#123;</span><br><span class="line">    return &apos;getter&apos;;</span><br><span class="line">  &#125;</span><br><span class="line">  set prop(value) &#123;</span><br><span class="line">    console.log(&apos;setter: &apos;+value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let inst = new MyClass();</span><br><span class="line">inst.prop = 123; // 调用 setter</span><br><span class="line">inst.prop; // 调用 getter</span><br></pre></td></tr></table></figure>
-<hr>
-<h1 id="ES7语法"><a href="#ES7语法" class="headerlink" title="ES7语法"></a>ES7语法</h1><h2 id="对象的解构赋值"><a href="#对象的解构赋值" class="headerlink" title="对象的解构赋值"></a>对象的解构赋值</h2><p>对象的解构赋值是ES7的语法，需要<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">需要安装依赖 npm install babel-preset-stage-0 --save-dev   </span><br><span class="line">并配置预设 presets: [&apos;es2015&apos;, &apos;stage-0&apos;, &apos;react&apos;]  </span><br><span class="line">使用 const newObj = &#123; ...oldObj &#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="async-await"><a href="#async-await" class="headerlink" title="async await"></a>async await</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">async search(item) &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    // 会等待setState执行之后再向下执行</span><br><span class="line">    await this.setState(&#123;</span><br><span class="line">      query: item</span><br><span class="line">    &#125;);</span><br><span class="line">    this.fetchData();</span><br><span class="line">  &#125; catch (error) &#123;</span><br><span class="line">    console.log(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/12/2017-5-12-react-warning/" itemprop="url">
-                  React-警告
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-12T14:52:43+08:00" content="2016-09-12">
-              2016-09-12
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="请求数据放在componentDidMount方法中的警告"><a href="#请求数据放在componentDidMount方法中的警告" class="headerlink" title="请求数据放在componentDidMount方法中的警告"></a>请求数据放在componentDidMount方法中的警告</h2><p>需要请求数据的，或者使用redux触发action请求数据，最终会更新组件的state时，这种操作最好放在componentDidMount中，我以前总认为这种准备工作要放在constructor方法中，会报下面的警告。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: setState(...): Cannot update during an existing state transition (such as within `render` or another component&apos;s constructor). Render methods should be a pure function of props and state; constructor side-effects are an anti-pattern, but can be moved to `componentWillMount`.</span><br></pre></td></tr></table></figure></p>
-<h2 id="类似数组的组件没有key属性的警告"><a href="#类似数组的组件没有key属性的警告" class="headerlink" title="类似数组的组件没有key属性的警告"></a>类似数组的组件没有key属性的警告</h2><p>类似数组的组件，如Col、li等，有多个值时需要加key属性，否则会报如下警告。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: Each child in an array or iterator should have a unique &quot;key&quot; prop. Check the render method of `AdvSearch`.</span><br></pre></td></tr></table></figure></p>
-<h2 id="react组件销毁后渲染其它组件报警告"><a href="#react组件销毁后渲染其它组件报警告" class="headerlink" title="react组件销毁后渲染其它组件报警告"></a>react组件销毁后渲染其它组件报警告</h2><p>可以将react组件销毁后渲染其它组件报警告<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const dom = document.getElementById(&apos;item_code&apos;);</span><br><span class="line">if (dom !== null) &#123;</span><br><span class="line">    ReactDOM.unmountComponentAtNode(dom);</span><br><span class="line">    ReactDOM.render(&lt;Input placeholder=&quot;这是新渲染的组件&quot;/&gt;, dom);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<img src="https://fuzhongfeng.github.io/2017/05/12/react-warning/unmountWarning.png" title="结果如图">
-<h2 id="IE11下报的render中Object类型错误"><a href="#IE11下报的render中Object类型错误" class="headerlink" title="IE11下报的render中Object类型错误"></a>IE11下报的render中Object类型错误</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Unhandled promise rejection Invariant Violation: Objects are not valid as a React child (found: [object Generator]). If you meant to render a collection of children, use an array instead or wrap the object using createFragment(object) from the React add-ons. Check the render method of `QueryChoose`.</span><br></pre></td></tr></table></figure>
-<p>原因是jsx中调用generator函数返回的结果没有进行解构。将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.state.customScript[&apos;customRender&apos;]()</span><br></pre></td></tr></table></figure></p>
-<p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...this.state.customScript[&apos;customRender&apos;]()]</span><br></pre></td></tr></table></figure></p>
-<h2 id="IE11下报的deprecated错误"><a href="#IE11下报的deprecated错误" class="headerlink" title="IE11下报的deprecated错误"></a>IE11下报的deprecated错误</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Warning: isMounted(...) is deprecated in plain JavaScript React classes. Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks.</span><br><span class="line">Warning: replaceState(...) is deprecated in plain JavaScript React classes. Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236).</span><br></pre></td></tr></table></figure>
-<p>这个很奇怪，是发现在根组件App的render方法中有<code>console.log(this);</code>导致的警告，不明白为什么。</p>
 
           
         
