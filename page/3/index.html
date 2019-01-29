@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -290,7 +290,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -299,7 +299,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -388,6 +388,644 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/19/2017-7-19-redux-base/" itemprop="url">
+                  Redux-基础
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-19T01:41:22+08:00" content="2017-07-19">
+              2017-07-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Redux/" itemprop="url" rel="index">
+                    <span itemprop="name">Redux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考<br><a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_one_basic_usages.html" target="_blank" rel="noopener">Redux 入门教程（一）：基本用法</a><br><a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_two_async_operations.html" target="_blank" rel="noopener">Redux 入门教程（二）：中间件与异步操作</a><br><a href="http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html" target="_blank" rel="noopener">Redux 入门教程（三）：React-Redux 的用法</a>  </p>
+<p><a href="http://redux.js.org/" target="_blank" rel="noopener">Redux官方文档</a><br><a href="https://egghead.io/courses/getting-started-with-redux" target="_blank" rel="noopener">前30集</a><br><a href="https://egghead.io/courses/building-react-applications-with-idiomatic-redux" target="_blank" rel="noopener">后30集</a><br><a href="https://github.com/acdlite/flux-standard-action" target="_blank" rel="noopener">action的规范</a>  </p>
+<h2 id="Redux简介"><a href="#Redux简介" class="headerlink" title="Redux简介"></a>Redux简介</h2><p>先简单说一下Flux。Flux是一种架构思想，专门解决软件的结构问题，它最大特点是数据的”单向流动”。React本身只涉及UI层，如果搭建大型应用，必须搭配一个前端框架，Facebook官方使用的是 Flux框架。<a href="https://github.com/reactjs/redux" target="_blank" rel="noopener">Redux</a>将Flux与函数式编程结合一起，很短时间内就成为了最热门的前端架构。</p>
+<p>“如果你不知道是否需要 Redux，那就是不需要它。”<br>“只有遇到 React 实在解决不了的问题，你才需要 Redux 。”  </p>
+<p>适用场景  </p>
+<ul>
+<li>用户的使用方式复杂  </li>
+<li>不同身份的用户有不同的使用方式（比如普通用户和管理员）  </li>
+<li>多个用户之间可以协作  </li>
+<li>与服务器大量交互，或者使用了WebSocket  </li>
+<li>View要从多个来源获取数据  </li>
+</ul>
+<p>从组件角度看，如果有以下场景，可以考虑使用 Redux</p>
+<ul>
+<li>某个组件的状态，需要共享  </li>
+<li>某个状态需要在任何地方都可以拿到  </li>
+<li>一个组件需要改变全局状态  </li>
+<li>一个组件需要改变另一个组件的状态  </li>
+</ul>
+<h2 id="设计思想"><a href="#设计思想" class="headerlink" title="设计思想"></a>设计思想</h2><p>（1）Web 应用是一个状态机，视图与状态是一一对应的。<br>（2）所有的状态，保存在一个对象里面。</p>
+<h2 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h2><img src="https://fuzhongfeng.github.io/2017/7/19/redux-base/ReduxFlow.png" title="Redux的工作流程">
+<ul>
+<li>用户发出 Action，<code>store.dispatch(action);</code></li>
+<li>Store 自动调用 Reducer，<code>let nextState = todoApp(previousState, action);</code></li>
+<li>State 一旦有变化，Store 就会调用监听函数，监听函数可以通过store.getState()得到当前状态，可以触发重新渲染View</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 设置监听函数  </span><br><span class="line">store.subscribe(listener);  </span><br><span class="line">...  </span><br><span class="line">function listerner() &#123;  </span><br><span class="line">  let newState = store.getState();  </span><br><span class="line">  component.setState(newState);   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p><strong>Store</strong></p>
+<p>Store 就是保存数据的地方，可以把它看成一个容器，整个应用只能有一个Store，Redux提供createStore函数用来生成Store。</p>
+<p><strong>State</strong></p>
+<p>Store对象包含所有数据。如果想得到某个时点的数据，就要对Store生成快照。这种时点的数据集合，就叫做State。当前时刻的State，可以通过store.getState()拿到。Redux 规定， 一个 State 对应一个 View，只要 State 相同，View 就相同，反之亦然。</p>
+<p><strong>Action</strong></p>
+<p>State的变化必须是View导致的，Action就是View发出的通知，描述当前发生的事情，表示State应该要发生变化了。Action是一个对象，其中的type属性是必须的，表示Action的名称，其他属性可以自由设置。</p>
+<p><strong>Action Creator</strong></p>
+<p> 每个Action都手写会很麻烦，用来生成Action的函数就叫Action Creator。</p>
+<p><strong>store.dispatch()</strong></p>
+<p>store.dispatch()是View发出Action的唯一方法，通常会结合Action Creator使用。</p>
+<p><strong>Reducer</strong></p>
+<p>Store收到Action以后，必须给出一个新的State，这样View才会发生变化。这种State的计算过程就叫做Reducer，Reducer是一个函数，它接受Action和当前State作为参数，返回一个新的State。Reducer函数最重要的特征是，它是一个纯函数，只要是同样的输入，必定得到同样的输出。因此，Reducer 函数里面不能改变State，必须返回一个全新的对象。 </p>
+<p>实际应用中，Reducer函数不用像上面这样手动调用，store.dispatch方法会触发Reducer 的自动执行。为此，Store需要知道Reducer函数，做法就是在生成Store的时候，将Reducer传入createStore方法，以后每当store.dispatch发送过来一个新的Action，就会自动调用Reducer，得到新的State。createStore方法还可以接受第二个参数，表示State的最初状态，这通常是服务器给出的，如果提供了这个参数，它会覆盖Reducer函数的默认初始值。    </p>
+<p>为什么这个函数叫做Reducer呢？因为它可以作为数组的reduce方法的参数，Array.prototype.reduce(reducer, ?initialValue)，一系列Action对象按照顺序作为一个数组，对每个Action调用reducer。请看下面的例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const actions = [</span><br><span class="line">  &#123; type: &apos;ADD&apos;, payload: 0 &#125;,</span><br><span class="line">  &#123; type: &apos;ADD&apos;, payload: 1 &#125;,</span><br><span class="line">  &#123; type: &apos;ADD&apos;, payload: 2 &#125;</span><br><span class="line">];</span><br><span class="line">const total = actions.reduce(reducer, 0); // 3</span><br></pre></td></tr></table></figure></p>
+<p><strong>Reducer拆分</strong></p>
+<p>Redux提供了一个combineReducers方法，用于Reducer的拆分，只要定义各个子Reducer函数，然后将它们合成一个大的Reducer。这种拆分与React应用的结构相吻合：一个React根组件由很多子组件构成，子组件与子Reducer完全可以对应。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// State的属性名必须与子Reducer同名</span><br><span class="line">const chatReducer = combineReducers(&#123;</span><br><span class="line">  chatLog,</span><br><span class="line">  statusMessage,</span><br><span class="line">  userName</span><br><span class="line">&#125;);</span><br><span class="line">// 如果不同名，就要采用下面的写法</span><br><span class="line">const reducer = combineReducers(&#123;</span><br><span class="line">  a: doSomethingWithA,</span><br><span class="line">  b: processB,</span><br><span class="line">  c: c</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>store.subscribe()</strong></p>
+<p>Store 允许使用store.subscribe方法设置监听函数，一旦State发生变化，就自动执行这个函数。因此，只要把View的更新函数（对于React项目，就是组件的render方法或setState方法）放入listen，就会实现View的自动渲染。store.subscribe方法返回一个函数，调用这个函数就可以解除监听。</p>
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><img src="https://fuzhongfeng.github.io/2016/11/19/redux-base/MiddleWares.png" title="中间件（middleware）">
+<p>中间件就是一个函数，对store.dispatch方法进行了改造，在发出Action和执行Reducer这两步之间，添加了其他功能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let next = store.dispatch;</span><br><span class="line">store.dispatch = function dispatchAndLog(action) &#123;</span><br><span class="line">  console.log(&apos;dispatching&apos;, action);</span><br><span class="line">  next(action);</span><br><span class="line">  console.log(&apos;next state&apos;, store.getState());</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>使用中间件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import &#123; applyMiddleware, createStore &#125; from &apos;redux&apos;;</span><br><span class="line">import createLogger from &apos;redux-logger&apos;;</span><br><span class="line">const logger = createLogger();</span><br><span class="line"></span><br><span class="line">const store = createStore(</span><br><span class="line">  reducer,</span><br><span class="line">  initial_state, // 整个应用的初始状态，没有可省略该参数</span><br><span class="line">  applyMiddleware(logger) // 中间件的次序有讲究，logger一定要放在最后</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p><strong>异步操作的思路</strong></p>
+<ul>
+<li>操作开始时，送出一个Action，触发State更新为”正在操作”状态，View重新渲染</li>
+<li>操作结束后，再送出一个Action，触发State更新为”操作结束”状态，View 再一次重新渲染</li>
+</ul>
+<p>方式一：redux-thunk </p>
+<p>异步操作至少要送出两个Action，如何才能在操作结束时，系统自动送出第二个 Action 呢？奥妙就在 Action Creator 之中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 处理异步的 Action Creator</span><br><span class="line">const fetchPosts = postTitle =&gt; (dispatch, getState) =&gt; &#123;</span><br><span class="line">  // 先发出一个Action表示操作开始</span><br><span class="line">  dispatch(requestPosts(postTitle));</span><br><span class="line">  // 返回了一个函数</span><br><span class="line">  return fetch(`/some/API/$&#123;postTitle&#125;.json`)</span><br><span class="line">    .then(response =&gt; response.json())</span><br><span class="line">    // 再发出一个 Action表示操作结束</span><br><span class="line">    .then(json =&gt; dispatch(receivePosts(postTitle, json)));</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 使用方法一</span><br><span class="line">store.dispatch(fetchPosts(&apos;reactjs&apos;));</span><br><span class="line">// 使用方法二</span><br><span class="line">store.dispatch(fetchPosts(&apos;reactjs&apos;)).then(() =&gt;</span><br><span class="line">  console.log(store.getState())</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>这样的处理，就解决了自动发送第二个Action的问题。但是，又带来了一个新的问题，Action是由store.dispatch方法发送的，而store.dispatch方法正常情况下，参数只能是对象，不能是函数。这时，就要使用中间件redux-thunk，改造store.dispatch，使得后者可以接受函数作为参数。</p>
+<p>redux-thunk 的实现非常简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function createThunkMiddleware(extraArgument) &#123;</span><br><span class="line">  return (&#123; dispatch, getState &#125;) =&gt; next =&gt; action =&gt; &#123;</span><br><span class="line">    if (typeof action === &apos;function&apos;) &#123;</span><br><span class="line">      return action(dispatch, getState, extraArgument);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const thunk = createThunkMiddleware();</span><br><span class="line">thunk.withExtraArgument = createThunkMiddleware;</span><br><span class="line"></span><br><span class="line">export default thunk;</span><br></pre></td></tr></table></figure></p>
+<p>方式二：redux-promise</p>
+<p>另一种异步操作的解决方案，就是让Action Creator返回一个Promise对象。这就需要使用redux-promise中间件，这个中间件使得store.dispatch方法可以接受Promise对象作为参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// 写法一，返回值是一个 Promise 对象</span><br><span class="line">const fetchPosts = </span><br><span class="line">  (dispatch, postTitle) =&gt; new Promise(function (resolve, reject) &#123;</span><br><span class="line">     dispatch(requestPosts(postTitle));</span><br><span class="line">     return fetch(`/some/API/$&#123;postTitle&#125;.json`)</span><br><span class="line">       .then(response =&gt; &#123;</span><br><span class="line">         type: &apos;FETCH_POSTS&apos;,</span><br><span class="line">         payload: response.json()</span><br><span class="line">       &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 写法二，Action 对象的payload属性是一个 Promise 对象</span><br><span class="line">import &#123; createAction &#125; from &apos;redux-actions&apos;;</span><br><span class="line"></span><br><span class="line">class AsyncApp extends Component &#123;</span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    const &#123; dispatch, selectedPost &#125; = this.props</span><br><span class="line">    // 发出同步 Action</span><br><span class="line">    dispatch(requestPosts(selectedPost));</span><br><span class="line">    // 发出异步 Action</span><br><span class="line">    dispatch(createAction(</span><br><span class="line">      &apos;FETCH_POSTS&apos;, </span><br><span class="line">      fetch(`/some/API/$&#123;postTitle&#125;.json`)</span><br><span class="line">        .then(response =&gt; response.json())</span><br><span class="line">    ));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="React-Redux的用法"><a href="#React-Redux的用法" class="headerlink" title="React-Redux的用法"></a>React-Redux的用法</h2><p>React-Redux将所有组件分成两大类：UI组件(presentational component)和容器组件(container component)。</p>
+<p>UI 组件有以下几个特征：</p>
+<blockquote>
+<p>只负责 UI 的呈现，不带有任何业务逻辑<br>没有状态（即不使用this.state这个变量）<br>所有数据都由参数（this.props）提供<br>不使用任何 Redux 的 API  </p>
+</blockquote>
+<p>容器组件有以下几个特征：</p>
+<blockquote>
+<p>负责管理数据和业务逻辑，不负责 UI 的呈现<br>带有内部状态<br>使用 Redux 的 API</p>
+</blockquote>
+<p>UI组件负责UI的呈现，容器组件负责管理数据和逻辑。如果一个组件既有UI又有业务逻辑，将它拆分成外面是一个容器组件，里面包了一个UI组件，前者负责与外部的通信，将数据传给后者，由后者渲染出视图。React-Redux规定，所有的UI组件都由用户提供，容器组件则是由 React-Redux 自动生成。  </p>
+<p><strong>connect</strong></p>
+<p>connect方法，用于从UI组件生成容器组件，connect的意思，就是将这两种组件连起来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import &#123; connect &#125; from &apos;react-redux&apos;</span><br><span class="line">const VisibleTodoList = connect()(TodoList);</span><br></pre></td></tr></table></figure></p>
+<p>TodoList是UI组件，VisibleTodoList就是由React-Redux通过connect方法自动生成的容器组件。但是，因为没有定义业务逻辑，上面这个容器组件毫无意义，只是UI组件的一个单纯的包装层。为了定义业务逻辑，需要给出下面两方面的信息：  </p>
+<p>（1）输入逻辑：外部的数据（即state对象）如何转换为 UI 组件的参数。<br>（2）输出逻辑：用户发出的动作如何变为 Action 对象，从 UI 组件传出去。  </p>
+<p><strong>mapStateToProps</strong></p>
+<p>mapStateToProps是一个函数，它建立一个从外部的state对象到UI组件的props对象的映射关系。mapStateToProps会订阅 Store，每当state更新的时候，就会自动执行，重新计算 UI 组件的参数，从而触发 UI 组件的重新渲染。  </p>
+<p>mapStateToProps的第一个参数总是state对象，还可以使用第二个参数，代表容器组件的props对象。使用ownProps作为参数后，如果容器组件的参数发生变化，也会引发UI组件重新渲染。</p>
+<p><strong>mapDispatchToProps</strong></p>
+<p>mapDispatchToProps用来建立UI组件的参数到store.dispatch方法的映射，它定义了哪些用户的操作应该当作Action传给Store。它可以是一个函数，也可以是一个对象。</p>
+<p>如果mapDispatchToProps是一个函数，会得到dispatch和ownProps（容器组件的props对象）两个参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// mapDispatchToProps是函数，返回一个对象，该对象的每个键值对都是一个映射，定义了UI组件的参数怎样发出Action，如果有多个Action，可以使用Redux的bindActionCreators</span><br><span class="line">const mapDispatchToProps = ( dispatch, ownProps ) =&gt; &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    onClick: () =&gt; dispatch(&#123;</span><br><span class="line">      type: &apos;SET_VISIBILITY_FILTER&apos;,</span><br><span class="line">      filter: ownProps.filter</span><br><span class="line">    &#125;),</span><br><span class="line">    onChange: bindActionCreators(&#123;// 里面是Action creator</span><br><span class="line">      addTodos,</span><br><span class="line">      deleteTodos</span><br><span class="line">    &#125;, dispatch)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// mapDispatchToProps是对象，它的每个键名也是对应UI组件的同名参数，键值应该是一个函数，会被当作Action creator，返回的Action会由Redux自动发出</span><br><span class="line">const mapDispatchToProps = &#123;</span><br><span class="line">  onClick: (filter) =&gt; &#123;</span><br><span class="line">    type: &apos;SET_VISIBILITY_FILTER&apos;,</span><br><span class="line">    filter: filter</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Provider</strong></p>
+<p>Provider组件，可以让容器组件拿到state。Provider在根组件App外面包了一层，这样一来，App的所有子组件就默认都可以拿到state了。它的原理是React组件的context属性，store放在了上下文对象context上面，子组件就可以从context拿到store了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class VisibleTodoList extends Component &#123;</span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    const &#123; store &#125; = this.context;</span><br><span class="line">    this.unsubscribe = store.subscribe(() =&gt;</span><br><span class="line">      this.forceUpdate()</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    const props = this.props;</span><br><span class="line">    const &#123; store &#125; = this.context;</span><br><span class="line">    const state = store.getState();</span><br><span class="line">    // ...</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">VisibleTodoList.contextTypes = &#123;</span><br><span class="line">  store: React.PropTypes.object</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="API的简单实现"><a href="#API的简单实现" class="headerlink" title="API的简单实现"></a>API的简单实现</h2><p><strong>createStore的简单实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">const createStore = (reducer) =&gt; &#123;</span><br><span class="line">  let state;</span><br><span class="line">  let listeners = [];</span><br><span class="line"></span><br><span class="line">  const getState = () =&gt; state;</span><br><span class="line"></span><br><span class="line">  const dispatch = (action) =&gt; &#123;</span><br><span class="line">    state = reducer(state, action);</span><br><span class="line">    listeners.forEach(listener =&gt; listener());</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  const subscribe = (listener) =&gt; &#123;</span><br><span class="line">    listeners.push(listener);</span><br><span class="line">    return () =&gt; &#123;</span><br><span class="line">      listeners = listeners.filter(l =&gt; l !== listener);// 什么意思</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  dispatch(&#123;&#125;); // 干嘛呢</span><br><span class="line"></span><br><span class="line">  return &#123; getState, dispatch, subscribe &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>combineReducer的简单实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const combineReducers = reducers =&gt; &#123;</span><br><span class="line">  return (state = &#123;&#125;, action) =&gt; &#123;</span><br><span class="line">    return Object.keys(reducers).reduce(</span><br><span class="line">      (nextState, key) =&gt; &#123;</span><br><span class="line">        nextState[key] = reducers[key](state[key], action);</span><br><span class="line">        return nextState;</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;&#125; </span><br><span class="line">    );</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>applyMiddleware的简单实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import compose from &apos;./compose&apos;;</span><br><span class="line"></span><br><span class="line">export default function applyMiddleware(...middlewares) &#123;</span><br><span class="line">  return (createStore) =&gt; (reducer, preloadedState, enhancer) =&gt; &#123;</span><br><span class="line">    var store = createStore(reducer, preloadedState, enhancer);</span><br><span class="line">    var dispatch = store.dispatch;</span><br><span class="line">    var chain = [];</span><br><span class="line"></span><br><span class="line">    var middlewareAPI = &#123;</span><br><span class="line">      getState: store.getState,</span><br><span class="line">      dispatch: (action) =&gt; dispatch(action)</span><br><span class="line">    &#125;;</span><br><span class="line">    chain = middlewares.map(middleware =&gt; middleware(middlewareAPI));</span><br><span class="line">    dispatch = compose(...chain)(store.dispatch);</span><br><span class="line"></span><br><span class="line">    return &#123;...store, dispatch&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>redux-promise的简单实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">export default function promiseMiddleware(&#123; dispatch &#125;) &#123;</span><br><span class="line">  return next =&gt; action =&gt; &#123;</span><br><span class="line">    if (!isFSA(action)) &#123;</span><br><span class="line">      return isPromise(action)</span><br><span class="line">        ? action.then(dispatch)</span><br><span class="line">        : next(action);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return isPromise(action.payload)</span><br><span class="line">      ? action.payload.then(</span><br><span class="line">          result =&gt; dispatch(&#123; ...action, payload: result &#125;),</span><br><span class="line">          error =&gt; &#123;</span><br><span class="line">            dispatch(&#123; ...action, payload: error, error: true &#125;);</span><br><span class="line">            return Promise.reject(error);</span><br><span class="line">          &#125;</span><br><span class="line">        )</span><br><span class="line">      : next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Provider的简单实现</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class Provider extends Component &#123;</span><br><span class="line">  getChildContext() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      store: this.props.store</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    return this.props.children;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Provider.childContextTypes = &#123;</span><br><span class="line">  store: React.PropTypes.object</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/05/javascript-base2/" itemprop="url">
+                  JavaScript-基础2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-05T17:52:50+08:00" content="2017-07-05">
+              2017-07-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近参加了一次为时两天的JavaScript培训，回顾课程内容并进行整理，其中参考了如下两篇老师的文章。</p>
+<p><a href="http://mp.weixin.qq.com/s?__biz=MzIxMjE4NzM5MA==&amp;mid=2651782757&amp;idx=2&amp;sn=f7434ba3ed5f2e78eabb4f307f15f4ef&amp;chksm=8cb3bff4bbc436e2cab4f5df12988ee01d52723b640612c6830b15b292ec2b23accc932db7ca#rd" target="_blank" rel="noopener">JavaScript编程技法入门</a><br><a href="http://mp.weixin.qq.com/s/suTn-IpXzPXHvw1OZQso7w" target="_blank" rel="noopener">JS编程道场</a></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>函数是第一等公民。<br>JavaScript的核心是 函数 和 对象 。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typeof Number // &apos;function&apos;</span><br><span class="line">typeof String // &apos;function&apos;</span><br><span class="line">typeof Function // &apos;function&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="简化版jquery选择器实现"><a href="#简化版jquery选择器实现" class="headerlink" title="简化版jquery选择器实现"></a>简化版jquery选择器实现</h2><p>通过对javascript原生操作的封装，实现简化版的jquery类库。这里的代码并不复杂，个人感觉主要是要有类库的概念和实现思路，考虑将项目中使用的工具类逐步封装成类库。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">var $ = function(selector) &#123;</span><br><span class="line">    var domObj = document.querySelector(selector);</span><br><span class="line">    var result = &#123;</span><br><span class="line">        &apos;0&apos;: domObj,</span><br><span class="line">        show: function() &#123; domObj.style.display = &apos;none&apos;; &#125;,</span><br><span class="line">        hide: function() &#123; domObj.style.display = &apos;block&apos;; &#125;,</span><br><span class="line">        append: function(str) &#123;</span><br><span class="line">            domObj.innerHTML += str;</span><br><span class="line">        &#125;,</span><br><span class="line">        val: function(value) &#123;</span><br><span class="line">            if (value === undefined) &#123;</span><br><span class="line">                return domObj.value;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                domObj.value = value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        on: function(action, callback) &#123;</span><br><span class="line">            // 特定浏览器，这里是针对Chrome的写法</span><br><span class="line">            if (domObj.addEventListener) &#123;</span><br><span class="line">                domObj.addEventListener(action, callback);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>js是解释型动态语言，可随时添加属性或方法，很灵活。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = new Object();</span><br><span class="line">obj1.name = &apos;object1&apos;;</span><br><span class="line">obj1.getName = function() &#123;</span><br><span class="line">    return this.name;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>推荐使用如下字面量形式的定义方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var obj2 = &#123;</span><br><span class="line">    name: &apos;object2&apos;,</span><br><span class="line">    getName: function() &#123;</span><br><span class="line">        return this.name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>遍历对象的属性和方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for(var key in obj2) &#123;</span><br><span class="line">    console.log(key + &apos;=&apos; + obj2[key]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>函数的三种定义方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 匿名函数，通过一个变量来指向一个匿名函数，当这个函数不再需要时，JS的运行时环境会自动收集内存垃圾</span><br><span class="line">var func1 = function(name) &#123;</span><br><span class="line">    return &apos;hello,&apos; + name;</span><br><span class="line">&#125;;</span><br><span class="line">// 具名函数，有变量提升，也就是在这段代码的前面是可以调用func2方法的</span><br><span class="line">function func2 (name) &#123;</span><br><span class="line">    return &apos;hello,&apos; + name;</span><br><span class="line">&#125;;</span><br><span class="line">// 函数对象，这也表明了函数其实是Function类型的对象</span><br><span class="line">var func3 = new Function(&apos;name&apos;, &apos;return &quot;hello,&quot; + name&apos;);</span><br></pre></td></tr></table></figure>
+<p>函数体的内部只有在函数被调用时才会进入，下面demo的运行结果是先后输出1、2、3、4、5。使用Chrome调试断点进入时，打开Sources注意观察Scope的变化，可以看到运行到func1()时Scope只有Globle，当进入到调用的方法时，会有Local，里面是函数内部定义的变量或方法，当函数内部用到了外面的变量时，会有Closure，里面是引用的外部变量。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">console.log(1);</span><br><span class="line">var func1 = function() &#123;// 进来之后有Local</span><br><span class="line">    console.log(3);</span><br><span class="line">    var a = 0;</span><br><span class="line">    function func2() &#123; // 进来之后有Closure</span><br><span class="line">        console.log(5);</span><br><span class="line">        var f = a + 5;</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(4);</span><br><span class="line">    func2();</span><br><span class="line">&#125;</span><br><span class="line">console.log(2);</span><br><span class="line">debugger;</span><br><span class="line">func1(); // 这时只有Global</span><br></pre></td></tr></table></figure>
+<img src="https://fuzhongfeng.github.io/2017/07/05/javascript-base2/运行顺序.png" width="400" title="运行顺序">
+<img src="https://fuzhongfeng.github.io/2017/07/05/javascript-base2/调试.gif" title="Chrome调试">
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p>this取决于在哪调用，而不是在哪定义，通过“对象.”调用的，this都是这个对象，直接调用的this都是window。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var func = function(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;;</span><br><span class="line">func(&apos;jobs&apos;); // 进入func，this是window</span><br><span class="line">var o = &#123;</span><br><span class="line">    setName: func</span><br><span class="line">&#125;;</span><br><span class="line">o.setName(&apos;jobs&apos;); // 进入func，this是o</span><br><span class="line">var method = o.setName;</span><br><span class="line">method(&apos;jobs&apos;); // 进入func，this是window</span><br><span class="line">var obj = new func(&apos;jobs&apos;);// 进入func，this是obj</span><br></pre></td></tr></table></figure>
+<p>通过函数的call、apply、bind方法进行调用可改变作用域，call和apply只是传递参数的方式不同。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;&#125;;</span><br><span class="line">func.call(o, &apos;jobs&apos;); // 绑定作用域为o</span><br><span class="line">func.apply(o, [&apos;jobs&apos;]);</span><br><span class="line">func.bind(o)(&apos;jobs&apos;);</span><br></pre></td></tr></table></figure>
+<h2 id="模拟类"><a href="#模拟类" class="headerlink" title="模拟类"></a>模拟类</h2><p>函数名的第一个字母大写，表示是用来构造对象的，不是用来执行的。</p>
+<p>用方式一模拟类，o1和o2有自己的name属性，但第三个输出结果为false，这说明o1.sayHello和o2.sayHello指向不同内存，这样存在内存的浪费。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 方式一</span><br><span class="line">var Person = function(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.sayHello = function() &#123;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line">var o1 = &#123;&#125;, o2 = &#123;&#125;;</span><br><span class="line">Person.call(o1, &apos;jobs&apos;);</span><br><span class="line">Person.call(o2, &apos;gates&apos;);</span><br><span class="line">console.log(o1.name); // 输出jobs</span><br><span class="line">console.log(o2.name); // 输出gates</span><br><span class="line">console.log(o1.sayHello === o2.sayHello); // 输出false</span><br></pre></td></tr></table></figure>
+<p>用方式一模拟类，第三个输出结果为true，这时不存在内存浪费了，但破坏了封装，在外部也可以调用sayHello方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 方式二</span><br><span class="line">function sayHello() &#123;&#125;</span><br><span class="line">var Person = function(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.sayHello = sayHello;</span><br><span class="line">&#125;;</span><br><span class="line">var o1 = &#123;&#125;, o2 = &#123;&#125;;</span><br><span class="line">Person.call(o1, &apos;jobs&apos;);</span><br><span class="line">Person.call(o2, &apos;gates&apos;);</span><br><span class="line">console.log(o1.name); // 输出jobs</span><br><span class="line">console.log(o2.name); // 输出gates</span><br><span class="line">console.log(o1.sayHello === o2.sayHello); // 输出true</span><br></pre></td></tr></table></figure>
+<p>用方式三模拟类，通过即时函数封装作用域后，可以比较好的模拟类了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">// 方式三</span><br><span class="line">var Person = function() &#123;</span><br><span class="line">    // private，在外部无法直接调用</span><br><span class="line">    function sayHello() &#123;&#125;</span><br><span class="line">    var Person = function(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.sayHello = sayHello;</span><br><span class="line">    &#125;;</span><br><span class="line">    // public </span><br><span class="line">    return Person;</span><br><span class="line">&#125;(); // 即时函数，封装作用域</span><br><span class="line">var o1 = &#123;&#125;, o2 = &#123;&#125;;</span><br><span class="line">Person.call(o1, &apos;jobs&apos;);</span><br><span class="line">Person.call(o2, &apos;gates&apos;);</span><br><span class="line">console.log(o1.sayHello === o2.sayHello); // 输出true</span><br></pre></td></tr></table></figure>
+<p>用方式四模拟类，在即时函数封装作用域的基础上，又添加了命名空间。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 方式四</span><br><span class="line">// 模仿命名空间，可封装类库给别人使用</span><br><span class="line">var cplh = cplh || &#123;&#125;;</span><br><span class="line">// 模仿封装</span><br><span class="line">(function(g) &#123;</span><br><span class="line">    // 模仿private，没有加到Person上</span><br><span class="line">    function sayHello() &#123;&#125;</span><br><span class="line">    var Person = function(name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.sayHello = sayHello;</span><br><span class="line">    &#125;;</span><br><span class="line">    // 模仿public </span><br><span class="line">    g.Person = Person;</span><br><span class="line">&#125;)(cplh); // 加上括号来说明这是一个表达式</span><br><span class="line">// 模仿初始化</span><br><span class="line">var o1 = &#123;&#125;, o2 = &#123;&#125;;</span><br><span class="line">cplh.Person.call(o1, &apos;jobs&apos;);</span><br><span class="line">cplh.Person.call(o2, &apos;gates&apos;);</span><br><span class="line">console.log(o1.sayHello === o2.sayHello); // 输出true</span><br></pre></td></tr></table></figure>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>所有对象都有原型对象<code>__proto__</code>，只有函数对象有原型属性<code>prototype</code>，当这个函数被用作构造函数来创建实例时，该函数的原型属性(prototype)将被作为原型赋值给所有对象实例，也就达到了重用方法的作用，<strong>即所有实例的原型引用的是函数的原型属性</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var i = 5;</span><br><span class="line">var str = &apos;abc&apos;;</span><br><span class="line">var Person = function() &#123;&#125;;</span><br><span class="line">var person = new Person();</span><br><span class="line">// 所有对象都有原型对象</span><br><span class="line">i.__proto__ // 有 [Number: 0]</span><br><span class="line">str.__proto__ // 有 [String: &apos;&apos;]</span><br><span class="line">Person.__proto__ // 有 [Function]</span><br><span class="line">// 只有函数对象有原型属性</span><br><span class="line">i.prototype // undefined</span><br><span class="line">str.prototype // undefined</span><br><span class="line">Person.prototype // 有 [Object]</span><br><span class="line">// 所有实例的原型引用的是函数的原型属性</span><br><span class="line">console.log(i.__proto__ === Number.prototype) // 输出true</span><br><span class="line">console.log(str.__proto__ === String.prototype) // 输出true</span><br><span class="line">console.log(person.__proto__ === Person.prototype) // 输出true</span><br></pre></td></tr></table></figure>
+<p>在执行完 <code>var Person = function() {};</code> 语句时，会分配三块内存，Person变量的内存、function函数的内存、protptype指向对象的内存，这个对象的constructor又指向Person指向的函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var Person = function() &#123;&#125;;</span><br><span class="line">console.log(Person);</span><br><span class="line">console.log(Person.prototype); // 输出一个Object，有constructor属性</span><br><span class="line">console.log(Person.prototype.constructor === Person); // true</span><br></pre></td></tr></table></figure>
+<img src="https://fuzhongfeng.github.io/2017/07/05/javascript-base2/内存.png" title="内存">
+<p>JavaScript是动态语言，取决于运行时，不是定义时，因此下面的代码中示例一的对象o是有sayHello方法的。通过如示例二、示例三、示例四的方式给Function、String、jquery等全局函数的prototype添加方法来实现共有的新功能。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 示例一</span><br><span class="line">var o = &#123;&#125;;</span><br><span class="line">o.__proto__ = Person.prototype;</span><br><span class="line">console.log(o instanceof Person); // 输出 true</span><br><span class="line">Person.prototype.sayHello = function() &#123;&#125;;</span><br><span class="line">console.log(o.sayHello); // 输出 function() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 示例二</span><br><span class="line">Function.prototype.method = function(name,fn) &#123;</span><br><span class="line">    this.prototype[name] = fn;</span><br><span class="line">    return this;</span><br><span class="line">&#125;;</span><br><span class="line">function Person (name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;;</span><br><span class="line">Person.method(&apos;sayHello&apos;,function() &#123;</span><br><span class="line">     return &apos;Hello,&apos; + this.name;</span><br><span class="line">&#125;).method(&apos;show&apos;,function() &#123;</span><br><span class="line">     return &apos;show&apos;;</span><br><span class="line">&#125;);</span><br><span class="line">var jobs = new Person(&apos;jobs&apos;);</span><br><span class="line">console.log(&apos;Hello,jobs&apos; === jobs.sayHello()); // 输出 true</span><br><span class="line">console.log(&apos;show&apos; === jobs.show()); // 输出 true</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 示例三</span><br><span class="line">String.prototype.fill = function(id)&#123;</span><br><span class="line">    // var sql = &quot;select * from &quot; + this;</span><br><span class="line">    $.getJSON(&apos;/&apos; + this, null functon(json, textStatus)&#123;</span><br><span class="line">        var data = JSON.parse(json);</span><br><span class="line">        $(id).append(data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br><span class="line">// 给id为wellTable01的元素添加从wells表中或接口中查出的数据</span><br><span class="line">&quot;wells&quot;.fill(&apos;#wellTable01&apos;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 示例四</span><br><span class="line">(function()&#123;</span><br><span class="line">    var myMethod = function() &#123;</span><br><span class="line">        console.log(&apos;自定义方法&apos;);</span><br><span class="line">    &#125;;</span><br><span class="line">    $.prototype.myMethod = myMethod;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+<h3 id="实现类"><a href="#实现类" class="headerlink" title="实现类"></a>实现类</h3><p>利用原型实现类，注意下面方式一到方式四的区别，方式一到方式三的o对象已经有了sayHello方法，达到了重用方法的目的，但使用了<code>__proto__</code>，理论上JavaScript中是不让用的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 方式一</span><br><span class="line">// 构造函数</span><br><span class="line">var Person = function(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;;</span><br><span class="line">// 方法体</span><br><span class="line">var proto = &#123;</span><br><span class="line">    sayHello: function()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">// 创建对象</span><br><span class="line">var o = &#123;&#125;;</span><br><span class="line">// 赋值方法</span><br><span class="line">o.__proto__ = proto;</span><br><span class="line">// 初始化</span><br><span class="line">Person.call(o, &apos;jobs&apos;);</span><br><span class="line">console.log(o.sayHello);</span><br></pre></td></tr></table></figure>
+<p>方式二只是将proto作为Person的属性使用的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 方式二</span><br><span class="line">// 构造函数</span><br><span class="line">var Person = function(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;;</span><br><span class="line">// 方法体</span><br><span class="line">Person.proto = &#123;</span><br><span class="line">    sayHello: function()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">// 创建对象</span><br><span class="line">var o = &#123;&#125;;</span><br><span class="line">// 赋值方法</span><br><span class="line">o.__proto__ = Person.proto;</span><br><span class="line">// 初始化</span><br><span class="line">Person.call(o, &apos;jobs&apos;);</span><br><span class="line">console.log(o.sayHello);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 方式三</span><br><span class="line">// 构造函数</span><br><span class="line">var Person = function(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;;</span><br><span class="line">// 方法体</span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    sayHello: function()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">// 创建对象</span><br><span class="line">var o = &#123;&#125;;</span><br><span class="line">// 赋值方法</span><br><span class="line">o.__proto__ = Person.prototype;</span><br><span class="line">// 初始化</span><br><span class="line">Person.call(o, &apos;jobs&apos;);</span><br><span class="line">console.log(o.sayHello);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 方式四</span><br><span class="line">// 构造函数</span><br><span class="line">var Person = function(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;;</span><br><span class="line">// 方法体</span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    sayHello: function()&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">var o = new Person(&apos;jobs&apos;);</span><br><span class="line">console.log(Person.prototype.sayHello);</span><br></pre></td></tr></table></figure>
+<p>方式四使用new创建的对象，也就是说函数Person被用作构造函数来创建实例了，这时该函数prototype将被作为原型<code>__proto__</code>赋值给对象的实例，也就相当于如下代码。注意当函数名的第一个字母大写时，表示是用来构造对象的，不是用来执行的，该函数的prototype是给构造出来的对象用的，函数自己用不了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// var o = new Person(&apos;jobs&apos;); 等同于以下代码</span><br><span class="line">// 创建对象</span><br><span class="line">var o = &#123;&#125;;</span><br><span class="line">// 赋值方法</span><br><span class="line">o.__proto__ = Person.prototype;</span><br><span class="line">// 初始化</span><br><span class="line">Person.call(o, &apos;jobs&apos;);</span><br></pre></td></tr></table></figure>
+<p>当定义一个当函数被用作构造函时，这个函数会默认在函数体开头和结尾添加如下代码，如果函数return的不是对象，在使用new实例化对象时这个return语句会被忽略，因为需要返回一个对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Class() &#123;</span><br><span class="line">    // 默认添加</span><br><span class="line">    var this = &#123;&#125;;</span><br><span class="line">    ...</span><br><span class="line">    // 会被忽略，因为需要返回对象</span><br><span class="line">    return 1;</span><br><span class="line">    ...</span><br><span class="line">    // 默认添加</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="实现继承"><a href="#实现继承" class="headerlink" title="实现继承"></a>实现继承</h3><p>封装自己的框架，要有类、方法、复用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">function Class(options) &#123;</span><br><span class="line">    var Klass = function() &#123;</span><br><span class="line">        // 如果Class有初始化</span><br><span class="line">        if(typeof this.initialize === &apos;function&apos;)&#123;</span><br><span class="line">            this.initialize.apply(this, arguments);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    for(var attr in options) &#123;</span><br><span class="line">        Klass.prototype[attr] = options[attr];</span><br><span class="line">    &#125;</span><br><span class="line">    Klass.extends = function(proto) &#123;</span><br><span class="line">        // 定义子类</span><br><span class="line">        var Child = function() &#123;</span><br><span class="line">            Klass.apply(this, arguments);</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        // var f = &#123;&#125;;</span><br><span class="line">        // f.__proto__ = this.prototype;</span><br><span class="line">        // // 相当于上面的，不能使用__proto__</span><br><span class="line">        // var f = new Klass();</span><br><span class="line"></span><br><span class="line">        // Child.prototype = f;</span><br><span class="line"></span><br><span class="line">        // 继承基类</span><br><span class="line">        // 不能使用 Child.prototype = this.prototype; 这样extends添加的方法会影响到基类</span><br><span class="line">        var F = function() &#123;</span><br><span class="line">            /*</span><br><span class="line">            这是定义F函数的原因，如果不显示定义constructor的指向，constructor将指向Object，通过constructor已经无法确定对象的类型了。</span><br><span class="line">            这样显示定义constructor属性的在实例中是可枚举的。</span><br><span class="line">            */</span><br><span class="line">            this.constructor = Child;</span><br><span class="line">        &#125;;</span><br><span class="line">        F.prototype = this.prototype;// 继承</span><br><span class="line">        var f = new F();</span><br><span class="line">        Child.prototype = f;</span><br><span class="line"></span><br><span class="line">        // 类的实例方法</span><br><span class="line">        for(var attr2 in proto) &#123;</span><br><span class="line">            Child.prototype[attr2] = proto[attr2];</span><br><span class="line">        &#125;</span><br><span class="line">        return Child;</span><br><span class="line">    &#125;;</span><br><span class="line">    return Klass;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 方式一</span><br><span class="line">var Person1 = new Class();// 函数对象可以执行</span><br><span class="line">var jobs1 = new Person();</span><br><span class="line">// 方式二</span><br><span class="line">var Person2 = new Class(&#123;</span><br><span class="line">    show: function() &#123;&#125;</span><br><span class="line">&#125;);</span><br><span class="line">var jobs2 = new Person();</span><br><span class="line">// 方式三</span><br><span class="line">var Person3 = new Class(&#123;</span><br><span class="line">    show: function() &#123;&#125;</span><br><span class="line">&#125;);</span><br><span class="line">var Actor = Person3.extends(&#123;</span><br><span class="line">    sayHello: function()&#123;&#125;</span><br><span class="line">&#125;);</span><br><span class="line">var jobs3 = new Actor();</span><br></pre></td></tr></table></figure>
+<img src="https://fuzhongfeng.github.io/2017/07/05/javascript-base2/继承.png" title="我对继承的理解">
+<p>封装商业框架，有Model和View。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"> var Adobe = (function() &#123;</span><br><span class="line">    var Model = function() &#123;&#125;;</span><br><span class="line">    // 实例方法</span><br><span class="line">    Model.prototype = &#123;</span><br><span class="line">        constructor: Model,</span><br><span class="line">        get: function() &#123;&#125;,</span><br><span class="line">        set: function() &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 绑定作用域，在context作用域上执行func函数</span><br><span class="line">    function proxy (func, context) &#123;</span><br><span class="line">        return function() &#123;</span><br><span class="line">            func.apply(context, arguments);</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var View = function () &#123;</span><br><span class="line">        //Hack: 绑定事件，这段代码不明白</span><br><span class="line">        var events = this.events || &#123;&#125;;</span><br><span class="line">        for(var item in events)&#123;</span><br><span class="line">            var func = proxy(this[events[item]], this);</span><br><span class="line">            var reg = /(.+)\s+(.+)/;</span><br><span class="line">            var result = reg.exec(item);</span><br><span class="line">            $(result[2]).bind(result[1], func);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    View.extend = Model.extend = function(options) &#123;</span><br><span class="line">        var Parent = this;</span><br><span class="line">        // 构造函数</span><br><span class="line">        var Klass = function() &#123;</span><br><span class="line">            if(typeof this.initialize === &apos;function&apos;)&#123;</span><br><span class="line">                this.initialize.apply(this, arguments);</span><br><span class="line">            &#125;</span><br><span class="line">            Parent.apply(this, arguments);</span><br><span class="line">        &#125;;</span><br><span class="line">        // 继承</span><br><span class="line">        var F = function() &#123;</span><br><span class="line">            this.constructor = Klass;</span><br><span class="line">        &#125;;</span><br><span class="line">        F.prototype = this.prototype;</span><br><span class="line">        Klass.prototype = new F();</span><br><span class="line">        Klass.prototype.__super__ = this.prototype;</span><br><span class="line">        // 扩展</span><br><span class="line">        for(var name in options)&#123;</span><br><span class="line">            Klass.prototype[name] = options[name];</span><br><span class="line">        &#125;</span><br><span class="line">        return Klass;</span><br><span class="line">    &#125;;</span><br><span class="line">    return &#123;</span><br><span class="line">        Model: Model,</span><br><span class="line">        View: View</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line">// 使用代码</span><br><span class="line">var Todo = Adobe.Model.extend(&#123;</span><br><span class="line">    initialize: function(title) &#123;</span><br><span class="line">        if(typeof title === &apos;string&apos;)&#123;</span><br><span class="line">            this.set(&#123;title: title&#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">var todo = new Todo(&apos;Test&apos;);</span><br><span class="line">console.log(typeof todo.get === &apos;function&apos;);</span><br><span class="line">console.log(typeof todo.set === &apos;function&apos;);</span><br><span class="line">console.log(typeof todo.initialize === &apos;function&apos;);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/28/react-diff/" itemprop="url">
+                  React-Diff算法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-28T09:33:24+08:00" content="2017-06-28">
+              2017-06-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Diff算法"><a href="#Diff算法" class="headerlink" title="Diff算法"></a>Diff算法</h2><p>React.js 相对于直接操作原生DOM有很大的性能优势，很大程度上都要归功于virtual DOM的batching和diff。batching把所有的DOM操作搜集起来，一次性提交给真实的DOM。diff算法时间复杂度也从标准的的Diff算法的O(n^3)降到了O(n)。React.js将标准的的Diff算法复杂度O(n^3)直接降低到O(n)基于的假设：</p>
+<ul>
+<li>两个相同组件产生类似的DOM结构，不同的组件产生不同的DOM结构</li>
+<li>对于同一层次的一组子节点，它们可以通过唯一的id进行区分</li>
+</ul>
+<p>在比较两个React节点树时，React首先比较根元素，随后的行为取决于根元素类型：</p>
+<ul>
+<li>只要根节点类型不同，React就会销毁旧节点树，创建新节点树</li>
+<li>当节点类型相同时，React比较两者的属性，不改变DOM节点，只更新当前节点需要改变的属性</li>
+<li>如果节点需要更新样式属性，React仅会更新当前节点需要改变的样式属性</li>
+</ul>
+<p>React的Diff算法实际上只会对树进行逐层比较。在实现自己的组件时，保持稳定的DOM结构会有助于性能的提升。例如，我们有时可以通过CSS隐藏或显示某些节点，而不是真的移除或添加DOM节点。</p>
+<img src="https://fuzhongfeng.github.io/2017/06/28/react-diff/传统算法O(n^3).png" title="传统Diff算法O(n^3)">
+<img src="https://fuzhongfeng.github.io/2017/06/28/react-diff/React算法O(n).png" width="500" title="React Diff算法O(n)">
+<h2 id="key属性在diff算法中的作用"><a href="#key属性在diff算法中的作用" class="headerlink" title="key属性在diff算法中的作用"></a>key属性在diff算法中的作用</h2><p>使用浏览器的MutationObserver的功能，对页面上元素的改变进行监听，示例代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;script src=&quot;react.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;react-dom.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;jquery.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;script src=&quot;babel.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;container&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;</span><br><span class="line">        var observeMutationSupport = !!MutationObserver;</span><br><span class="line">        var changedNodes = [];</span><br><span class="line">        if(observeMutationSupport) &#123;</span><br><span class="line">            var observer = new MutationObserver(function(mutations) &#123;</span><br><span class="line">                changedNodes = mutations;</span><br><span class="line">                mutations.forEach(function(mutation)&#123;</span><br><span class="line">                    console.log(mutation);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125;);</span><br><span class="line">            var options = &#123;</span><br><span class="line">                &apos;childList&apos;: true, // 子节点的变动</span><br><span class="line">                &apos;attributes&apos;: true, // 属性的变动</span><br><span class="line">                &apos;characterData&apos;: true, // 节点内容或节点文本的变动</span><br><span class="line">                &apos;subtree&apos;: true, // 所有后代节点的变动</span><br><span class="line">                &apos;attributeOldValue&apos;: true, // 表示观察attributes变动时，是否需要记录变动前的属性值</span><br><span class="line">                &apos;characterDataOldValue&apos;: true // 表示观察characterData变动时，是否需要记录变动前的值</span><br><span class="line">            &#125;;</span><br><span class="line">            observer.observe(document.body, options);</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    &lt;script type=&quot;text/babel&quot;&gt;</span><br><span class="line">        function LifeCycle(name) &#123;</span><br><span class="line">            var obj = &#123;</span><br><span class="line">                name: name</span><br><span class="line">            &#125;;</span><br><span class="line">            for(var n in Cycle)&#123;</span><br><span class="line">                obj[n] = Cycle[n];</span><br><span class="line">            &#125;</span><br><span class="line">            return obj;</span><br><span class="line">        &#125;</span><br><span class="line">        var Cycle = &#123;</span><br><span class="line">            getInitialState: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;getInitialState&apos;);</span><br><span class="line">                return &#123;&#125;;</span><br><span class="line">            &#125;,</span><br><span class="line">            getDefaultProps: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;getDefaultProps&apos;);</span><br><span class="line">                return &#123;&#125;;</span><br><span class="line">            &#125;,</span><br><span class="line">            componentWillMount: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;componentWillMount&apos;);</span><br><span class="line">            &#125;,</span><br><span class="line">            componentDidMount: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;componentDidMount&apos;);</span><br><span class="line">            &#125;,</span><br><span class="line">            componentWillReceiveProps: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;componentWillReceiveProps&apos;);</span><br><span class="line">            &#125;,</span><br><span class="line">            shouldComponentUpdate: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;shouldComponentUpdate&apos;);</span><br><span class="line">                return true;</span><br><span class="line">            &#125;,</span><br><span class="line">            componentWillUpdate: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;componentWillUpdate&apos;);</span><br><span class="line">            &#125;,</span><br><span class="line">            componentDidUpdate: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;componentDidUpdate&apos;);</span><br><span class="line">            &#125;,</span><br><span class="line">            componentWillUnmount: function() &#123;</span><br><span class="line">                console.log(this.name, &apos;componentWillUnmount&apos;);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        // 定义Ctrip组件</span><br><span class="line">        var Ctrip = React.createClass(&#123;</span><br><span class="line">            mixins: [LifeCycle(&apos;Ctrip&apos;)],</span><br><span class="line">            render: function() &#123;</span><br><span class="line">                console.log(&apos;Ctrip&apos;, &apos;render&apos;);</span><br><span class="line">                return (</span><br><span class="line">                    &lt;ul&gt;</span><br><span class="line">                        &lt;li&gt;ctrip&lt;/li&gt;</span><br><span class="line">                        &lt;li&gt;</span><br><span class="line">                            &lt;ul&gt;</span><br><span class="line">                                &#123;this.props.children&#125;</span><br><span class="line">                            &lt;/ul&gt;</span><br><span class="line">                        &lt;/li&gt;</span><br><span class="line">                    &lt;/ul&gt;</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        // 定义Elong组件</span><br><span class="line">        var Elong = React.createClass(&#123;</span><br><span class="line">            mixins: [LifeCycle(&apos;Elong&apos;)],</span><br><span class="line">            render: function() &#123;</span><br><span class="line">                console.log(&apos;Elong&apos;, &apos;render&apos;);</span><br><span class="line">                return (</span><br><span class="line">                    &lt;li&gt;elong&lt;/li&gt;</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        // 定义Qunar组件</span><br><span class="line">        var Qunar = React.createClass(&#123;</span><br><span class="line">            mixins: [LifeCycle(&apos;Qunar&apos;)],</span><br><span class="line">            render: function() &#123;</span><br><span class="line">                console.log(&apos;Qunar&apos;, &apos;render&apos;);</span><br><span class="line">                return (</span><br><span class="line">                    &lt;li&gt;qunar&lt;/li&gt;</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        // 定义Ly组件</span><br><span class="line">        var Ly = React.createClass(&#123;</span><br><span class="line">            mixins: [LifeCycle(&apos;Ly&apos;)],</span><br><span class="line">            render: function () &#123;</span><br><span class="line">                console.log(&apos;Ly&apos;, &apos;render&apos;);</span><br><span class="line">                return (</span><br><span class="line">                    &lt;li&gt;ly&lt;/li&gt;</span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        console.log(&apos;------------first------------&apos;);</span><br><span class="line">        ReactDOM.render(</span><br><span class="line">            &lt;Ctrip&gt;&lt;Elong&gt;&lt;/Elong&gt;&lt;Qunar&gt;&lt;/Qunar&gt;&lt;/Ctrip&gt;,</span><br><span class="line">            document.getElementById(&apos;container&apos;)</span><br><span class="line">        );</span><br><span class="line">        setTimeout(function() &#123;</span><br><span class="line">            console.log(&apos;------------second------------&apos;);</span><br><span class="line">            ReactDOM.render(</span><br><span class="line">                &lt;Ctrip&gt;&lt;Elong&gt;&lt;/Elong&gt;&lt;Ly&gt;&lt;/Ly&gt;&lt;Qunar&gt;&lt;/Qunar&gt;&lt;/Ctrip&gt;,</span><br><span class="line">                document.getElementById(&apos;container&apos;)</span><br><span class="line">            );</span><br><span class="line">        &#125;, 1000);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<img src="https://fuzhongfeng.github.io/2017/06/28/react-diff/withoutKey.png" title="运行结果如图">
+<p>常规的做法就是将Elong和Qunar组件先删除，然后一次创建和插入Elong、Ly和Qunar组件。通过运行结果可以看出，在React中，Elong组件不变，先将Qunar组件进行删除，然后在创建并插入Ly组件，最后再创建并插入Qunar组件，比常规的做法省去了对Elong组件的删除操作。下面再将主逻辑代码稍作调整，给每个组件添加key属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">console.log(&apos;------------first------------&apos;);</span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Ctrip&gt;&lt;Elong key=&quot;Elong&quot;&gt;&lt;/Elong&gt;&lt;Qunar key=&quot;Qunar&quot;&gt;&lt;/Qunar&gt;&lt;/Ctrip&gt;,</span><br><span class="line">    document.getElementById(&apos;container&apos;)</span><br><span class="line">);</span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">    console.log(&apos;------------second------------&apos;);</span><br><span class="line">    ReactDOM.render(</span><br><span class="line">        &lt;Ctrip&gt;&lt;Elong key=&quot;Elong&quot;&gt;&lt;/Elong&gt;&lt;Ly key=&quot;Ly&quot;&gt;&lt;/Ly&gt;&lt;Qunar key=&quot;Qunar&quot;&gt;&lt;/Qunar&gt;&lt;/Ctrip&gt;,</span><br><span class="line">        document.getElementById(&apos;container&apos;)</span><br><span class="line">    );</span><br><span class="line">&#125;, 1000);</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<img src="https://fuzhongfeng.github.io/2017/06/28/react-diff/withKey.png" title="运行结果如图">
+<p>这次的Diff算法与之前有很大不同，Elong组件不变，Qunar组件不变，只是在Qunar组件之前创建并插入了Ly组件。可见使用key属性可提高渲染性能。</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/20/redux-saga-base1/" itemprop="url">
+                  Redux-saga-基础(未完成)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-20T11:36:03+08:00" content="2017-06-20">
+              2017-06-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Redux/" itemprop="url" rel="index">
+                    <span itemprop="name">Redux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>参考<br><a href="http://leonshi.com/redux-saga-in-chinese/index.html" target="_blank" rel="noopener">Redux-saga 中文文档</a><br><a href="https://github.com/redux-saga/redux-saga" target="_blank" rel="noopener">redux-saga</a><br><a href="https://github.com/redux-saga/redux-saga-beginner-tutorial" target="_blank" rel="noopener">redux-saga-beginner-tutorial</a> 有点简单<br><a href="https://github.com/kuy/redux-saga-chat-example" target="_blank" rel="noopener">redux-saga-chat-example</a> 有点复杂<br><a href="https://github.com/kuy/redux-saga-examples" target="_blank" rel="noopener">redux-saga-examples</a> 有好几个例子</p>
+<h2 id="Redux-saga简介"><a href="#Redux-saga简介" class="headerlink" title="Redux-saga简介"></a>Redux-saga简介</h2><p>redux-saga 是一个用于管理 Redux 应用异步操作的中间件。Sagas 是通过 Generator 函数来创建的，因为使用了 Generator，redux-saga 让你可以用同步的方式写异步代码。</p>
+<p>Sagas 不同于 Thunks，Thunks 是在 action 被创建时调用，而 Sagas 只会在应用启动时调用（但初始启动的 Sagas 可能会动态调用其他 Sagas）。 Sagas 可以被看作是在后台运行的进程。<strong>Sagas 监听发起的 action，然后决定基于这个 action 来做什么：是发起一个异步调用（比如一个 Ajax 请求），还是发起其他的 action 到 Store，甚至是调用其他的 Sagas。</strong></p>
+<p>在 redux-saga 的世界里，所有的任务都通用 yield Effects 来完成（译注：Effect 可以看作是 redux-saga 的任务单元）。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>当 Saga 启动了（不管是初始启动或是稍后动态启动），middleware 会自动将它的 take / put 连接至 store。 这 2 个 Effect 可以被看作是一种 Saga 的输入/输出（Input/Output）。</p>
+<p><strong>call</strong></p>
+<p>call 创建了一条描述结果的信息，不立即执行异步调用，还有apply，像js的call和apply，也可以使用 call Effect 进行同步调用，call 不仅可以用来调用返回 Promise 的函数。我们也可以用它来调用其他 Generator 函数，同步的<br>call 和 apply 非常适合返回 Promise 结果的函数</p>
+<p><strong>cps</strong></p>
+<p>cps 可以用来处理 Node 风格的函数，表示的是延续传递风格</p>
+<p><strong>take</strong></p>
+<p>take 就像 call 和 put，它创建另一个命令对象，告诉 middleware 等待一个特定的 action，它将会暂停 Generator 直到一个匹配的 action 被发起了</p>
+<p><strong>fork</strong></p>
+<p>fork 任务会在后台启动，调用者也可以继续它自己的流程，而不用等待被 fork 的任务结束，异步的</p>
+<p><strong>cancel</strong></p>
+<p> 如果任务仍在运行，它会被中止，如果任务已完成，那什么也不会发生。一旦任务被 fork，可以使用 yield cancel(task) 来中止任务执行。取消正在运行的任务，将抛出 SagaCancellationException 错误。未被捕获的 SagaCancellationException 不会向上冒泡。yield cancel(task) 不会等待被取消的任务完成（即执行其 catch 区块）。<br>  /<em><br>  const [users, repos] = yield [<br>    call(fetch, ‘/users’),<br>    call(fetch, ‘/repos’)<br>  ];<br>  generator 会被阻塞直到所有的 effects 都执行完毕，或者当一个 effect 被拒绝 （就像 Promise.all 的行为）
+  </em>/</p>
+<p><strong>race</strong></p>
+<p> race 同时启动多个任务，但又不想等待所有任务完成，只希望拿到胜利者，即第一个被 resolve（或 reject）的任务；它会自动取消那些失败的 Effects<br>  yield call(delay, 1000)</p>
+<p><strong>put</strong></p>
+<p>put 这个函数用于创建 dispatch Effect</p>
+<p>  使用 take 组织代码有一个小问题。在 takeEvery 的情况中，被调用的任务无法控制何时被调用， 它们将在每次 action 被匹配时一遍又一遍地被调用。并且它们也无法控制何时停止监听。<br>而在 take 的情况中，控制恰恰相反。与 action 被 推向（pushed） 任务处理函数不同，Saga 是自己主动 拉取（pulling） action 的。 看起来就像是 Saga 在执行一个普通的函数调用 action = getNextAction()，这个函数将在 action 被发起时 resolve。</p>
+<p><strong>takeEvery</strong></p>
+<p>takeEvery 在每个 action 来到时派生一个新的任务</p>
+<p><strong>takeLatest</strong></p>
+<p><strong>isCancelError</strong></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>使用redux-saga写todo</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -920,7 +1558,7 @@
             
               
                 
-                <a class="post-title-link" href="/2017/03/26/findjob-react1/" itemprop="url">
+                <a class="post-title-link" href="/2017/03/26/interview-react1/" itemprop="url">
                   React-基础知识
                 </a>
               
@@ -948,8 +1586,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/FJ/" itemprop="url" rel="index">
-                    <span itemprop="name">FJ</span>
+                  <a href="/categories/Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Interview</span>
                   </a>
                 </span>
 
@@ -1202,650 +1840,6 @@ UMD(Universal Module Definition 通用模块规范)，因为AMD，CommonJS规范
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/08/javascript-event-loop/" itemprop="url">
-                  JavaScript-事件循环
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-01-08T11:50:11+08:00" content="2017-01-08">
-              2017-01-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>参考<br><a href="http://www.jb51.net/article/56022.htm" target="_blank" rel="noopener">JavaScript运行机制之事件循环(Event Loop)详解</a><br><a href="http://www.cnblogs.com/Medeor/p/4945687.html" target="_blank" rel="noopener">从setTimeout说事件循环模型</a></p>
-<h2 id="单线程"><a href="#单线程" class="headerlink" title="单线程"></a>单线程</h2><p>JavaScript语言是单线程的，这事因为作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。这是这门语言的核心特征。</p>
-<p>为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM，并没有改变JavaScript单线程的本质。</p>
-<h2 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h2><p>单线程就意味着，所有任务需要排队，前一个任务结束，才会执行后一个任务。JavaScript就有两种执行方式：一种是CPU按顺序执行，前一个任务结束，再执行下一个任务，这叫做同步执行；另一种是CPU跳过等待时间长的任务，先处理后面的任务，这叫做异步执行。<br>异步执行的运行机制如下(同步执行也是如此，因为它可以被视为没有异步任务的异步执行)：</p>
-<ul>
-<li>所有任务(同步和异步的)都在主线程上执行，形成一个”执行栈”(execution context stack)</li>
-<li>主程之外，还存在一个”任务队列”(task queue)，系统把异步任务放到”任务队列”之中，然后继续执行后续的任务</li>
-<li>一旦”执行栈”中的所有任务执行完毕，系统就会读取”任务队列”，如果这个时候，异步任务已经结束了等待状态，就会从”任务队列”进入执行栈，恢复执行</li>
-<li>主线程不断重复上面的第三步，只要主线程空了，就会去读取”任务队列”，这就是JavaScript的运行机制</li>
-</ul>
-<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>“任务队列”实质上是一个事件的队列(也可以理解成消息的队列)，主线程读取”任务队列”，就是读取里面有哪些事件。如IO设备完成一项任务，就在”任务队列”中添加一个事件，表示相关的异步任务可以进入”执行栈”了；鼠标点击、页面滚动等只要指定过回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。</p>
-<p>所谓”回调函数”(callback)，就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当异步任务从”任务队列”回到执行栈，回调函数就会执行。</p>
-<p>Javascript执行引擎的主线程运行的时候，产生堆和栈。程序中代码依次进入栈中等待执行。栈中的代码调用各种外部API，在”任务队列”中加入各种事件，只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。执行栈中的代码，总是在读取”任务队列”之前执行。不同的操作添加到任务队列的时机也不同。</p>
-<blockquote>
-<p>onclick 由浏览器内核的DOM Binding模块来处理，当事件触发的时候，回调函数会立即添加到任务队列中。<br>setTimeout 会由浏览器内核的timer模块来进行延时处理，当时间到达的时候，才会将回调函数添加到任务队列中。<br>ajax 则会由浏览器内核的network模块来处理，在网络请求完成返回之后，才将回调添加到任务队列中。  </p>
-</blockquote>
-<p>主线程从”任务队列”中读取事件，只要执行栈一清空，”任务队列”上第一位的事件就自动返回主线程，这个过程是循环不断的，所以整个的这种运行机制又称为事件循环(Event Loop)。</p>
-<p>示例一输出结果都是4，表明程序是先运行完4次循环后，再进入setTimeout的。<br>实例二输出结果是1001，表明程序是向下执行完while循环后，再进入setTimeout的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 示例一</span><br><span class="line">for(var i = 0; i&lt;=3; i++)&#123;</span><br><span class="line">    setTimeout(function() &#123;</span><br><span class="line">        console.log(i); // 输出4</span><br><span class="line">    &#125;, 0);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 实例二</span><br><span class="line">var startDate = new Date();</span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">    var endDate = new Date();</span><br><span class="line">    console.log(endDate - startDate); // 输出1001</span><br><span class="line">&#125;, 500);</span><br><span class="line">while(new Date() - startDate &lt; 1000)&#123;&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="定时器"><a href="#定时器" class="headerlink" title="定时器"></a>定时器</h2><p>“任务队列”除了放置异步任务，还可以放置定时事件，即指定某些代码在多少时间之后执行，即到达设置的延时时间时被添加至任务队列里。定时器功能主要由setTimeout()和setInterval()这两个函数来完成，它们的内部运行机制完全一样，区别在于前者指定的代码是一次性执行，后者则为反复执行。如果将setTimeout()的第二个参数设为0，就表示当前代码执行完（执行栈清空）以后，立即执行（0毫秒间隔）指定的回调函数。</p>
-<p><strong>需要注意的是，setTimeout()只是将事件插入了”任务队列”，必须等到当前代码（执行栈）执行完，主线程才会去执行它指定的回调函数。要是当前代码耗时很长，有可能要等很久，所以并没有办法保证，回调函数一定会在setTimeout()指定的时间执行。</strong></p>
-<p>HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔），不得低于4毫秒，如果低于这个值，就会自动增加。在此之前，老版本的浏览器都将最短间隔设为10毫秒。另外，对于那些DOM的变动（尤其是涉及页面重新渲染的部分），通常不会立即执行，而是每16毫秒执行一次。这时使用requestAnimationFrame()的效果要好于setTimeout()。</p>
-<p>Node.js除了setTimeout和setInterval这两个方法，还提供了另外两个与”任务队列”有关的方法：process.nextTick和setImmediate。</p>
-<ul>
-<li>process.nextTick方法可以在当前”执行栈”的尾部，也就是主线程下一次读取”任务队列”之前，触发回调函数。也就是说，它指定的任务总是发生在所有异步任务之前。</li>
-<li>setImmediate方法则是在当前”任务队列”的尾部触发回调函数，也就是说，它指定的任务总是在主线程下一次读取”任务队列”时执行，这与setTimeout很像，但一次”事件循环”只能触发一个由setImmediate指定的回调函数。</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/26/promise-async-base/" itemprop="url">
-                  Promise-Async-基础
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-26T09:02:57+08:00" content="2016-12-26">
-              2016-12-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Promise对象"><a href="#Promise对象" class="headerlink" title="Promise对象"></a><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="noopener">Promise对象</a></h2><p>所谓Promise，简单说就是一个容器，里面保存着某个未来才会结束的事件（通常是一个异步操作）的结果。从语法上说，Promise是一个对象，从它可以获取异步操作的消息。</p>
-<p>Promise的特点：</p>
-<ul>
-<li>对象的状态不受外界影响，Pending（进行中）、Resolved（已完成，又称Fulfilled）和Rejected（已失败），任何其他操作都无法改变这个状态。<strong>这也是Promise这个名字的由来。</strong></li>
-<li>一旦状态改变，就不会再变，任何时候都可以得到这个结果，再对Promise对象添加回调函数，也会立即得到这个结果。</li>
-</ul>
-<p>Promise的缺点：</p>
-<ul>
-<li>无法取消Promise，<strong>一旦新建它就会立即执行</strong>，无法中途取消。</li>
-<li>如果不设置回调函数，Promise内部抛出的错误，不会反应到外部。</li>
-<li>当处于Pending状态时，无法得知目前进展到哪一个阶段。</li>
-</ul>
-<p><strong>如果某些事件不断地反复发生，一般来说，使用stream模式是比部署Promise更好的选择。</strong></p>
-<p>Promise对象是一个构造函数，用来生成Promise实例，它接受一个函数作为参数，该函数的两个参数分别是resolve和reject。它们是两个函数，由JavaScript引擎提供，不用自己部署。resolve函数的作用是，将Promise对象的状态从Pending变为Resolved，在异步操作成功时调用，并将异步操作的结果作为参数传递出去；reject函数的作用是，将Promise对象的状态从Pending变为Rejected，在异步操作失败时调用，并将异步操作报出的错误作为参数传递出去。Promise实例生成后，可以用then方法分别指定Resolved状态和Rejectded状态的回调函数。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var promise = new Promise(function(resolve, reject) &#123;</span><br><span class="line">  // ... some code</span><br><span class="line">  if (/* 异步操作成功 */)&#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">promise.then(function(value) &#123;</span><br><span class="line">  // success</span><br><span class="line">&#125;, function(error) &#123;</span><br><span class="line">  // failure</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>then方法指定的回调函数，将在当前脚本所有同步任务执行完才会执行。<br>resolve函数的参数除了正常的值以外，还可能是另一个Promise实例，形式如下。这时p1的状态就会传递给p2，也就是说，p1的状态决定了p2的状态。如果p1的状态是Pending，那么p2的回调函数就会等待p1的状态改变；如果p1的状态已经是Resolved或者Rejected，那么p2的回调函数将会立刻执行。由于p2返回的是另一个Promise，所以后面的then语句都变成针对p1了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var p1 = new Promise(function (resolve, reject) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">var p2 = new Promise(function (resolve, reject) &#123;</span><br><span class="line">  // ...</span><br><span class="line">  resolve(p1);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">p2.then(function(value) &#123;</span><br><span class="line">  // success</span><br><span class="line">&#125;, function(error) &#123;</span><br><span class="line">  // failure</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>如果异步操作抛出错误，状态就会变为Rejected，就会调用catch方法指定的回调函数，处理这个错误。另外，then方法指定的回调函数，如果运行中抛出错误，也会被catch方法捕获。Promise对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个catch语句捕获。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">promise.then(function(posts) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;).catch(function(error) &#123;</span><br><span class="line">  // 处理 getJSON 和 前一个回调函数运行时发生的错误</span><br><span class="line">  console.log(&apos;发生错误！&apos;, error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>跟传统的try/catch代码块不同的是，如果没有使用catch方法指定错误处理的回调函数，Promise对象抛出的错误不会传递到外层代码，即不会有任何反应。<br><strong>需要注意的是，catch方法返回的还是一个Promise对象，因此后面还可以接着调用then方法。如果没有报错，则会跳过catch方法。</strong></p>
-<p>Node 有一个unhandledRejection事件，专门监听未捕获的reject错误。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 第一个参数是错误对象，第二个参数是报错的Promise实例</span><br><span class="line">process.on(&apos;unhandledRejection&apos;, function (err, p) &#123;</span><br><span class="line">  console.error(err.stack)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>Promise.all方法用于将多个Promise实例，包装成一个新的Promise实例。p1、p2、p3都是Promise对象的实例，如果不是，就会先调用Promise.resolve方法将参数转为Promise实例。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var p = Promise.all([p1, p2, p3]);</span><br></pre></td></tr></table></figure></p>
-<p>p的状态由p1、p2、p3决定：</p>
-<ul>
-<li>只有p1、p2、p3的状态都变成resolved，p的状态才会变成resolved，此时p1、p2、p3的返回值组成一个数组，传递给p的回调函数。</li>
-<li>只要p1、p2、p3之中有一个被rejected，p的状态就变成rejected，此时第一个被reject的实例的返回值，会传递给p的回调函数。</li>
-</ul>
-<p>Promise.race方法同样是将多个Promise实例，包装成一个新的Promise实例。该方法与Promise.all类似，区别是只要p1、p2、p3之中有一个实例率先改变状态，p的状态就跟着改变，那个率先改变的 Promise 实例的返回值，就传递给p的回调函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var p = Promise.race([p1, p2, p3]);</span><br></pre></td></tr></table></figure></p>
-<p>Promise.resolve方法将现有对象转为Promise对象：</p>
-<ul>
-<li>如果参数是Promise实例，那么Promise.resolve将不做任何修改、原封不动地返回这个实例。</li>
-<li>如果参数是一个thenable对象（thenable对象指的是具有then方法的对象），那么Promise.resolve将这个对象转为Promise对象，然后就立即执行thenable对象的then方法。</li>
-<li>如果参数是一个原始值，或者是一个不具有then方法的对象，则Promise.resolve方法返回一个新的Promise对象，状态为Resolved。</li>
-<li>如果不带任何参数，直接返回一个Resolved状态的Promise对象。</li>
-</ul>
-<p><strong>注意，立即resolve的Promise对象，是在本轮“事件循环”的结束时执行，setTimeout(fn, 0)在下一轮“事件循环”开始时执行。</strong></p>
-<p>Promise.reject(reason)方法也会返回一个新的Promise实例，该实例的状态为rejected。它的参数用法与Promise.resolve方法完全一致。</p>
-<p>Promise对象的回调链，不管以then方法或catch方法结尾，要是最后一个方法抛出错误，都有可能无法捕捉到。因此，可以提供一个done方法，总是处于回调链的尾端，保证抛出任何可能出现的错误。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Promise.prototype.done = function (onFulfilled, onRejected) &#123;</span><br><span class="line">  this.then(onFulfilled, onRejected)</span><br><span class="line">    .catch(function (reason) &#123;</span><br><span class="line">      // 抛出一个全局错误</span><br><span class="line">      setTimeout(() =&gt; &#123; throw reason &#125;, 0);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>finally方法用于指定不管Promise对象最后状态如何，都会执行的操作。它与done方法的最大区别，它接受一个普通的回调函数作为参数，该函数不管怎样都必须执行。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Promise.prototype.finally = function (callback) &#123;</span><br><span class="line">  let P = this.constructor;</span><br><span class="line">  return this.then(</span><br><span class="line">    value  =&gt; P.resolve(callback()).then(() =&gt; value),</span><br><span class="line">    reason =&gt; P.resolve(callback()).then(() =&gt; &#123; throw reason &#125;)</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>如果不知道或者不想区分函数f是同步函数还是异步操作，但是想用 Promise 来处理它，像下面这样，会有一个缺点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Promise.resolve().then(f)</span><br></pre></td></tr></table></figure></p>
-<p>上面的写法有一个缺点，就是如果f是同步函数，那么它会在本轮事件循环的末尾执行。</p>
-<p>让同步函数同步执行，异步函数异步执行，并且让它们具有统一的 API，有两种方式：</p>
-<ul>
-<li>用async函数，但是<code>async () =&gt; f()</code>会吃掉f()抛出的错误，需要使用promise.catch方法。</li>
-<li>使用new Promise()。</li>
-</ul>
-<p>但是Promise.try为所有操作提供了统一的处理机制，所以如果想用then方法管理流程，最好都用Promise.try包装一下。</p>
-<h2 id="异步操作和Async函数"><a href="#异步操作和Async函数" class="headerlink" title="异步操作和Async函数"></a><a href="http://es6.ruanyifeng.com/#docs/async" target="_blank" rel="noopener">异步操作和Async函数</a></h2><h3 id="异步操作"><a href="#异步操作" class="headerlink" title="异步操作"></a>异步操作</h3><p>异步编程的四种方式：回调函数、事件监听、发布/订阅、Promise。</p>
-<p>为什么Node约定，回调函数的第一个参数，必须是错误对象err（如果没有错误，该参数就是null）？原因是执行分成两段，第一段执行完以后，任务所在的上下文环境就已经结束了，在这以后抛出的错误，原来的上下文环境已经无法捕捉，只能当作参数，传入第二段。</p>
-<p>回调函数在多个回调函数嵌套时，代码不是纵向发展，而是横向发展，很快就会乱成一团，无法管理，称为”回调函数地狱”。Promise对象就是为了解决这个问题而提出的，将回调函数的嵌套，改成链式调用。</p>
-<p>Promise的写法只是回调函数的改进，使用then方法以后，异步任务的两段执行看得更清楚了，除此以外，并无新意。Promise的最大问题是代码冗余，不管什么操作，一眼看去都是一堆then，原来的语义变得很不清楚。</p>
-<p>Generator函数可以暂停执行和恢复执行，这是它能封装异步任务的根本原因。除此之外，它还有两个特性，使它可以作为异步编程的完整解决方案：函数体内外的数据交换和错误处理机制。</p>
-<p>使用Generator函数，执行一个异步任务。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var fetch = require(&apos;node-fetch&apos;);</span><br><span class="line"></span><br><span class="line">function* gen()&#123;</span><br><span class="line">  var url = &apos;https://api.github.com/users/github&apos;;</span><br><span class="line">  var result = yield fetch(url);</span><br><span class="line">  console.log(result.bio);</span><br><span class="line">&#125;</span><br><span class="line">/*</span><br><span class="line"> * 执行Generator函数，获取遍历器对象，然后用next方法执行异步任务的第一阶段。</span><br><span class="line"> * 由于Fetch模块返回的是一个Promise对象，因此要用then方法调用下一个next方法。</span><br><span class="line"> */</span><br><span class="line">var g = gen();</span><br><span class="line">var result = g.next();</span><br><span class="line">result.value.then(function(data)&#123;</span><br><span class="line">  return data.json();</span><br><span class="line">&#125;).then(function(data)&#123;</span><br><span class="line">  g.next(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>Thunk函数现在可以用于Generator函数的自动流程管理。下面就是一个基于Thunk函数的Generator执行器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function run(fn) &#123;</span><br><span class="line">  var gen = fn();</span><br><span class="line">  // next函数是Thunk的回调函数</span><br><span class="line">  function next(err, data) &#123;</span><br><span class="line">    var result = gen.next(data);</span><br><span class="line">    if (result.done) return;</span><br><span class="line">    result.value(next);</span><br><span class="line">  &#125;</span><br><span class="line">  next();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function* g() &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line">run(g);</span><br></pre></td></tr></table></figure>
-<h3 id="Async函数"><a href="#Async函数" class="headerlink" title="Async函数"></a>Async函数</h3><p>从语法上看，async函数就是将Generator函数的星号（*）替换成async，将yield替换成await。async函数返回一个Promise对象，可以使用then方法添加回调函数。当函数执行的时候，一旦遇到await就会先返回，等到触发的异步操作完成，再接着执行函数体内后面的语句。</p>
-<p>async函数对 Generator 函数的改进，体现在以下四点：</p>
-<ul>
-<li>内置执行器。Generator函数的执行必须靠执行器，所以才有了co模块，而async函数自带执行器。</li>
-<li>更好的语义。async表示函数里有异步操作，await表示紧跟在后面的表达式需要等待结果。</li>
-<li>更广的适用性。co模块约定，yield命令后面只能是Thunk函数或Promise对象，而async函数的await命令后面，可以是Promise对象和原始类型的值。</li>
-<li>返回值是 Promise。async函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。</li>
-</ul>
-<p>async函数的语法规则总体上比较简单，难点是错误处理机制：</p>
-<ul>
-<li>async函数返回一个Promise对象。async函数内部return语句返回的值，会成为then方法回调函数的参数。async函数内部抛出错误，会导致返回的Promise对象变为reject状态，抛出的错误对象会被catch方法回调函数接收到。</li>
-<li>async函数返回的Promise对象，必须等到内部所有await命令的Promise对象执行完，才会发生状态改变，除非遇到return语句或者抛出错误。也就是说，只有async函数内部的异步操作执行完，才会执行then方法指定的回调函数。</li>
-<li>正常情况下，await命令后面是一个Promise对象。如果不是，会被转成一个立即resolve的Promise对象。await命令后面的Promise对象如果变为reject状态，则reject的参数会被catch方法的回调函数接收到。</li>
-<li>只要一个await语句后面的Promise变为reject，那么整个async函数都会中断执行。为了避免这个问题，可以将await放在try…catch结构里面，这样后面的await就会执行；另一种方法是await后面的Promise对象再跟一个catch方法，处理前面可能出现的错误。</li>
-</ul>
-<p>async函数的实现：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">async function fn(args)&#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 等同于</span><br><span class="line">function fn(args)&#123;</span><br><span class="line">  return spawn(function*() &#123;</span><br><span class="line">    // ...</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line">function spawn(genF) &#123;</span><br><span class="line">  return new Promise(function(resolve, reject) &#123;</span><br><span class="line">    var gen = genF();</span><br><span class="line">    function step(nextF) &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        var next = nextF();</span><br><span class="line">      &#125; catch(e) &#123;</span><br><span class="line">        return reject(e);</span><br><span class="line">      &#125;</span><br><span class="line">      if(next.done) &#123;</span><br><span class="line">        return resolve(next.value);</span><br><span class="line">      &#125;</span><br><span class="line">      Promise.resolve(next.value).then(function(v) &#123;</span><br><span class="line">        step(function() &#123; return gen.next(v); &#125;);</span><br><span class="line">      &#125;, function(e) &#123;</span><br><span class="line">        step(function() &#123; return gen.throw(e); &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    step(function() &#123; return gen.next(undefined); &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>async 函数的用法：</p>
-<hr>
-<p>如果某些事件不断地反复发生，一般来说，使用stream模式是比部署Promise更好的选择。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/06/webpack-base/" itemprop="url">
-                  Webpack-基础
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-06T20:14:17+08:00" content="2016-11-06">
-              2016-11-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">Webpack</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="前端模块管理器简介"><a href="#前端模块管理器简介" class="headerlink" title="前端模块管理器简介"></a><a href="http://www.ruanyifeng.com/blog/2014/09/package-management.html" target="_blank" rel="noopener">前端模块管理器简介</a></h2><p>浏览器本身并不提供模块管理的机制，为了调用各个模块，有时不得不在网页中，加入一大堆script标签。这样就使得网页体积臃肿，难以维护，还产生大量的HTTP请求，拖慢显示速度，影响用户体验。<br>为了解决这个问题，前端的模块管理器（package management）应运而生。它可以轻松管理各种JavaScript脚本的依赖关系，自动加载各个模块，使得网页结构清晰合理。不夸张地说，将来所有的前端JavaScript项目，应该都会采用这种方式开发。</p>
-<h2 id="Webpack介绍"><a href="#Webpack介绍" class="headerlink" title="Webpack介绍"></a>Webpack介绍</h2><p><a href="http://webpack.github.io/docs/" target="_blank" rel="noopener">官网</a><br><a href="http://zhaoda.net/webpack-handbook/" target="_blank" rel="noopener">Webpack 中文指南</a><br><a href="https://fakefish.github.io/react-webpack-cookbook/Introduction-to-Webpack.html" target="_blank" rel="noopener">Webpack 介绍</a><br><a href="http://www.07net01.com/2015/08/890558.html" target="_blank" rel="noopener">webpack学习笔记</a><br><a href="http://webpack.github.io/docs/tutorials/getting-started/" target="_blank" rel="noopener">快速上手</a><br><a href="http://www.cnblogs.com/vajoy/p/4650467.html" target="_blank" rel="noopener">一小时包教会</a><br><a href="https://github.com/petehunt/webpack-howto" target="_blank" rel="noopener">webpack-howto</a><br><a href="https://web-design-weekly.com/2014/09/24/diving-webpack/" target="_blank" rel="noopener">Diving into Webpack</a>  <a href="http://www.christianalfoni.com/articles/2014_12_13_Webpack-and-react-is-awesome" target="_blank" rel="noopener">Webpack and React is awesome</a><br><a href="https://christianalfoni.github.io/react-webpack-cookbook/index.html" target="_blank" rel="noopener">React Webpack cookbook</a><br><a href="https://github.com/ruanyf/webpack-demos" target="_blank" rel="noopener">webpack-demos</a></p>
-<p>Webpack是近期最火的一款模块加载器兼模块打包工具，主要是用来打包在浏览器端使用的javascript，同时也能转换、捆绑、打包其它的静态资源，例如JS（含JSX）、coffee、样式（含less/sass）、图片等都作为模块来使用和处理，输出的静态文件只剩下js与png，而css、less、jade其他的文件都合并到了js中。<br>Webpack主要解决如何在一个大规模的代码库中，维护各种模块资源的分割和存放，维护它们之间的依赖关系，并且无缝的将它们整合到一起生成适合浏览器端请求加载的静态资源。<br>Webpack中涉及路径配置最好使用绝对路径，建议通过<code>path.resolve(__dirname, &quot;app/folder&quot;)</code>或<code>path.join(__dirname, &quot;app&quot;, &quot;folder&quot;)</code>的方式来配置，以兼容 Windows 环境。   </p>
-<p><strong>特点：</strong></p>
-<ul>
-<li>代码拆分、Loader、智能解析、插件系统、快速运行。</li>
-</ul>
-<p><strong>优点:</strong>  </p>
-<ul>
-<li>webpack 是以 commonJS 的形式来书写脚本的，但对 AMD/CMD 的支持也很全面  </li>
-<li>直接使用 require(XXX) 的形式来引入各模块，即使它们可能需要经过编译  </li>
-<li>能被模块化的不仅仅是 JS 了  </li>
-<li>开发便捷，比如打包、压缩混淆、图片转base64等  </li>
-<li>扩展性强，插件机制完善，特别是支持 React 热插拔（见 react-hot-loader ）</li>
-<li>可以使用别名（alias），简化require中的内容  </li>
-<li>支持多入口  </li>
-</ul>
-<h2 id="Webpack安装"><a href="#Webpack安装" class="headerlink" title="Webpack安装"></a>Webpack安装</h2><p>全局安装：<code>npm install webpack -g</code><br>当然如果常规项目还是把依赖写入 package.json 包去更人性化：<br><code>npm init</code><br><code>npm install webpack --save-dev</code>  </p>
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a><a href="http://webpack.github.io/docs/configuration.html" target="_blank" rel="noopener">配置文件</a></h2><p>示例代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">var webpack = require(&apos;webpack&apos;);</span><br><span class="line">// 用于提取多个入口文件的公共脚本部分，然后生成一个 common.js 来方便多页面之间进行复用。</span><br><span class="line">// 注意html中引入时先引入common.js，再引入index.s</span><br><span class="line">var commonsPlugin = new webpack.optimize.CommonsChunkPlugin(&apos;common.js&apos;);</span><br><span class="line">// 定义全局变量</span><br><span class="line">var data = &apos;hello world&apos;;</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    // 插件项</span><br><span class="line">    plugins: [commonsPlugin],</span><br><span class="line">    // 页面入口文件配置</span><br><span class="line">    entry: &#123;</span><br><span class="line">        index : &apos;./src/js/page/index.js&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 入口文件输出配置</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: &apos;dist/js/page&apos;,</span><br><span class="line">        filename: &apos;[name].js&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    module: &#123;</span><br><span class="line">        // 加载器配置</span><br><span class="line">        loaders: [</span><br><span class="line">            &#123; test: /\.css$/, loader: &apos;style-loader!css-loader?modules&apos; &#125;,// 样式开启局部作用域，如果要定义全局作用域 :global(选择器) &#123;样式&#125;</span><br><span class="line">            &#123; test: /\.js$/, loader: &apos;jsx-loader?harmony&apos; &#125;,</span><br><span class="line">            &#123; test: /\.scss$/, loader: &apos;style!css!sass?sourceMap&apos;&#125;,</span><br><span class="line">            &#123; test: /\.(png|jpg)$/, loader: &apos;url-loader?limit=8192&apos;&#125;,</span><br><span class="line">            &#123; test: /\.js[x]?$/, exclude: /node_modules/, loader: &apos;babel-loader?presets[]=es2015&amp;presets[]=react&apos;&#125;,</span><br><span class="line">            &#123; test: /\.jsx?$/, exclude: /node_modules/, loader: &apos;babel&apos;, query: &#123; presets: [&apos;es2015&apos;, &apos;react&apos;] &#125; &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    //其它解决方案配置</span><br><span class="line">    resolve: &#123;</span><br><span class="line">        // 查找module的话从这里开始查找</span><br><span class="line">        root: &apos;E:/github/flux-example/src&apos;, // 绝对路径</span><br><span class="line">        // 自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名</span><br><span class="line">        extensions: [&apos;&apos;, &apos;.js&apos;, &apos;.json&apos;, &apos;.scss&apos;],</span><br><span class="line">        // 模块别名定义，方便后续直接引用别名，无须多写长长的地址</span><br><span class="line">        alias: &#123;</span><br><span class="line">            AppStore : &apos;js/stores/AppStores.js&apos;,// 后续直接 require(&apos;AppStore&apos;) 即可</span><br><span class="line">            ActionType : &apos;js/actions/ActionType.js&apos;,</span><br><span class="line">            AppAction : &apos;js/actions/AppAction.js&apos;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    externals: &#123;</span><br><span class="line">        // 定义全局变量，index.html中需引入data.js，即可直接使用require(&apos;data&apos;)</span><br><span class="line">        &apos;data&apos;: &apos;data&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>context：处理entry选项时的基础路径（绝对路径），默认值为process.cmd()，即webpack.config.js文件所在路径。  </li>
-<li>entry：配置入口文件，值可以是字符串、数组、对象；字符串指定的模块在项目程序启动的时候加载；字符串数组指定的所有模块被当做一个模块集，在项目程序启动的时候都会加载，数组最后一个元素作为模块集输出；对象的每个属性名作为模块集的名称，属性值可以是字符串和字符串数组。这个配置可用于实现非单页的程序，程序会有多个启动入口。  </li>
-<li>output.filename：打包后的文件名 ‘[name].js’，表示name为对应entry的键。  </li>
-<li>output.path：打包文件存放的绝对路径。  </li>
-<li>output.publicPath：网站运行时的访问路径，比如publicPath为”/test”，访问localhost:8080/test/bundle.js可访问编译后的文件。  </li>
-<li>module.loaders：值为一个数组，数组的每一个元素是一个对象，对象里可有text、exclude、loader以“！”分隔多个loader的string、loaders是一个字符串数组；加载器配置，以处理非javascript类型的模块，都需要先安装。  </li>
-<li>module.noParse：值为一个数组，声明这个模块不需要parse查找依赖，忽略对已知文件的解析。告诉当webpack尝试去解析压缩文件时，这种行为是不允许的。  </li>
-<li>plugins：值为一个数组，<code>new webpack.optimize.CommonsChunkPlugin(&#39;common.js&#39;)</code>表示提取多个入口文件的公共脚本部分生成一个 common.js。注意引入时先引入common.js，再引入index.s。如压缩打包的文件(UglifyJsPlugin)、允许错误不打断程序等。  </li>
-<li>resolve.root：绝对路径，查找module的话从这里开始查找。添加默认搜索路径。  </li>
-<li>resolve.extensions：自动扩展文件后缀名，意味着我们require模块可以省略不写后缀名。  </li>
-<li>resolve.alias：模块别名定义，方便后续直接引用别名，无须多写长长的地址；告诉webpack，当引入react时，试图去匹配压缩过的react。  </li>
-<li>externals：当我们想在项目中require一些其它的类库或者API，而又不想让这些类库的源码被构建到运行时文件中，这在实际开发中很有必要。<code>externals: {&quot;jquery&quot;: &quot;jQuery&quot;}</code>，这样我们就可以放心的在项目中使用这些API了：<code>var jQuery = require(&quot;jquery&quot;)</code>。如果你想将react分离，不打包到一起，可以使用externals。然后用<code>&lt;script&gt;</code>单独将react引入。  </li>
-<li>devtool：就是生成sourcemap的不同方式，eval不支持IE8，推荐用source-map，开发环境常用eval-source-map。  </li>
-<li>debug：加载器(loader)转换到调试模式。  </li>
-<li>catch：缓存生成的模块，watch 模式下默认就是启动的。  </li>
-</ul>
-<p><a href="http://webpack.github.io/docs/list-of-loaders.html" target="_blank" rel="noopener">常用Loader</a><br><a href="http://webpack.github.io/docs/list-of-plugins.html" target="_blank" rel="noopener">常用plugin</a></p>
-<p><strong>常用命令:</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">webpack    // 执行webpack.config.js文件</span><br><span class="line">webpack --display-error-details //方便出错时能查阅更详尽的信息</span><br><span class="line">webpack --config XXX.js   //使用另一份配置文件（比如webpack.config2.js）来打包</span><br><span class="line">webpack --watch   //监听变动并自动打包</span><br><span class="line">webpack -p    //压缩混淆脚本，这个非常非常重要！</span><br><span class="line">webpack -d    //生成map映射文件，告知哪些模块被最终打包到哪里了</span><br></pre></td></tr></table></figure></p>
-<h2 id="webpack-dev-server"><a href="#webpack-dev-server" class="headerlink" title="webpack-dev-server"></a>webpack-dev-server</h2><p>命令：<code>webpack-dev-server --devtool eval --progress --colors --hot --content-base dist</code><br>webpack-dev-server  //启动一个小的express Web服务，8080端口<br>–devtool eval   //为你的代码创建源地址。当有任何报错的时候可以让你更加精确地定位到文件和行号<br>–progress // 显示合并代码进度<br>–colors - Yay //命令行中显示颜色！<br>–content-base build // 指向设置的输出目录，这样不能访问其它路径的文件了<br>–history-api-fallback // 这样在浏览器中直接输入url才不会报Cannot GET<br>–inline // 自动刷新页面<br>–hot // 启动热替换  </p>
-<p>当运行 webpack-dev-server 的时候，它会监听你的文件修改。当项目重新合并之后，会通知浏览器刷新。为了能够触发这样的行为，你需要把你的 index.html 放到 build/ 文件夹下。可访问<code>http://localhost:8080/webpack-dev-server/bundle</code>或<br><code>http://localhost:8080/webpack-dev-server/index.html</code>。注意，访问带webpack-dev-server的url会自动刷新，直接访问localhost:8080的可能不刷新。</p>
-<h2 id="配置webpack-dev-server代理"><a href="#配置webpack-dev-server代理" class="headerlink" title="配置webpack-dev-server代理"></a>配置webpack-dev-server代理</h2><h2 id="自动编译并刷新页面"><a href="#自动编译并刷新页面" class="headerlink" title="自动编译并刷新页面"></a>自动编译并刷新页面</h2><p>index.html 放到 build/ 文件夹下<br>Index.html中添加 <code>&lt;script src=&quot;http://localhost:8080/webpack-dev-server.js&quot;&gt;&lt;/script&gt;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry: [</span><br><span class="line">    &apos;webpack/hot/dev-server&apos;,</span><br><span class="line">    &apos;webpack-dev-server/client?http://localhost:8080&apos;,</span><br><span class="line">    path.resolve(__dirname, &apos;app/main.js&apos;)</span><br><span class="line">],</span><br></pre></td></tr></table></figure></p>
-<p>命令：webpack-dev-server –hot<br>当Webpack-dev-server在浏览器自动刷新下运行的时候，CSS也会自动更新，不过有点不同的是，当你改变了一个 CSS 文件，属于那个文件的标签会更新新的内容但不会刷新。<br>注意，访问带webpack-dev-server的url会自动刷新，直接访问localhost:8080的可能不刷新。</p>
-<h2 id="独立打包样式文件"><a href="#独立打包样式文件" class="headerlink" title="独立打包样式文件"></a>独立打包样式文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var ExtractTextPlugin = require(&quot;extract-text-webpack-plugin&quot;);</span><br><span class="line">// webpack.config.js 中</span><br><span class="line">...</span><br><span class="line">plugins: [</span><br><span class="line">  ...</span><br><span class="line">  new ExtractTextPlugin(&quot;[name].css&quot;), // 如果只有一个 style.css 就行</span><br><span class="line">],</span><br><span class="line">loaders:[</span><br><span class="line">  ...</span><br><span class="line">  &#123;</span><br><span class="line">    test: /\.less$/,</span><br><span class="line">    loader: ExtractTextPlugin.extract(&apos;style-loader&apos;, &apos;css-loader!less-loader&apos;,&#123; publicPath: &apos;./&apos;&#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
-<h2 id="CSS压缩、去重"><a href="#CSS压缩、去重" class="headerlink" title="CSS压缩、去重"></a>CSS压缩、去重</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">const OptimizeCssAssetsPlugin = require(&apos;optimize-css-assets-webpack-plugin&apos;);</span><br><span class="line">// webpack.config.js 中</span><br><span class="line">...</span><br><span class="line">plugins: [</span><br><span class="line">  ...</span><br><span class="line">  new OptimizeCssAssetsPlugin(&#123;</span><br><span class="line">    assetNameRegExp: /\.css$/g,</span><br><span class="line">    cssProcessor: require(&apos;cssnano&apos;),</span><br><span class="line">    cssProcessorOptions: &#123; discardComments: &#123;removeAll: true &#125; &#125;,</span><br><span class="line">    canPrint: true</span><br><span class="line">  &#125;),</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
-<h2 id="分离应用和第三方"><a href="#分离应用和第三方" class="headerlink" title="分离应用和第三方"></a>分离应用和第三方</h2><p>当你的应用依赖其他库尤其是像 ReactJS 这种大型库的时候，你需要考虑把这些依赖分离出去，这样就能够让用户在你更新应用之后不需要再次下载第三方文件。记住要把这些文件都加入到你的 HTML 代码中，不然你会得到一个错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">entry: &#123;</span><br><span class="line">    app: path.resolve(__dirname, &apos;app/main.js&apos;),</span><br><span class="line">    // 当 React 作为一个 node 模块安装的时候，</span><br><span class="line">    // 我们可以直接指向它，就比如 require(&apos;react&apos;)</span><br><span class="line">    vendors: [&apos;react&apos;, &apos;react-dom&apos;, &apos;jquery&apos;]</span><br><span class="line">&#125;,</span><br><span class="line">plugins: [</span><br><span class="line">    ...</span><br><span class="line">    new webpack.optimize.CommonsChunkPlugin(&apos;vendors&apos;, &apos;vendors.js&apos;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<h2 id="代码压缩"><a href="#代码压缩" class="headerlink" title="代码压缩"></a>代码压缩</h2><p>webpack打包后的文件可能会很大，生成环境应该去掉注释及依赖的copyright信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">plugins: [</span><br><span class="line">  ...</span><br><span class="line">  new webpack.optimize.UglifyJsPlugin(&#123;</span><br><span class="line">    output: &#123;</span><br><span class="line">      comments: false,</span><br><span class="line">    &#125;,</span><br><span class="line">    compress: &#123;</span><br><span class="line">      warnings: false,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<h2 id="多重入口"><a href="#多重入口" class="headerlink" title="多重入口"></a>多重入口</h2><p>你的应用可能有多个路径， 就是应用中有两个或者多个 URL 相应不同的页面，这里就是提供这样的解决方案。可能你有一个普通用户页和一个管理员页，他们共享了很多代码，但是不想在普通用户页中加载所有管理员页的代码，所以好方案是使用多重入口。</p>
-<h2 id="生成html、打开浏览器"><a href="#生成html、打开浏览器" class="headerlink" title="生成html、打开浏览器"></a>生成html、打开浏览器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var HtmlwebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line">var OpenBrowserPlugin = require(&apos;open-browser-webpack-plugin&apos;);</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &apos;./main.js&apos;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        filename: &apos;bundle.js&apos;</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        new HtmlwebpackPlugin(&#123;</span><br><span class="line">            title: &apos;Webpack-demos&apos;,</span><br><span class="line">            filename: &apos;index.html&apos;</span><br><span class="line">        &#125;),</span><br><span class="line">        new OpenBrowserPlugin(&#123;</span><br><span class="line">            url: &apos;http://localhost:8080&apos;</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="在开发环境使用的代码"><a href="#在开发环境使用的代码" class="headerlink" title="在开发环境使用的代码"></a>在开发环境使用的代码</h2><p>main.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.write(<span class="string">'&lt;h1&gt;Hello World&lt;/h1&gt;'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">  <span class="built_in">document</span>.write(<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>webpack.config.js</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> devFlagPlugin = <span class="keyword">new</span> webpack.DefinePlugin(&#123;</span><br><span class="line">  __DEV__: <span class="built_in">JSON</span>.stringify(<span class="built_in">JSON</span>.parse(process.env.DEBUG || <span class="string">'false'</span>))</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [devFlagPlugin]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Linux &amp; Mac</span></span><br><span class="line">$ env DEBUG=<span class="literal">true</span> webpack-dev-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># Windows</span></span><br><span class="line">$ <span class="built_in">set</span> DEBUG=<span class="literal">true</span></span><br><span class="line">$ webpack-dev-server</span><br></pre></td></tr></table></figure>
-<h2 id="代码分割"><a href="#代码分割" class="headerlink" title="代码分割"></a>代码分割</h2><p>方式一</p>
-<p>使用<code>require.ensure</code>定义一个分割点，<code>require.ensure</code>会告诉webpack被引入的文件要编译成单独的文件，与编译输出文件bundle.js分开，index.html和weback.config.js都不需要修改。从表面上也看不出有什么不同，实际上webpack把main.js和a.js编译成不同的块bundle.js和1.bundle.js，并在bundle.js需要1.bundle.js时才加载。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// a.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="string">'Hello World'</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="built_in">require</span>.ensure([<span class="string">'./a'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">require</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> content = <span class="built_in">require</span>(<span class="string">'./a'</span>);</span><br><span class="line">  <span class="built_in">document</span>.open();</span><br><span class="line">  <span class="built_in">document</span>.write(<span class="string">'&lt;h1&gt;'</span> + content + <span class="string">'&lt;/h1&gt;'</span>);</span><br><span class="line">  <span class="built_in">document</span>.close();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// index.html</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>如果要配合react-router使用，示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const app = (location, callback) =&gt; &#123;</span><br><span class="line">    require.ensure([], require =&gt; &#123;</span><br><span class="line">        callback(null, require(&apos;./containers/App&apos;).default)</span><br><span class="line">    &#125;, &apos;app&apos;)</span><br><span class="line">&#125;;</span><br><span class="line">...</span><br><span class="line">&lt;Route getComponent=&#123;app&#125; /&gt;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>方式二</p>
-<p>使用<code>bundle-loader</code></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">var</span> load = <span class="built_in">require</span>(<span class="string">'bundle-loader!./a.js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// You need to async wait until a.js is available (and get the exports)</span></span><br><span class="line">load(<span class="function"><span class="keyword">function</span>(<span class="params">file</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">document</span>.open();</span><br><span class="line">  <span class="built_in">document</span>.write(<span class="string">'&lt;h1&gt;'</span> + file + <span class="string">'&lt;/h1&gt;'</span>);</span><br><span class="line">  <span class="built_in">document</span>.close();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="提取供应商模块"><a href="#提取供应商模块" class="headerlink" title="提取供应商模块"></a>提取供应商模块</h2><p>可以使用<code>CommonsChunkPlugin</code>提取供应商库到单独的文件中。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">var</span> $ = <span class="built_in">require</span>(<span class="string">'jquery'</span>);</span><br><span class="line">$(<span class="string">'h1'</span>).text(<span class="string">'Hello World'</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// index.html</span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"vendor.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: <span class="string">'./main.js'</span>,</span><br><span class="line">    vendor: [<span class="string">'jquery'</span>],</span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(<span class="comment">/* chunkName= */</span><span class="string">'vendor'</span>, <span class="comment">/* filename= */</span><span class="string">'vendor.js'</span>)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>如果想在其它文件使用一个模块又不想使用require引入，如使用$和jQuery但是不用<code>require(&#39;jquery&#39;)</code>，就需要使用<code>ProvidePlugin</code>。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line">$(<span class="string">'h1'</span>).text(<span class="string">'Hello World'</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: &#123;</span><br><span class="line">    app: <span class="string">'./main.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.ProvidePlugin(&#123;</span><br><span class="line">      $: <span class="string">"jquery"</span>,</span><br><span class="line">      jQuery: <span class="string">"jquery"</span>,</span><br><span class="line">      <span class="string">"window.jQuery"</span>: <span class="string">"jquery"</span></span><br><span class="line">    &#125;)</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<h2 id="热模块替换"><a href="#热模块替换" class="headerlink" title="热模块替换"></a>热模块替换</h2><p>方式一</p>
-<p>启动命令添加参数<br><code>webpack-dev-server --hot --inline</code>  </p>
-<p>方式二</p>
-<p>修改webpack.config.js文件，添加HotModuleReplacementPlugin插件，修改entry<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>);</span><br><span class="line"><span class="keyword">var</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>);</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: [</span><br><span class="line">    <span class="string">'webpack/hot/dev-server'</span>,</span><br><span class="line">    <span class="string">'webpack-dev-server/client?http://localhost:8080'</span>,</span><br><span class="line">    <span class="string">'./index.js'</span></span><br><span class="line">  ],</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">'bundle.js'</span>,</span><br><span class="line">    publicPath: <span class="string">'/static/'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  plugins: [</span><br><span class="line">    <span class="keyword">new</span> webpack.HotModuleReplacementPlugin()</span><br><span class="line">  ],</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    loaders: [&#123;</span><br><span class="line">      test: <span class="regexp">/\.jsx?$/</span>,</span><br><span class="line">      exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">      loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">      query: &#123;</span><br><span class="line">        presets: [<span class="string">'es2015'</span>, <span class="string">'react'</span>]</span><br><span class="line">      &#125;,</span><br><span class="line">      include: path.join(__dirname, <span class="string">'.'</span>)</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/01/git-base/" itemprop="url">
-                  Git-基础
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-01T12:29:43+08:00" content="2016-11-01">
-              2016-11-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Git/" itemprop="url" rel="index">
-                    <span itemprop="name">Git</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p>参考 <a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="noopener">Git远程操作详解</a> 和 <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/" target="_blank" rel="noopener">Git教程</a></p>
-<h2 id="查看本地秘钥（将本地秘钥添加到代码管理平台才能有-git-权限）："><a href="#查看本地秘钥（将本地秘钥添加到代码管理平台才能有-git-权限）：" class="headerlink" title="查看本地秘钥（将本地秘钥添加到代码管理平台才能有 git 权限）："></a>查看本地秘钥（将本地秘钥添加到代码管理平台才能有 git 权限）：</h2><p>cat ~/.ssh/id_rsa.pub（如果有）</p>
-<h2 id="git-生成秘钥：（如果没有）"><a href="#git-生成秘钥：（如果没有）" class="headerlink" title="git 生成秘钥：（如果没有）"></a>git 生成秘钥：（如果没有）</h2><p>$ cd ~/.ssh<br>$ ls – 查看是否有秘钥<br>$ ssh-keygen – 创建秘钥、回车、回车、跳过输入秘钥口令，生成的口令在目录中的 .pub 文件中<br>$ cat ~/.ssh/id_rsa.pub – 查看秘钥内容</p>
-<h2 id="拉取和提交操作"><a href="#拉取和提交操作" class="headerlink" title="拉取和提交操作"></a>拉取和提交操作</h2><p>git clone url [name] – 从远程主机克隆一个版本库<br>git pull – 拉取远程仓库，默认为远程origin master分支<br>git pull origin [remoteBranchName] [localBranchName] – 拉取远程仓库remoteName分支到本地localBranchName分支<br>git fetch origin remoteBranchName –  从远程分支更新最新的版本到origin/remoteBranchName分支上，没有更新到工作区，默认情况下取回所有分支的更新<br>git merge origin/localBranchName –  合并内容到本地localBranchName分支，更新到工作区<br>git diff master origin/master – 比较本地的master分支和origin/master分支的差别<br>git status – 列出当前目录所有还没有被git管理的文件和被git管理且被修改但还未提交( commit)的文件<br>git add fillname – 把文件添加到仓库，新添加的文件必须add后提交才生效<br>git add * 和 git add . </p>
-<pre><code>- git add * 会提交所有 untracked 文件、文件夹、包括以 `.`开头的文件
-— git add . 会提交所有 untracked 文件夹、文件、但不包括`.`开头的文件  
-</code></pre><p>git rm fillname – 把文件从仓库删除，被删除的文件必须rm后提交才生效<br>git commit -m “description” – 把文件提交到本地仓库<br>git commit -m “description” —-amend – 合并多个 commit 为一个<br>git push origin [name] – 把所有本地提交推送到远程库name分支，默认为master分支  </p>
-<h2 id="临时备份"><a href="#临时备份" class="headerlink" title="临时备份"></a>临时备份</h2><p>git stash – 备份当前的工作区的内容，从最近的一次提交中读取相关内容，让工作区保证和上次提交的内容一致，同时将当前的工作区内容保存到Git栈中<br>git stash pop stash@{id} – 从Git栈中读取最近一次保存的内容，恢复工作区的相关内容，由于可能存在多个Stash的内容，所以用栈来管理，pop会从最近的一个stash中读取内容并恢复，将对应的stash id 从stash list里删除<br>git stash apply stash@{id} – 与stash pop的区别是会继续保存stash id<br>git stash list – 显示Git栈内的所有备份，可以利用这个列表来决定从那个地方恢复<br>git stash clear – 清空Git栈<br>git stash show stash@{0} – 查看压入Git栈的版本为0的文件列表<br>git stash drop – 如果不加stash编号，默认的就是删除最新的，也就是编号为0的那个，加编号就是删除指定编号的stash</p>
-<h2 id="忽略文件不提交"><a href="#忽略文件不提交" class="headerlink" title="忽略文件不提交"></a>忽略文件不提交</h2><p>在仓库根目录下创建名称为“.gitignore”的文件，写入不需要的文件夹名或文件，每个元素占一行即可，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*.log</span><br><span class="line">node_modules/</span><br></pre></td></tr></table></figure></p>
-<h2 id="恢复操作"><a href="#恢复操作" class="headerlink" title="恢复操作"></a>恢复操作</h2><p>git reset – 将当前的分支重设(reset)到指定的commit或者HEAD(默认，即最新的一次提交)，可有–hard 或 –soft 参数<br>git revert filename – 恢复指定文件<br>git rebase localBranchName – 用于把localBranchName分支的修改合并到当前分支，该命令会把当前分支里的每个提交(commit)取消掉，然后把当前分支更新为最新的localBranchName分支  </p>
-<h2 id="分支操作"><a href="#分支操作" class="headerlink" title="分支操作"></a>分支操作</h2><p>git branch – 查看本地分支<br>git branch -a – 列出本地和远程所有分支<br>git branch -r – 查看远程分支<br>git branch [name] – 创建本地分支<br>git checkout [name] – 切换分支<br>git checkout -b [name] – 新建并切换到该分支<br>git branch -d [name] – 删除分支，-d选项只能删除已经参与了合并的分支，对于未有合并的分支是无法删除的，如果想强制删除一个分支，可以使用-D选项<br>git merge [name] – 将指定分支合并到当前分支<br>git push origin [name] – 本地分支push到远程同名分支，远程没有该分支则创建<br>git push origin :heads/[name] – 删除远程分支<br>git push origin :master – 删除远程分支<br>git push origin –delete master – 删除远程分支<br>git push origin [remoteBranchName] [localBranchName] – 提交本地local分支作为远程的remote分支，如果没有则创建<br>git push –force origin – 如果远程主机的版本比本地版本更新，可以使用–force选项，结果导致远程主机上更新的版本被覆盖<br>git branch –set-upstream dev origin/dev – 指定本地dev分支与远程origin/dev分支的链接  </p>
-<h2 id="版本操作"><a href="#版本操作" class="headerlink" title="版本操作"></a>版本操作</h2><p>git tag – 查看版本<br>git tag [localTagName] – 创建版本<br>git push origin –tags – 把本地tag推送到远程<br>git fetch origin tag <remotetagname> – 获取远程tag<br>git tag -d [localTagName] – 删除本地tag<br>git push origin :refs/tags/[remoteTagName] – 删除远程tag<br>git checkout tagName – 切换到指定版本</remotetagname></p>
-<h2 id="fork的项目与原项目同步"><a href="#fork的项目与原项目同步" class="headerlink" title="fork的项目与原项目同步"></a>fork的项目与原项目同步</h2><p>fork一个项目并clone到本地，如果原项目已经更新了，要保持github上fork的项目和本地的项目与原项目同步，只需执行以下操作。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 远程拉取更新项目，先将原包作为 remote 加到本地项目中，A_REPOSITORY_URL需替换</span><br><span class="line">git remote add upstream A_REPOSITORY_URL</span><br><span class="line"># 拉取远程代码</span><br><span class="line">git pull upstream master</span><br><span class="line"># 提交到自己的 fork</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
-<h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git remote add origin https://github.com/fuzhongfeng/react-native-hello.git</span><br><span class="line">git push -u origin master</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1871,7 +1865,7 @@ UMD(Universal Module Definition 通用模块规范)，因为AMD，CommonJS规范
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

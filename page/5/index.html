@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -290,7 +290,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -299,7 +299,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -388,6 +388,705 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/css-layout2/" itemprop="url">
+                  CSS-布局基础2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T22:52:59+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="长度单位"><a href="#长度单位" class="headerlink" title="长度单位"></a>长度单位</h2><p><strong>绝对长度单位</strong></p>
+<p>in（英寸）、cm（厘米）、mm（毫米）、pt（磅）、pc（pica）  </p>
+<p><strong>相对长度单位</strong>  </p>
+<ul>
+<li>px 像素  </li>
+<li>em 是相对于文字大小的值，实际大小是受到字体尺寸影响的。例如：定义某个元素的文字大小为12pt，那么，对于这个元素来说1em就是12pt。  </li>
+<li>ex 和em类似，指的是相对于文本中字母x的高度，因为不同的字体的x的高度是不同的，所以ex的实际大小，受到字体和字体尺寸两个因素的影响。 </li>
+<li>% 相对于包含块的计量单位  </li>
+<li>vw 基于视窗宽度的大小，10vw表示视窗宽度的10%</li>
+<li>vh 基于视窗高度的大小，10vh表示视窗高度的10%</li>
+</ul>
+<h2 id="替换元素和非替换元素"><a href="#替换元素和非替换元素" class="headerlink" title="替换元素和非替换元素"></a>替换元素和非替换元素</h2><p><strong>替换元素</strong></p>
+<p>替换元素是浏览器根据其标签的元素与属性来判断显示具体的内容，如<code>&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;</code></p>
+<p><strong>非替换元素</strong></p>
+<p>大多数元素是不可替换元素，他们将内容直接告诉浏览器，将其显示出来，如<code>&lt;p&gt;</code></p>
+<h2 id="块级元素和行内元素"><a href="#块级元素和行内元素" class="headerlink" title="块级元素和行内元素"></a>块级元素和行内元素</h2><p><strong>块级元素</strong></p>
+<p>最明显的特征就是独自占领一行，自动充满父级元素的内容区域，如<code>div、p、form、header、footer、section</code><br>通过CSS设定了浮动（float）以及设定显示（display）属性为’block’或’list-item’的元素都是块级元素</p>
+<p><strong>行内元素</strong></p>
+<p>允许左右都可以有元素，最常见的就是<a></a><br>通过display:’inline’设置以后都会变成行内元素</p>
+<h2 id="浏览器的标准模式和怪异模式"><a href="#浏览器的标准模式和怪异模式" class="headerlink" title="浏览器的标准模式和怪异模式"></a>浏览器的标准模式和怪异模式</h2><ul>
+<li>标准模式(strict mode)：浏览器按W3C标准解析执行代码</li>
+<li><p>怪异模式(quirks mode)：使用浏览器自己的方式解析执行代码</p>
+<p>  浏览器解析时到底使用标准模式还是怪异模式，与网页中的DTD声明直接相关，DTD声明定义了标准文档的类型（标准模式解析）文档类型，会使浏览器使用相应的方式加载网页并显示，忽略DTD声明,将使网页进入怪异模式(quirks mode)。  </p>
+</li>
+</ul>
+<p>怪异模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;重庆PHP&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;h3&gt;重庆PHP，最专业的PHP社区&lt;/h3&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>标准模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;title&gt;重庆PHP&lt;/title&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">        &lt;h3&gt;重庆PHP，最专业的PHP社区&lt;/h3&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="margin属性"><a href="#margin属性" class="headerlink" title="margin属性"></a>margin属性</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">margin:2cm 4cm 3cm 4cm;// 值分别代表上外边距、右外边距、下外边距、左外边距</span><br><span class="line">margin:10px 5px 15px;// 值分别代表上外边距、右外和左外边距、下外边距</span><br><span class="line">margin:10px 5px;// 值分别代表上外和下外边距、右外和左外边距</span><br><span class="line">margin:10px;// 值代表四个外边据</span><br></pre></td></tr></table></figure>
+<p>可选的属性值如下：  </p>
+<blockquote>
+<p><strong>auto:</strong> 浏览器计算外边距<br><strong>length:</strong> 具体单位计的外边距值，比如<code>px、cm</code>等，默认值是 0px<br><strong>%:</strong> 基于父元素的宽度的百分比<br><strong>inherit:</strong> 从父元素继承  </p>
+</blockquote>
+<p>说明如下：  </p>
+<ul>
+<li>块级元素的垂直相邻外边距会合并，由于块级元素独占一行，不考虑水平外边距 </li>
+<li>行内元素实际上不占上下外边距，左右外边距不会合并</li>
+<li>浮动元素的外边距也不会合并  </li>
+<li>允许指定负的外边距值，不过使用时要小心</li>
+</ul>
+<p>设置块级元素的 width 可以阻止它从左到右撑满容器，再设置左右外边距为 auto 来使其水平居中。但是，当浏览器窗口比元素的宽度还要窄时，浏览器会显示一个水平滚动条来容纳页面。此时可以使用 max-width 替代 width 可以使浏览器更好地处理小窗口的情况。</p>
+<h2 id="float属性"><a href="#float属性" class="headerlink" title="float属性"></a>float属性</h2><p>可选的属性值如下： </p>
+<blockquote>
+<p><strong>left:</strong> 元素向左浮动<br><strong>right:</strong> 元素向右浮动<br><strong>none(默认):</strong> 元素不浮动，并会显示在其在文本中出现的位置<br><strong>inherit:</strong> 从父元素继承 </p>
+</blockquote>
+<p>说明如下：</p>
+<ul>
+<li>用来定义元素在哪个方向浮动，浮动元素会生成一个块级框，而不论它本身是何种元素  </li>
+<li>这个属性总应用于图像，使文本围绕在图像周围</li>
+<li>如果浮动非替换元素，如div，则要指定一个明确的宽度；否则，它们会按元素内容尽可能地窄</li>
+<li>如果行内有极少的空间可供浮动元素，那么这个元素会跳至下一行，直到某一行拥有足够的空间为止</li>
+<li>如果浮动元素超出父容器，在父容器添加overflow:auto即可根据浮动的元素撑开容器</li>
+<li>clear属性可清除浮动，值可为left或right，分别表示清除向左浮动或向右浮动 </li>
+</ul>
+<h2 id="盒模型"><a href="#盒模型" class="headerlink" title="盒模型"></a>盒模型</h2><h3 id="W3C标准盒模型"><a href="#W3C标准盒模型" class="headerlink" title="W3C标准盒模型"></a>W3C标准盒模型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">外盒尺寸计算(元素空间尺寸)</span><br><span class="line">element 空间高度 = 内容高度 + 内距 + 边框 + 外距</span><br><span class="line">element 空间宽度 = 内容宽度 + 内距 + 边框 + 外距</span><br><span class="line">内盒尺寸计算(元素大小)</span><br><span class="line">element 高度 = 内容高度 + 内距 + 边框 （height为内容高度）</span><br><span class="line">element 宽度 = 内容宽度 + 内距 + 边框 （width为内容宽度）</span><br></pre></td></tr></table></figure>
+<h3 id="IE传统盒模型-IE6以下"><a href="#IE传统盒模型-IE6以下" class="headerlink" title="IE传统盒模型(IE6以下)"></a>IE传统盒模型(IE6以下)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">外盒尺寸计算(元素空间尺寸)</span><br><span class="line">element 空间高度 = 内容高度 + 外距（height包含了元素内容高度、边框、内距）</span><br><span class="line">element 空间宽度 = 内容宽度 + 外距（height包含了元素内容高度、边框、内距）</span><br><span class="line">内盒尺寸计算(元素大小)</span><br><span class="line">element 高度 = 内容高度（height包含了元素内容高度、边框、内距）</span><br><span class="line">element 宽度 = 内容宽度（width包含了元素内容宽度、边框、内距）</span><br></pre></td></tr></table></figure>
+<p>边框和内距都包含在宽度或高度内！！！</p>
+<h2 id="box-sizing属性"><a href="#box-sizing属性" class="headerlink" title="box-sizing属性"></a>box-sizing属性</h2><p>可选的属性值如下： </p>
+<blockquote>
+<p><strong>content-box(默认):</strong> 维持W3C的标准盒模型<br><strong>border-box:</strong> 维持IE的传统盒模型<br><strong>padding-box(Firefox浏览器):</strong> 指定元素的宽度或高度包含内容的宽度或高度和内距<br><strong>inherit:</strong> 从父元素继承 </p>
+</blockquote>
+<p>说明如下：</p>
+<ul>
+<li>定义盒模型的尺寸解析方式，主要目的是控制元素的总宽度  </li>
+</ul>
+<h2 id="outline属性"><a href="#outline属性" class="headerlink" title="outline属性"></a>outline属性</h2><ul>
+<li><p>外轮廓outline的效果和边框border的效果极其相似，不同之处在于outline不占用网页布局空间，不一定是矩形，属于一种动态样式，可以向内扩展。</p>
+</li>
+<li><p>将outline属性设置在:focus上，可以实现在元素获取到焦点或者被激活时呈现边框的效果。</p>
+</li>
+<li><p>为了给元素添加边框效果又不影响页面布局，可以使用outline属性。</p>
+</li>
+</ul>
+<h2 id="position属性"><a href="#position属性" class="headerlink" title="position属性"></a>position属性</h2><p>可选的属性值如下： </p>
+<blockquote>
+<p><strong>static(默认):</strong> 元素不会被特殊的定位，top, right, bottom, left 和 z-index 属性无效<br><strong>relative:</strong> 相对定位，相对于其正常位置进行定位。<br><strong>absolute:</strong> 绝对定位，不为元素预留空间。元素相对于最近的非static定位的祖先元素来定位。<br><strong>fixed:</strong> 固定定位，不为元素预留空间。元素会相对于视窗来来定位，当出现滚动条时，对象不会随着滚动。<br><strong>inherit:</strong> 从父元素继承 </p>
+</blockquote>
+<p>说明如下：</p>
+<ul>
+<li>不会被特殊的定位的的元素，top, right, bottom, left 和 z-index 属性无效。</li>
+<li>position:sticky，类似relative和fixed的合体，当目标区域在屏幕中可见时，它的行为就像relative; 当页面滚动超出目标区域时，它的行为就像fixed，固定在目标位置。目前支持该属性的浏览器比较少。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/21/scattered-knowledge/" itemprop="url">
+                  零散知识
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-21T17:53:42+08:00" content="2016-09-21">
+              2016-09-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="window-parent和window-opener区别"><a href="#window-parent和window-opener区别" class="headerlink" title="window.parent和window.opener区别"></a>window.parent和window.opener区别</h2><ul>
+<li>window.parent能获取一个框架的父窗口或父框架。顶层窗口的parent引用的是它本身。</li>
+<li>window.opener引用的是window.open打开的页面的父页面。</li>
+</ul>
+<h2 id="解决不支持html5标签的办法"><a href="#解决不支持html5标签的办法" class="headerlink" title="解决不支持html5标签的办法"></a>解决不支持html5标签的办法</h2><p>方式一：自己创建标签节点<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    document.createElement(e[i]);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>方式二：使用Google的html5shiv包（推荐）<br><code>&lt;script src=&quot;http://html5shiv.googlecode.com/svn/trunk/html5.js&quot;&gt;&lt;/script&gt;</code></p>
+<p><strong>不管使用以上哪种方法,都要初始化新标签的CSS</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">article,aside,dialog,footer,header,section,footer,nav,figure,menu&#123;</span><br><span class="line">    display: block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>方式三：防弹衣技术<br>Bulletproof技术，防弹衣技术，建议在所有新的HTML5块级元素中增加一个内部的div元素，然后包含一个CSS class，用这个元素来替代HTML元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;section&gt;</span><br><span class="line">　　&lt;div class=&quot;section&quot;&gt;</span><br><span class="line">　　&lt;!-- content --&gt;</span><br><span class="line">　　&lt;/div&gt;</span><br><span class="line">&lt;/section&gt;</span><br><span class="line"></span><br><span class="line">.section &#123;</span><br><span class="line">   　　color: blue;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="outerHTML、innerText、innerHTML"><a href="#outerHTML、innerText、innerHTML" class="headerlink" title="outerHTML、innerText、innerHTML"></a>outerHTML、innerText、innerHTML</h2><img src="https://fuzhongfeng.github.io/2016/09/21/scattered-knowledge/innerHTML.gif" title="一张图了解outerHTML和innerText、innerHTML">
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><p>cmd中输入<code>echo %PATH%</code> 可查看path环境变量</p>
+<h2 id="端口占用"><a href="#端口占用" class="headerlink" title="端口占用"></a>端口占用</h2><p>netstat -aon | findstr 8088 # 查看指定端口被哪个进程占用，会返回一个进程号<br>tasklist | findstr 6808 # 查看指定进程号是哪个程序的<br>taskkill -F -IM javaw.exe # 杀死应用程序</p>
+<h2 id="响应式编程"><a href="#响应式编程" class="headerlink" title="响应式编程"></a>响应式编程</h2><p>响应式编程是一种面向数据流和变化传播的编程范式，这意味着可以在编程语言中很方便地表达静态或动态的数据流，而相关的计算模型会自动将变化的值通过数据流进行传播。响应式编程最初是为了简化交互式用户界面的创建和实时系统动画的绘制而提出来的一种方法，但它本质上是一种通用的编程范式。在MVC软件架构中，响应式编程允许将相关模型的变化自动反映到视图上，反之亦然。</p>
+<h2 id="检测浏览器版本"><a href="#检测浏览器版本" class="headerlink" title="检测浏览器版本"></a>检测浏览器版本</h2><p>最近做的项目对浏览器的类型及版本有要求，同事写了检测浏览器版本的代码如下，我在此处进行记录，供以后参考。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--在工程入口html文件的body标签中添加如下script内容--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">id</span>=<span class="string">"body"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"react-content"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">      function cheackBowser() &#123;</span></span><br><span class="line"><span class="undefined">        var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串</span></span><br><span class="line"><span class="undefined">        var version = navigator.appVersion; // 浏览器版本信息</span></span><br><span class="line"><span class="undefined">        var isOpera = userAgent.indexOf("Opera") &gt; -1; //判断是否Opera浏览器</span></span><br><span class="line"><span class="undefined">        var isChrome = userAgent.indexOf("Chrome") &gt; -1; //判断是否Chrome浏览器</span></span><br><span class="line"><span class="undefined">        var isIE = userAgent.indexOf("compatible") &gt; -1 &amp;&amp; userAgent.indexOf("MSIE") &gt; -1 &amp;&amp; !isOpera; //判断是否IE浏览器</span></span><br><span class="line"><span class="undefined">        var isFF = userAgent.indexOf("Firefox") &gt; -1; //判断是否Firefox浏览器</span></span><br><span class="line"><span class="undefined">        var isSafari = userAgent.indexOf("Safari") &gt; -1; //判断是否Safari浏览器</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        //如果是 IE 火狐 opera，提示下载qq浏览器</span></span><br><span class="line"><span class="undefined">        if(isIE || isFF || isOpera) &#123;</span></span><br><span class="line"><span class="undefined">          //主页面不显示只显示弹出框，弹出弹框提示下载qq浏览器</span></span><br><span class="line"><span class="undefined">          if(confirm("您使用的浏览器存在兼容问题，为了您更好的用户体验，建议您点击确定下载QQ浏览器")) &#123;</span></span><br><span class="line"><span class="undefined">              document.getElementById("react-content").style.display = "none";</span></span><br><span class="line"><span class="undefined">              window.open("http://browser.qq.com/?adtag=SEM1", "_self");</span></span><br><span class="line"><span class="undefined">          &#125; else &#123;</span></span><br><span class="line"><span class="undefined">            //点击取消关闭此页面</span></span><br><span class="line"><span class="undefined">            window.close();</span></span><br><span class="line"><span class="undefined">            //如果关闭此页面被阻止则把页面清空</span></span><br><span class="line"><span class="undefined">            if(window)&#123;</span></span><br><span class="line"><span class="undefined">               window.location.href="about:blank";</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125; else if(isChrome)&#123;</span></span><br><span class="line"><span class="undefined">            var detailVersion = Number(VersionFilter(version)[0].substring(7,9));</span></span><br><span class="line"><span class="undefined">            if(detailVersion &lt; 45) &#123;</span></span><br><span class="line"><span class="undefined">              document.getElementById("react-content").style.display = "none";</span></span><br><span class="line"><span class="undefined">              if(confirm("您使用的浏览器版本太低，为了您更好的用户体验，建议您点击确定下载QQ浏览器")) &#123;</span></span><br><span class="line"><span class="undefined">                window.open("https://dldir1.qq.com/invc/tt/QQBrowser_Setup_SEM1.exe","_self");</span></span><br><span class="line"><span class="undefined">              &#125;</span></span><br><span class="line"><span class="undefined">            &#125; else &#123;</span></span><br><span class="line"><span class="undefined">              //谷歌浏览器,版本符合要求</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">      // 获取详细的chrome版本</span></span><br><span class="line"><span class="undefined">      function VersionFilter (value) &#123;</span></span><br><span class="line"><span class="undefined">        var reg = /Chrome\/\d&#123;2&#125;\.\d+\.\d+/</span></span><br><span class="line"><span class="undefined">         return reg.exec(value)</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">      cheackBowser()</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/18/css-layout1/" itemprop="url">
+                  CSS-布局基础1
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-18T21:08:17+08:00" content="2016-09-18">
+              2016-09-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="display属性"><a href="#display属性" class="headerlink" title="display属性"></a>display属性</h2><p>大多数元素的默认值通常是 block 或 inline 。一个 block 元素通常被叫做块级元素。一个 inline 元素通常被叫做行内元素。注意是控制当前元素的，而不是其内部元素。  </p>
+<p><strong>none:</strong></p>
+<ul>
+<li>在不删除元素的情况下隐藏元素，不会保留元素本该显示的空间    </li>
+<li>visibility:hidden 会保留元素的空间  </li>
+</ul>
+<p><strong>block:</strong> </p>
+<ul>
+<li>前后有换行符，如不指定宽度，会尽可能撑满容器  </li>
+<li>高度，行高及顶和底边距都可控制   </li>
+<li>常见块级元素：<code>div、p、form、header、footer、section</code>等</li>
+</ul>
+<p><strong>inline（默认）:</strong> </p>
+<ul>
+<li>前后没有换行符、不撑满容器  </li>
+<li>高，行高及顶和底边距不可改变  </li>
+<li>包裹一些文字而不会打乱段落的布局</li>
+</ul>
+<p><strong>inline-block:</strong>  </p>
+<ul>
+<li>将对象呈递为内联对象，但是对象的内容作为块对象呈递（准确地说，应用此特性的元素呈现为内联对象，周围元素保持在同一行，但可以设置宽度和高度地块元素的属性）  </li>
+<li>可以实现浮动（float）的效果，如果HTML源代码中元素之间有空格，那么元素之间会产生空隙，使用float不会有空隙；但不能实现float的文字环绕图片  </li>
+<li>如果不设置width和height，会按元素的内容大小显示  </li>
+<li>这一行的高度为该行内最大高度的元素高度，vertical-align属性会影响到元素在垂直方向的对齐方式  </li>
+</ul>
+<p><strong>list-item:</strong> </p>
+<ul>
+<li>此元素会作为列表显示，如果不设置width和height，每个列表项尽可能撑满容器</li>
+</ul>
+<p><strong>flex:</strong>  </p>
+<ul>
+<li>详见下文</li>
+</ul>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display" target="_blank" rel="noopener">display其它属性值详细列表</a>  </p>
+<hr>
+<h2 id="Flexbox-布局"><a href="#Flexbox-布局" class="headerlink" title="Flexbox 布局"></a>Flexbox 布局</h2><p>参考阮一峰的网络日志：<br><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank" rel="noopener">《Flex 布局教程：语法篇》</a><br><a href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html" target="_blank" rel="noopener">《Flex 布局教程：实例篇》</a>  </p>
+<blockquote>
+<p><code>display: flex |inline-flex</code> </p>
+</blockquote>
+<blockquote>
+<p>指定Flex布局后，子元素的float、clear和vertical-align属性将失效</p>
+</blockquote>
+<blockquote>
+<p>几个基本概念： 容器、项目、主轴、交叉轴</p>
+</blockquote>
+<h3 id="容器的属性"><a href="#容器的属性" class="headerlink" title="容器的属性"></a>容器的属性</h3><p><strong>flex-direction</strong>  </p>
+<ul>
+<li>主轴的方向（即项目的排列方向） </li>
+<li>row | row-reverse | column | column-revers</li>
+</ul>
+<p><strong>flex-wrap</strong> </p>
+<ul>
+<li>owrap | wrap | wrap-reverse</li>
+<li>一条轴线排不下，如何换行  </li>
+</ul>
+<p><strong>flex-flow</strong></p>
+<ul>
+<li>flex-direction属性和flex-wrap属性的简写形式  </li>
+<li>默认值为row nowrap</li>
+</ul>
+<p><strong>justify-content</strong></p>
+<ul>
+<li>项目在主轴上的对齐方式</li>
+<li>flex-start | flex-end | center | space-between | space-around</li>
+</ul>
+<p><strong>align-items</strong></p>
+<ul>
+<li>项目在交叉轴上的对齐方式</li>
+<li>flex-start | flex-end | center | baseline | stretch</li>
+</ul>
+<p><strong>align-content</strong></p>
+<ul>
+<li>多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用</li>
+<li>flex-start | flex-end | center | space-between | space-around | stretch</li>
+</ul>
+<h3 id="项目的属性"><a href="#项目的属性" class="headerlink" title="项目的属性"></a>项目的属性</h3><p><strong>order</strong></p>
+<ul>
+<li>项目的排列顺序，数值越小，排列越靠前</li>
+<li>整数，默认为0</li>
+</ul>
+<p><strong>flex-grow</strong></p>
+<ul>
+<li>项目的放大比例，0表示如果存在剩余空间，也不放大</li>
+<li>整数，默认为0</li>
+<li>如果所有项目的属性都为1，则它们将等分剩余空间；如果一个项目的属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍</li>
+</ul>
+<p><strong>flex-shrink</strong></p>
+<ul>
+<li>项目的缩小比例，1表示如果空间不足，该项目将缩小</li>
+<li>非负整数，默认为1</li>
+<li>如果所有项目的属性都为1，当空间不足时，都将等比例缩小；如果一个项目的属性为0，其他项目都为1，则空间不足时，前者不缩小</li>
+</ul>
+<p><strong>flex-basis</strong></p>
+<ul>
+<li>在分配多余空间之前，项目占据的主轴空间，浏览器根据这个属性，计算主轴是否有多余空间</li>
+<li>[length] | auto，默认为auto</li>
+<li>可以设为跟width或height属性一样的值，则项目将占据固定空间</li>
+</ul>
+<p><strong>flex</strong>  </p>
+<ul>
+<li>flex-grow, flex-shrink 和 flex-basis的简写，后两个属性可选</li>
+<li>默认值为 0 1 auto</li>
+<li>none (0 0 auto) 表示无论窗口如何变化宽度不变</li>
+<li>auto (1 1 auto) 表示空间足够时放大，空间不足时缩小</li>
+<li>initial (0 1 auto) 表示空间足够时不放大，空间不足时缩小</li>
+<li>建议优先使用这个属性，因为浏览器会推算相关值</li>
+</ul>
+<p><strong>align-self</strong></p>
+<ul>
+<li>允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性</li>
+<li>auto | flex-start | flex-end | center | baseline | stretch，默认值为auto</li>
+<li>auto 表示继承父元素的align-items属性，如果没有父元素，则等同于stretch</li>
+</ul>
+<hr>
+<h2 id="多列布局"><a href="#多列布局" class="headerlink" title="多列布局"></a>多列布局</h2><p>CSS3多列布局可以自动将内容按指定的列数排列，这种特性实现的布局效果和报纸、杂志排版非常相似。<br>常用属性如下：</p>
+<p><strong>column-width:</strong></p>
+<blockquote>
+<p>auto 默认值，元素多列的列宽由其它属性决定，没有显示设置的情况下，将默认显示一列<br>[length] 数值和长度单位组成，非负；如果单独使用，容器超出列宽时显示多列，小于列宽时显示一列</p>
+</blockquote>
+<p><strong>column-count:</strong></p>
+<blockquote>
+<p>auto 默认值，表示元素只有一列，依靠浏览器计算自动设置<br>[integer] 正整数值，定义想要的列数和最大列数，当容器没有足够空间来包含具有指定宽度的列数，元素列数会自动往下计算；如果单独使用，显示固定列数<br>列数 = (容器宽度 - 列间距)/列宽 向下取整</p>
+</blockquote>
+<p><strong>columns:</strong></p>
+<blockquote>
+<p>column-width和column-count的缩写</p>
+</blockquote>
+<p><strong>column-gap:</strong></p>
+<blockquote>
+<p>normal 默认值，一般情况相当于1em<br>[length] 浮点数据和单位标识符组成的长度值，非负，常用px、em单位的任何整数值；<br>如果同时设置了column-width属性，可能会导致列被撑破，使列数减1</p>
+</blockquote>
+<p><strong>column-rule:</strong></p>
+<blockquote>
+<p>定义列之间的边框宽度、样式、颜色，类似border属性，但不占用任何空间位置<br>[column-rule-width]|[column-rule-style]|[column-rule-color]<br>默认值分别为 medium | none | 前景色color值<br>如果column-rule-width宽度超过列间距，列边框就会消失</p>
+</blockquote>
+<p><strong>column-span:</strong></p>
+<blockquote>
+<p>定义一个分列元素中的子元素能跨多少列<br>none 默认值，表示不跨任何列<br>all 表示跨所有列，并定位在列的Z轴之上  </p>
+</blockquote>
+<p><strong>column-fill:</strong></p>
+<blockquote>
+<p>定义多列中每一列的高度是否统一<br>auto 默认值，各列的高度随其内容的变化自动变化<br>balance 各列的高度将会根据内容最多的一列的高度进行统一  </p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/13/react-experience2/" itemprop="url">
+                  React-学习经验2
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-13T08:44:03+08:00" content="2016-09-13">
+              2016-09-13
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="MVVM-Model-View-ViewModel"><a href="#MVVM-Model-View-ViewModel" class="headerlink" title="MVVM(Model-View-ViewModel)"></a>MVVM(Model-View-ViewModel)</h2><p>MVC—&gt;MVP—&gt;MVVM<br>MVVM框架的由来是MVP（Model-View-Presenter）模式与WPF（Windows Presentation Foundation）结合的应用方式时发展演变过来的一种新型架构框架。它立足于原有MVP框架并且把WPF的新特性糅合进去，以应对客户日益复杂的需求变化。<br>低耦合 可重用性 独立开发 可测试</p>
+<h2 id="零散知识"><a href="#零散知识" class="headerlink" title="零散知识"></a>零散知识</h2><ul>
+<li>ReactDOM.render(Component,dom) 执行后，这个dom还会存在，这个Component是在最外层。<br>感觉很奇怪  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 在componentDidMount方法中</span><br><span class="line">ReactDOM.render(this.state.customScript.buttonAndPopoverComponents(), document.getElementById(&lt;Button type=&quot;primary&quot;&gt;自定义添加的按钮&lt;/Button&gt;,&apos;ANTD_CDP_TABLE1_ZLC-btnBar_after&apos;));</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<img src="https://fuzhongfeng.github.io/2017/5/13/react-experience2/renderDOM.png" title="结果如图">
+<h2 id="解析jsx"><a href="#解析jsx" class="headerlink" title="解析jsx"></a>解析jsx</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">return (  </span><br><span class="line">  &lt;div className=&quot;commentBox&quot;&gt;  </span><br><span class="line">    Hello, world! I am a CommentBox.  </span><br><span class="line">  &lt;/div&gt;  </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">return (  </span><br><span class="line">  React.createElement(&apos;div&apos;, &#123;className: &quot;commentBox&quot;&#125;,  </span><br><span class="line">    &quot;Hello, world! I am a CommentBox.&quot;  </span><br><span class="line">  )  </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>Babel 设置匹配后缀，文件后缀为.jsx，就不会对&lt;报错。Babel之所以可以按照各种要求编译JavaScript代码文件，是因为使用了各种插件和预设(预设是插件的打包封装)。</p>
+<h2 id="key的作用"><a href="#key的作用" class="headerlink" title="key的作用"></a>key的作用</h2><p>今天遇到了一个奇怪的现象，下面代码是在同一个页面中，点击不同按钮时显示单选或多选树，结果出现了错误，debugger调试时看到是组件在更新时出了问题，更新时没有找到正确的组件，先显示单选树再显示多选树会在单选的树上更新的，由于没有多选的一些属性而报错。解决办法就是放开注释的key属性，这样更新时就能找到相应的组件了。这是我第一次体会到key的作用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">render() &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &#123;</span><br><span class="line">                this.props.multi ?</span><br><span class="line">                    &lt;Tree</span><br><span class="line">                        // key=&quot;tree-multi&quot;</span><br><span class="line">                        checkable</span><br><span class="line">                        onCheck=&#123;this.onCheck&#125;</span><br><span class="line">                        checkedKeys=&#123;this.state.selectedKeys&#125;</span><br><span class="line">                    &gt;</span><br><span class="line">                        &#123;loop(this.props.userData)&#125;</span><br><span class="line">                    &lt;/Tree&gt;</span><br><span class="line">                :</span><br><span class="line">                    &lt;Tree</span><br><span class="line">                        // key=&quot;tree-single&quot;</span><br><span class="line">                        onSelect=&#123;this.onSelect&#125;</span><br><span class="line">                    &gt;</span><br><span class="line">                        &#123;loop(this.props.userData)&#125;</span><br><span class="line">                    &lt;/Tree&gt;</span><br><span class="line">            &#125;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="引用图片"><a href="#引用图片" class="headerlink" title="引用图片"></a>引用图片</h2><p>使用require静态资源，打包时会自动打入，不需要再处理静态资源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&#123;require(&apos;../../resources/images/logo.png&apos;)&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const url = `url($&#123;require(&quot;../../resources/images/banner-home.jpg&quot;)&#125;)`;</span><br><span class="line">&lt;div style=&#123;&#123;backgroundImage: url&#125;&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1166,7 +1865,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

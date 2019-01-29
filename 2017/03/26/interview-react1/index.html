@@ -1,0 +1,891 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="付忠峰的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="react的优缺点   优点：  虚拟dom加diff算法减少dom操作来提高渲染性能虚拟dom也帮助我们解决了跨浏览器问题使用声明式语法JSX来重新定义视图开发代码更加模块化，重用代码更容易单向数据流，灵活、可预计、可控制将DOM操作抽象为状态的改变只从this.props和this.state生成HTML，非常的函数式编程能够快速上手react-native开发ios或者android项目">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-基础知识">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2017/03/26/interview-react1/index.html">
+<meta property="og:site_name" content="付忠峰的博客">
+<meta property="og:description" content="react的优缺点   优点：  虚拟dom加diff算法减少dom操作来提高渲染性能虚拟dom也帮助我们解决了跨浏览器问题使用声明式语法JSX来重新定义视图开发代码更加模块化，重用代码更容易单向数据流，灵活、可预计、可控制将DOM操作抽象为状态的改变只从this.props和this.state生成HTML，非常的函数式编程能够快速上手react-native开发ios或者android项目">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-12T14:27:11.410Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-基础知识">
+<meta name="twitter:description" content="react的优缺点   优点：  虚拟dom加diff算法减少dom操作来提高渲染性能虚拟dom也帮助我们解决了跨浏览器问题使用声明式语法JSX来重新定义视图开发代码更加模块化，重用代码更容易单向数据流，灵活、可预计、可控制将DOM操作抽象为状态的改变只从this.props和this.state生成HTML，非常的函数式编程能够快速上手react-native开发ios或者android项目">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> React-基础知识 | 付忠峰的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50501430dc12a862e9fb82a90d9e33f2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">付忠峰的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+  
+</nav>
+
+ </div>
+      
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/me.jpg"
+               alt="付忠峰" />
+          <p class="site-author-name" itemprop="name">付忠峰</p>
+          <p class="site-description motion-element" itemprop="description">学习记录</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fuzhongfeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jikexueyuan.com/" title="极客学院" target="_blank">极客学院</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://caniuse.com" title="caniuse" target="_blank">caniuse</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://codepen.io" title="codepen" target="_blank">codepen</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://babeljs.io/repl/" title="Babel在线编译" target="_blank">Babel在线编译</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.iconfinder.com/iconsets/miu" title="Iconfinder图标" target="_blank">Iconfinder图标</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bejson.com/" title="在线JSON格式化" target="_blank">在线JSON格式化</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+    </header>
+ 
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                React-基础知识
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-03-26T14:22:55+08:00" content="2017-03-26">
+              2017-03-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Interview</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>react的优缺点</p>
+<p>  优点：</p>
+<blockquote>
+<p>虚拟dom加diff算法减少dom操作来提高渲染性能<br>虚拟dom也帮助我们解决了跨浏览器问题<br>使用声明式语法JSX来重新定义视图开发<br>代码更加模块化，重用代码更容易<br>单向数据流，灵活、可预计、可控制<br>将DOM操作抽象为状态的改变<br>只从this.props和this.state生成HTML，非常的函数式编程<br>能够快速上手react-native开发ios或者android项目</p>
+</blockquote>
+<p>  缺点：</p>
+<blockquote>
+<p>本身只是View，如果是大型项目基本都需要加上React Router和Redux<br>大多数坑没踩出来  </p>
+</blockquote>
+</li>
+<li><p>AMD(Asynchronous Module Definition)、CMD(Common Module Definition)、CommonJS</p>
+<p>  AMD、CMD、CommonJS是JS模块化开发的标准，CommonJS是用在服务器端的，同步的，如Node.js。AMD、CMD是用在浏览器端的，异步的，如RequireJS和SeaJS。其中，AMD先提出，CMD是根据CommonJS和AMD基础上提出的。 </p>
+<p>  CommonJS 加载模块是同步的，所以只有加载完成才能执行后面的操作。像Node.js主要用于服务器的编程，加载的模块文件一般都已经存在本地硬盘，所以加载起来比较快，不用考虑异步加载的方式，所以CommonJS规范比较适用。但如果是浏览器环境，要从服务器加载模块，这是就必须采用异步模式，所以就有了AMD和CMD解决方案。 </p>
+<p>  AMD和CMD的区别有以下几点： </p>
+</li>
+</ul>
+<pre><code>&gt; **AMD推崇依赖前置，CMD推崇依赖就近。AMD和CMD最大的区别是对依赖模块的执行时机处理不同** 
+&gt; 对于依赖的模块AMD是提前执行，CMD是延迟执行。不过RequireJS从2.0开始，也改成可以延迟执行。 
+&gt; AMD的api默认是一个当多个用，CMD严格的区分推崇职责单一。例如：AMD里require分全局的和局部的。CMD里面没有全局的require，提供seajs.use()来实现模块系统的加载启动。CMD里每个API都简单纯粹。 
+
+UMD(Universal Module Definition 通用模块规范)，因为AMD，CommonJS规范是两种不一致的规范，虽然他们应用的场景也不太一致，但是人们仍然是期望有一种统一的规范来支持这两种规范。于是，UMD规范诞生了。
+</code></pre><ul>
+<li><p>为什么不能改变原有state，需要使用setState并传入修改的部分state，执行setState后怎么更新</p>
+<p>  是否调用render进行再次渲染是由state是否变化决定的。setState本质是通过一个队列机制实现state更新的，执行setState时，会将要更新的state合并后放入状态队列，而不会立刻更新state，队列机制可以批量更新state。如果不通过setState而直接修改this.state，那么这次state的变化不会放入状态队列中，下次调用setState再进行状态队列进行合并时，会忽略之前直接直接对state修改，这样就无法合并到这次变化，实际也就没有将想要的state更新上去。setState是异步的。</p>
+<p>  只要调用了setState，就会在合并后生成一个新的state，只要判断state指向的是否是同一个内存地址就知道state是否发生了变化，以此来决定是否进行render重新渲染。如果不用这种方式都直接操作this.state，也就是同一块内存，要侦测state是否发生变化（如angular中的deepwatch）来决定是否重新渲染会非常复杂和低效。redux的reducer中返回新的对象也是同理。react状态管理库还有redux-sagas、redux-observable、MobX等。</p>
+</li>
+<li><p>为什么组件中定义的方法要bind(this)</p>
+<p>  ES5里，function内部的this默认为window，在严格模式下，this为undefined。ES5的写法React.createClass会自动绑定每个方法的this到当前组件实例，ES6的写法class XXX extends Component则不会自动为方法绑定this。</p>
+<p>  bind()方法会创建一个新函数，当这个新函数被调用时，它的this值是传递给bind()的第一个参数，它的参数是bind()的其它参数和原本参数，这个函数不论怎么调用都有同样的this，也就是当前类的实例，否则this为undefined。绑定this的几种方式：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 方式一</span><br><span class="line">&lt;div onClick=&#123;this.handleClick.bind(this)&#125;&gt;save&lt;/div&gt;</span><br><span class="line">// 方式二</span><br><span class="line">constructor() &#123;</span><br><span class="line">    ...</span><br><span class="line">    this.handleClick = this.handleClick.bind(this);</span><br><span class="line">&#125;</span><br><span class="line">// 方式三</span><br><span class="line">&lt;div onClick=&#123;() =&gt; this.handleClick()&#125;&gt;save&lt;/div&gt;</span><br><span class="line">// 方式四</span><br><span class="line">handleClik = () =&gt; &#123;&#125;</span><br><span class="line">&lt;div onClick=&#123;this.handleClick&#125;&gt;save&lt;/div&gt;</span><br><span class="line">// 方式五</span><br><span class="line">ES6 Decorator,core-decorator.js提供了@autobind修饰器</span><br></pre></td></tr></table></figure>
+<p>  方式一会在每次点击时通过bind创建一个新方法，一般使用方式二、方式三或方式四，其中方式三的箭头函数总是匿名的，如果打算移除监听事件可使用方式四。方式二在构造函数里绑定this后方法是属于实例的，而定义在类里的是非静态函数，在类的<code>prototype</code>上，实例的<code>__proto__</code>原型上。方式四使用箭头函数定义的方法也是这个效果。</p>
+</li>
+<li><p>数据获取为什么一定要在componentDidMount里面调用</p>
+<p>  不建议在constructor和componentWillMount里写的原因是：会阻碍组件的实例化，阻碍组件的渲染；在componentWillMount里面触发setState不会重新渲染，在componentDidMount里面会触发setState会重新渲染，有副作用的代码都会集中在componentDidMount方法里。</p>
+</li>
+<li><p>webpack 打包常用</p>
+<blockquote>
+<p>webpack.optimize.CommonsChunkPlugin 分离应用和第三方</p>
+</blockquote>
+<blockquote>
+<p>webpack.optimize.UglifyJsPlugin 清除打包后文件中的注释和copyright</p>
+</blockquote>
+<blockquote>
+<p>webpack.optimize.DedupePlugin 保证重复的代码不被打包到bundle文件</p>
+</blockquote>
+<blockquote>
+<p>extract-text-webpack-plugin 独立打包样式</p>
+</blockquote>
+<blockquote>
+<p>optimize-css-assets-webpack-plugin css去重 </p>
+</blockquote>
+<blockquote>
+<p>html-webpack-plugin 根据模板创建html入口文件，为引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题</p>
+</blockquote>
+<blockquote>
+<p>require.ensure 代码分割，可跟react-router的getComponent配合使用</p>
+</blockquote>
+<p>  常用loader：style-loader、css-loader、less-loader、url-loader、file-loader、babel-loader、react-hot</p>
+</li>
+<li><p>redux-thunk源码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// ES6 写法</span><br><span class="line">function createThunkMiddleware(extraArgument) &#123;</span><br><span class="line">  return (&#123; dispatch, getState &#125;) =&gt; next =&gt; action =&gt; &#123;</span><br><span class="line">    if (typeof action === &apos;function&apos;) &#123;</span><br><span class="line">      return action(dispatch, getState, extraArgument);</span><br><span class="line">    &#125;</span><br><span class="line">    return next(action);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// ES5写法</span><br><span class="line">function createThunkMiddleware(extraArgument) &#123;</span><br><span class="line">  return function (_ref) &#123;</span><br><span class="line">    var dispatch = _ref.dispatch,</span><br><span class="line">        getState = _ref.getState;</span><br><span class="line">    return function (next) &#123;</span><br><span class="line">      return function (action) &#123;</span><br><span class="line">        if (typeof action === &apos;function&apos;) &#123;</span><br><span class="line">          return action(dispatch, getState, extraArgument);</span><br><span class="line">        &#125;</span><br><span class="line">        return next(action);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>web端路由react-router和react-native的navigator有什么区别</p>
+<p>  纯属个人理解：web端路由是保证url和UI一致的，进行的是局部刷新；react-native的Navigator是管理导航堆栈的，让用户清楚的知道自己当前所处的页面和返回的页面，进行的是整屏刷新。</p>
+</li>
+<li><p>Vue，React，Angular</p>
+<p>  Vue。轻量级框架，双向数据绑定，语法和原理所需要的学习成本不是很高。具有高覆盖率的文档，绝大部分操作已被记录在案。但是如果一个操作没有文档记录，能在线上找到解决方案的几率也很小，因为Vue不如Angular或React更流行。Vue也有被称为Flux架构实现的Vuex，移动端跨平台方案Weex使用Vue的语法，但是Weex并不太完善。</p>
+<p>  React。React通过使用VirtualDOM获得高效，单向数据流，可以使用JSX语法。与框架相关的Redux是一个非常棒的类Flux架构的实现，掌握React的知识后，可以直接上手基于ReactNative的移动客户端开发。随着React将会有一个能够向后兼容的重写版React Fiber的消息放出，React的”第二春”很快就会到来。</p>
+<p>  AngularJS。以HTML为中心，适配和扩展了传统的HTML来呈现动态内容，双向数据绑定，自定义指令，是一个比较完善的前端框架，适合大型项目。入门很容易，但框架复杂、深入后概念很多，学习中较难理解，文档例子非常少。使用脏检查，当watcher越来越多时会变得越来越慢。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag">#React</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/14/recursion/" rel="next" title="递归用法">
+                <i class="fa fa-chevron-left"></i> 递归用法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/03/http-base/" rel="prev" title="Http-基础">
+                Http-基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+       
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">付忠峰</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+
+            $('.popup').detach().appendTo('.container');
+            //$('.popup').detach().appendTo('.header-inner');
+
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>

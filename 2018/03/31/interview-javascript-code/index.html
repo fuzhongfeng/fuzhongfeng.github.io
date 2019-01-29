@@ -1,0 +1,878 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="付忠峰的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="实现Array的map 123456789101112131415161718192021222324252627282930313233Array.prototype.map = function(callback, thisArg) &amp;#123;      if (this == null) &amp;#123;        throw new TypeError(&amp;quot;this is nu">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript-小代码">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2018/03/31/interview-javascript-code/index.html">
+<meta property="og:site_name" content="付忠峰的博客">
+<meta property="og:description" content="实现Array的map 123456789101112131415161718192021222324252627282930313233Array.prototype.map = function(callback, thisArg) &amp;#123;      if (this == null) &amp;#123;        throw new TypeError(&amp;quot;this is nu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-12T14:27:31.815Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript-小代码">
+<meta name="twitter:description" content="实现Array的map 123456789101112131415161718192021222324252627282930313233Array.prototype.map = function(callback, thisArg) &amp;#123;      if (this == null) &amp;#123;        throw new TypeError(&amp;quot;this is nu">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> JavaScript-小代码 | 付忠峰的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50501430dc12a862e9fb82a90d9e33f2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">付忠峰的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+  
+</nav>
+
+ </div>
+      
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/me.jpg"
+               alt="付忠峰" />
+          <p class="site-author-name" itemprop="name">付忠峰</p>
+          <p class="site-description motion-element" itemprop="description">学习记录</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fuzhongfeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jikexueyuan.com/" title="极客学院" target="_blank">极客学院</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://caniuse.com" title="caniuse" target="_blank">caniuse</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://codepen.io" title="codepen" target="_blank">codepen</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://babeljs.io/repl/" title="Babel在线编译" target="_blank">Babel在线编译</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.iconfinder.com/iconsets/miu" title="Iconfinder图标" target="_blank">Iconfinder图标</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bejson.com/" title="在线JSON格式化" target="_blank">在线JSON格式化</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+    </header>
+ 
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaScript-小代码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-31T17:50:00+08:00" content="2018-03-31">
+              2018-03-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Interview</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>实现Array的map</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Array.prototype.map = function(callback, thisArg) &#123;  </span><br><span class="line">    if (this == null) &#123;</span><br><span class="line">        throw new TypeError(&quot;this is null or not defined&quot;);</span><br><span class="line">    &#125;  </span><br><span class="line">    if (Object.prototype.toString.call(callback) != &quot;[object Function]&quot;) &#123;</span><br><span class="line">        throw new TypeError(callback + &quot; is not a function&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    // 将O赋值为调用map方法的数组. 防止callback方法中修改原数组.</span><br><span class="line">    var originArr = Object(this);</span><br><span class="line">    // 将len赋值为数组O的长度. 如果length未定义就取0.</span><br><span class="line">    var len = originArr.length &gt;&gt;&gt; 0;</span><br><span class="line">    var copyArg;</span><br><span class="line">    if (thisArg) &#123;</span><br><span class="line">        copyArg = thisArg;</span><br><span class="line">    &#125;</span><br><span class="line">    var result = new Array(len);</span><br><span class="line">    var k = 0;</span><br><span class="line">    while(k &lt; len) &#123;</span><br><span class="line">        var kValue, mappedValue;</span><br><span class="line">        // 遍历O,k为原数组索引</span><br><span class="line">        if (k in originArr) &#123;</span><br><span class="line">            // kValue为索引k对应的值.</span><br><span class="line">            kValue = originArr[k];</span><br><span class="line">            // 执行callback,this指向copyArg.</span><br><span class="line">            // originArr.map((kValue, k, originArr) =&gt; &#123;&#125;);</span><br><span class="line">            mappedValue = callback.call(copyArg, kValue, k, originArr);</span><br><span class="line">            // 返回值添加到新数组A中.</span><br><span class="line">            result[k] = mappedValue;</span><br><span class="line">        &#125;</span><br><span class="line">        k++;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>js 实现快排</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function quickSort(arr)&#123;</span><br><span class="line">    // 如果数组&lt;=1,则直接返回</span><br><span class="line">    if(arr.length &lt;= 1)&#123;</span><br><span class="line">        return arr;</span><br><span class="line">    &#125;</span><br><span class="line">    var pivotIndex = Math.floor(arr.length/2);</span><br><span class="line">    // 找基准，并把基准从原数组删除</span><br><span class="line">    var pivot = arr.splice(pivotIndex, 1)[0];</span><br><span class="line">    // 定义左右数组</span><br><span class="line">    var left = [];</span><br><span class="line">    var right = [];</span><br><span class="line">    // 比基准小的放在left，比基准大的放在right</span><br><span class="line">    for(var i = 0; i &lt; arr.length; i++)&#123;</span><br><span class="line">        if(arr[i] &lt;= pivot)&#123;</span><br><span class="line">            left.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        else&#123;</span><br><span class="line">            right.push(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 递归</span><br><span class="line">    return quickSort(left).concat([pivot], quickSort(right));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>随机选取10–100之间的10个且不重复的数字，存入一个数组并排序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function randomRange(start, end, count) &#123;</span><br><span class="line">    // 升序排序</span><br><span class="line">    function sortFunc(a, b) &#123;</span><br><span class="line">        return a - b;</span><br><span class="line">    &#125;</span><br><span class="line">    const randoms=[];</span><br><span class="line">    // 跳出while循环时 randoms数组有count个元素</span><br><span class="line">    while (randoms.length &lt; count)</span><br><span class="line">    &#123;</span><br><span class="line">        // 获取一个10–100范围的数</span><br><span class="line">        var random = Math.floor(Math.random()*(end - start + 1) + start);</span><br><span class="line">        // 判断当前随机数是否已经存在</span><br><span class="line">        if (!randoms.includes(random)) &#123;</span><br><span class="line">            randoms.push(random);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    randoms.sort(sortFunc);</span><br><span class="line">    return randoms;</span><br><span class="line">&#125;</span><br><span class="line">randomRange(10, 100, 10);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获取url后面的查询参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">// 获取url后面指定名称的查询参数</span><br><span class="line">function getUrlQueryString(name) &#123;</span><br><span class="line">    var reg = new RegExp(&quot;(^|&amp;)&quot;+ name +&quot;=([^&amp;]*)(&amp;|$)&quot;);</span><br><span class="line">    // window.location.search 从?开始的部分，包括?</span><br><span class="line">    var r = window.location.search.substr(1).match(reg);</span><br><span class="line">    if (r) &#123;</span><br><span class="line">        return unescape(r[2]);// 对通过escape()编码的字符串进行解码</span><br><span class="line">    &#125;</span><br><span class="line">    return null;</span><br><span class="line">&#125;</span><br><span class="line">// 获取url的查询参数组成的对象</span><br><span class="line">function getUrlQueryObj() &#123; </span><br><span class="line">    //获取url中&quot;?&quot;符后的字串 </span><br><span class="line">    var url = location.search;</span><br><span class="line">    var queryObj = &#123;&#125;; </span><br><span class="line">    if (url.indexOf(&quot;?&quot;) &gt; -1) &#123; </span><br><span class="line">        var str = url.substr(1); </span><br><span class="line">        strs = str.split(&quot;&amp;&quot;);</span><br><span class="line">        strs.forEach((item) =&gt; &#123;</span><br><span class="line">            queryObj[item.split(&quot;=&quot;)[0]] = unescape(item.split(&quot;=&quot;)[1]);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    return queryObj; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>找字符串中出现最多的字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">function getMost(str)&#123;</span><br><span class="line">    var maxNum = 0;</span><br><span class="line">    // 存放出现字数最多的字符数组，因为出现最多的字符可能有多个</span><br><span class="line">    var maxCharArr = [];    </span><br><span class="line">    while(str)&#123;</span><br><span class="line">        var char = str.charAt(0);</span><br><span class="line">        var arr = str.split(char);</span><br><span class="line">        // char 字符出现的个数</span><br><span class="line">        var n = str.length - arr.join(&apos;&apos;).length;</span><br><span class="line">        // str 中去掉全部 char 字符</span><br><span class="line">        str = arr.join(&apos;&apos;);</span><br><span class="line">        if(n &gt; maxNum)&#123;</span><br><span class="line">            maxNum = n;</span><br><span class="line">            maxCharArr = [char];    // 放置数组元素</span><br><span class="line">        &#125;else if( n === maxNum)&#123;</span><br><span class="line">            maxCharArr.push(char);    //出现次数相同的字符 存入数组里</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return &#123;&apos;maxNum&apos;: maxNum, &apos;maxCharArr&apos;: maxCharArr&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>a 和 b 不使用临时变量进行交换</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 方式一 通过计算</span><br><span class="line">function swape(a, b) &#123;</span><br><span class="line">    console.log(&quot;进入：&quot;, a, &apos;    &apos;, b);</span><br><span class="line">    if (a === b) &#123;</span><br><span class="line">        // 不用交换</span><br><span class="line">    &#125;</span><br><span class="line">    if (a &lt; b) &#123;</span><br><span class="line">        a = b + (b - a);</span><br><span class="line">        b = b - (a - b);</span><br><span class="line">        a = b + (a - b)/2;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        b = a + (a - b);</span><br><span class="line">        a = a - (b - a);</span><br><span class="line">        b = a + (b - a)/2;</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(&quot;离开：&quot;, a, &apos;    &apos;, b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 方式二 es5</span><br><span class="line">a = [b, b = a][0];</span><br><span class="line"></span><br><span class="line">// 方式三 es6</span><br><span class="line">[a, b] = [b, a];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串的字节长度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// 方式一 将双字节字符替换为2个单字节字母</span><br><span class="line">str.replace(/[\u0931-\uFFE5]/g, &apos;aa&apos;).length;</span><br><span class="line"></span><br><span class="line">// 方式二 把中文替换成两个a</span><br><span class="line">str.replace(/[^\x00-\xff]/g, &apos;aa&apos;); </span><br><span class="line"></span><br><span class="line">// 方式三 循环遍历</span><br><span class="line">function getStrLength (str) &#123;</span><br><span class="line">    // 获得字符串实际长度，中文2，英文1</span><br><span class="line">    var realLength = 0, len = str.length, charCode = -1;</span><br><span class="line">    for (var i = 0; i &lt; len; i++) &#123;</span><br><span class="line">        charCode = str.charCodeAt(i);</span><br><span class="line">        if (charCode &gt;= 0 &amp;&amp; charCode &lt;= 128)</span><br><span class="line">            realLength += 1;</span><br><span class="line">        else &#123;</span><br><span class="line">            realLength += 2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return realLength;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串反转</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str.split(&apos;&apos;).reverse().join(&apos;&apos;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组去重</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 方式一 使用es6的set</span><br><span class="line">arr = Array.from(new Set(arr));</span><br><span class="line"></span><br><span class="line">// 方式二 使用indexOf和lastIndexOf判断</span><br><span class="line">function uniqueArray(arr) &#123;</span><br><span class="line">    for(let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        let start = arr.indexOf(arr[i]);</span><br><span class="line">        let end = arr.lastIndexOf(arr[i]);</span><br><span class="line">        while(start !== end) &#123;</span><br><span class="line">            arr.splice(end, 1);</span><br><span class="line">            end = arr.lastIndexOf(arr[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数组扁平化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 方式一 递归</span><br><span class="line">function flat(array, newarray) &#123;</span><br><span class="line">    for (var i = 0; i &lt; array.length; i++) &#123;</span><br><span class="line">        if(typeof array[i] == &quot;number&quot;)&#123;</span><br><span class="line">            //类型为number, 则放入到新数组中</span><br><span class="line">            newarray.push(array[i]);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            //否则, 继续分解</span><br><span class="line">            flat(array[i], newarray);</span><br><span class="line">        &#125;       </span><br><span class="line">    &#125;      </span><br><span class="line">&#125;</span><br><span class="line">var array = [1,[3,[4],[5,[6,7]],8],[9,[10]]];</span><br><span class="line">var newarray = [];</span><br><span class="line">flat(array, newarray);</span><br><span class="line"></span><br><span class="line">// 方式二 toString()，但是条件受限 </span><br><span class="line">var array = [1,[3,[4],[5,[6,7]],8],[9,[10]]];</span><br><span class="line">var newarray = array.toString().split(&apos;,&apos;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同一事件有多个监听方法，可分别删除监听方法</p>
+<p>  当同一个对象使用.onclick的写法触发多个方法的时候，后一个方法会把前一个方法覆盖掉。而用addEventListener事件监听则不会有覆盖的现象，支持多重加载与冒泡捕获，每个绑定的事件都会被执行。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// onclick绑定事件</span><br><span class="line">window.onload = function() &#123;</span><br><span class="line">    var btn = document.getElementById(&quot;yuanEvent&quot;);</span><br><span class="line">    btn.onclick = function() &#123;</span><br><span class="line">        alert(&quot;第一个事件&quot;);</span><br><span class="line">    &#125;;</span><br><span class="line">    btn.onclick = function() &#123;</span><br><span class="line">        alert(&quot;第二个事件&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">// addEventListener绑定事件</span><br><span class="line">var eventOne = function() &#123;</span><br><span class="line">    alert(&quot;第一个监听事件&quot;);</span><br><span class="line">&#125;</span><br><span class="line">function eventTwo() &#123;</span><br><span class="line">    alert(&quot;第二个监听事件&quot;);</span><br><span class="line">&#125;</span><br><span class="line">window.onload = function() &#123;</span><br><span class="line">    var btn = document.getElementById(&quot;yuanEvent&quot;);</span><br><span class="line">    // addEventListener：绑定函数</span><br><span class="line">    btn.addEventListener(&quot;click&quot;, eventOne); </span><br><span class="line">    btn.addEventListener(&quot;click&quot;, eventTwo);</span><br><span class="line">    // removeEventListener：取消绑定</span><br><span class="line">    btn.removeEventListener(&quot;click&quot;,eventOne); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  解决onClick的写法触发后一个方法会把前一个方法覆盖的问题。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">//统计添加事件监听的个数，0作为预留位</span><br><span class="line">var eventHandlesCounter = 1;</span><br><span class="line">function addEvent(obj, evt, fn) &#123;</span><br><span class="line">    if(!fn.__EventID) &#123;</span><br><span class="line">        fn.__EventID = eventHandlesCounter++;</span><br><span class="line">    &#125;</span><br><span class="line">    if(!obj.__EventHandles) &#123;</span><br><span class="line">        obj.__EventHandles = [];</span><br><span class="line">    &#125;</span><br><span class="line">    if(!obj.__EventHandles[evt]) &#123;</span><br><span class="line">        obj.__EventHandles[evt] = [];</span><br><span class="line">        // 这里记录已经使用onClick直接绑定的事件</span><br><span class="line">        if(obj[&quot;on&quot; + evt] instanceof Function) &#123;</span><br><span class="line">            obj[&quot;on&quot; + evt].__EventID = 0;</span><br><span class="line">            obj.__EventHandles[evt][0] = obj[&quot;on&quot; + evt];</span><br><span class="line">        &#125;</span><br><span class="line">        obj[&quot;on&quot; + evt] = handleEvents;</span><br><span class="line">    &#125;</span><br><span class="line">    obj.__EventHandles[evt][fn.__EventID] = fn;</span><br><span class="line">  </span><br><span class="line">    function handleEvents() &#123;</span><br><span class="line">        var fns = obj.__EventHandles[evt];</span><br><span class="line">        for (var i = 0; i &lt; fns.length; i++) &#123;</span><br><span class="line">            if(fns[i] instanceof Function) &#123;</span><br><span class="line">                fns[i].call(this);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function delEvent(obj, evt, fn) &#123;</span><br><span class="line">    if(!obj.__EventHandles || !obj.__EventHandles[evt] || !fn.__EventID)&#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    if(obj.__EventHandles[evt][fn.__EventID] == fn)&#123;</span><br><span class="line">       delete obj.__EventHandles[evt][fn.__EventID];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>img标签，获取图片的base64编码</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Document&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        function getBase64Image(img) &#123;</span><br><span class="line">            var canvas = document.createElement(&quot;canvas&quot;);</span><br><span class="line">            canvas.width = img.width;</span><br><span class="line">            canvas.height = img.height;</span><br><span class="line">            var ctx = canvas.getContext(&quot;2d&quot;);</span><br><span class="line">            ctx.drawImage(img, 0, 0, img.width, img.height);</span><br><span class="line">            var dataURL = canvas.toDataURL(&quot;image/png&quot;);</span><br><span class="line">            return dataURL;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        function main() &#123;</span><br><span class="line">            var img = document.createElement(&apos;img&apos;);</span><br><span class="line">            // 注意这个图片需要是同源的</span><br><span class="line">            img.src = &apos;./1.png&apos;;</span><br><span class="line">            img.onload =function() &#123;</span><br><span class="line">                var data = getBase64Image(img);</span><br><span class="line">                console.log(&quot;图片的base64编码：&quot;, data);</span><br><span class="line">            &#125;</span><br><span class="line">            document.body.appendChild(img);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        main()</span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现String.prototype.trim函数的实现</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 使用正则表达式</span><br><span class="line">String.prototype.trim = function() &#123; </span><br><span class="line">    return this.replace(/(^\s*)|(\s*$)/g, &quot;&quot;); </span><br><span class="line">&#125; </span><br><span class="line">String.prototype.trimLeft = function() &#123; </span><br><span class="line">    return this.replace(/(^\s*)/g, &quot;&quot;); </span><br><span class="line">&#125; </span><br><span class="line">String.prototype.trimRight = function() &#123; </span><br><span class="line">    return this.replace(/(\s*$)/g, &quot;&quot;); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现一个函数fn，只有一个参数，实现参数求和功能，例如console.log(parseInt(fn(0)(1)(2)(3)(4)(5)))，可以在控制台输出15。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function fn(value) &#123;</span><br><span class="line">    function returnFn(value2) &#123;</span><br><span class="line">        value = value + value2;</span><br><span class="line">        return returnFn;</span><br><span class="line">    &#125;</span><br><span class="line">    returnFn.toString = returnFn.valueOf = function() &#123;</span><br><span class="line">        return value;</span><br><span class="line">    &#125;</span><br><span class="line">    return returnFn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用基于组件的开发模式，开发一个转盘抽奖组件，要求组件功能有：①可以设置旋转圈数②组件可复用③其它自行设计。设计对应的dom，css及js代码，最多可使用jQuery和zepto辅助。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</span><br><span class="line">    &lt;title&gt;简单转盘效果&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        #RotateDiv, #RotateDiv2 &#123;</span><br><span class="line">            width: 50px;</span><br><span class="line">            height: 50px;</span><br><span class="line">            color: #fff;</span><br><span class="line">            text-align: center;</span><br><span class="line">            line-height: 50px;</span><br><span class="line">            background: #444;</span><br><span class="line">            position: relative;</span><br><span class="line">            margin: 20px;</span><br><span class="line">            // 指针效果</span><br><span class="line">            border-radius: 50px 0 50px 50px;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;p&gt;简单转盘：&lt;/p&gt;</span><br><span class="line">    &lt;p&gt; &lt;button id=&quot;RotateBtn&quot;&gt;开始抽奖&lt;/button&gt; &lt;/p&gt;</span><br><span class="line">    &lt;div id=&quot;RotateDiv&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;p&gt;默认转动：&lt;/p&gt;</span><br><span class="line">    &lt;p&gt; &lt;button id=&quot;RotateBtn2&quot;&gt;开始抽奖2&lt;/button&gt; &lt;/p&gt;</span><br><span class="line">    &lt;div id=&quot;RotateDiv2&quot;&gt;&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        window.iRotate = (function(w, d)&#123;</span><br><span class="line">            function R(obj, json)&#123;</span><br><span class="line">                this.obj = (typeof obj === &apos;object&apos;) ? obj : d.querySelector(obj);</span><br><span class="line">                this.startTime = Date.now();</span><br><span class="line">                this.timer = null;</span><br><span class="line">                this.rotate(json);</span><br><span class="line">            &#125;;</span><br><span class="line">            R.prototype = &#123;</span><br><span class="line">                rotate: function(json) &#123;</span><br><span class="line">                    var self = this;</span><br><span class="line">                    var times = json[&apos;time&apos;] || 1000;</span><br><span class="line">                    clearInterval(self.timer);</span><br><span class="line">                    self.timer = setInterval(function() &#123;</span><br><span class="line">                        var changeTime = Date.now();</span><br><span class="line">                        // 当前消耗时间</span><br><span class="line">                        var timing = Math.min(times, changeTime - self.startTime);</span><br><span class="line">                        var tweenFun = Tween[json[&apos;easing&apos;] || &apos;easeOut&apos;];</span><br><span class="line">                        // 根据当前时间计算转动角度</span><br><span class="line">                        var value = tweenFun(</span><br><span class="line">                                        timing,</span><br><span class="line">                                        +json[&apos;start&apos;] || 0,</span><br><span class="line">                                        json[&apos;end&apos;] - (+json[&apos;start&apos;] || 0),</span><br><span class="line">                                        times</span><br><span class="line">                                    );</span><br><span class="line">                        self.obj.style[&apos;transform&apos;] = &apos;rotate(&apos; + value%360 + &apos;deg)&apos;;</span><br><span class="line">                        self.obj.style[&apos;-webkit-transform&apos;] = &apos;rotate(&apos; + value%360 + &apos;deg)&apos;;</span><br><span class="line">                        self.obj.setAttribute(&apos;data-rotate&apos;, value%360);</span><br><span class="line">                        // 停止旋转</span><br><span class="line">                        if(timing == times)&#123;</span><br><span class="line">                            clearInterval(self.timer);</span><br><span class="line">                            json.callback &amp;&amp; json.callback.call(self.obj);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;, 10)</span><br><span class="line">                &#125;,</span><br><span class="line">                stop: function(fn) &#123;</span><br><span class="line">                    clearInterval(this.timer);</span><br><span class="line">                    fn &amp;&amp; fn.call(this.obj);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;;</span><br><span class="line">        return R;</span><br><span class="line">    &#125;)(window, document);</span><br><span class="line"></span><br><span class="line">    var Tween = &#123;</span><br><span class="line">        // 匀速转动</span><br><span class="line">        linear: function (t, b, c, d)&#123;</span><br><span class="line">            return c*t/d + b;</span><br><span class="line">        &#125;,</span><br><span class="line">        // 逐渐变慢</span><br><span class="line">        easeOut: function(t, b, c, d)&#123;</span><br><span class="line">            return -c *(t/=d)*(t-2) + b;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    (function()&#123;</span><br><span class="line">        // 点击转动</span><br><span class="line">        var off = true;</span><br><span class="line">        RotateBtn.onclick = function()&#123;</span><br><span class="line">            if(!off) return; // 判断是否在旋转</span><br><span class="line">            off = false;</span><br><span class="line">            new iRotate(&apos;#RotateDiv&apos;, &#123;</span><br><span class="line">                end: 45 + 1800,</span><br><span class="line">                time: 5000,</span><br><span class="line">                callback : function()&#123; // 回调函数</span><br><span class="line">                    this.innerHTML = this.getAttribute(&apos;data-rotate&apos;);</span><br><span class="line">                    off = true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        //默认转动</span><br><span class="line">        var r = null;</span><br><span class="line">        var off2 = true;</span><br><span class="line">        function rotate2()&#123; // 递归持续旋转</span><br><span class="line">            r = new iRotate(&apos;#RotateDiv2&apos;, &#123;</span><br><span class="line">                start: 0,</span><br><span class="line">                end: 360,</span><br><span class="line">                time: 1000,</span><br><span class="line">                easing: &apos;linear&apos;,</span><br><span class="line">                callback: function()&#123;</span><br><span class="line">                    rotate2();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">        rotate2();</span><br><span class="line">        RotateBtn2.onclick = function()&#123;</span><br><span class="line">            if(!off2) return; // 判断是否在旋转</span><br><span class="line">            off2 = false;</span><br><span class="line">            r.stop(); // 停止之前的旋转</span><br><span class="line">            new iRotate(&apos;#RotateDiv2&apos;, &#123;</span><br><span class="line">                start: RotateDiv2.getAttribute(&apos;data-rotate&apos;), // 如果不加这个会从0角度开始旋转，有抖动</span><br><span class="line">                end: 65 + 1800,</span><br><span class="line">                time: 5000,</span><br><span class="line">                callback: function()&#123; // 回调函数</span><br><span class="line">                    this.innerHTML = this.getAttribute(&apos;data-rotate&apos;);</span><br><span class="line">                    off2 = true;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)();</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li><p>股票利润：假如一个数组中存储了一个股票在一天交易窗口内各时间点的股票价格（正整数），只允许一次买入和一次卖出，计算出通过卖出和买入可以得到的最大利润。</p>
+<p>  思路：只要找出输入数组中最大的差值即可。遍历一遍数组，求出每个元素前面的最小值，每个元素与对应最小值的差即为该元素对应的收益，所有元素收益的最大值就是所求值。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function maxProfit(prices) &#123;</span><br><span class="line">    var maxProfit = -1;</span><br><span class="line">    if (!prices || prices.length === 0) &#123;</span><br><span class="line">        return maxProfit;</span><br><span class="line">    &#125;</span><br><span class="line">    var minPrices = [];</span><br><span class="line">    for(var i = 0; i &lt; prices.length; i++) &#123;</span><br><span class="line">        if (i === 0) &#123;</span><br><span class="line">            // 第一个元素前的最小值是自己</span><br><span class="line">            minPrices.push(prices[i]);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            /*</span><br><span class="line">            当前元素如果大于前一个最小值，则当前元素最小值为前一个的最小值，否则当前元素的最小值为当前元素</span><br><span class="line">            */</span><br><span class="line">            minPrices.push(minPrices[i-1] &lt;= prices[i] ? minPrices[i-1] : prices[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for(var i = 0; i &lt; prices.length; i++) &#123;</span><br><span class="line">        if (prices[i] - minPrices[i] &gt; maxProfit) &#123;</span><br><span class="line">            maxProfit = prices[i] - minPrices[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return maxProfit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现图片墙的效果，要求所有图片显示的宽度相同，整个图片墙的高度尽可能小。</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE HTML&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en-US"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>瀑布流<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">        * &#123;</span></span><br><span class="line"><span class="undefined">            margin:0;</span></span><br><span class="line"><span class="undefined">            padding:0;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        #main &#123;</span></span><br><span class="line"><span class="undefined">            position:relative;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .box &#123;</span></span><br><span class="line"><span class="undefined">            padding:15px 0 0 15px;</span></span><br><span class="line"><span class="undefined">            float:left;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .pic &#123;</span></span><br><span class="line"><span class="undefined">            padding:10px;</span></span><br><span class="line"><span class="undefined">            border:1px solid #ccc;</span></span><br><span class="line"><span class="undefined">            border-radius:5px;</span></span><br><span class="line"><span class="undefined">            box-shadow:0 0 5px #ccc;</span></span><br><span class="line"><span class="undefined">            background:#FFF;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        img &#123;</span></span><br><span class="line"><span class="undefined">            width:236px; // 固定</span></span><br><span class="line"><span class="undefined">            height:auto;</span></span><br><span class="line"><span class="undefined">            opacity:1;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">        .pic:hover img &#123;</span></span><br><span class="line"><span class="undefined">            opacity:0.7;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"main"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 如果没有加载,就可以加载</span></span></span><br><span class="line"><span class="javascript">        <span class="keyword">var</span> loading = <span class="literal">false</span>; </span></span><br><span class="line"><span class="javascript">        <span class="comment">// 发起请求加载图片</span></span></span><br><span class="line"><span class="undefined">        putDate();</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 滚轮加载, 符合条件时, 当滚轮滚到最后一个div的一半时请求新的数据</span></span></span><br><span class="line"><span class="javascript">        <span class="built_in">window</span>.onscroll = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (getMore()) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="comment">// 这里是 ajax 请求, 如果没有加载,就可以加载, 加载完成后就设置为false未加在状态</span></span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (!loading) &#123;</span></span><br><span class="line"><span class="javascript">                    loading = <span class="literal">true</span>;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// 发起请求加载图片</span></span></span><br><span class="line"><span class="undefined">                    putDate();</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 排序方法</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">waterfall</span>(<span class="params">parent, box</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 获取大盒子. 获取小盒子</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> parentBox = <span class="built_in">document</span>.getElementById(parent);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> theBox = <span class="built_in">document</span>.getElementsByClassName(box);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span> (theBox.length === <span class="number">0</span>) &#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">return</span>;</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 计算大盒子里能放几列小盒子</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> mainWidth = <span class="built_in">document</span>.documentElement.clientWidth;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> contentWidth = theBox[<span class="number">0</span>].offsetWidth;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> col = <span class="built_in">Math</span>.floor(mainWidth/contentWidth);</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 给大盒子设置宽度</span></span></span><br><span class="line"><span class="javascript">            parentBox.style.cssText = <span class="string">`width: <span class="subst">$&#123;contentWidth*col&#125;</span>px; margin: 0 auto;`</span>;</span></span><br><span class="line"><span class="undefined">            /*</span></span><br><span class="line"><span class="undefined">            计算 哪个盒子所在的位置的 offsetTop 最小</span></span><br><span class="line"><span class="undefined">            创建一个数组, 把现在屏幕宽度能设置的列数,比如最大时4列, 把前4 个div的高度放进数组中,</span></span><br><span class="line"><span class="undefined">            然后超过 4 的开始计算,</span></span><br><span class="line"><span class="undefined">            1: 数组中谁最小,</span></span><br><span class="line"><span class="undefined">            2: 获取他的值 作为这个将要定位的div 的 top值, 下标*contentWidth 作为 left的定位</span></span><br><span class="line"><span class="undefined">            3: 更改数组, 把这个div的 offsetHeight + 最小值 更新这个值</span></span><br><span class="line"><span class="undefined">            */</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> arr = [];</span></span><br><span class="line"><span class="javascript">            [...theBox].map(<span class="function">(<span class="params">item,index</span>) =&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">if</span> (index &lt; col) &#123;</span></span><br><span class="line"><span class="undefined">                    arr.push(item.offsetHeight)</span></span><br><span class="line"><span class="javascript">                &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// 获取最小值</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> getMinNum = <span class="built_in">Math</span>.min.apply( <span class="literal">null</span>, arr);</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// 获取最小值所在的Index</span></span></span><br><span class="line"><span class="javascript">                    <span class="keyword">let</span> getMinNumIndex = arr.findIndex(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                        <span class="keyword">return</span> item === getMinNum</span></span><br><span class="line"><span class="undefined">                    &#125;);</span></span><br><span class="line"><span class="javascript">                    theBox[index].style.cssText = <span class="string">`position: absolute; top: <span class="subst">$&#123;getMinNum&#125;</span>px; left: <span class="subst">$&#123;getMinNumIndex*contentWidth&#125;</span>px`</span>;</span></span><br><span class="line"><span class="undefined">                    arr[getMinNumIndex] += theBox[index].offsetHeight;</span></span><br><span class="line"><span class="undefined">                &#125;</span></span><br><span class="line"><span class="undefined">            &#125;);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">        /*</span></span><br><span class="line"><span class="undefined">        继续加载的条件, 当滚动到最后一个div的中间位置, 就加载</span></span><br><span class="line"><span class="undefined">        即 div.offsetTop + div.offsetHeight/2 小于 scrollTop(滚动到上面看不到的距离) + clientHeight (现在可视区域的高度) </span></span><br><span class="line"><span class="undefined">        */</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">getMore</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> theBox = <span class="built_in">document</span>.getElementsByClassName(<span class="string">'box'</span>);</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> len = theBox.length;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> ele = theBox[len - <span class="number">1</span> ];</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 获取div的 offsetTop ,offsetHeight</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> divTop = ele.offsetTop + ele.offsetHeight/<span class="number">2</span> ;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 获取 scrollTop(滚动到上面看不到的距离) 可能有iframe吧</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> scrollT = <span class="built_in">document</span>.body.scrollTop || <span class="built_in">document</span>.documentElement.scrollTop;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// 获取 clientHeight (现在可视区域的高度)</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">let</span> clitH = <span class="built_in">document</span>.body.clientHeight || <span class="built_in">document</span>.documentElement.clientHeight;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> divTop &lt; scrollT + clitH;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">//后台请求数据</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">putDate</span>(<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="comment">// var xhr = ajaxContent();</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// xhr.onreadystatechange = function()&#123;</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//  if(xhr.readyState == 4 &amp;&amp; xhr.status == 200) &#123;</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//      var res = JSON.parse(xhr.responseText);</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//      addImages(res);</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">//  &#125;</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// &#125;</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// xhr.open('get','../config/data.js',true);</span></span></span><br><span class="line"><span class="javascript">            <span class="comment">// xhr.send();</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> res = [&#123;<span class="string">"src"</span>:<span class="string">"1.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"2.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"3.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"4.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"5.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"6.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"7.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"8.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"9.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"10.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"11.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"12.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"13.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"14.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"15.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"16.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"17.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"18.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"19.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"20.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"21.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"22.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"23.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"24.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"25.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"26.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"27.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"28.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"29.jpg"</span>&#125;,&#123;<span class="string">"src"</span>:<span class="string">"30.jpg"</span>&#125;];</span></span><br><span class="line"><span class="undefined">            addImages(res);</span></span><br><span class="line"><span class="undefined">            </span></span><br><span class="line"><span class="javascript">            <span class="function"><span class="keyword">function</span> <span class="title">addImages</span>(<span class="params">res</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> oparent = <span class="built_in">document</span>.getElementById(<span class="string">'main'</span>);</span></span><br><span class="line"><span class="javascript">                res.map(<span class="function"><span class="keyword">function</span>(<span class="params">item,index</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> url = item.src;</span></span><br><span class="line"><span class="xml">                    var str ='<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"pic"</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"imgp/'+url+'"</span> <span class="attr">onload</span>=<span class="string">"waterfall(\'main\',\'box\')"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>';</span></span><br><span class="line"><span class="javascript">                    <span class="keyword">var</span> mdiv = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</span></span><br><span class="line"><span class="javascript">                    mdiv.setAttribute(<span class="string">'class'</span>,<span class="string">'box'</span>)</span></span><br><span class="line"><span class="undefined">                    mdiv.innerHTML = str;</span></span><br><span class="line"><span class="undefined">                    oparent.appendChild(mdiv);</span></span><br><span class="line"><span class="javascript">                    <span class="comment">// 请求一次做一次定位</span></span></span><br><span class="line"><span class="javascript">                    waterfall(<span class="string">'main'</span>,<span class="string">'box'</span>);</span></span><br><span class="line"><span class="javascript">                    loading = <span class="literal">false</span>;</span></span><br><span class="line"><span class="undefined">                &#125;);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 封装ajax请求</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">ajaxContent</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> xhr = <span class="literal">null</span>;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)&#123;</span></span><br><span class="line"><span class="javascript">                xhr = <span class="keyword">new</span> XMLHttpRequest();</span></span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line"><span class="javascript">                xhr = <span class="keyword">new</span> ActiveXObjext(<span class="string">'Microsoft.XMLHTTP'</span>);</span></span><br><span class="line"><span class="undefined">            &#125;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">return</span> xhr;</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/31/interview-algorithm/" rel="next" title="算法基础">
+                <i class="fa fa-chevron-left"></i> 算法基础
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/2108-5-06-javascript-setTimeout/" rel="prev" title="JavaScript-setTimeout">
+                JavaScript-setTimeout <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+       
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">付忠峰</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+
+            $('.popup').detach().appendTo('.container');
+            //$('.popup').detach().appendTo('.header-inner');
+
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>

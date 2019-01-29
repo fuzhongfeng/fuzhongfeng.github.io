@@ -1,0 +1,891 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.lug.ustc.edu.cn/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="付忠峰的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="http://www.w3school.com.cn/jquery/ajax_ajax.asp AJAX(Asynchronous JavaScript and XML)，最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容。编写常规的AJAX代码并不容易，因为不同的浏览器对 AJAX 的实现并不相同，不过jQuery为我们解决了这个难题。 jQuery AJAX 使用">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript-AJAX">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2018/03/26/interview-javascript-ajax/index.html">
+<meta property="og:site_name" content="付忠峰的博客">
+<meta property="og:description" content="http://www.w3school.com.cn/jquery/ajax_ajax.asp AJAX(Asynchronous JavaScript and XML)，最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容。编写常规的AJAX代码并不容易，因为不同的浏览器对 AJAX 的实现并不相同，不过jQuery为我们解决了这个难题。 jQuery AJAX 使用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-12T14:26:56.083Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript-AJAX">
+<meta name="twitter:description" content="http://www.w3school.com.cn/jquery/ajax_ajax.asp AJAX(Asynchronous JavaScript and XML)，最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容。编写常规的AJAX代码并不容易，因为不同的浏览器对 AJAX 的实现并不相同，不过jQuery为我们解决了这个难题。 jQuery AJAX 使用">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: undefined,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> JavaScript-AJAX | 付忠峰的博客 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?50501430dc12a862e9fb82a90d9e33f2";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">付忠峰的博客</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+    </div>
+  
+</nav>
+
+ </div>
+      
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/me.jpg"
+               alt="付忠峰" />
+          <p class="site-author-name" itemprop="name">付忠峰</p>
+          <p class="site-description motion-element" itemprop="description">学习记录</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fuzhongfeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jikexueyuan.com/" title="极客学院" target="_blank">极客学院</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://caniuse.com" title="caniuse" target="_blank">caniuse</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://codepen.io" title="codepen" target="_blank">codepen</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://babeljs.io/repl/" title="Babel在线编译" target="_blank">Babel在线编译</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.iconfinder.com/iconsets/miu" title="Iconfinder图标" target="_blank">Iconfinder图标</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.bejson.com/" title="在线JSON格式化" target="_blank">在线JSON格式化</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jQuery-AJAX-使用"><span class="nav-number">1.</span> <span class="nav-text">jQuery AJAX 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AJAX实现"><span class="nav-number">2.</span> <span class="nav-text">AJAX实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GET跨域提交表单"><span class="nav-number">3.</span> <span class="nav-text">GET跨域提交表单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POST跨域提交表单"><span class="nav-number">4.</span> <span class="nav-text">POST跨域提交表单</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+    </header>
+ 
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaScript-AJAX
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-26T14:30:05+08:00" content="2018-03-26">
+              2018-03-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Interview</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="http://www.w3school.com.cn/jquery/ajax_ajax.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/jquery/ajax_ajax.asp</a></p>
+<p>AJAX(Asynchronous JavaScript and XML)，最大的优点是在不重新加载整个页面的情况下，可以与服务器交换数据并更新部分网页内容。编写常规的AJAX代码并不容易，因为不同的浏览器对 AJAX 的实现并不相同，不过jQuery为我们解决了这个难题。</p>
+<h2 id="jQuery-AJAX-使用"><a href="#jQuery-AJAX-使用" class="headerlink" title="jQuery AJAX 使用"></a>jQuery AJAX 使用</h2><p><code>$.ajax([settings])</code> 返回其创建的 XMLHttpRequest 对象，大多数情况下你无需直接操作该函数，除非你需要操作不常用的选项以获得更多的灵活性。参数对象settings可选，参数中的所有的选项都可以通过$.ajaxSetup() 函数来全局设置。</p>
+<ul>
+<li><p>global: Boolean  默认为true，表示触发全局AJAX事件</p>
+</li>
+<li><p>options: Object  可选，AJAX请求设置</p>
+</li>
+<li><p>async: Boolean  默认为true，表示异步请求</p>
+</li>
+<li><p>cache: Boolean  默认为true，dataType为script和jsonp时默认为false，false表示不缓存此页面</p>
+</li>
+<li><p>ifModified: Boolean  默认为false，true表示仅在服务器数据改变时获取新数据</p>
+</li>
+<li><p>timeout: Number  设置请求超时时间（毫秒），此设置将覆盖全局设置</p>
+</li>
+<li><p>traditional: Boolean  如果想要用传统的方式来序列化数据，那么就设置为true</p>
+</li>
+<li><p>processData: Boolean  默认为true，true表示通过data选项传递进来的数据会被转化成一个查询字符串</p>
+</li>
+<li><p>context: Object  设置AJAX相关回调函数的上下文，也就是回调函数内的this，如果不设定那么this指向调用本次AJAX请求时传递的options参数</p>
+</li>
+<li><p>username: String  用于响应 HTTP 访问认证请求的用户名</p>
+</li>
+<li><p>password: String  用于响应 HTTP 访问认证请求的密码</p>
+</li>
+<li><p>contentType: String  默认为”application/x-www-form-urlencoded”，表示发送信息至服务器时内容编码类型</p>
+</li>
+<li><p>dataType: String  预期服务器返回的数据类型，如不指定jQuery将自动根据HTTP包MIME信息来智能判断，可用值：”xml”、”html”、”script”、”json”、”jsonp”、”text”</p>
+</li>
+<li><p>type: String  默认为GET，可选”POST”或”GET”</p>
+</li>
+<li><p>headers: Object  设置请求头</p>
+</li>
+<li><p>url: String  发送请求的地址，默认为当前页地址</p>
+</li>
+<li><p>data: String  发送到服务器的数据、请求参数，将自动转换为请求字符串格式，processData 选项可禁止此自动转换，GET请求中将附加在URL后</p>
+</li>
+<li><p>jsonp: String  在一个jsonp请求中重写回调函数的名字，来替代在”callback”</p>
+</li>
+<li><p>jsonpCallback: String  为jsonp请求指定一个回调函数名，将用来取代jQuery自动生成的随机函数名。想让浏览器缓存GET请求的时候，指定这个回调函数名</p>
+</li>
+<li><p>scriptCharset: String  只有当请求时dataType为”jsonp”或”script”，并且type是”GET”才会用于强制修改 charset。通常只在本地和远程的内容编码不同时使用。</p>
+</li>
+<li><p>xhr: Function  需要返回一个 XMLHttpRequest 对象，默认在 IE 下是 ActiveXObject 而其他情况下是 XMLHttpRequest 。用于重写或者提供一个增强的 XMLHttpRequest 对象。</p>
+</li>
+<li><p>beforeSend: Function(XMLHttpRequest)  发送请求前可修改XMLHttpRequest对象的函数，如添加自定义HTTP头。参数为XMLHttpRequest。如果返回false可以取消本次ajax请求</p>
+</li>
+<li><p>complete: Function(XMLHttpRequest, TS)  请求完成后回调函数(请求成功或失败之后均调用)，参数为XMLHttpRequest 对象和一个描述请求类型的字符串</p>
+</li>
+<li><p>error: Function(XMLHttpRequest, textStatus, errorThrown)  请求失败时调用此函数，参数为XMLHttpRequest对象、错误信息、捕获的异常对象</p>
+</li>
+<li><p>success: Function(responseData, TS)  请求成功后的回调函数，参数为根据dataType参数进行处理后的数据和描述状态的字符串。</p>
+</li>
+<li><p>dataFilter: Function(data, type)  给Ajax返回的原始数据的进行预处理的函数，data是返回的原始数据，type是dataType参数</p>
+</li>
+</ul>
+<p>示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot; src=&quot;/jquery/jquery.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">    $(document).ready(function()&#123;</span><br><span class="line">      $(&quot;#b01&quot;).click(function()&#123;</span><br><span class="line">        // 同步</span><br><span class="line">        htmlobj=$.ajax(&#123;url:&quot;/jquery/test1.txt&quot;,async:false&#125;);</span><br><span class="line">        $(&quot;#myDiv&quot;).html(htmlobj.responseText);</span><br><span class="line">        // 异步</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url: &quot;/jquery/test1.txt&quot;,</span><br><span class="line">            success: function(responseData) &#123;</span><br><span class="line">                $(&quot;#myDiv&quot;).html(responseData);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;myDiv&quot;&gt;&lt;h2&gt;通过 AJAX 改变文本&lt;/h2&gt;&lt;/div&gt;</span><br><span class="line">&lt;button id=&quot;b01&quot; type=&quot;button&quot;&gt;改变内容&lt;/button&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="AJAX实现"><a href="#AJAX实现" class="headerlink" title="AJAX实现"></a>AJAX实现</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">function ajax(options) &#123;</span><br><span class="line">    options = options || &#123;&#125;;</span><br><span class="line">    options.type = (options.type || &quot;GET&quot;).toUpperCase();</span><br><span class="line">    options.dataType = options.dataType || &quot;json&quot;;</span><br><span class="line">    var params = formatParams(options.data);</span><br><span class="line">    var xhr;</span><br><span class="line"></span><br><span class="line">    //创建 - 第一步</span><br><span class="line">    if (window.XMLHttpRequest) &#123;</span><br><span class="line">        xhr = new XMLHttpRequest();</span><br><span class="line">    &#125; else if(window.ActiveObject) &#123;//IE6及以下</span><br><span class="line">        xhr = new ActiveXObject(&apos;Microsoft.XMLHTTP&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //连接 和 发送 - 第二步</span><br><span class="line">    if (options.type == &quot;GET&quot;) &#123;</span><br><span class="line">        xhr.open(&quot;GET&quot;, options.url + &quot;?&quot; + params, true);</span><br><span class="line">        xhr.send(null);</span><br><span class="line">    &#125; else if (options.type == &quot;POST&quot;) &#123;</span><br><span class="line">        xhr.open(&quot;POST&quot;, options.url, true);</span><br><span class="line">        //设置表单提交时的内容类型</span><br><span class="line">        xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span><br><span class="line">        xhr.send(params);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //接收 - 第三步</span><br><span class="line">    xhr.onreadystatechange = function () &#123;</span><br><span class="line">        if (xhr.readyState == 4) &#123;</span><br><span class="line">            var status = xhr.status;</span><br><span class="line">            if (status &gt;= 200 &amp;&amp; status &lt; 300 || status == 304) &#123;</span><br><span class="line">                options.success &amp;&amp; options.success(xhr.responseText, xhr.responseXML);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                options.error &amp;&amp; options.error(status);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//格式化参数</span><br><span class="line">function formatParams(data) &#123;</span><br><span class="line">    var arr = [];</span><br><span class="line">    for (var name in data) &#123;</span><br><span class="line">        arr.push(encodeURIComponent(name) + &quot;=&quot; + encodeURIComponent(data[name]));</span><br><span class="line">    &#125;</span><br><span class="line">    arr.push((&quot;v=&quot; + Math.random()).replace(&quot;.&quot;, &quot;&quot;));</span><br><span class="line">    return arr.join(&quot;&amp;&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="GET跨域提交表单"><a href="#GET跨域提交表单" class="headerlink" title="GET跨域提交表单"></a>GET跨域提交表单</h2><p>前台代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;meta charset=&quot;utf-8&quot; /&gt;</span><br><span class="line">        &lt;title&gt;跨域&lt;/title&gt;</span><br><span class="line">        &lt;script src=&quot;./jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">        &lt;script&gt;</span><br><span class="line">        function flightHandler(data) &#123;</span><br><span class="line">            console.log(&apos;2: &apos;,data)</span><br><span class="line">        &#125;</span><br><span class="line">        window.onload = function() &#123;</span><br><span class="line">            $.ajax(&#123;</span><br><span class="line">                url: &quot;http://localhost:9432&quot;,</span><br><span class="line">                type: &quot;get&quot;, // jsonp必须是get方式，post不支持，注意</span><br><span class="line">                dataType: &quot;jsonp&quot;,</span><br><span class="line">                jsonp: &quot;callback&quot;, // 回调函数名称变量名</span><br><span class="line">                jsonpCallback: &quot;flightHandler&quot;, // 回调函数名称的值</span><br><span class="line">                data: &#123;param: &apos;参数&apos;&#125;,</span><br><span class="line">                beforeSend: function () &#123;</span><br><span class="line">                    console.log(&apos;1&apos;);</span><br><span class="line">                &#125;,</span><br><span class="line">                success: function (msg) &#123;</span><br><span class="line">                    console.log(&apos;3: &apos;,msg);</span><br><span class="line">                &#125;,</span><br><span class="line">                error: function (XMLHttpRequest, textStatus, errorThrown) &#123;</span><br><span class="line">                    console.log(&apos;4: &apos;,XMLHttpRequest, textStatus, errorThrown);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>后台代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var http = require(&apos;http&apos;),</span><br><span class="line">    fs = require(&apos;fs&apos;),</span><br><span class="line">    url=require(&quot;url&quot;);</span><br><span class="line"></span><br><span class="line">http.createServer(function(req, res) &#123;</span><br><span class="line">    var query = url.parse(req.url, true).query;</span><br><span class="line">    var func = query.callback;</span><br><span class="line">    console.log(query);</span><br><span class="line">    var msg = `$&#123;func&#125;(&#123;&quot;txt&quot;: &quot;success&quot;&#125;)`;</span><br><span class="line">    res.write(msg);</span><br><span class="line">    res.end();  </span><br><span class="line">&#125;).listen(9432);</span><br></pre></td></tr></table></figure></p>
+<p>运行结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1</span><br><span class="line">2:  &#123;txt: &quot;success&quot;&#125;</span><br><span class="line">3:  &#123;txt: &quot;success&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="POST跨域提交表单"><a href="#POST跨域提交表单" class="headerlink" title="POST跨域提交表单"></a>POST跨域提交表单</h2><p>CORS（跨域资源共享，Cross-Origin Resource Sharing），定义一种跨域访问的机制，可以让AJAX实现跨域访问。CORS允许一个域上的网络应用向另一个域提交跨域AJAX请求。实现此功能非常简单，只需由服务器发送一个响应标头即可。</p>
+<p>header(“Access-Control-Allow-Origin: *”);<br>header(“Access-Control-Allow-Origin: <a href="http://www.test2.com&quot;)" target="_blank" rel="noopener">http://www.test2.com&quot;)</a>;</p>
+<p>CORS提供了一种跨域请求方案，但没有为安全访问提供足够的保障机制，如果需要信息的绝对安全，不要依赖CORS当中的权限制度，应当使用更多其它的措施来保障，比如OAuth2。CORS使用场景：</p>
+<ul>
+<li>CORS在移动终端支持的不错，可以考虑在移动端全面尝试</li>
+<li>jsonp是get形式，承载的信息量有限，所以信息量较大时CORS是不二选择</li>
+<li>配合新的JSAPI(fileapi、xhr2等)一起使用，实现强大的新体验功能</li>
+</ul>
+<p>前台代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;!doctype html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">    &lt;head&gt;</span><br><span class="line">        &lt;meta charset=&quot;utf-8&quot; /&gt;</span><br><span class="line">        &lt;title&gt;跨域&lt;/title&gt;</span><br><span class="line">        &lt;script src=&quot;./jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">        &lt;script&gt;</span><br><span class="line">        window.onload = function() &#123;</span><br><span class="line">            $.ajax(&#123;</span><br><span class="line">                url: &quot;http://localhost:9432&quot;,</span><br><span class="line">                type: &quot;post&quot;,</span><br><span class="line">                dataType: &quot;json&quot;,</span><br><span class="line">                data: &#123;param: &apos;参数&apos;&#125;,</span><br><span class="line">                success: function (msg) &#123;</span><br><span class="line">                    console.log(&apos;3: &apos;,msg);</span><br><span class="line">                &#125;,</span><br><span class="line">                error: function (XMLHttpRequest, textStatus, errorThrown) &#123;</span><br><span class="line">                    console.log(&apos;4: &apos;,XMLHttpRequest, textStatus, errorThrown);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;;</span><br><span class="line">        &lt;/script&gt;</span><br><span class="line">    &lt;/head&gt;</span><br><span class="line">    &lt;body&gt;</span><br><span class="line">    &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>后台代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var http = require(&apos;http&apos;),</span><br><span class="line">    fs = require(&apos;fs&apos;),</span><br><span class="line">    url=require(&quot;url&quot;);</span><br><span class="line"></span><br><span class="line">http.createServer(function(req, res) &#123;</span><br><span class="line">    res.writeHead(200,&#123;&quot;Access-Control-Allow-Origin&quot;:&quot;*&quot;&#125;);</span><br><span class="line">    // res.setHeader(&quot;Access-Control-Allow-Origin&quot;,&quot;*&quot;);</span><br><span class="line"></span><br><span class="line">    // 设置接收数据编码格式为 UTF-8</span><br><span class="line">    req.setEncoding(&apos;utf-8&apos;);</span><br><span class="line">    //POST &amp; GET ： name=zzl&amp;email=zzl@sina.com</span><br><span class="line">    var postData = &quot;&quot;;</span><br><span class="line">    // 数据块接收中</span><br><span class="line">    req.addListener(&quot;data&quot;, function (postDataChunk) &#123;</span><br><span class="line">        postData += postDataChunk;</span><br><span class="line">    &#125;);</span><br><span class="line">    // 数据接收完毕，执行回调函数</span><br><span class="line">    req.addListener(&quot;end&quot;, function () &#123;</span><br><span class="line">        console.log(&apos;数据接收完毕&apos;);</span><br><span class="line">        //GET &amp; POST  ////解释表单数据部分&#123;name=&quot;zzl&quot;,email=&quot;zzl@sina.com&quot;&#125;</span><br><span class="line">        var params = querystring.parse(postData);</span><br><span class="line">        console.log(params);</span><br><span class="line">    &#125;);</span><br><span class="line">    var msg = `&#123;&quot;txt&quot;: &quot;success&quot;&#125;`;</span><br><span class="line">    res.write(msg);</span><br><span class="line">    res.end();</span><br><span class="line">&#125;).listen(9432);</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/26/interview-javascript1/" rel="next" title="JavaScript-基础知识">
+                <i class="fa fa-chevron-left"></i> JavaScript-基础知识
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/26/interview-es6/" rel="prev" title="ES6-常用知识（未完）">
+                ES6-常用知识（未完） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+       
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">付忠峰</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+
+            $('.popup').detach().appendTo('.container');
+            //$('.popup').detach().appendTo('.header-inner');
+
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+
+  
+
+  
+
+</body>
+</html>
