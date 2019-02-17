@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -90,16 +90,18 @@
 
 
 
-<meta name="description" content="记录 整理 学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Feynman 的博客">
-<meta property="og:url" content="https://fuzhongfeng.github.io/categories/JavaScript/index.html">
+<meta name="description" content="null 和 0 比较最近在项目中修改 bug 时发现的一个不太理解的问题： 12params.estimatedStudentTime = values.estimatedStudentTime &amp;gt;= 0 ?     values.estimatedStudentTime : -1 本意是想根据 values.estimatedStudentTime 的值如果存在并且值大于等于零时才赋值给">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript-基础">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2018/06/28/javascript-base/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="记录 整理 学习">
+<meta property="og:description" content="null 和 0 比较最近在项目中修改 bug 时发现的一个不太理解的问题： 12params.estimatedStudentTime = values.estimatedStudentTime &amp;gt;= 0 ?     values.estimatedStudentTime : -1 本意是想根据 values.estimatedStudentTime 的值如果存在并且值大于等于零时才赋值给">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-17T13:19:18.077Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feynman 的博客">
-<meta name="twitter:description" content="记录 整理 学习">
+<meta name="twitter:title" content="JavaScript-基础">
+<meta name="twitter:description" content="null 和 0 比较最近在项目中修改 bug 时发现的一个不太理解的问题： 12params.estimatedStudentTime = values.estimatedStudentTime &amp;gt;= 0 ?     values.estimatedStudentTime : -1 本意是想根据 values.estimatedStudentTime 的值如果存在并且值大于等于零时才赋值给">
 
 
 
@@ -117,7 +119,7 @@
   };
 </script>
 
-  <title> 分类: JavaScript | Feynman 的博客 </title>
+  <title> JavaScript-基础 | Feynman 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -148,7 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,8 +270,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/me.jpg"
@@ -338,6 +349,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#null-和-0-比较"><span class="nav-number">1.</span> <span class="nav-text">null 和 0 比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关系运算符比较时会尝试将值转为-number-，Number-null-值为-0"><span class="nav-number">1.1.</span> <span class="nav-text">关系运算符比较时会尝试将值转为 number ，Number(null)  值为 0</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -352,131 +374,148 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        JavaScript
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/30/javascript-RegExp/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-RegExp</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-30T19:55:01+08:00"
-              content="2018-12-30" >
-          12-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/28/javascript-base/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-基础</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-28T21:54:13+08:00"
-              content="2018-06-28" >
-          06-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/24/javascript-asyncAwait/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-async/await</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-24T11:02:18+08:00"
-              content="2018-05-24" >
-          05-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-setTimeout</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-06T11:07:50+08:00"
-              content="2018-05-06" >
-          05-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaScript-基础
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-28T21:54:13+08:00" content="2018-06-28">
+              2018-06-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="null-和-0-比较"><a href="#null-和-0-比较" class="headerlink" title="null 和 0 比较"></a>null 和 0 比较</h2><p><em>最近在项目中修改 bug 时发现的一个不太理解的问题：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">params.estimatedStudentTime = values.estimatedStudentTime &gt;= 0 ? </span><br><span class="line">    values.estimatedStudentTime : -1</span><br></pre></td></tr></table></figure>
+<p>本意是想根据 values.estimatedStudentTime 的值如果存在并且值大于等于零时才赋值给 params.estimatedStudentTime，当 values.estimatedStudentTime 的值不存在时则取 -1 再传递给接口。<br>乍一看判断没问题啊，然而控制台却发现还是将 null 值传递了出去。因为在某一处给 values.estimatedStudentTime 赋值为 null，但是 values.estimatedStudentTime &gt;= 0 为什么不能过滤掉 null ？？？ 难道 null &gt;= 0 返回true ？？？ 果然 null &gt;= 0 返回 true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(null &gt; 0);   // false</span><br><span class="line">console.log(null &lt; 0);   // false</span><br><span class="line">console.log(null &gt;= 0);   // true</span><br><span class="line">console.log(null &lt;= 0);   // true</span><br><span class="line">console.log(null == 0);   // false</span><br><span class="line">console.log(null === 0);    // false</span><br></pre></td></tr></table></figure></p>
+<p>why ？？？<br>首先明确概念：<br>关系运算符： &lt;、&gt;、&gt;=、&lt;=<br>相等运算符：==、!=、===、!==</p>
+<h3 id="关系运算符比较时会尝试将值转为-number-，Number-null-值为-0"><a href="#关系运算符比较时会尝试将值转为-number-，Number-null-值为-0" class="headerlink" title="关系运算符比较时会尝试将值转为 number ，Number(null)  值为 0"></a>关系运算符比较时会尝试将值转为 number ，Number(null)  值为 0</h3><p>然而 Number(undefined) 值却为 NaN, NaN &gt;= 0 返回 false</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/24/javascript-asyncAwait/" rel="next" title="JavaScript-async/await">
+                <i class="fa fa-chevron-left"></i> JavaScript-async/await
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/30/javascript-RegExp/" rel="prev" title="JavaScript-RegExp">
+                JavaScript-RegExp <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -484,6 +523,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
        
@@ -583,6 +626,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 

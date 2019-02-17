@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="CSS," />
 
 
 
@@ -90,16 +90,18 @@
 
 
 
-<meta name="description" content="记录 整理 学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Feynman 的博客">
-<meta property="og:url" content="https://fuzhongfeng.github.io/categories/JavaScript/index.html">
+<meta name="description" content="BFC BFC(Block Formatting Context)是 Web 页面中盒模型布局的 CSS 渲染模式，它的定位体系属于常规文档流。  创建 BFC float 值不为 none position 值不为 static 或 relative display 值为 table-cell、table-caption、inline-block、flex、inline-flex overflo">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS-BFC">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2019/02/17/css-bfc/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="记录 整理 学习">
+<meta property="og:description" content="BFC BFC(Block Formatting Context)是 Web 页面中盒模型布局的 CSS 渲染模式，它的定位体系属于常规文档流。  创建 BFC float 值不为 none position 值不为 static 或 relative display 值为 table-cell、table-caption、inline-block、flex、inline-flex overflo">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-17T15:18:04.293Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feynman 的博客">
-<meta name="twitter:description" content="记录 整理 学习">
+<meta name="twitter:title" content="CSS-BFC">
+<meta name="twitter:description" content="BFC BFC(Block Formatting Context)是 Web 页面中盒模型布局的 CSS 渲染模式，它的定位体系属于常规文档流。  创建 BFC float 值不为 none position 值不为 static 或 relative display 值为 table-cell、table-caption、inline-block、flex、inline-flex overflo">
 
 
 
@@ -117,7 +119,7 @@
   };
 </script>
 
-  <title> 分类: JavaScript | Feynman 的博客 </title>
+  <title> CSS-BFC | Feynman 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -148,7 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,8 +270,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/me.jpg"
@@ -338,6 +349,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC"><span class="nav-number">1.</span> <span class="nav-text">BFC</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建-BFC"><span class="nav-number">1.0.1.</span> <span class="nav-text">创建 BFC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中的盒子对齐"><span class="nav-number">1.0.2.</span> <span class="nav-text">中的盒子对齐</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BFC-导致外边距折叠"><span class="nav-number">1.0.3.</span> <span class="nav-text">BFC 导致外边距折叠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-BFC-来防止外边距折叠"><span class="nav-number">1.0.4.</span> <span class="nav-text">使用 BFC 来防止外边距折叠</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-BFC-来包含浮动"><span class="nav-number">1.0.5.</span> <span class="nav-text">使用 BFC 来包含浮动</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-BFC-防止文字环绕"><span class="nav-number">1.0.6.</span> <span class="nav-text">使用 BFC 防止文字环绕</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -352,131 +374,154 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        JavaScript
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/30/javascript-RegExp/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-RegExp</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-12-30T19:55:01+08:00"
-              content="2018-12-30" >
-          12-30
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/06/28/javascript-base/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-基础</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-28T21:54:13+08:00"
-              content="2018-06-28" >
-          06-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/24/javascript-asyncAwait/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-async/await</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-24T11:02:18+08:00"
-              content="2018-05-24" >
-          05-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-setTimeout</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-05-06T11:07:50+08:00"
-              content="2018-05-06" >
-          05-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-  </section>
 
   
+  
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS-BFC
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-02-17T20:21:10+08:00" content="2019-02-17">
+              2019-02-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><blockquote>
+<p>BFC(Block Formatting Context)是 Web 页面中盒模型布局的 CSS 渲染模式，它的定位体系属于常规文档流。</p>
+</blockquote>
+<h4 id="创建-BFC"><a href="#创建-BFC" class="headerlink" title="创建 BFC"></a>创建 BFC</h4><ul>
+<li>float 值不为 none</li>
+<li>position 值不为 static 或 relative</li>
+<li>display 值为 table-cell、table-caption、inline-block、flex、inline-flex</li>
+<li>overflow 值不为 visible</li>
+</ul>
+<h4 id="中的盒子对齐"><a href="#中的盒子对齐" class="headerlink" title="中的盒子对齐"></a>中的盒子对齐</h4><p>在 BFC 中，每个盒子的左外边框紧挨着包含块的左边框（从右到左的格式，则为紧挨右边框）。即使存在浮动也是这样的（尽管一个盒子的边框会由于浮动而收缩），除非这个盒子的内部创建了一个新的 BFC 浮动，（这种情况下，由于浮动，盒子本身将会变得更窄）</p>
+<h4 id="BFC-导致外边距折叠"><a href="#BFC-导致外边距折叠" class="headerlink" title="BFC 导致外边距折叠"></a>BFC 导致外边距折叠</h4><p>在常规文档流中，盒子都是从包含块的顶部开始一个接着一个垂直堆放。同一个 BFC 中的两个兄弟盒子之间的垂直距离是由他们个体的外边距所决定的，但不是他们的两个外边距之和。</p>
+<h4 id="使用-BFC-来防止外边距折叠"><a href="#使用-BFC-来防止外边距折叠" class="headerlink" title="使用 BFC 来防止外边距折叠"></a>使用 BFC 来防止外边距折叠</h4><p>如果盒子属于不同的 BFC，他们之间的外边距将不会折叠。所以通过创建一个新的 BFC 我们可以防止外边距折叠。</p>
+<h4 id="使用-BFC-来包含浮动"><a href="#使用-BFC-来包含浮动" class="headerlink" title="使用 BFC 来包含浮动"></a>使用 BFC 来包含浮动</h4><p>通过定义一个 BFC 可以解决容器中由于存在浮动元素而导致的脱离常规文档流问题</p>
+<h4 id="使用-BFC-防止文字环绕"><a href="#使用-BFC-防止文字环绕" class="headerlink" title="使用 BFC 防止文字环绕"></a>使用 BFC 防止文字环绕</h4><p>看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    .container &#123;</span><br><span class="line">      height: 300px;</span><br><span class="line">      width: 300px;</span><br><span class="line">      background: red;</span><br><span class="line">    &#125;</span><br><span class="line">    .floated &#123;</span><br><span class="line">      height: 100px;</span><br><span class="line">      width: 100px;</span><br><span class="line">      background: green;</span><br><span class="line">      float: left;</span><br><span class="line">    &#125;</span><br><span class="line">    .bfc &#123;</span><br><span class="line">      overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;floated&quot;&gt;浮动的div&lt;/div&gt;</span><br><span class="line">    &lt;p class=&quot;bfc&quot;&gt;</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">// 不加上 bfc class 文字将围绕在浮动的 div 周围，加上 bfc class 之后 文字将不会环绕</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/24/2019-1-28-webpack/" rel="next" title="Webpack4">
+                <i class="fa fa-chevron-left"></i> Webpack4
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -484,6 +529,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
        
@@ -583,6 +632,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
