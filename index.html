@@ -443,24 +443,29 @@
 <p>BFC(Block Formatting Context)是 Web 页面中盒模型布局的 CSS 渲染模式，它的定位体系属于常规文档流。</p>
 </blockquote>
 <h4 id="创建-BFC"><a href="#创建-BFC" class="headerlink" title="创建 BFC"></a>创建 BFC</h4><ul>
-<li>float 值不为 none</li>
-<li>position 值不为 static 或 relative</li>
-<li>display 值为 table-cell、table-caption、inline-block、flex、inline-flex</li>
-<li>overflow 值不为 visible</li>
+<li>根元素，即 HTML 元素</li>
+<li>float 的值不为 none</li>
+<li>overflow 的值不为 visible</li>
+<li>display 的值为 inline-block、table-cell、table-caption</li>
+<li>position 的值为 absolute 或 fixed</li>
 </ul>
 <h4 id="BFC-特性"><a href="#BFC-特性" class="headerlink" title="BFC 特性"></a>BFC 特性</h4><ul>
 <li>内部的 Box 会在垂直方向，从顶部开始一个接一个地放置</li>
 <li>Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻 Box 的 margin 会发生叠加</li>
 <li>每个元素的 margin box 的左边， 与包含块 border box 的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此</li>
-<li>BFC 的区域不会与 float box 叠加</li>
+<li>BFC 的区域不会与 float box 叠加<br>例子：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--下面是css代码--&gt;</span><br><span class="line"> .aside &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 150px;</span><br><span class="line">    float: left;</span><br><span class="line">    background: #f66;</span><br><span class="line">  &#125;</span><br><span class="line">  .main &#123;</span><br><span class="line">    height: 200px;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    background: #fcc;</span><br><span class="line">  &#125;</span><br><span class="line">  .text&#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;div class=&quot;aside&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;text&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;main&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">// 不添加 overflow: hidden 时会出现叠加的情况，加上之后不会再叠加</span><br></pre></td></tr></table></figure>
+<ul>
 <li>BFC 就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然</li>
 <li>计算 BFC 的高度时，浮动元素也参与计算</li>
 </ul>
-<h4 id="中的盒子对齐"><a href="#中的盒子对齐" class="headerlink" title="中的盒子对齐"></a>中的盒子对齐</h4><p>在 BFC 中，每个盒子的左外边框紧挨着包含块的左边框（从右到左的格式，则为紧挨右边框）。即使存在浮动也是这样的（尽管一个盒子的边框会由于浮动而收缩），除非这个盒子的内部创建了一个新的 BFC 浮动，（这种情况下，由于浮动，盒子本身将会变得更窄）</p>
-<h4 id="BFC-导致外边距折叠"><a href="#BFC-导致外边距折叠" class="headerlink" title="BFC 导致外边距折叠"></a>BFC 导致外边距折叠</h4><p>在常规文档流中，盒子都是从包含块的顶部开始一个接着一个垂直堆放。同一个 BFC 中的两个兄弟盒子之间的垂直距离是由他们个体的外边距所决定的，但不是他们的两个外边距之和。</p>
-<h4 id="使用-BFC-来防止外边距折叠"><a href="#使用-BFC-来防止外边距折叠" class="headerlink" title="使用 BFC 来防止外边距折叠"></a>使用 BFC 来防止外边距折叠</h4><p>如果盒子属于不同的 BFC，他们之间的外边距将不会折叠。所以通过创建一个新的 BFC 我们可以防止外边距折叠。</p>
-<h4 id="使用-BFC-来包含浮动"><a href="#使用-BFC-来包含浮动" class="headerlink" title="使用 BFC 来包含浮动"></a>使用 BFC 来包含浮动</h4><p>通过定义一个 BFC 可以解决容器中由于存在浮动元素而导致的脱离常规文档流问题</p>
-<h4 id="使用-BFC-防止文字环绕"><a href="#使用-BFC-防止文字环绕" class="headerlink" title="使用 BFC 防止文字环绕"></a>使用 BFC 防止文字环绕</h4><p>看下面的例子：</p>
+<h4 id="BFC-的作用"><a href="#BFC-的作用" class="headerlink" title="BFC 的作用"></a>BFC 的作用</h4><ul>
+<li>分属于不同的BFC时可以阻止 margin 重叠</li>
+<li>可以阻止元素被浮动元素覆盖</li>
+<li>通过定义一个 BFC 可以解决容器中由于存在浮动元素而导致的脱离常规文档流问题</li>
+<li>使用 BFC 防止文字环绕，看下面的例子：</li>
+</ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    .container &#123;</span><br><span class="line">      height: 300px;</span><br><span class="line">      width: 300px;</span><br><span class="line">      background: red;</span><br><span class="line">    &#125;</span><br><span class="line">    .floated &#123;</span><br><span class="line">      height: 100px;</span><br><span class="line">      width: 100px;</span><br><span class="line">      background: green;</span><br><span class="line">      float: left;</span><br><span class="line">    &#125;</span><br><span class="line">    .bfc &#123;</span><br><span class="line">      overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;floated&quot;&gt;浮动的div&lt;/div&gt;</span><br><span class="line">    &lt;p class=&quot;bfc&quot;&gt;</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">// 不加上 bfc class 文字将围绕在浮动的 div 周围，加上 bfc class 之后 文字将不会环绕</span><br></pre></td></tr></table></figure>
 
           
@@ -1550,6 +1555,145 @@ c(() =&gt; {
             
               
                 
+                <a class="post-title-link" href="/2018/05/06/2108-5-13-vue-base/" itemprop="url">
+                  Vue-基础(未完)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>先写一些简单的研究，后续研究一些源码再完善</p>
+<h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;
+var obj = {};
+Object.defineProperty(obj, &quot;key&quot;, {
+    enumerable: true, // 默认为 true
+    configurable: true,  // 默认为 true
+    get: function(){
+        return keyValue;
+    },
+    set: function(newValue) {
+        keyValue = newValue;
+        console.log(&quot;set keyValue:&quot;, keyValue)
+    },
+});
+console.log(obj.key);
+obj.key = 2;
+console.log(&quot;keyValue:&quot;, keyValue);
+keyValue = 3;
+console.log(obj.key);
+</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
+<h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p>
+<ul>
+<li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li>
+<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li>
+<li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
+<li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
                   JavaScript-setTimeout
                 </a>
@@ -1683,145 +1827,6 @@ console.log(&quot;last&quot;, new Date().getTime(), i);
 <li>(4)1525527918032 10</li>
 </ul>
 <p>以上结果中的重复打印次数不是固定的，在执行一次也可能是：2，2，6；</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/05/06/2108-5-13-vue-base/" itemprop="url">
-                  Vue-基础(未完)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
-              2018-05-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Vue/" itemprop="url" rel="index">
-                    <span itemprop="name">Vue</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>先写一些简单的研究，后续研究一些源码再完善</p>
-<h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;
-var obj = {};
-Object.defineProperty(obj, &quot;key&quot;, {
-    enumerable: true, // 默认为 true
-    configurable: true,  // 默认为 true
-    get: function(){
-        return keyValue;
-    },
-    set: function(newValue) {
-        keyValue = newValue;
-        console.log(&quot;set keyValue:&quot;, keyValue)
-    },
-});
-console.log(obj.key);
-obj.key = 2;
-console.log(&quot;keyValue:&quot;, keyValue);
-keyValue = 3;
-console.log(obj.key);
-</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
-<h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p>
-<ul>
-<li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li>
-<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li>
-<li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
-<li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
-</ul>
 
           
         
