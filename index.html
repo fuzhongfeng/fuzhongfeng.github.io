@@ -439,7 +439,8 @@
       
         
           
-            <h1 id="性能"><a href="#性能" class="headerlink" title="#性能"></a>#性能</h1><h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存</p>
+            <h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><p>======</p>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存</p>
 <h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><ul>
 <li>在<em>响应头</em>中添加 <code>Expires: Thu, 28 Dec 2019 05:27:45 GMT</code> 或 <code>Cache-Control: public, max-age=2592000</code> 来控制强缓存。</li>
 <li>Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需再次请求。缺点：Expires 使用的是客户端本机时间不准确，所以引入了 Cache-Control:max-age。</li>
