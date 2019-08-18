@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -290,7 +290,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -299,7 +299,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -376,7 +376,146 @@
             
               
                 
-                <a class="post-title-link" href="/2018/03/26/interview-es6/" itemprop="url">
+                <a class="post-title-link" href="/2018/05/06/2108-5-13-vue-base/" itemprop="url">
+                  Vue-基础(未完)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>先写一些简单的研究，后续研究一些源码再完善</p>
+<h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;
+var obj = {};
+Object.defineProperty(obj, &quot;key&quot;, {
+    enumerable: true, // 默认为 true
+    configurable: true,  // 默认为 true
+    get: function(){
+        return keyValue;
+    },
+    set: function(newValue) {
+        keyValue = newValue;
+        console.log(&quot;set keyValue:&quot;, keyValue)
+    },
+});
+console.log(obj.key);
+obj.key = 2;
+console.log(&quot;keyValue:&quot;, keyValue);
+keyValue = 3;
+console.log(obj.key);
+</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
+<h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p>
+<ul>
+<li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li>
+<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li>
+<li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
+<li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/03/26/Front-end-es6/" itemprop="url">
                   ES6-常用
                 </a>
               
@@ -404,8 +543,148 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Interview/" itemprop="url" rel="index">
-                    <span itemprop="name">Interview</span>
+                  <a href="/categories/Front-end/" itemprop="url" rel="index">
+                    <span itemprop="name">Front-end</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="ES6相关"><a href="#ES6相关" class="headerlink" title="ES6相关"></a>ES6相关</h2><ul>
+<li><p>let、const与var相比</p>
+<blockquote>
+<p>使用未声明的变量，直接报错<br>重复声明同一个变量，直接报错<br>是块级作用域<br>必须声明 ‘use strict’ 后才能使用let声明变量</p>
+</blockquote>
+</li>
+<li><p>数组的解构赋值，是值的拷贝，不是深拷贝</p>
+</li>
+<li>对象的解构赋值，是值的拷贝，不是深拷贝，let {a: { b }} = {a: { b: 1 }} 给b赋值，此时a是未定义的</li>
+<li><p>箭头函数</p>
+<p>  （1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。<br>  （2）不可以当作构造函数，也就是不可以使用new命令，否则会抛出错误。<br>  （3）不可以使用arguments对象，该对象在函数体内不存在，如果要用，可以使用rest参数代替。<br>  （4）不可以使用yield命令，因为箭头函数不能用作Generator函数。</p>
+<p>  理解定义时所在的作用域。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: function () &#123;console.log(this.a)&#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.fn(); // 1</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: () =&gt; &#123;console.log(this.a)&#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.fn(); // undefined</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: function () &#123;</span><br><span class="line">        setTimeout(() =&gt; &#123;console.log(this.a)&#125;, 0)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.fn(); // 1</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: function () &#123;console.log(this.a)&#125;</span><br><span class="line">&#125;;</span><br><span class="line">setTimeout(obj.fn, 0); // undefined</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: () =&gt; &#123;console.log(this.a)&#125;</span><br><span class="line">&#125;;</span><br><span class="line">setTimeout(obj.fn, 0); // undefined</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>super</p>
+<p>  super关键字，既可以当作函数使用，也可以当作对象使用。使用super的时候，必须显式指定是作为函数、还是作为对象使用，否则会报错。由于对象总是继承其他对象的，所以可以在任意一个对象中，使用super关键字。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    /*</span><br><span class="line">    Uncaught SyntaxError: &apos;super&apos; keyword unexpected here</span><br><span class="line">    无法看出super是作为函数使用，还是作为对象使用</span><br><span class="line">    */</span><br><span class="line">    console.log(super);</span><br><span class="line">    /*</span><br><span class="line">    super.valueOf()表明super是一个对象</span><br><span class="line">    */</span><br><span class="line">    console.log(super.valueOf() instanceof B); // true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">  toString() &#123;</span><br><span class="line">    return &quot;MyObject: &quot; + super.toString();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.toString(); // MyObject: [object Object]</span><br></pre></td></tr></table></figure>
+<p>  第一种情况，当作函数使用，代表父类的构造函数，super虽然代表了父类的构造函数，但是返回的是子类的实例，即super内部的this指的是子类。super()只能用在子类的构造函数中，用在其它地方就会报错。ES6要求，子类的构造函数必须执行一次super函数。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class A&#123;&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        /*</span><br><span class="line">        当作函数使用，代表父类的构造函数，相当于</span><br><span class="line">        A.prototype.constructor.call(this)</span><br><span class="line">        */</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  第二种情况，super作为对象时，在普通方法中指向父类的原型对象，在静态方法中指向父类。ES6规定，通过super调用父类的方法时，super会绑定子类的this。由于绑定子类的this，所以如果通过super对某个属性赋值，这时super就是this，赋值的属性会变成子类实例的属性。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.q = 2;</span><br><span class="line">  &#125;</span><br><span class="line">  p() &#123;</span><br><span class="line">    return 2;</span><br><span class="line">  &#125;</span><br><span class="line">  print() &#123;</span><br><span class="line">    /*</span><br><span class="line">    通过B的super.print()虽然调用的是A.prototype.print()，但是A.prototype.print()会绑定子类B的this，相当于</span><br><span class="line">    super.print.call(this)</span><br><span class="line">    */</span><br><span class="line">    console.log(this.q);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.q = 3;</span><br><span class="line">    /*</span><br><span class="line">    当作对象使用，这是普通方法，super指向A.prototype，相当于</span><br><span class="line">    A.prototype.p()</span><br><span class="line">    q是父类A实例的属性，super.q就引用不到它</span><br><span class="line">    */</span><br><span class="line">    console.log(super.p()); // 2</span><br><span class="line">    console.log(super.q); // undefined</span><br><span class="line">  &#125;</span><br><span class="line">  subPrint() &#123;</span><br><span class="line">    super.print();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let b = new B();</span><br><span class="line">b.subPrint(); // 3</span><br></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Parent &#123;</span><br><span class="line">  static myMethod(msg) &#123;</span><br><span class="line">    console.log(&apos;static&apos;, msg);</span><br><span class="line">  &#125;</span><br><span class="line">  myMethod(msg) &#123;</span><br><span class="line">    console.log(&apos;instance&apos;, msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Child extends Parent &#123;</span><br><span class="line">  static myMethod(msg) &#123;</span><br><span class="line">    // 静态方法，super指向父类</span><br><span class="line">    super.myMethod(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  myMethod(msg) &#123;</span><br><span class="line">    // 普通方法，super指向父类的原型对象</span><br><span class="line">    super.myMethod(msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.myMethod(1); // static 1</span><br><span class="line">var child = new Child();</span><br><span class="line">child.myMethod(2); // instance 2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Promise 使用及原理</p>
+</li>
+<li>Promise 和 async await 的关系</li>
+<li>装饰器 Decorator</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/03/26/front-end-es6/" itemprop="url">
+                  ES6-常用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-26T14:32:50+08:00" content="2018-03-26">
+              2018-03-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Front-end/" itemprop="url" rel="index">
+                    <span itemprop="name">Front-end</span>
                   </a>
                 </span>
 
