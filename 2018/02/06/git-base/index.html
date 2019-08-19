@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="git 常用命令 git add * 和 git add .git add .会提交所有 untracked 文件、文件夹、包括以 .开头的文件git add *会提交所有 untracked 文件夹、文件、但不包括.开头的文件 git reset HEAD &amp;lt;file&amp;gt; 撤回已经被 add 但没有被 commit 的文件 git checkout --track origin/spe">
+<meta name="description" content="git flow课件开发 git 标准流程 以主分支master为例，每当开发一个新功能时，需要从master checkout一个新的分支，最好以功能进行区分：  feature/JTZXKJ-xxx bugfix/JTZXKJ-xxx improve/JTZXKJ-xxx    一个分支的代码很可能开发了好几天，每天都有新的提交，这个时候，自己分支的代码要合并到master，必然会有很多的co">
 <meta name="keywords" content="Git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git">
 <meta property="og:url" content="https://fuzhongfeng.github.io/2018/02/06/git-base/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="git 常用命令 git add * 和 git add .git add .会提交所有 untracked 文件、文件夹、包括以 .开头的文件git add *会提交所有 untracked 文件夹、文件、但不包括.开头的文件 git reset HEAD &amp;lt;file&amp;gt; 撤回已经被 add 但没有被 commit 的文件 git checkout --track origin/spe">
+<meta property="og:description" content="git flow课件开发 git 标准流程 以主分支master为例，每当开发一个新功能时，需要从master checkout一个新的分支，最好以功能进行区分：  feature/JTZXKJ-xxx bugfix/JTZXKJ-xxx improve/JTZXKJ-xxx    一个分支的代码很可能开发了好几天，每天都有新的提交，这个时候，自己分支的代码要合并到master，必然会有很多的co">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-08T15:08:10.809Z">
+<meta property="og:updated_time" content="2019-08-19T03:50:28.546Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git">
-<meta name="twitter:description" content="git 常用命令 git add * 和 git add .git add .会提交所有 untracked 文件、文件夹、包括以 .开头的文件git add *会提交所有 untracked 文件夹、文件、但不包括.开头的文件 git reset HEAD &amp;lt;file&amp;gt; 撤回已经被 add 但没有被 commit 的文件 git checkout --track origin/spe">
+<meta name="twitter:description" content="git flow课件开发 git 标准流程 以主分支master为例，每当开发一个新功能时，需要从master checkout一个新的分支，最好以功能进行区分：  feature/JTZXKJ-xxx bugfix/JTZXKJ-xxx improve/JTZXKJ-xxx    一个分支的代码很可能开发了好几天，每天都有新的提交，这个时候，自己分支的代码要合并到master，必然会有很多的co">
 
 
 
@@ -355,7 +355,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-常用命令"><span class="nav-number">1.</span> <span class="nav-text">git 常用命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git-flow"><span class="nav-number">1.</span> <span class="nav-text">git flow</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#课件开发-git-标准流程"><span class="nav-number">1.1.</span> <span class="nav-text">课件开发 git 标准流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-常用命令"><span class="nav-number">2.</span> <span class="nav-text">git 常用命令</span></a></li></ol></div>
             
           </div>
         </section>
@@ -454,7 +454,31 @@
       
 
       
-        <h2 id="git-常用命令"><a href="#git-常用命令" class="headerlink" title="git 常用命令"></a>git 常用命令</h2><ul>
+        <h2 id="git-flow"><a href="#git-flow" class="headerlink" title="git flow"></a>git flow</h2><h3 id="课件开发-git-标准流程"><a href="#课件开发-git-标准流程" class="headerlink" title="课件开发 git 标准流程"></a>课件开发 git 标准流程</h3><blockquote>
+<p>以主分支master为例，每当开发一个新功能时，需要从master checkout一个新的分支，最好以功能进行区分：</p>
+<ol>
+<li>feature/JTZXKJ-xxx</li>
+<li>bugfix/JTZXKJ-xxx</li>
+<li>improve/JTZXKJ-xxx</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>一个分支的代码很可能开发了好几天，每天都有新的提交，这个时候，自己分支的代码要合并到master，必然会有很多的commit，通常来说一个功能开发，bug修复，只需要一个commit,此时，就需要将多个commit合并为一个。为了确保当前自己的分支代码相对于master是最新的，因此需要做下变基操作（以master做基准）过程：</p>
+<ol>
+<li>commit当前分支的所有代码</li>
+<li>切换到master分支，git pull origin master</li>
+<li>切换回自己的分支 git checkout feature/JTZXKJ-xxx</li>
+<li>git rebase -i master, 进入vim编辑状态（Make a list of the commits which are about to be rebased）</li>
+<li>修复除第一个commit的pick头部标志外，将其余commit的头部标志pick改为s</li>
+<li>退出vim,记得wq保存</li>
+<li>git push origin feature/JTZXKJ-xxx</li>
+<li>如果分支feature/JTZXKJ-xxx在远程仓库已经存在，则需要git push origin feature/JTZXKJ-xxx -u —force。如果远程分支不存在：git push —set-upstream origin feature/JTZXKJ-xxx</li>
+<li>提交merge request</li>
+<li>代码审查，代码合并，如果代码审查过程中，认为功能开发有问题，则需要重新修改分支的代码，修改完成后，重复此过程(分支强推操作，不需要关闭已有的merge reqquest)</li>
+<li>1~4的操作还可以简化为git rebase -i origin master</li>
+</ol>
+</blockquote>
+<h2 id="git-常用命令"><a href="#git-常用命令" class="headerlink" title="git 常用命令"></a>git 常用命令</h2><ul>
 <li><code>git add *</code> 和 <code>git add .</code><br><code>git add .</code>会提交所有 untracked 文件、文件夹、包括以 <code>.</code>开头的文件<br><code>git add *</code>会提交所有 untracked 文件夹、文件、但不包括<code>.</code>开头的文件</li>
 <li><code>git reset HEAD &lt;file&gt;</code> 撤回已经被 add 但没有被 commit 的文件</li>
 <li><code>git checkout --track origin/special</code> 该命令会在本地创建一个 special 分支用于跟踪远端的 special 分支并将本地分支切换到 special 分支</li>
