@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -290,7 +290,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -299,7 +299,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -354,6 +354,127 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/06/2019-9-2-compatibility/" itemprop="url">
+                  Browser- Compatibility
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Compatibility/" itemprop="url" rel="index">
+                    <span itemprop="name">Compatibility</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p>
+<h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p>
+<h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul>
+<li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li>
+<li>给​目标元素加一条样式规则 cursor: pointer;</li>
+<li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 

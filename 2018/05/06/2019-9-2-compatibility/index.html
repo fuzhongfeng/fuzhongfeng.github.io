@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Compatibility," />
 
 
 
@@ -90,16 +90,18 @@
 
 
 
-<meta name="description" content="记录 整理 学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Feynman 的博客">
-<meta property="og:url" content="https://fuzhongfeng.github.io/tags/Performance/index.html">
+<meta name="description" content="1. 点击事件问题移动端 click由于手机端有些浏览器不存在 click 事件，可以在全局这样处理 解决方法1(亲测有效)：可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。1var clickEvent = &amp;apos;click&amp;apos; in document.documentElement ? &amp;apos;click&amp;">
+<meta name="keywords" content="Compatibility">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Browser- Compatibility">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2018/05/06/2019-9-2-compatibility/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="记录 整理 学习">
+<meta property="og:description" content="1. 点击事件问题移动端 click由于手机端有些浏览器不存在 click 事件，可以在全局这样处理 解决方法1(亲测有效)：可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。1var clickEvent = &amp;apos;click&amp;apos; in document.documentElement ? &amp;apos;click&amp;">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-09-02T08:07:34.773Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feynman 的博客">
-<meta name="twitter:description" content="记录 整理 学习">
+<meta name="twitter:title" content="Browser- Compatibility">
+<meta name="twitter:description" content="1. 点击事件问题移动端 click由于手机端有些浏览器不存在 click 事件，可以在全局这样处理 解决方法1(亲测有效)：可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。1var clickEvent = &amp;apos;click&amp;apos; in document.documentElement ? &amp;apos;click&amp;">
 
 
 
@@ -117,7 +119,7 @@
   };
 </script>
 
-  <title> 标签: Performance | Feynman 的博客 </title>
+  <title> Browser- Compatibility | Feynman 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -148,7 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,8 +270,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/me.jpg"
@@ -338,6 +349,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-点击事件问题"><span class="nav-number">1.</span> <span class="nav-text">1. 点击事件问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动端-click"><span class="nav-number">1.1.</span> <span class="nav-text">移动端 click</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方法1-亲测有效-："><span class="nav-number">1.1.1.</span> <span class="nav-text">解决方法1(亲测有效)：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件委托问题："><span class="nav-number">1.2.</span> <span class="nav-text">事件委托问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决办法2-亲测有效-："><span class="nav-number">1.2.1.</span> <span class="nav-text">解决办法2(亲测有效)：</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -352,46 +374,152 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Performance
-        <small>标签</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Browser- Compatibility
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Compatibility/" itemprop="url" rel="index">
+                    <span itemprop="name">Compatibility</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p>
+<h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p>
+<h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul>
+<li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li>
+<li>给​目标元素加一条样式规则 cursor: pointer;</li>
+<li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li>
+</ul>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2019/08/14/performance/" itemprop="url">
-              
-                <span itemprop="name">Performance</span>
-              
-            </a>
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-14T21:17:09+08:00"
-              content="2019-08-14" >
-          08-14
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Compatibility/" rel="tag">#Compatibility</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/2108-5-06-javascript-setTimeout/" rel="next" title="JavaScript-setTimeout">
+                <i class="fa fa-chevron-left"></i> JavaScript-setTimeout
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/2108-5-13-vue-base/" rel="prev" title="Vue-基础(未完)">
+                Vue-基础(未完) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -399,6 +527,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
        
@@ -498,6 +630,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
