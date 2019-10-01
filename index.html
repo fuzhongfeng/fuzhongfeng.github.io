@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -376,7 +376,7 @@
             
               
                 
-                <a class="post-title-link" href="/2019/10/01/2019-9-30-javascript-recursion/" itemprop="url">
+                <a class="post-title-link" href="/2019/10/01/2019-10-1-javascript-recursion/" itemprop="url">
                   JavaScript-recursion
                 </a>
               
@@ -750,6 +750,159 @@
 <li>服务端响应添加Cache-Control:no-cache,must-revalidate指令</li>
 <li>修改请求头If-modified-since:0或If-none-match:””</li>
 <li>修改请求URL，请求URL后加随机数，随机数可以是时间戳，哈希值，比如：<a href="http://xxxx.com?a=123412323" target="_blank" rel="noopener">http://xxxx.com?a=123412323</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/03/08/2019-3-8-javascript-typeJudge/" itemprop="url">
+                  JavaScript-类型判断
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-08T20:05:21+08:00" content="2019-03-08">
+              2019-03-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><blockquote>
+<p>说到 javascript 中的类型判断方法有很多。如 typeof、instanceof、Array.isArray()、Object.prototype.toString.call()，下面会详细讲解优缺点及具体用法以及最佳方案。</p>
+</blockquote>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><blockquote>
+<p>typeof 适用于检测基本数据类型</p>
+</blockquote>
+<ul>
+<li><p>typeof 操作符可能返回下列字符串:<br>“undefined”——如果这个值未定义<br>“boolean”——如果这个值是布尔值<br>“string”——如果这个值是字符串<br>“number”——如果这个值是数值<br>“object”——如果这个值是对象或null<br>“function”——如果这个值是函数</p>
+</li>
+<li><p>看下面的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typeof [] // &quot;object&quot;</span><br><span class="line">typeof new Date() // &quot;object&quot;</span><br><span class="line">typeof new RegExp() // &quot;object&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><blockquote>
+<p>instanceof 适用于检测引用类型的值</p>
+</blockquote>
+<ul>
+<li><p>如果变量 variable 是引用类型 constructor 的实例，则返回 true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable instanceof constructor;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>看下面的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[] instanceof Array // true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但如果不在同一个全局环境中执行，instanceof 就不能正常使用，因为不同的全局环境下的构造函数时不同的。看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// index.html 文件</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;iframe src=&quot;./inner.html&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    window.onload = function () &#123;</span><br><span class="line">        var arr = [1, 2, 3];</span><br><span class="line">        var f = function() &#123;&#125;</span><br><span class="line">        window.frames[0].func(arr, f);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(window.Array === window.frames[0].Array) // false</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">// inner.html</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var func = function(arr, f) &#123;</span><br><span class="line">            console.log(arr instanceof Array) // false</span><br><span class="line">            console.log(f instanceof Function) // false</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>这里可以关于数组的判断可以使用 Array.isArray() 来判断。支持浏览器的方法有 IE9+、Firefox4+、Safari5+、Opera10.5+、chrome。</li>
+<li>从父级中传入的函数 f 无法判断。</li>
+</ol>
+<h3 id="最佳方案"><a href="#最佳方案" class="headerlink" title="最佳方案"></a>最佳方案</h3><blockquote>
+<p>Object.prototype.toString.call()</p>
+<ul>
+<li>在任何值上调用 Object 原生的方法 toString() 方法，都会返回一个[object NativeConstructorName]格式的字符串。每个类在内部都有一个[[Class]]属性，这个属性中就指定了上述字符串中的构造函数名。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// 字符串</span><br><span class="line">Object.prototype.toString.call(&apos;a&apos;) // &quot;[object String]&quot;</span><br><span class="line">// 数字</span><br><span class="line">Object.prototype.toString.call(1) // &quot;[object Number]&quot;</span><br><span class="line">// Boolean</span><br><span class="line">Object.prototype.toString.call(true) // &quot;[object Boolean]&quot;</span><br><span class="line">// undefined </span><br><span class="line">Object.prototype.toString.call(undefined) // &quot;[object Undefined]&quot;</span><br><span class="line">// null</span><br><span class="line">Object.prototype.toString.call(null) // &quot;[object Null]&quot;</span><br><span class="line">// Symbol</span><br><span class="line">Object.prototype.toString.call(Symbol()) // &quot;[object Symbol]&quot;</span><br><span class="line">// 数组</span><br><span class="line">Object.prototype.toString.call([]) // &quot;[object Array]&quot;</span><br><span class="line">// 对象</span><br><span class="line">Object.prototype.toString.call(&#123;&#125;) // &quot;[object Object]&quot;</span><br><span class="line">// 函数</span><br><span class="line">Object.prototype.toString.call(function() &#123;&#125;) // &quot;[object Function]&quot;</span><br><span class="line">// RegExp</span><br><span class="line">Object.prototype.toString.call(/a/) // &quot;[object RegExp]&quot;</span><br><span class="line">// Date</span><br><span class="line">Object.prototype.toString.call(new Date()) // &quot;[object Date]&quot;</span><br><span class="line">// Map</span><br><span class="line">Object.prototype.toString.call(new Map()) // &quot;[object Map]&quot;</span><br><span class="line">// Set</span><br><span class="line">Object.prototype.toString.call(new Set()) // &quot;[object Set]&quot;</span><br><span class="line">// Math</span><br><span class="line">Object.prototype.toString.call(Math) // &quot;[object Math]&quot;</span><br><span class="line">// JSON</span><br><span class="line">Object.prototype.toString.call(JSON) // &quot;[object JSON]&quot;</span><br><span class="line">// Error</span><br><span class="line">Object.prototype.toString.call(new Error()) // &quot;[object Error]&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>兼容性也很好：Edge12+、Firefox1+、Firefox for Android4+、及其他浏览器</li>
 </ul>
 
           
@@ -1870,123 +2023,6 @@ c(() =&gt; {
     d()
 })
 </code></pre><h3 id="现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家"><a href="#现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家" class="headerlink" title="现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家"></a>现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家</h3>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/05/19/algorithm-questions/" itemprop="url">
-                  算法题目
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-19T17:27:53+08:00" content="2018-05-19">
-              2018-05-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><ol>
-<li>给定一个整数数组和一个目标值，找出数组中和为目标值的两个数的做索引组成的数组。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。例子如下：</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [2, 7, 11, 15], target = 9</span><br><span class="line">因为 nums[0] + nums[1] = 2 + 7 = 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure>
-<p>答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @param &#123;number&#125; target</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> */</span><br><span class="line">var twoSum = function(nums, target) &#123;</span><br><span class="line">    let arr = [];</span><br><span class="line">    for (let i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">        for (let j = 0; j &lt; nums.length; j++) &#123;</span><br><span class="line">            if ((nums[i] + nums[j] === target) &amp;&amp; (i !== j)) &#123;</span><br><span class="line">                arr = [j, i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-
           
         
       

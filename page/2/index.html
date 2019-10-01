@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -376,8 +376,8 @@
             
               
                 
-                <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
-                  JavaScript-setTimeout
+                <a class="post-title-link" href="/2018/05/19/algorithm-questions/" itemprop="url">
+                  算法题目
                 </a>
               
             
@@ -390,8 +390,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
-              2018-05-06
+            <time itemprop="dateCreated" datetime="2018-05-19T17:27:53+08:00" content="2018-05-19">
+              2018-05-19
             </time>
           </span>
 
@@ -404,8 +404,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
                   </a>
                 </span>
 
@@ -439,76 +439,11 @@
       
         
           
-            <p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p>
-<h2 id="1-setTimeout-（参考：小红书-p203，MDN）"><a href="#1-setTimeout-（参考：小红书-p203，MDN）" class="headerlink" title="1. setTimeout （参考：小红书 p203，MDN）"></a>1. setTimeout （参考：小红书 p203，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN</a>）</h2><h3 id="setTimeout-的基本概念："><a href="#setTimeout-的基本概念：" class="headerlink" title="setTimeout 的基本概念："></a>setTimeout 的基本概念：</h3><ul>
-<li>setTimeout 方法是 window 对象下的。</li>
-<li>JavaScript 是一个单线程序的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个 JavaScript 任务队列。这些任务会按照将它们添加到队列的顺序执行。setTimeout()的第二个参数告诉 JavaScript 再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。</li>
-<li><p>接收多个参数（function, delay, param1…paramN）这里的 parma 会在 delay 延迟后自动作为参数传入 function里，但在 IE9 及以下不支持这种写法。</p>
-<pre><code>setTimeout(function(p1, p2) {
-    console.log(p1, p2); // param1 param2
-}, 1000, &quot;param1&quot;, &quot;param2&quot;);
-</code></pre></li>
-<li><p>setTimeout()会返回一个表示超时调用的数值ID。这个超时调用 ID 是计划执行代码的唯一标识符，可以通过它来取消超时调用（clearTimeout()）。</p>
-</li>
-<li><p>超时延迟</p>
-<pre><code>function foo() {
-  console.log(&apos;foo has been called&apos;);
-}
-setTimeout(foo, 0);
-console.log(&apos;After setTimeout&apos;);
-// After setTimeout, foo has been called
-出现这个结果的原因是，尽管hsetTimeout 以0ms的延迟来调用函数，但这个任务已经被放入了队列中并且等待下一次执行；并不是立即执行；队列中的等待函数被调用之前，当前代码必须全部运行完毕，因此这里运行结果并非预想的那样。
-</code></pre></li>
-<li><p>最小延迟</p>
-<p>最小延时 &gt;=4ms（MDN说法），但是看下面的例子却是 2ms 甚至不到 2ms ？？？</p>
-<pre><code>// 转换为时间戳看一下
-console.log(new Date().getTime());
-setTimeout(function() {
-    console.log(new Date().getTime());
-}, 0);
-
-// 1525534082199, 1525534082201
-
-//  使用 console.time() 和 console.timeEnd() 来统计时间
-function testTimeout() {
-    //  启动任务计时器
-    console.time(&quot;Timeout&quot;)
-    //  启动浏览器定时任务 
-    setTimeout(function() {
-        //  统计任务消耗的时间
-        console.timeEnd(&quot;Timeout&quot;)
-    }, 0)
-}
-testTimeout(); 
-// Timeout: 1.34130859375ms
-</code></pre></li>
-<li>最大延时值<br>浏览器包括 IE, , Chrome, Safari, Firefox 以32个bit字节存储整数。这就会导致如果一个整数大于 2147483647 (大约24.8 天)时就会溢出，导致定时器将会被立即执行</li>
-</ul>
-<h3 id="看下面的例子："><a href="#看下面的例子：" class="headerlink" title="看下面的例子："></a>看下面的例子：</h3><pre><code>for (var i = 0; i &lt; 10; i++) {
-   setTimeout(function(){
-       console.log(new Date, i);
-   }, 1000) 
-}
-console.log(new Date, i);
-</code></pre><p>打印结果：</p>
-<ul>
-<li>last Sat May 05 2018 21:39:42 GMT+0800 (CST) 10 //  setTimeout 由于添加到队列的时间较晚（delay），所以会等到队列中其他任务结束之后再执行。</li>
-<li>last Sat May 05 2018 21:39:43 GMT+0800 (CST) 10 // 十次,注意这里不是重复打印而是分别打印共十次， for 循环里面的 setTimeout 只是在 delay 时间后将其添加到队列中，所以 setTimeout 并不会阻碍 for 循环的时间</li>
-</ul>
-<h4 id="下面是转成时间戳的打印："><a href="#下面是转成时间戳的打印：" class="headerlink" title="下面是转成时间戳的打印："></a>下面是转成时间戳的打印：</h4><pre><code>for (var i = 0; i &lt; 10; i++) {
-   setTimeout(function(){
-       console.log(new Date().getTime(), i);
-   }, 1000) 
-}
-console.log(&quot;last&quot;, new Date().getTime(), i);
-</code></pre><p>打印结果：</p>
-<ul>
-<li>last 1525527917027 10</li>
-<li>(3)1525527918030 10</li>
-<li>(3)1525527918031 10</li>
-<li>(4)1525527918032 10</li>
-</ul>
-<p>以上结果中的重复打印次数不是固定的，在执行一次也可能是：2，2，6；</p>
+            <h2 id="两数之和"><a href="#两数之和" class="headerlink" title="两数之和"></a>两数之和</h2><ol>
+<li>给定一个整数数组和一个目标值，找出数组中和为目标值的两个数的做索引组成的数组。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。例子如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">给定 nums = [2, 7, 11, 15], target = 9</span><br><span class="line">因为 nums[0] + nums[1] = 2 + 7 = 9</span><br><span class="line">所以返回 [0, 1]</span><br></pre></td></tr></table></figure>
+<p>答案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @param &#123;number[]&#125; nums</span><br><span class="line"> * @param &#123;number&#125; target</span><br><span class="line"> * @return &#123;number[]&#125;</span><br><span class="line"> */</span><br><span class="line">var twoSum = function(nums, target) &#123;</span><br><span class="line">    let arr = [];</span><br><span class="line">    for (let i = 0; i &lt; nums.length; i++) &#123;</span><br><span class="line">        for (let j = 0; j &lt; nums.length; j++) &#123;</span><br><span class="line">            if ((nums[i] + nums[j] === target) &amp;&amp; (i !== j)) &#123;</span><br><span class="line">                arr = [j, i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -769,6 +704,188 @@ console.log(obj.key);
 <li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
 <li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
 </ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
+                  JavaScript-setTimeout
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p>
+<h2 id="1-setTimeout-（参考：小红书-p203，MDN）"><a href="#1-setTimeout-（参考：小红书-p203，MDN）" class="headerlink" title="1. setTimeout （参考：小红书 p203，MDN）"></a>1. setTimeout （参考：小红书 p203，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN</a>）</h2><h3 id="setTimeout-的基本概念："><a href="#setTimeout-的基本概念：" class="headerlink" title="setTimeout 的基本概念："></a>setTimeout 的基本概念：</h3><ul>
+<li>setTimeout 方法是 window 对象下的。</li>
+<li>JavaScript 是一个单线程序的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个 JavaScript 任务队列。这些任务会按照将它们添加到队列的顺序执行。setTimeout()的第二个参数告诉 JavaScript 再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。</li>
+<li><p>接收多个参数（function, delay, param1…paramN）这里的 parma 会在 delay 延迟后自动作为参数传入 function里，但在 IE9 及以下不支持这种写法。</p>
+<pre><code>setTimeout(function(p1, p2) {
+    console.log(p1, p2); // param1 param2
+}, 1000, &quot;param1&quot;, &quot;param2&quot;);
+</code></pre></li>
+<li><p>setTimeout()会返回一个表示超时调用的数值ID。这个超时调用 ID 是计划执行代码的唯一标识符，可以通过它来取消超时调用（clearTimeout()）。</p>
+</li>
+<li><p>超时延迟</p>
+<pre><code>function foo() {
+  console.log(&apos;foo has been called&apos;);
+}
+setTimeout(foo, 0);
+console.log(&apos;After setTimeout&apos;);
+// After setTimeout, foo has been called
+出现这个结果的原因是，尽管hsetTimeout 以0ms的延迟来调用函数，但这个任务已经被放入了队列中并且等待下一次执行；并不是立即执行；队列中的等待函数被调用之前，当前代码必须全部运行完毕，因此这里运行结果并非预想的那样。
+</code></pre></li>
+<li><p>最小延迟</p>
+<p>最小延时 &gt;=4ms（MDN说法），但是看下面的例子却是 2ms 甚至不到 2ms ？？？</p>
+<pre><code>// 转换为时间戳看一下
+console.log(new Date().getTime());
+setTimeout(function() {
+    console.log(new Date().getTime());
+}, 0);
+
+// 1525534082199, 1525534082201
+
+//  使用 console.time() 和 console.timeEnd() 来统计时间
+function testTimeout() {
+    //  启动任务计时器
+    console.time(&quot;Timeout&quot;)
+    //  启动浏览器定时任务 
+    setTimeout(function() {
+        //  统计任务消耗的时间
+        console.timeEnd(&quot;Timeout&quot;)
+    }, 0)
+}
+testTimeout(); 
+// Timeout: 1.34130859375ms
+</code></pre></li>
+<li>最大延时值<br>浏览器包括 IE, , Chrome, Safari, Firefox 以32个bit字节存储整数。这就会导致如果一个整数大于 2147483647 (大约24.8 天)时就会溢出，导致定时器将会被立即执行</li>
+</ul>
+<h3 id="看下面的例子："><a href="#看下面的例子：" class="headerlink" title="看下面的例子："></a>看下面的例子：</h3><pre><code>for (var i = 0; i &lt; 10; i++) {
+   setTimeout(function(){
+       console.log(new Date, i);
+   }, 1000) 
+}
+console.log(new Date, i);
+</code></pre><p>打印结果：</p>
+<ul>
+<li>last Sat May 05 2018 21:39:42 GMT+0800 (CST) 10 //  setTimeout 由于添加到队列的时间较晚（delay），所以会等到队列中其他任务结束之后再执行。</li>
+<li>last Sat May 05 2018 21:39:43 GMT+0800 (CST) 10 // 十次,注意这里不是重复打印而是分别打印共十次， for 循环里面的 setTimeout 只是在 delay 时间后将其添加到队列中，所以 setTimeout 并不会阻碍 for 循环的时间</li>
+</ul>
+<h4 id="下面是转成时间戳的打印："><a href="#下面是转成时间戳的打印：" class="headerlink" title="下面是转成时间戳的打印："></a>下面是转成时间戳的打印：</h4><pre><code>for (var i = 0; i &lt; 10; i++) {
+   setTimeout(function(){
+       console.log(new Date().getTime(), i);
+   }, 1000) 
+}
+console.log(&quot;last&quot;, new Date().getTime(), i);
+</code></pre><p>打印结果：</p>
+<ul>
+<li>last 1525527917027 10</li>
+<li>(3)1525527918030 10</li>
+<li>(3)1525527918031 10</li>
+<li>(4)1525527918032 10</li>
+</ul>
+<p>以上结果中的重复打印次数不是固定的，在执行一次也可能是：2，2，6；</p>
 
           
         

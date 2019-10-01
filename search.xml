@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[JavaScript-recursion]]></title>
-      <url>https://fuzhongfeng.github.io/2019/10/01/2019-9-30-javascript-recursion/</url>
+      <url>https://fuzhongfeng.github.io/2019/10/01/2019-10-1-javascript-recursion/</url>
       <content type="html"><![CDATA[<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><blockquote>
 <p>递归函数是在一个函数通过名字调用自身的情况下构成的</p>
 </blockquote>
@@ -146,6 +146,67 @@
         <tags>
             
             <tag> Performance </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[JavaScript-类型判断]]></title>
+      <url>https://fuzhongfeng.github.io/2019/03/08/2019-3-8-javascript-typeJudge/</url>
+      <content type="html"><![CDATA[<h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><blockquote>
+<p>说到 javascript 中的类型判断方法有很多。如 typeof、instanceof、Array.isArray()、Object.prototype.toString.call()，下面会详细讲解优缺点及具体用法以及最佳方案。</p>
+</blockquote>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><blockquote>
+<p>typeof 适用于检测基本数据类型</p>
+</blockquote>
+<ul>
+<li><p>typeof 操作符可能返回下列字符串:<br>“undefined”——如果这个值未定义<br>“boolean”——如果这个值是布尔值<br>“string”——如果这个值是字符串<br>“number”——如果这个值是数值<br>“object”——如果这个值是对象或null<br>“function”——如果这个值是函数</p>
+</li>
+<li><p>看下面的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typeof [] // &quot;object&quot;</span><br><span class="line">typeof new Date() // &quot;object&quot;</span><br><span class="line">typeof new RegExp() // &quot;object&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><blockquote>
+<p>instanceof 适用于检测引用类型的值</p>
+</blockquote>
+<ul>
+<li><p>如果变量 variable 是引用类型 constructor 的实例，则返回 true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable instanceof constructor;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>看下面的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[] instanceof Array // true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但如果不在同一个全局环境中执行，instanceof 就不能正常使用，因为不同的全局环境下的构造函数时不同的。看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// index.html 文件</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;iframe src=&quot;./inner.html&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    window.onload = function () &#123;</span><br><span class="line">        var arr = [1, 2, 3];</span><br><span class="line">        var f = function() &#123;&#125;</span><br><span class="line">        window.frames[0].func(arr, f);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(window.Array === window.frames[0].Array) // false</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">// inner.html</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var func = function(arr, f) &#123;</span><br><span class="line">            console.log(arr instanceof Array) // false</span><br><span class="line">            console.log(f instanceof Function) // false</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>这里可以关于数组的判断可以使用 Array.isArray() 来判断。支持浏览器的方法有 IE9+、Firefox4+、Safari5+、Opera10.5+、chrome。</li>
+<li>从父级中传入的函数 f 无法判断。</li>
+</ol>
+<h3 id="最佳方案"><a href="#最佳方案" class="headerlink" title="最佳方案"></a>最佳方案</h3><blockquote>
+<p>Object.prototype.toString.call()</p>
+<ul>
+<li>在任何值上调用 Object 原生的方法 toString() 方法，都会返回一个[object NativeConstructorName]格式的字符串。每个类在内部都有一个[[Class]]属性，这个属性中就指定了上述字符串中的构造函数名。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// 字符串</span><br><span class="line">Object.prototype.toString.call(&apos;a&apos;) // &quot;[object String]&quot;</span><br><span class="line">// 数字</span><br><span class="line">Object.prototype.toString.call(1) // &quot;[object Number]&quot;</span><br><span class="line">// Boolean</span><br><span class="line">Object.prototype.toString.call(true) // &quot;[object Boolean]&quot;</span><br><span class="line">// undefined </span><br><span class="line">Object.prototype.toString.call(undefined) // &quot;[object Undefined]&quot;</span><br><span class="line">// null</span><br><span class="line">Object.prototype.toString.call(null) // &quot;[object Null]&quot;</span><br><span class="line">// Symbol</span><br><span class="line">Object.prototype.toString.call(Symbol()) // &quot;[object Symbol]&quot;</span><br><span class="line">// 数组</span><br><span class="line">Object.prototype.toString.call([]) // &quot;[object Array]&quot;</span><br><span class="line">// 对象</span><br><span class="line">Object.prototype.toString.call(&#123;&#125;) // &quot;[object Object]&quot;</span><br><span class="line">// 函数</span><br><span class="line">Object.prototype.toString.call(function() &#123;&#125;) // &quot;[object Function]&quot;</span><br><span class="line">// RegExp</span><br><span class="line">Object.prototype.toString.call(/a/) // &quot;[object RegExp]&quot;</span><br><span class="line">// Date</span><br><span class="line">Object.prototype.toString.call(new Date()) // &quot;[object Date]&quot;</span><br><span class="line">// Map</span><br><span class="line">Object.prototype.toString.call(new Map()) // &quot;[object Map]&quot;</span><br><span class="line">// Set</span><br><span class="line">Object.prototype.toString.call(new Set()) // &quot;[object Set]&quot;</span><br><span class="line">// Math</span><br><span class="line">Object.prototype.toString.call(Math) // &quot;[object Math]&quot;</span><br><span class="line">// JSON</span><br><span class="line">Object.prototype.toString.call(JSON) // &quot;[object JSON]&quot;</span><br><span class="line">// Error</span><br><span class="line">Object.prototype.toString.call(new Error()) // &quot;[object Error]&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>兼容性也很好：Edge12+、Firefox1+、Firefox for Android4+、及其他浏览器</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> JavaScript </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> JavaScript </tag>
             
         </tags>
         
@@ -743,6 +804,82 @@ c(() =&gt; {
     </entry>
     
     <entry>
+      <title><![CDATA[Browser- Compatibility]]></title>
+      <url>https://fuzhongfeng.github.io/2018/05/06/2019-9-2-compatibility/</url>
+      <content type="html"><![CDATA[<h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p>
+<h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p>
+<h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul>
+<li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li>
+<li>给​目标元素加一条样式规则 cursor: pointer;</li>
+<li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Compatibility </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Compatibility </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Vue-基础(未完)]]></title>
+      <url>https://fuzhongfeng.github.io/2018/05/06/2108-5-13-vue-base/</url>
+      <content type="html"><![CDATA[<p>先写一些简单的研究，后续研究一些源码再完善</p>
+<h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;
+var obj = {};
+Object.defineProperty(obj, &quot;key&quot;, {
+    enumerable: true, // 默认为 true
+    configurable: true,  // 默认为 true
+    get: function(){
+        return keyValue;
+    },
+    set: function(newValue) {
+        keyValue = newValue;
+        console.log(&quot;set keyValue:&quot;, keyValue)
+    },
+});
+console.log(obj.key);
+obj.key = 2;
+console.log(&quot;keyValue:&quot;, keyValue);
+keyValue = 3;
+console.log(obj.key);
+</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
+<h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p>
+<ul>
+<li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li>
+<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li>
+<li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
+<li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Vue </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Vue </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[JavaScript-setTimeout]]></title>
       <url>https://fuzhongfeng.github.io/2018/05/06/2108-5-06-javascript-setTimeout/</url>
       <content type="html"><![CDATA[<p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p>
@@ -827,82 +964,6 @@ console.log(&quot;last&quot;, new Date().getTime(), i);
         <tags>
             
             <tag> JavaScript </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Browser- Compatibility]]></title>
-      <url>https://fuzhongfeng.github.io/2018/05/06/2019-9-2-compatibility/</url>
-      <content type="html"><![CDATA[<h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p>
-<h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p>
-<h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul>
-<li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li>
-<li>给​目标元素加一条样式规则 cursor: pointer;</li>
-<li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> Compatibility </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Compatibility </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Vue-基础(未完)]]></title>
-      <url>https://fuzhongfeng.github.io/2018/05/06/2108-5-13-vue-base/</url>
-      <content type="html"><![CDATA[<p>先写一些简单的研究，后续研究一些源码再完善</p>
-<h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;
-var obj = {};
-Object.defineProperty(obj, &quot;key&quot;, {
-    enumerable: true, // 默认为 true
-    configurable: true,  // 默认为 true
-    get: function(){
-        return keyValue;
-    },
-    set: function(newValue) {
-        keyValue = newValue;
-        console.log(&quot;set keyValue:&quot;, keyValue)
-    },
-});
-console.log(obj.key);
-obj.key = 2;
-console.log(&quot;keyValue:&quot;, keyValue);
-keyValue = 3;
-console.log(obj.key);
-</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
-<h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p>
-<ul>
-<li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li>
-<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li>
-<li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
-<li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> Vue </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Vue </tag>
             
         </tags>
         

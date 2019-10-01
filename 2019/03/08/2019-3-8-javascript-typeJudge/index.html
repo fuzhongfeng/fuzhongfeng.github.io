@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="递归 递归函数是在一个函数通过名字调用自身的情况下构成的  看一个经典的递归阶乘函数12345678// 复杂度 O(n)function factorial(num) &amp;#123;  if (num === 1) &amp;#123;    return num  &amp;#125; else &amp;#123;    return num * factorial(num - 1)  &amp;#125;&amp;#125; 递归">
+<meta name="description" content="类型判断 说到 javascript 中的类型判断方法有很多。如 typeof、instanceof、Array.isArray()、Object.prototype.toString.call()，下面会详细讲解优缺点及具体用法以及最佳方案。  typeof typeof 适用于检测基本数据类型   typeof 操作符可能返回下列字符串:“undefined”——如果这个值未定义“boolea">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript-recursion">
-<meta property="og:url" content="https://fuzhongfeng.github.io/2019/10/01/2019-9-30-javascript-recursion/index.html">
+<meta property="og:title" content="JavaScript-类型判断">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2019/03/08/2019-3-8-javascript-typeJudge/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="递归 递归函数是在一个函数通过名字调用自身的情况下构成的  看一个经典的递归阶乘函数12345678// 复杂度 O(n)function factorial(num) &amp;#123;  if (num === 1) &amp;#123;    return num  &amp;#125; else &amp;#123;    return num * factorial(num - 1)  &amp;#125;&amp;#125; 递归">
+<meta property="og:description" content="类型判断 说到 javascript 中的类型判断方法有很多。如 typeof、instanceof、Array.isArray()、Object.prototype.toString.call()，下面会详细讲解优缺点及具体用法以及最佳方案。  typeof typeof 适用于检测基本数据类型   typeof 操作符可能返回下列字符串:“undefined”——如果这个值未定义“boolea">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-01T01:38:50.945Z">
+<meta property="og:updated_time" content="2019-10-01T07:52:39.873Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript-recursion">
-<meta name="twitter:description" content="递归 递归函数是在一个函数通过名字调用自身的情况下构成的  看一个经典的递归阶乘函数12345678// 复杂度 O(n)function factorial(num) &amp;#123;  if (num === 1) &amp;#123;    return num  &amp;#125; else &amp;#123;    return num * factorial(num - 1)  &amp;#125;&amp;#125; 递归">
+<meta name="twitter:title" content="JavaScript-类型判断">
+<meta name="twitter:description" content="类型判断 说到 javascript 中的类型判断方法有很多。如 typeof、instanceof、Array.isArray()、Object.prototype.toString.call()，下面会详细讲解优缺点及具体用法以及最佳方案。  typeof typeof 适用于检测基本数据类型   typeof 操作符可能返回下列字符串:“undefined”——如果这个值未定义“boolea">
 
 
 
@@ -119,7 +119,7 @@
   };
 </script>
 
-  <title> JavaScript-recursion | Feynman 的博客 </title>
+  <title> JavaScript-类型判断 | Feynman 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -291,7 +291,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -355,7 +355,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">1.</span> <span class="nav-text">递归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#看一个经典的递归阶乘函数"><span class="nav-number">1.1.</span> <span class="nav-text">看一个经典的递归阶乘函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归函数调用自身问题"><span class="nav-number">1.2.</span> <span class="nav-text">递归函数调用自身问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#尾递归"><span class="nav-number">1.3.</span> <span class="nav-text">尾递归</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用尾递归重写阶乘函数"><span class="nav-number">1.4.</span> <span class="nav-text">利用尾递归重写阶乘函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#但浏览器一定会识别尾递归的优化吗？"><span class="nav-number">1.5.</span> <span class="nav-text">但浏览器一定会识别尾递归的优化吗？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类型判断"><span class="nav-number">1.</span> <span class="nav-text">类型判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#typeof"><span class="nav-number">1.1.</span> <span class="nav-text">typeof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#instanceof"><span class="nav-number">1.2.</span> <span class="nav-text">instanceof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最佳方案"><span class="nav-number">1.3.</span> <span class="nav-text">最佳方案</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -395,7 +395,7 @@
             
             
               
-                JavaScript-recursion
+                JavaScript-类型判断
               
             
           </h1>
@@ -407,8 +407,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-10-01T09:36:30+08:00" content="2019-10-01">
-              2019-10-01
+            <time itemprop="dateCreated" datetime="2019-03-08T20:05:21+08:00" content="2019-03-08">
+              2019-03-08
             </time>
           </span>
 
@@ -454,40 +454,46 @@
       
 
       
-        <h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><blockquote>
-<p>递归函数是在一个函数通过名字调用自身的情况下构成的</p>
+        <h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><blockquote>
+<p>说到 javascript 中的类型判断方法有很多。如 typeof、instanceof、Array.isArray()、Object.prototype.toString.call()，下面会详细讲解优缺点及具体用法以及最佳方案。</p>
 </blockquote>
-<h3 id="看一个经典的递归阶乘函数"><a href="#看一个经典的递归阶乘函数" class="headerlink" title="看一个经典的递归阶乘函数"></a>看一个经典的递归阶乘函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 复杂度 O(n)</span><br><span class="line">function factorial(num) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return num</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return num * factorial(num - 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归函数调用自身问题"><a href="#递归函数调用自身问题" class="headerlink" title="递归函数调用自身问题"></a>递归函数调用自身问题</h3><ul>
-<li><p>递归调用的函数被重置后会出现问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var anotherFactorial = factorial</span><br><span class="line">factorial = null</span><br><span class="line">anotherFactorial(4) //出错!</span><br></pre></td></tr></table></figure>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><blockquote>
+<p>typeof 适用于检测基本数据类型</p>
+</blockquote>
+<ul>
+<li><p>typeof 操作符可能返回下列字符串:<br>“undefined”——如果这个值未定义<br>“boolean”——如果这个值是布尔值<br>“string”——如果这个值是字符串<br>“number”——如果这个值是数值<br>“object”——如果这个值是对象或null<br>“function”——如果这个值是函数</p>
 </li>
-<li><p>arguments.callee 是一个指向正在执行函数的指针，因此可以用它来实现对函数的递归调用。但在严格模式下，不能通过脚本访问 arguments.callee，访问这个属性会导致错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function factorial(num) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return num</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">     return num * arguments.callee(num - 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用命名函数表达式来达成相同的结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var factorial = (function f() &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return num</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">     return num * f(num - 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<li><p>看下面的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typeof [] // &quot;object&quot;</span><br><span class="line">typeof new Date() // &quot;object&quot;</span><br><span class="line">typeof new RegExp() // &quot;object&quot;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>函数f是不对外暴露的，所以执行过程中不会被重置，这种方式在严格模式和 非严格模式下都行得通。</p>
-<h3 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h3><ul>
-<li>尾调用是指函数的最后一步是调用另一个函数。尾调用只保留内层函数的调用记录，可释放掉多余的内存占用。</li>
-<li>尾调用自身，就称为尾递归。递归非常耗费内存，很容易发生”栈溢出”错误（stack overflow）。尾调用指保存一个调用记录，所以不会发生栈溢出的问题。</li>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><blockquote>
+<p>instanceof 适用于检测引用类型的值</p>
+</blockquote>
+<ul>
+<li><p>如果变量 variable 是引用类型 constructor 的实例，则返回 true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable instanceof constructor;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>看下面的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[] instanceof Array // true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但如果不在同一个全局环境中执行，instanceof 就不能正常使用，因为不同的全局环境下的构造函数时不同的。看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// index.html 文件</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;iframe src=&quot;./inner.html&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    window.onload = function () &#123;</span><br><span class="line">        var arr = [1, 2, 3];</span><br><span class="line">        var f = function() &#123;&#125;</span><br><span class="line">        window.frames[0].func(arr, f);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(window.Array === window.frames[0].Array) // false</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">// inner.html</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var func = function(arr, f) &#123;</span><br><span class="line">            console.log(arr instanceof Array) // false</span><br><span class="line">            console.log(f instanceof Function) // false</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<h3 id="利用尾递归重写阶乘函数"><a href="#利用尾递归重写阶乘函数" class="headerlink" title="利用尾递归重写阶乘函数"></a>利用尾递归重写阶乘函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 复杂度 O(1)</span><br><span class="line">function factorial(num, total = 1) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return total</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    total = num * total</span><br><span class="line">    return factorial(num - 1, total)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">factorial(5)</span><br></pre></td></tr></table></figure>
-<p>只要函数执行的最后一步为自身函数调用即可。上面例子中的 num * factorial(num - 1) 也不算尾调用，因为一直保存着对 num 的引用。</p>
-<h3 id="但浏览器一定会识别尾递归的优化吗？"><a href="#但浏览器一定会识别尾递归的优化吗？" class="headerlink" title="但浏览器一定会识别尾递归的优化吗？"></a>但浏览器一定会识别尾递归的优化吗？</h3><ul>
-<li><p>下面在chrome控制台执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 经典阶乘递归函数</span><br><span class="line">function factorial(num) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return num</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return num + factorial(num - 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">factorial(100000)</span><br><span class="line">// 此时栈溢出：Maximum call stack size exceeded</span><br></pre></td></tr></table></figure>
+<ol>
+<li>这里可以关于数组的判断可以使用 Array.isArray() 来判断。支持浏览器的方法有 IE9+、Firefox4+、Safari5+、Opera10.5+、chrome。</li>
+<li>从父级中传入的函数 f 无法判断。</li>
+</ol>
+<h3 id="最佳方案"><a href="#最佳方案" class="headerlink" title="最佳方案"></a>最佳方案</h3><blockquote>
+<p>Object.prototype.toString.call()</p>
+<ul>
+<li>在任何值上调用 Object 原生的方法 toString() 方法，都会返回一个[object NativeConstructorName]格式的字符串。每个类在内部都有一个[[Class]]属性，这个属性中就指定了上述字符串中的构造函数名。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// 字符串</span><br><span class="line">Object.prototype.toString.call(&apos;a&apos;) // &quot;[object String]&quot;</span><br><span class="line">// 数字</span><br><span class="line">Object.prototype.toString.call(1) // &quot;[object Number]&quot;</span><br><span class="line">// Boolean</span><br><span class="line">Object.prototype.toString.call(true) // &quot;[object Boolean]&quot;</span><br><span class="line">// undefined </span><br><span class="line">Object.prototype.toString.call(undefined) // &quot;[object Undefined]&quot;</span><br><span class="line">// null</span><br><span class="line">Object.prototype.toString.call(null) // &quot;[object Null]&quot;</span><br><span class="line">// Symbol</span><br><span class="line">Object.prototype.toString.call(Symbol()) // &quot;[object Symbol]&quot;</span><br><span class="line">// 数组</span><br><span class="line">Object.prototype.toString.call([]) // &quot;[object Array]&quot;</span><br><span class="line">// 对象</span><br><span class="line">Object.prototype.toString.call(&#123;&#125;) // &quot;[object Object]&quot;</span><br><span class="line">// 函数</span><br><span class="line">Object.prototype.toString.call(function() &#123;&#125;) // &quot;[object Function]&quot;</span><br><span class="line">// RegExp</span><br><span class="line">Object.prototype.toString.call(/a/) // &quot;[object RegExp]&quot;</span><br><span class="line">// Date</span><br><span class="line">Object.prototype.toString.call(new Date()) // &quot;[object Date]&quot;</span><br><span class="line">// Map</span><br><span class="line">Object.prototype.toString.call(new Map()) // &quot;[object Map]&quot;</span><br><span class="line">// Set</span><br><span class="line">Object.prototype.toString.call(new Set()) // &quot;[object Set]&quot;</span><br><span class="line">// Math</span><br><span class="line">Object.prototype.toString.call(Math) // &quot;[object Math]&quot;</span><br><span class="line">// JSON</span><br><span class="line">Object.prototype.toString.call(JSON) // &quot;[object JSON]&quot;</span><br><span class="line">// Error</span><br><span class="line">Object.prototype.toString.call(new Error()) // &quot;[object Error]&quot;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>下面再使用尾递归就不会栈溢出了吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 尾递归</span><br><span class="line">function factorial(num, total) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return total</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return factorial(num - 1, num + total)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">factorial(100000)</span><br><span class="line">// 此时依然会栈溢出！！！：Maximum call stack size exceeded</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询后发现各大浏览器（除了safari）根本就没部署尾调用优化，因为尾调用优化依旧有隐式优化（函数是否符合尾调用而被消除了尾递归很难被开发员自己辨别）和调用栈丢失的问题。</p>
-</li>
-<li><p>node 低版本中本中可以开启尾递归如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// node 6.6.0 版本通过指定参数开启：</span><br><span class="line">// PTC.js</span><br><span class="line">&apos;use strict&apos;;</span><br><span class="line">function f(n, sum = 1) &#123;</span><br><span class="line">    if (n &lt;= 1) &#123;</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br><span class="line">    return f(n - 1, sum + n);</span><br><span class="line">&#125;</span><br><span class="line">const result = f(100000);</span><br><span class="line">console.log(result);</span><br><span class="line"></span><br><span class="line">$node --harmony_tailcalls PTC.js  // 5000050000</span><br></pre></td></tr></table></figure>
-</li>
+</ul>
+</blockquote>
+<ul>
+<li>兼容性也很好：Edge12+、Firefox1+、Firefox for Android4+、及其他浏览器</li>
 </ul>
 
       
@@ -519,13 +525,17 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/08/20/questions-1/" rel="next" title="Question">
-                <i class="fa fa-chevron-left"></i> Question
+              <a href="/2019/02/17/css-bfc/" rel="next" title="CSS-BFC">
+                <i class="fa fa-chevron-left"></i> CSS-BFC
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/14/performance/" rel="prev" title="Performance">
+                Performance <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
