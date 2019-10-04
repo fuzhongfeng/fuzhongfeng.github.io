@@ -4,6 +4,42 @@
   
     
     <entry>
+      <title><![CDATA[JavaScript-节流和防抖]]></title>
+      <url>https://fuzhongfeng.github.io/2019/10/01/2019-10-1-javascript-throttle-debounce/</url>
+      <content type="html"><![CDATA[<h2 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h2><ol>
+<li>延迟执行的防抖</li>
+</ol>
+<ul>
+<li><p>如在搜索时希望用户输入结束后再进行接口调用，也就是在一连串时间间隔小于指定时间的函数调用后触发一次。</p>
+</li>
+<li><p>实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var debounce = function(func, wait = 100) &#123;</span><br><span class="line">	var timer = null</span><br><span class="line">	</span><br><span class="line">	return function(...args) &#123;</span><br><span class="line">		timer &amp;&amp;  clearTimeout(timer)</span><br><span class="line">        timer = setTimeout(function() &#123;</span><br><span class="line">            func.apply(this, args)</span><br><span class="line">        &#125;, wait)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 使用</span><br><span class="line">function test() &#123;</span><br><span class="line">	console.log(111)</span><br><span class="line">&#125;</span><br><span class="line">var f = debounce(test, 500)</span><br><span class="line">for(var i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">	f()</span><br><span class="line">&#125;</span><br><span class="line">// 111（只输出一次）</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="2">
+<li>立即执行的防抖</li>
+</ol>
+<ul>
+<li>我不希望非要等到事件停止触发后才执行，我希望立刻执行函数，然后等到停止触发 n 秒后，才可以重新触发执行。<br>如：点击一个保存按钮时，希望第一次就可以发送请求即立即执行更优，相比于延迟执行体验更好。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var debounce = function(func, wait, immediate) &#123;</span><br><span class="line">	var timer = null</span><br><span class="line"></span><br><span class="line">	return function (...args) &#123;</span><br><span class="line">        timer &amp;&amp;  clearTimeout(timer)</span><br><span class="line">		if(immediate) &#123;</span><br><span class="line">            var callNow = !timer</span><br><span class="line">			timer = setTimeout(() =&gt; &#123;</span><br><span class="line">                timer = null</span><br><span class="line">            &#125;, wait)</span><br><span class="line">            callNow &amp;&amp; func.apply(this, args)</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			timer = setTimeout(() =&gt; &#123;</span><br><span class="line">                func.apply(this, args)</span><br><span class="line">			&#125;, wait)</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">// 使用</span><br><span class="line">function test() &#123;</span><br><span class="line">	console.log(111)</span><br><span class="line">&#125;</span><br><span class="line">var f = debounce(test, 2000, true)</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> JavaScript </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> JavaScript </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[JavaScript-递归]]></title>
       <url>https://fuzhongfeng.github.io/2019/10/01/2019-10-1-javascript-recursion/</url>
       <content type="html"><![CDATA[<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><blockquote>
@@ -146,6 +182,34 @@
         <tags>
             
             <tag> Performance </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[数据结构]]></title>
+      <url>https://fuzhongfeng.github.io/2019/07/05/data-structure/</url>
+      <content type="html"><![CDATA[<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><blockquote>
+<p>概念：队列是一种线性结构，特点是在某一端添加数据，在另一端删除数据，遵循先进先出的原则。</p>
+</blockquote>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><ol>
+<li>单链队列<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Queue &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        this.queue = []</span><br><span class="line">    &#125;</span><br><span class="line">    enQueue(item) &#123;</span><br><span class="line">        this.queue.push(item)</span><br><span class="line">    &#125;</span><br><span class="line">    deQueue() &#123;</span><br><span class="line">        return this.queue.shift()</span><br><span class="line">    &#125;</span><br><span class="line">    getHeader() &#123;</span><br><span class="line">        return this.queue[0]</span><br><span class="line">    &#125;</span><br><span class="line">    getLength() &#123;</span><br><span class="line">        return this.queue.length</span><br><span class="line">    &#125;</span><br><span class="line">    isEmpty() &#123;</span><br><span class="line">        return this.getLength() === 0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>单链队列出的出队操作的时间复杂度为O(n), 然而循环队列的出队操作的时间复杂度为O(1)</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Data Structure And Algorithm </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Data Structure And Algorithm </tag>
             
         </tags>
         
@@ -787,14 +851,14 @@ c(() =&gt; {
       
         <categories>
             
-            <category> Algorithm </category>
+            <category> Data Structure And Algorithm </category>
             
         </categories>
         
         
         <tags>
             
-            <tag> Algorithm </tag>
+            <tag> Data Structure And Algorithm </tag>
             
         </tags>
         
@@ -824,53 +888,6 @@ c(() =&gt; {
         <tags>
             
             <tag> Compatibility </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Vue-基础(未完)]]></title>
-      <url>https://fuzhongfeng.github.io/2018/05/06/2108-5-13-vue-base/</url>
-      <content type="html"><![CDATA[<p>先写一些简单的研究，后续研究一些源码再完善</p>
-<h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;
-var obj = {};
-Object.defineProperty(obj, &quot;key&quot;, {
-    enumerable: true, // 默认为 true
-    configurable: true,  // 默认为 true
-    get: function(){
-        return keyValue;
-    },
-    set: function(newValue) {
-        keyValue = newValue;
-        console.log(&quot;set keyValue:&quot;, keyValue)
-    },
-});
-console.log(obj.key);
-obj.key = 2;
-console.log(&quot;keyValue:&quot;, keyValue);
-keyValue = 3;
-console.log(obj.key);
-</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
-<h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p>
-<ul>
-<li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li>
-<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li>
-<li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
-<li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
-</ul>
-]]></content>
-      
-        <categories>
-            
-            <category> Vue </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Vue </tag>
             
         </tags>
         
@@ -961,6 +978,53 @@ console.log(&quot;last&quot;, new Date().getTime(), i);
         <tags>
             
             <tag> JavaScript </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[Vue-基础(未完)]]></title>
+      <url>https://fuzhongfeng.github.io/2018/05/06/2108-5-13-vue-base/</url>
+      <content type="html"><![CDATA[<p>先写一些简单的研究，后续研究一些源码再完善</p>
+<h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;
+var obj = {};
+Object.defineProperty(obj, &quot;key&quot;, {
+    enumerable: true, // 默认为 true
+    configurable: true,  // 默认为 true
+    get: function(){
+        return keyValue;
+    },
+    set: function(newValue) {
+        keyValue = newValue;
+        console.log(&quot;set keyValue:&quot;, keyValue)
+    },
+});
+console.log(obj.key);
+obj.key = 2;
+console.log(&quot;keyValue:&quot;, keyValue);
+keyValue = 3;
+console.log(obj.key);
+</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
+<h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p>
+<ul>
+<li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li>
+<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li>
+<li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
+<li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> Vue </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> Vue </tag>
             
         </tags>
         

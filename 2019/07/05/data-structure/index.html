@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Front-end," />
+  <meta name="keywords" content="Data Structure And Algorithm," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="ES6相关 let、const与var相比  使用未声明的变量，直接报错重复声明同一个变量，直接报错是块级作用域必须声明 ‘use strict’ 后才能使用let声明变量   数组的解构赋值，是值的拷贝，不是深拷贝  对象的解构赋值，是值的拷贝，不是深拷贝，let {a: { b }} = {a: { b: 1 }} 给b赋值，此时a是未定义的 箭头函数   （1）函数体内的this对象，就是定">
-<meta name="keywords" content="Front-end">
+<meta name="description" content="队列 概念：队列是一种线性结构，特点是在某一端添加数据，在另一端删除数据，遵循先进先出的原则。  实现方式 单链队列1234567891011121314151617181920class Queue &amp;#123;    constructor() &amp;#123;        this.queue = []    &amp;#125;    enQueue(item) &amp;#123;        this">
+<meta name="keywords" content="Data Structure And Algorithm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ES6-常用">
-<meta property="og:url" content="https://fuzhongfeng.github.io/2018/03/26/front-end-es6/index.html">
+<meta property="og:title" content="数据结构">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2019/07/05/data-structure/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="ES6相关 let、const与var相比  使用未声明的变量，直接报错重复声明同一个变量，直接报错是块级作用域必须声明 ‘use strict’ 后才能使用let声明变量   数组的解构赋值，是值的拷贝，不是深拷贝  对象的解构赋值，是值的拷贝，不是深拷贝，let {a: { b }} = {a: { b: 1 }} 给b赋值，此时a是未定义的 箭头函数   （1）函数体内的this对象，就是定">
+<meta property="og:description" content="队列 概念：队列是一种线性结构，特点是在某一端添加数据，在另一端删除数据，遵循先进先出的原则。  实现方式 单链队列1234567891011121314151617181920class Queue &amp;#123;    constructor() &amp;#123;        this.queue = []    &amp;#125;    enQueue(item) &amp;#123;        this">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-18T10:15:40.879Z">
+<meta property="og:updated_time" content="2019-10-03T13:51:13.968Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ES6-常用">
-<meta name="twitter:description" content="ES6相关 let、const与var相比  使用未声明的变量，直接报错重复声明同一个变量，直接报错是块级作用域必须声明 ‘use strict’ 后才能使用let声明变量   数组的解构赋值，是值的拷贝，不是深拷贝  对象的解构赋值，是值的拷贝，不是深拷贝，let {a: { b }} = {a: { b: 1 }} 给b赋值，此时a是未定义的 箭头函数   （1）函数体内的this对象，就是定">
+<meta name="twitter:title" content="数据结构">
+<meta name="twitter:description" content="队列 概念：队列是一种线性结构，特点是在某一端添加数据，在另一端删除数据，遵循先进先出的原则。  实现方式 单链队列1234567891011121314151617181920class Queue &amp;#123;    constructor() &amp;#123;        this.queue = []    &amp;#125;    enQueue(item) &amp;#123;        this">
 
 
 
@@ -119,7 +119,7 @@
   };
 </script>
 
-  <title> ES6-常用 | Feynman 的博客 </title>
+  <title> 数据结构 | Feynman 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -355,7 +355,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ES6相关"><span class="nav-number">1.</span> <span class="nav-text">ES6相关</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#队列"><span class="nav-number">1.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方式"><span class="nav-number">1.1.</span> <span class="nav-text">实现方式</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -395,7 +395,7 @@
             
             
               
-                ES6-常用
+                数据结构
               
             
           </h1>
@@ -407,8 +407,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-03-26T14:32:50+08:00" content="2018-03-26">
-              2018-03-26
+            <time itemprop="dateCreated" datetime="2019-07-05T21:31:20+08:00" content="2019-07-05">
+              2019-07-05
             </time>
           </span>
 
@@ -421,8 +421,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Front-end/" itemprop="url" rel="index">
-                    <span itemprop="name">Front-end</span>
+                  <a href="/categories/Data-Structure-And-Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Data Structure And Algorithm</span>
                   </a>
                 </span>
 
@@ -454,34 +454,14 @@
       
 
       
-        <h2 id="ES6相关"><a href="#ES6相关" class="headerlink" title="ES6相关"></a>ES6相关</h2><ul>
-<li><p>let、const与var相比</p>
-<blockquote>
-<p>使用未声明的变量，直接报错<br>重复声明同一个变量，直接报错<br>是块级作用域<br>必须声明 ‘use strict’ 后才能使用let声明变量</p>
+        <h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><blockquote>
+<p>概念：队列是一种线性结构，特点是在某一端添加数据，在另一端删除数据，遵循先进先出的原则。</p>
 </blockquote>
+<h2 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h2><ol>
+<li>单链队列<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Queue &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        this.queue = []</span><br><span class="line">    &#125;</span><br><span class="line">    enQueue(item) &#123;</span><br><span class="line">        this.queue.push(item)</span><br><span class="line">    &#125;</span><br><span class="line">    deQueue() &#123;</span><br><span class="line">        return this.queue.shift()</span><br><span class="line">    &#125;</span><br><span class="line">    getHeader() &#123;</span><br><span class="line">        return this.queue[0]</span><br><span class="line">    &#125;</span><br><span class="line">    getLength() &#123;</span><br><span class="line">        return this.queue.length</span><br><span class="line">    &#125;</span><br><span class="line">    isEmpty() &#123;</span><br><span class="line">        return this.getLength() === 0</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>数组的解构赋值，是值的拷贝，不是深拷贝</p>
-</li>
-<li>对象的解构赋值，是值的拷贝，不是深拷贝，let {a: { b }} = {a: { b: 1 }} 给b赋值，此时a是未定义的</li>
-<li><p>箭头函数</p>
-<p>  （1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。<br>  （2）不可以当作构造函数，也就是不可以使用new命令，否则会抛出错误。<br>  （3）不可以使用arguments对象，该对象在函数体内不存在，如果要用，可以使用rest参数代替。<br>  （4）不可以使用yield命令，因为箭头函数不能用作Generator函数。</p>
-<p>  理解定义时所在的作用域。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: function () &#123;console.log(this.a)&#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.fn(); // 1</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: () =&gt; &#123;console.log(this.a)&#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.fn(); // undefined</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: function () &#123;</span><br><span class="line">        setTimeout(() =&gt; &#123;console.log(this.a)&#125;, 0)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.fn(); // 1</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: function () &#123;console.log(this.a)&#125;</span><br><span class="line">&#125;;</span><br><span class="line">setTimeout(obj.fn, 0); // undefined</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">    a: 1,</span><br><span class="line">    fn: () =&gt; &#123;console.log(this.a)&#125;</span><br><span class="line">&#125;;</span><br><span class="line">setTimeout(obj.fn, 0); // undefined</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>super</p>
-<p>  super关键字，既可以当作函数使用，也可以当作对象使用。使用super的时候，必须显式指定是作为函数、还是作为对象使用，否则会报错。由于对象总是继承其他对象的，所以可以在任意一个对象中，使用super关键字。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    /*</span><br><span class="line">    Uncaught SyntaxError: &apos;super&apos; keyword unexpected here</span><br><span class="line">    无法看出super是作为函数使用，还是作为对象使用</span><br><span class="line">    */</span><br><span class="line">    console.log(super);</span><br><span class="line">    /*</span><br><span class="line">    super.valueOf()表明super是一个对象</span><br><span class="line">    */</span><br><span class="line">    console.log(super.valueOf() instanceof B); // true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var obj = &#123;</span><br><span class="line">  toString() &#123;</span><br><span class="line">    return &quot;MyObject: &quot; + super.toString();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">obj.toString(); // MyObject: [object Object]</span><br></pre></td></tr></table></figure>
-<p>  第一种情况，当作函数使用，代表父类的构造函数，super虽然代表了父类的构造函数，但是返回的是子类的实例，即super内部的this指的是子类。super()只能用在子类的构造函数中，用在其它地方就会报错。ES6要求，子类的构造函数必须执行一次super函数。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class A&#123;&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        /*</span><br><span class="line">        当作函数使用，代表父类的构造函数，相当于</span><br><span class="line">        A.prototype.constructor.call(this)</span><br><span class="line">        */</span><br><span class="line">        super();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  第二种情况，super作为对象时，在普通方法中指向父类的原型对象，在静态方法中指向父类。ES6规定，通过super调用父类的方法时，super会绑定子类的this。由于绑定子类的this，所以如果通过super对某个属性赋值，这时super就是this，赋值的属性会变成子类实例的属性。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.q = 2;</span><br><span class="line">  &#125;</span><br><span class="line">  p() &#123;</span><br><span class="line">    return 2;</span><br><span class="line">  &#125;</span><br><span class="line">  print() &#123;</span><br><span class="line">    /*</span><br><span class="line">    通过B的super.print()虽然调用的是A.prototype.print()，但是A.prototype.print()会绑定子类B的this，相当于</span><br><span class="line">    super.print.call(this)</span><br><span class="line">    */</span><br><span class="line">    console.log(this.q);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class B extends A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.q = 3;</span><br><span class="line">    /*</span><br><span class="line">    当作对象使用，这是普通方法，super指向A.prototype，相当于</span><br><span class="line">    A.prototype.p()</span><br><span class="line">    q是父类A实例的属性，super.q就引用不到它</span><br><span class="line">    */</span><br><span class="line">    console.log(super.p()); // 2</span><br><span class="line">    console.log(super.q); // undefined</span><br><span class="line">  &#125;</span><br><span class="line">  subPrint() &#123;</span><br><span class="line">    super.print();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let b = new B();</span><br><span class="line">b.subPrint(); // 3</span><br></pre></td></tr></table></figure>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class Parent &#123;</span><br><span class="line">  static myMethod(msg) &#123;</span><br><span class="line">    console.log(&apos;static&apos;, msg);</span><br><span class="line">  &#125;</span><br><span class="line">  myMethod(msg) &#123;</span><br><span class="line">    console.log(&apos;instance&apos;, msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Child extends Parent &#123;</span><br><span class="line">  static myMethod(msg) &#123;</span><br><span class="line">    // 静态方法，super指向父类</span><br><span class="line">    super.myMethod(msg);</span><br><span class="line">  &#125;</span><br><span class="line">  myMethod(msg) &#123;</span><br><span class="line">    // 普通方法，super指向父类的原型对象</span><br><span class="line">    super.myMethod(msg);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.myMethod(1); // static 1</span><br><span class="line">var child = new Child();</span><br><span class="line">child.myMethod(2); // instance 2</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Promise 使用及原理</p>
-</li>
-<li>Promise 和 async await 的关系</li>
-<li>装饰器 Decorator</li>
-</ul>
+</ol>
+<p>单链队列出的出队操作的时间复杂度为O(n), 然而循环队列的出队操作的时间复杂度为O(1)</p>
 
       
     </div>
@@ -503,7 +483,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Front-end/" rel="tag">#Front-end</a>
+            <a href="/tags/Data-Structure-And-Algorithm/" rel="tag">#Data Structure And Algorithm</a>
           
         </div>
       
@@ -512,16 +492,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/06/git-base/" rel="next" title="Git">
-                <i class="fa fa-chevron-left"></i> Git
+              <a href="/2019/03/08/2019-3-8-javascript-typeJudge/" rel="next" title="JavaScript-类型判断">
+                <i class="fa fa-chevron-left"></i> JavaScript-类型判断
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/05/06/2108-5-13-vue-base/" rel="prev" title="Vue-基础(未完)">
-                Vue-基础(未完) <i class="fa fa-chevron-right"></i>
+              <a href="/2019/08/14/performance/" rel="prev" title="Performance">
+                Performance <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
