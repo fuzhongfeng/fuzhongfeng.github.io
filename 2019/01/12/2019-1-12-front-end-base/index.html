@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="HTTP，HTML和浏览器 DOM 事件类型和事件流 浏览器的缓存，cookie，sessionStorage，localStorage 浏览器的单线程机制 HTML5的某个API，例如：drag，mouse  CSS 盒模型 常用布局方式 BFC 针对某一个具体的 CSS 样式，问具体的使用方法和使用场景。例如：border 这个样式，值的具体类型，值为百分比和值为数字的区别，具体的使用场景，和">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-20T08:54:10.011Z">
+<meta property="og:updated_time" content="2019-10-08T01:52:31.399Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Front-end-base">
 <meta name="twitter:description" content="HTTP，HTML和浏览器 DOM 事件类型和事件流 浏览器的缓存，cookie，sessionStorage，localStorage 浏览器的单线程机制 HTML5的某个API，例如：drag，mouse  CSS 盒模型 常用布局方式 BFC 针对某一个具体的 CSS 样式，问具体的使用方法和使用场景。例如：border 这个样式，值的具体类型，值为百分比和值为数字的区别，具体的使用场景，和">
@@ -470,20 +470,6 @@
 <p>原型与原型链<br>    <strong>原型</strong>：每一个构造函数都有一个prototype属性，指向另一个对象。这个对象的所有属性和方法，都会被构造函数的实例继承。<br>    <strong>原型链</strong>：访问一个对象的属性时，先在其基本属性中查找，如果没有再沿着<strong>proto</strong>这条链向上找，这就是原型链。<br>    <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.__proto__ === <span class="literal">null</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <hr>
-<ul>
-<li>作用域与闭包(使用场景)</li>
-</ul>
-<blockquote>
-<p>js实现继承的方式</p>
-</blockquote>
-<pre><code>(1)**原型链**：利用原型让一个引用类型继承另一个引用类型的属性和方法（引用类型的原型赋值为另一个构造函数的实例）。 当以读取模式访问一个实例属性时，首先会在实例中搜索该属性。如果没有找到该属性，则会继续搜索实例的原型。在
-通过原型链实现继承的情况下，搜索过程就得以沿着原型链继续向上。
-(2)**借用构造函数**：在子类型构造函数的内部调用超类型的构造函数。
-缺点：方法都在构造函数中定义，因此函数复用就无从谈起了
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.colors = [<span class="string">"red"</span>, <span class="string">"blue"</span>, <span class="string">"green"</span>];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>)</span>&#123; <span class="comment">//继承了 SuperType</span></span><br><span class="line">    SuperType.call(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> instance1 = <span class="keyword">new</span> SubType();</span><br><span class="line">instance1.colors.push(<span class="string">"black"</span>);</span><br><span class="line">alert(instance1.colors); <span class="comment">//"red,blue,green,black"</span></span><br><span class="line"><span class="keyword">var</span> instance2 = <span class="keyword">new</span> SubType();</span><br><span class="line">alert(instance2.colors); <span class="comment">//"red,blue,green"</span></span><br></pre></td></tr></table></figure>
-
-(3)**组合继承**：使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承 
-</code></pre><hr>
 <ul>
 <li>异步回调</li>
 <li>ES6/7</li>
