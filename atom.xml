@@ -335,6 +335,32 @@
   </entry>
   
   <entry>
+    <title>Nodejs-基础</title>
+    <link href="https://fuzhongfeng.github.io/2018/06/28/node-base/"/>
+    <id>https://fuzhongfeng.github.io/2018/06/28/node-base/</id>
+    <published>2018-06-28T13:54:13.000Z</published>
+    <updated>2019-10-12T02:29:56.629Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="nodejs-垃圾回收机制"><a href="#nodejs-垃圾回收机制" class="headerlink" title="nodejs 垃圾回收机制"></a>nodejs 垃圾回收机制</h2><blockquote><p>v8 的内存使用是有限制的，64位系统下约为1.4GB，32位系统下约为0.7GB。垃圾回收机制尤为重要。</p><ul><li>内存分代：在V8中，主要将内存分为新生代和老生代两代。新生代中的对象为存活时间较短的对象，<br>老生代中的对象为存活时间较长或常驻内存的对象。</li></ul></blockquote><ol><li>Scavenge 算法</li></ol><ul><li>在分代的基础上，新生代中的对象主要通过Scavenge算法进行垃圾回收</li></ul><ol start="2"><li>V8在老生代中主要采 用了Mark-Sweep和Mark-Compact相结合的方式进行垃圾回收。Mark-Sweep是标记清除的意思。Mark-Compact是标记整理的意思。由于Mark-Compact需要移动对象， 所以它的执行速度不可能很快，所以在取舍上，V8主要使用Mark-Sweep，在空间不足以对从新 生代中晋升过来的对象进行分配时才使用Mark-Compact。</li></ol><h2 id="nodejs-事件循环"><a href="#nodejs-事件循环" class="headerlink" title="nodejs 事件循环"></a>nodejs 事件循环</h2><h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><blockquote><p>死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去</p></blockquote><p>产生死锁的四个必要条件：</p><ul><li>不可剥夺条件：进程所获得的资源在未使用完毕之前，不能被其他进程强行夺走，即只能由占用该资源的进程自己来释放。</li><li>互斥条件：一段时间内某资源只由一个进程占用。如果此时还有其它进程请求资源，则请求者只能等待，直至占有资源的进程释放。</li><li>请求与保持条件：进程已经保持了至少一个资源，但又提出了新的资源请求而该资源已被其他进程占有，此时请求进程被阻塞，但对已获得的资源保持不放。</li><li>循环等待条件：指在发生死锁时，必然存在一个进程之间资源的循环调用，即进程集合{P0，P1，P2，···，Pn}中的P0正在等待一个P1占用的资源；P1正在等待P2占用的资源，···，Pn正在等待已被P0占用的资源。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;nodejs-垃圾回收机制&quot;&gt;&lt;a href=&quot;#nodejs-垃圾回收机制&quot; class=&quot;headerlink&quot; title=&quot;nodejs 垃圾回收机制&quot;&gt;&lt;/a&gt;nodejs 垃圾回收机制&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;v8 的内存使用是有限制的
+      
+    
+    </summary>
+    
+      <category term="Nodejs" scheme="https://fuzhongfeng.github.io/categories/Nodejs/"/>
+    
+    
+      <category term="Nodejs" scheme="https://fuzhongfeng.github.io/tags/Nodejs/"/>
+    
+  </entry>
+  
+  <entry>
     <title>JavaScript-async/await</title>
     <link href="https://fuzhongfeng.github.io/2018/05/24/javascript-asyncAwait/"/>
     <id>https://fuzhongfeng.github.io/2018/05/24/javascript-asyncAwait/</id>
@@ -382,31 +408,6 @@
     
     
       <category term="Data Structure And Algorithm" scheme="https://fuzhongfeng.github.io/tags/Data-Structure-And-Algorithm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Browser- Compatibility</title>
-    <link href="https://fuzhongfeng.github.io/2018/05/06/2019-9-2-compatibility/"/>
-    <id>https://fuzhongfeng.github.io/2018/05/06/2019-9-2-compatibility/</id>
-    <published>2018-05-06T03:07:50.000Z</published>
-    <updated>2019-09-02T08:07:34.773Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p><h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p><h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p><p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p><h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul><li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li><li>给​目标元素加一条样式规则 cursor: pointer;</li><li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;1-点击事件问题&quot;&gt;&lt;a href=&quot;#1-点击事件问题&quot; class=&quot;headerlink&quot; title=&quot;1. 点击事件问题&quot;&gt;&lt;/a&gt;1. 点击事件问题&lt;/h2&gt;&lt;h3 id=&quot;移动端-click&quot;&gt;&lt;a href=&quot;#移动端-click&quot; class=&quot;
-      
-    
-    </summary>
-    
-      <category term="Compatibility" scheme="https://fuzhongfeng.github.io/categories/Compatibility/"/>
-    
-    
-      <category term="Compatibility" scheme="https://fuzhongfeng.github.io/tags/Compatibility/"/>
     
   </entry>
   
@@ -463,6 +464,31 @@
   </entry>
   
   <entry>
+    <title>Browser- Compatibility</title>
+    <link href="https://fuzhongfeng.github.io/2018/05/06/2019-9-2-compatibility/"/>
+    <id>https://fuzhongfeng.github.io/2018/05/06/2019-9-2-compatibility/</id>
+    <published>2018-05-06T03:07:50.000Z</published>
+    <updated>2019-09-02T08:07:34.773Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p><h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p><h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p><p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p><h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul><li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li><li>给​目标元素加一条样式规则 cursor: pointer;</li><li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1-点击事件问题&quot;&gt;&lt;a href=&quot;#1-点击事件问题&quot; class=&quot;headerlink&quot; title=&quot;1. 点击事件问题&quot;&gt;&lt;/a&gt;1. 点击事件问题&lt;/h2&gt;&lt;h3 id=&quot;移动端-click&quot;&gt;&lt;a href=&quot;#移动端-click&quot; class=&quot;
+      
+    
+    </summary>
+    
+      <category term="Compatibility" scheme="https://fuzhongfeng.github.io/categories/Compatibility/"/>
+    
+    
+      <category term="Compatibility" scheme="https://fuzhongfeng.github.io/tags/Compatibility/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ES6-常用</title>
     <link href="https://fuzhongfeng.github.io/2018/03/26/front-end-es6/"/>
     <id>https://fuzhongfeng.github.io/2018/03/26/front-end-es6/</id>
@@ -512,27 +538,6 @@
     
     
       <category term="Git" scheme="https://fuzhongfeng.github.io/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://fuzhongfeng.github.io/2017/10/09/hello-world/"/>
-    <id>https://fuzhongfeng.github.io/2017/10/09/hello-world/</id>
-    <published>2017-10-09T11:16:44.000Z</published>
-    <updated>2017-10-09T11:16:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
-      
-    
-    </summary>
-    
     
   </entry>
   
