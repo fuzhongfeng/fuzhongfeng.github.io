@@ -94,11 +94,11 @@
 <meta name="keywords" content="Nodejs">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Nodejs-基础">
-<meta property="og:url" content="https://fuzhongfeng.github.io/2018/06/28/node-base/index.html">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2018/07/13/node-base/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="nodejs 垃圾回收机制 v8 的内存使用是有限制的，64位系统下约为1.4GB，32位系统下约为0.7GB。垃圾回收机制尤为重要。  内存分代：在V8中，主要将内存分为新生代和老生代两代。新生代中的对象为存活时间较短的对象，老生代中的对象为存活时间较长或常驻内存的对象。    Scavenge 算法   在分代的基础上，新生代中的对象主要通过Scavenge算法进行垃圾回收   V8在老生代中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-12T02:29:56.629Z">
+<meta property="og:updated_time" content="2019-10-12T05:47:36.191Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nodejs-基础">
 <meta name="twitter:description" content="nodejs 垃圾回收机制 v8 的内存使用是有限制的，64位系统下约为1.4GB，32位系统下约为0.7GB。垃圾回收机制尤为重要。  内存分代：在V8中，主要将内存分为新生代和老生代两代。新生代中的对象为存活时间较短的对象，老生代中的对象为存活时间较长或常驻内存的对象。    Scavenge 算法   在分代的基础上，新生代中的对象主要通过Scavenge算法进行垃圾回收   V8在老生代中">
@@ -407,8 +407,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-06-28T21:54:13+08:00" content="2018-06-28">
-              2018-06-28
+            <time itemprop="dateCreated" datetime="2018-07-13T20:23:54+08:00" content="2018-07-13">
+              2018-07-13
             </time>
           </span>
 
@@ -469,7 +469,8 @@
 <ol start="2">
 <li>V8在老生代中主要采 用了Mark-Sweep和Mark-Compact相结合的方式进行垃圾回收。Mark-Sweep是标记清除的意思。Mark-Compact是标记整理的意思。由于Mark-Compact需要移动对象， 所以它的执行速度不可能很快，所以在取舍上，V8主要使用Mark-Sweep，在空间不足以对从新 生代中晋升过来的对象进行分配时才使用Mark-Compact。</li>
 </ol>
-<h2 id="nodejs-事件循环"><a href="#nodejs-事件循环" class="headerlink" title="nodejs 事件循环"></a>nodejs 事件循环</h2><h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><blockquote>
+<h2 id="nodejs-事件循环"><a href="#nodejs-事件循环" class="headerlink" title="nodejs 事件循环"></a>nodejs 事件循环</h2><p><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout" target="_blank" rel="noopener">https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout</a></p>
+<h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><blockquote>
 <p>死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去</p>
 </blockquote>
 <p>产生死锁的四个必要条件：</p>
@@ -509,16 +510,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/24/javascript-asyncAwait/" rel="next" title="JavaScript-async/await">
-                <i class="fa fa-chevron-left"></i> JavaScript-async/await
+              <a href="/2018/06/28/javascript-base/" rel="next" title="JavaScript-基础">
+                <i class="fa fa-chevron-left"></i> JavaScript-基础
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/28/javascript-base/" rel="prev" title="JavaScript-基础">
-                JavaScript-基础 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/12/30/javascript-RegExp/" rel="prev" title="JavaScript-RegExp">
+                JavaScript-RegExp <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
