@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Compatibility," />
+  <meta name="keywords" content="npm," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="1. 点击事件问题移动端 click由于手机端有些浏览器不存在 click 事件，可以在全局这样处理 解决方法1(亲测有效)：可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。1var clickEvent = &amp;apos;click&amp;apos; in document.documentElement ? &amp;apos;click&amp;">
-<meta name="keywords" content="Compatibility">
+<meta name="description" content="发布一个 npm 包 最近在做项目的 SDK，需要将开发好的 SDK 包发布到 npm 私服上，其他项目使用时可以通过 npm install 安装并通过 import 语法引入使用。  1. webpack 打包 SDK 通过 script 脚本方式引入可以通过在 window 上添加属性来获取，那么如果想通过 import 引入改如何打包呢？这里通过 webpack 配置来打包即可添加模块化">
+<meta name="keywords" content="npm">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Browser- Compatibility">
-<meta property="og:url" content="https://fuzhongfeng.github.io/2018/05/06/2019-9-2-compatibility/index.html">
+<meta property="og:title" content="发布一个 npm 包">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2019/10/31/npm-publish/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="1. 点击事件问题移动端 click由于手机端有些浏览器不存在 click 事件，可以在全局这样处理 解决方法1(亲测有效)：可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。1var clickEvent = &amp;apos;click&amp;apos; in document.documentElement ? &amp;apos;click&amp;">
+<meta property="og:description" content="发布一个 npm 包 最近在做项目的 SDK，需要将开发好的 SDK 包发布到 npm 私服上，其他项目使用时可以通过 npm install 安装并通过 import 语法引入使用。  1. webpack 打包 SDK 通过 script 脚本方式引入可以通过在 window 上添加属性来获取，那么如果想通过 import 引入改如何打包呢？这里通过 webpack 配置来打包即可添加模块化">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-02T08:07:34.773Z">
+<meta property="og:updated_time" content="2019-10-31T06:55:18.234Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Browser- Compatibility">
-<meta name="twitter:description" content="1. 点击事件问题移动端 click由于手机端有些浏览器不存在 click 事件，可以在全局这样处理 解决方法1(亲测有效)：可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。1var clickEvent = &amp;apos;click&amp;apos; in document.documentElement ? &amp;apos;click&amp;">
+<meta name="twitter:title" content="发布一个 npm 包">
+<meta name="twitter:description" content="发布一个 npm 包 最近在做项目的 SDK，需要将开发好的 SDK 包发布到 npm 私服上，其他项目使用时可以通过 npm install 安装并通过 import 语法引入使用。  1. webpack 打包 SDK 通过 script 脚本方式引入可以通过在 window 上添加属性来获取，那么如果想通过 import 引入改如何打包呢？这里通过 webpack 配置来打包即可添加模块化">
 
 
 
@@ -119,7 +119,7 @@
   };
 </script>
 
-  <title> Browser- Compatibility | Feynman 的博客 </title>
+  <title> 发布一个 npm 包 | Feynman 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -355,7 +355,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-点击事件问题"><span class="nav-number">1.</span> <span class="nav-text">1. 点击事件问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#移动端-click"><span class="nav-number">1.1.</span> <span class="nav-text">移动端 click</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决方法1-亲测有效-："><span class="nav-number">1.1.1.</span> <span class="nav-text">解决方法1(亲测有效)：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件委托问题："><span class="nav-number">1.2.</span> <span class="nav-text">事件委托问题：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#解决办法2-亲测有效-："><span class="nav-number">1.2.1.</span> <span class="nav-text">解决办法2(亲测有效)：</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#发布一个-npm-包"><span class="nav-number">1.</span> <span class="nav-text">发布一个 npm 包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-webpack-打包-SDK"><span class="nav-number">1.1.</span> <span class="nav-text">1. webpack 打包 SDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-npm-publish-发布"><span class="nav-number">1.2.</span> <span class="nav-text">2. npm publish 发布</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -395,7 +395,7 @@
             
             
               
-                Browser- Compatibility
+                发布一个 npm 包
               
             
           </h1>
@@ -407,8 +407,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
-              2018-05-06
+            <time itemprop="dateCreated" datetime="2019-10-31T11:41:50+08:00" content="2019-10-31">
+              2019-10-31
             </time>
           </span>
 
@@ -421,8 +421,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Compatibility/" itemprop="url" rel="index">
-                    <span itemprop="name">Compatibility</span>
+                  <a href="/categories/npm/" itemprop="url" rel="index">
+                    <span itemprop="name">npm</span>
                   </a>
                 </span>
 
@@ -454,14 +454,32 @@
       
 
       
-        <h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p>
-<h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p>
-<h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul>
-<li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li>
-<li>给​目标元素加一条样式规则 cursor: pointer;</li>
-<li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li>
+        <h1 id="发布一个-npm-包"><a href="#发布一个-npm-包" class="headerlink" title="发布一个 npm 包"></a>发布一个 npm 包</h1><blockquote>
+<p>最近在做项目的 SDK，需要将开发好的 SDK 包发布到 npm 私服上，其他项目使用时可以通过 npm install 安装并通过 import 语法引入使用。</p>
+</blockquote>
+<h2 id="1-webpack-打包-SDK"><a href="#1-webpack-打包-SDK" class="headerlink" title="1. webpack 打包 SDK"></a>1. webpack 打包 SDK</h2><blockquote>
+<p>通过 script 脚本方式引入可以通过在 window 上添加属性来获取，那么如果想通过 import 引入改如何打包呢？这里通过 webpack 配置来打包即可添加模块化</p>
+</blockquote>
+<ul>
+<li>将所有需要导出的模块引入到一个文件中并导出：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// webpack 配置</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &apos;./src/index.ts&apos;, // 项目的入口文件</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// ./src/index.ts</span><br><span class="line"></span><br><span class="line">import EditorSDK from &apos;./editor/index&apos;</span><br><span class="line">import PlayerSDK from &apos;./player/index&apos;</span><br><span class="line"></span><br><span class="line">export default &#123; EditorSDK, PlayerSDK &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>配置 output.libraryTarget 选项<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">output: &#123;</span><br><span class="line">    library: &apos;MyLibrary&apos;,</span><br><span class="line">    libraryTarget: &apos;umd&apos; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在所有模块定义下公开库，此时可以在 CommonJS、AMD 规范以及作为全局变量一起使用。打包后的输出如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">(function webpackUniversalModuleDefinition(root, factory) &#123;</span><br><span class="line">  if(typeof exports === &apos;object&apos; &amp;&amp; typeof module === &apos;object&apos;)</span><br><span class="line">    module.exports = factory();</span><br><span class="line">  else if(typeof define === &apos;function&apos; &amp;&amp; define.amd)</span><br><span class="line">    define([], factory);</span><br><span class="line">  else if(typeof exports === &apos;object&apos;)</span><br><span class="line">    exports[&apos;MyLibrary&apos;] = factory();</span><br><span class="line">  else</span><br><span class="line">    root[&apos;MyLibrary&apos;] = factory();</span><br><span class="line">&#125;)(typeof self !== &apos;undefined&apos; ? self : this, function() &#123;</span><br><span class="line">  return _entry_return_;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-npm-publish-发布"><a href="#2-npm-publish-发布" class="headerlink" title="2. npm publish 发布"></a>2. npm publish 发布</h2><blockquote>
+<p>通过 npm publish 发布时只需要将编译过的 dist 目录发布即可。</p>
+<ul>
+<li>在 dist 下执行 <code>npm init -y</code> 生成 package.json 文件：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;fuzhongfeng-test-slide-sdk&quot;, // npm 包的名称，install 时使用</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;, // 每次 npm publish 时需要与线上的版本号不同才能发布</span><br><span class="line">  &quot;description&quot;: &quot;slide-sdk publish&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;bundle.js&quot;, // 指定模块ID为程序的主入口。如果包的名称为 foo 并且用户安装了此包，然后又执行 require（&quot;foo&quot;)，则返回主模块所导出的对象。</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>在 dist 下执行 <code>npm publish</code> 发布</li>
+<li>在其他项目中即可通过 <code>npm install -i fuzhongfeng-test-slide-sdk</code> 安装模块，并通过 <code>import { EditorSDK, PlayerSDK } from &#39;fuzhongfeng-test-slide-sdk&#39;;</code> 的形式导入</li>
 </ul>
 
       
@@ -484,7 +502,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Compatibility/" rel="tag">#Compatibility</a>
+            <a href="/tags/npm/" rel="tag">#npm</a>
           
         </div>
       
@@ -493,17 +511,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/26/front-end-es6/" rel="next" title="ES6-常用">
-                <i class="fa fa-chevron-left"></i> ES6-常用
+              <a href="/2019/10/24/npm-private/" rel="next" title="npm 私服搭建">
+                <i class="fa fa-chevron-left"></i> npm 私服搭建
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/06/2108-5-13-vue-base/" rel="prev" title="Vue-基础(未完)">
-                Vue-基础(未完) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
