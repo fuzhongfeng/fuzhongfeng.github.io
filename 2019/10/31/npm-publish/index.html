@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="发布一个 npm 包 最近在做项目的 SDK，需要将开发好的 SDK 包发布到 npm 私服上，其他项目使用时可以通过 npm install 安装并通过 import 语法引入使用。  webpack 打包 SDK 通过 script 脚本方式引入可以通过在 window 上添加属性并获取脚本内容，那么如果想通过 import、require 引入该如何打包呢？其实通过 webpack 配置来打">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-09T15:02:47.424Z">
+<meta property="og:updated_time" content="2019-11-21T06:30:22.818Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="发布一个 npm 包">
 <meta name="twitter:description" content="发布一个 npm 包 最近在做项目的 SDK，需要将开发好的 SDK 包发布到 npm 私服上，其他项目使用时可以通过 npm install 安装并通过 import 语法引入使用。  webpack 打包 SDK 通过 script 脚本方式引入可以通过在 window 上添加属性并获取脚本内容，那么如果想通过 import、require 引入该如何打包呢？其实通过 webpack 配置来打">
@@ -465,7 +465,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// ./src/index.ts 文件</span><br><span class="line">import EditorSDK from &apos;./editor/index&apos;</span><br><span class="line">import PlayerSDK from &apos;./player/index&apos;</span><br><span class="line"></span><br><span class="line">export default &#123; EditorSDK, PlayerSDK &#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>配置 entry 和 output.libraryTarget 选项：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &apos;./src/index.ts&apos;, // 项目的入口文件</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: &apos;MyLibrary&apos;,</span><br><span class="line">        libraryTarget: &apos;umd&apos; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &apos;./src/index.ts&apos;, // 项目的入口文件</span><br><span class="line">    output: &#123;</span><br><span class="line">        library: &apos;MyLibrary&apos;,</span><br><span class="line">        libraryTarget: &apos;umd&apos;,</span><br><span class="line">        globalObject: &apos;this&apos;, // node 和 浏览器都能获取到</span><br><span class="line">        libraryExport: &quot;default&quot;, // 将模块的default默认暴露，如果不指定自参数则需要获取window.MyLibrary.default（对应上文 export default），指定后window.MyLibrary即可获取到。</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <ul>
