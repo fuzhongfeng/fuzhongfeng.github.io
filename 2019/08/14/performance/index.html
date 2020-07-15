@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="性能 缓存良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-09T15:36:59.637Z">
+<meta property="og:updated_time" content="2020-03-11T14:53:08.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Performance">
 <meta name="twitter:description" content="性能 缓存良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期">
@@ -460,7 +460,7 @@
 <p>在<em>响应头</em>中添加 <code>Expires: Thu, 28 Dec 2019 05:27:45 GMT</code> 或 <code>Cache-Control: public, max-age=2592000</code> 来控制强缓存。</p>
 <ul>
 <li>Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需再次请求。缺点：Expires 使用的是客户端本机时间不准确，所以引入了 Cache-Control:max-age。</li>
-<li>Cache-Control 是 HTTP/1.0 的字段，它规定了缓存过期的一个相对时间。优先级：Cache-Control &gt; Expires。常用指令如下：<br>public: 任意一方都能缓存该资源(客户端、代理服务器等)。<br>max-age(秒)：缓存的时长，也是响应的最大的Age值。<br>s-maxage(秒)：公共缓存服务器响应的最大Age值。</li>
+<li>Cache-Control 是 HTTP/1.1 的字段，它规定了缓存过期的一个相对时间。优先级：Cache-Control &gt; Expires。常用指令如下：<br>public: 任意一方都能缓存该资源(客户端、代理服务器等)。<br>max-age(秒)：缓存的时长，也是响应的最大的Age值。<br>s-maxage(秒)：公共缓存服务器响应的最大Age值。</li>
 <li>强缓存阶段如果本地缓存没有过期则服务端返回200 (from disk cache)或是200 OK (from memory cache)</li>
 </ul>
 </blockquote>
@@ -560,7 +560,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
