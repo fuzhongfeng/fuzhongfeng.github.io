@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="性能 缓存良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-03-11T14:53:08.465Z">
+<meta property="og:updated_time" content="2020-07-24T08:52:45.873Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Performance">
 <meta name="twitter:description" content="性能 缓存良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期">
@@ -291,7 +291,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">24</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -355,7 +355,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#性能"><span class="nav-number">1.</span> <span class="nav-text">性能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number">1.1.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强缓存"><span class="nav-number">1.1.1.</span> <span class="nav-text">强缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协商缓存"><span class="nav-number">1.1.2.</span> <span class="nav-text">协商缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见问题："><span class="nav-number">1.1.3.</span> <span class="nav-text">常见问题：</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#性能"><span class="nav-number">1.</span> <span class="nav-text">性能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存"><span class="nav-number">1.1.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#强缓存"><span class="nav-number">1.1.1.</span> <span class="nav-text">强缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协商缓存"><span class="nav-number">1.1.2.</span> <span class="nav-text">协商缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见问题："><span class="nav-number">1.1.3.</span> <span class="nav-text">常见问题：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chrome-devtools-调试"><span class="nav-number">1.2.</span> <span class="nav-text">chrome devtools 调试</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -481,7 +481,7 @@
 <li>修改请求URL，请求URL后加随机数，随机数可以是时间戳，哈希值，比如：<a href="http://xxxx.com?a=123412323" target="_blank" rel="noopener">http://xxxx.com?a=123412323</a></li>
 <li>通过 webpack contentHash 每次文件内容改变了则改变文件名</li>
 </ul>
-
+<h2 id="chrome-devtools-调试"><a href="#chrome-devtools-调试" class="headerlink" title="chrome devtools 调试"></a>chrome devtools 调试</h2>
       
     </div>
 
