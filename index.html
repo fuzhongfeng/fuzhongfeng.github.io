@@ -461,7 +461,13 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 此选项可以将库中依赖的第三方不包含在打包生成的 bundle 文件中，从而减小发布包的体积</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  externals: &apos;events&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="todo-rollup-打包"><a href="#todo-rollup-打包" class="headerlink" title="todo: rollup 打包"></a>todo: rollup 打包</h2><h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><ul>
+<h2 id="todo-rollup-打包"><a href="#todo-rollup-打包" class="headerlink" title="todo: rollup 打包"></a>todo: rollup 打包</h2><p>rollup 对于 tree-shaking 支持较好，一些前端流行都是用 rollup 打包，下面罗列一些开发中遇到的点：</p>
+<ol>
+<li>rollup 支持 umd 和 es 两种打包方式分别对应 package.json 中的 main 和 module 字段，直接 import 时会使用 es 文件对 tree-shaking 执行更好。</li>
+<li>d.ts 声明文件如何生成？<br>可以通 tsconfig.json 中的 compilerOptions.declarationDir 字段指定文件夹目录如：dist/types。<br>通过 rollup-plugin-typescript2 插件生成，通过配置 useTsconfigDeclarationDir: true 读取。<br>注意如果使用了rollup-plugin-typescript2不指定声明文件目录也会生成声明文件但目录结构比较混乱。</li>
+<li>external 排除引用的第三方包减少当前包的体积。<br>建议规范使用 package.json 字段，dependencies 字段中添加生产环境必须的依赖包，这样安装当前包的时候也会将 dependencies 内需要的包添加到使用的项目内。此选项建议直接读取 package.json dependencies。</li>
+</ol>
+<h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><ul>
 <li>version 版本号发布时不能与已有的重复。</li>
 <li>dependencies 和 devDependencies<br>一直说开发环境的包要放到 devDependencies 中、生产环境的把放到 dependencies。但即使混淆也并不影响项目打包，对于平时开发似乎没什么影响。但作为包发布却有很大的差别，<strong>dependencies 里的依赖用 npm 安装的时候会自动添加到 node_modules 中，webpack externals 或 roolup external 中配置后可不打包在 bundle 中，减小包的体积。</strong></li>
 </ul>
