@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -376,8 +376,8 @@
             
               
                 
-                <a class="post-title-link" href="/2018/05/06/2019-9-2-compatibility/" itemprop="url">
-                  Browser- Compatibility
+                <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
+                  JavaScript-setTimeout
                 </a>
               
             
@@ -404,8 +404,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Compatibility/" itemprop="url" rel="index">
-                    <span itemprop="name">Compatibility</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -439,14 +439,214 @@
       
         
           
-            <h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p>
-<h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p>
-<h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul>
-<li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li>
-<li>给​目标元素加一条样式规则 cursor: pointer;</li>
-<li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li>
+            <p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p>
+<h2 id="1-setTimeout-（参考：小红书-p203，MDN）"><a href="#1-setTimeout-（参考：小红书-p203，MDN）" class="headerlink" title="1. setTimeout （参考：小红书 p203，MDN）"></a>1. setTimeout （参考：小红书 p203，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN</a>）</h2><h3 id="setTimeout-的基本概念："><a href="#setTimeout-的基本概念：" class="headerlink" title="setTimeout 的基本概念："></a>setTimeout 的基本概念：</h3><ul>
+<li>setTimeout 方法是 window 对象下的。</li>
+<li>JavaScript 是一个单线程序的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个 JavaScript 任务队列。这些任务会按照将它们添加到队列的顺序执行。setTimeout()的第二个参数告诉 JavaScript 再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。</li>
+<li><p>接收多个参数（function, delay, param1…paramN）这里的 parma 会在 delay 延迟后自动作为参数传入 function里，但在 IE9 及以下不支持这种写法。</p>
+<pre><code>setTimeout(function(p1, p2) {
+    console.log(p1, p2); // param1 param2
+}, 1000, &quot;param1&quot;, &quot;param2&quot;);
+</code></pre></li>
+<li><p>setTimeout()会返回一个表示超时调用的数值ID。这个超时调用 ID 是计划执行代码的唯一标识符，可以通过它来取消超时调用（clearTimeout()）。</p>
+</li>
+<li><p>超时延迟</p>
+<pre><code>function foo() {
+  console.log(&apos;foo has been called&apos;);
+}
+setTimeout(foo, 0);
+console.log(&apos;After setTimeout&apos;);
+// After setTimeout, foo has been called
+出现这个结果的原因是，尽管hsetTimeout 以0ms的延迟来调用函数，但这个任务已经被放入了队列中并且等待下一次执行；并不是立即执行；队列中的等待函数被调用之前，当前代码必须全部运行完毕，因此这里运行结果并非预想的那样。
+</code></pre></li>
+<li><p>最小延迟</p>
+<p>最小延时 &gt;=4ms（MDN说法），但是看下面的例子却是 2ms 甚至不到 2ms ？？？</p>
+<pre><code>// 转换为时间戳看一下
+console.log(new Date().getTime());
+setTimeout(function() {
+    console.log(new Date().getTime());
+}, 0);
+
+// 1525534082199, 1525534082201
+
+//  使用 console.time() 和 console.timeEnd() 来统计时间
+function testTimeout() {
+    //  启动任务计时器
+    console.time(&quot;Timeout&quot;)
+    //  启动浏览器定时任务 
+    setTimeout(function() {
+        //  统计任务消耗的时间
+        console.timeEnd(&quot;Timeout&quot;)
+    }, 0)
+}
+testTimeout(); 
+// Timeout: 1.34130859375ms
+</code></pre></li>
+<li>最大延时值<br>浏览器包括 IE, , Chrome, Safari, Firefox 以32个bit字节存储整数。这就会导致如果一个整数大于 2147483647 (大约24.8 天)时就会溢出，导致定时器将会被立即执行</li>
+</ul>
+<h3 id="看下面的例子："><a href="#看下面的例子：" class="headerlink" title="看下面的例子："></a>看下面的例子：</h3><pre><code>for (var i = 0; i &lt; 10; i++) {
+   setTimeout(function(){
+       console.log(new Date, i);
+   }, 1000) 
+}
+console.log(new Date, i);
+</code></pre><p>打印结果：</p>
+<ul>
+<li>last Sat May 05 2018 21:39:42 GMT+0800 (CST) 10 //  setTimeout 由于添加到队列的时间较晚（delay），所以会等到队列中其他任务结束之后再执行。</li>
+<li>last Sat May 05 2018 21:39:43 GMT+0800 (CST) 10 // 十次,注意这里不是重复打印而是分别打印共十次， for 循环里面的 setTimeout 只是在 delay 时间后将其添加到队列中，所以 setTimeout 并不会阻碍 for 循环的时间</li>
+</ul>
+<h4 id="下面是转成时间戳的打印："><a href="#下面是转成时间戳的打印：" class="headerlink" title="下面是转成时间戳的打印："></a>下面是转成时间戳的打印：</h4><pre><code>for (var i = 0; i &lt; 10; i++) {
+   setTimeout(function(){
+       console.log(new Date().getTime(), i);
+   }, 1000) 
+}
+console.log(&quot;last&quot;, new Date().getTime(), i);
+</code></pre><p>打印结果：</p>
+<ul>
+<li>last 1525527917027 10</li>
+<li>(3)1525527918030 10</li>
+<li>(3)1525527918031 10</li>
+<li>(4)1525527918032 10</li>
+</ul>
+<p>以上结果中的重复打印次数不是固定的，在执行一次也可能是：2，2，6；</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/06/2108-5-13-vue-base/" itemprop="url">
+                  Vue-基础(未完)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Vue/" itemprop="url" rel="index">
+                    <span itemprop="name">Vue</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>先写一些简单的研究，后续研究一些源码再完善</p>
+<h2 id="简单实现-vue-双向数据绑定"><a href="#简单实现-vue-双向数据绑定" class="headerlink" title="简单实现 vue 双向数据绑定"></a>简单实现 vue 双向数据绑定</h2><pre><code>var keyValue = 1;
+var obj = {};
+Object.defineProperty(obj, &quot;key&quot;, {
+    enumerable: true, // 默认为 true
+    configurable: true,  // 默认为 true
+    get: function(){
+        return keyValue;
+    },
+    set: function(newValue) {
+        keyValue = newValue;
+        console.log(&quot;set keyValue:&quot;, keyValue)
+    },
+});
+console.log(obj.key);
+obj.key = 2;
+console.log(&quot;keyValue:&quot;, keyValue);
+keyValue = 3;
+console.log(obj.key);
+</code></pre><p>一个简单的双向绑定：改变keyValue，obj.key得到的值也会改变，重新设置obj.key，keyValue一样会随之改变<br>每个组件实例都有相应的 watcher 实例对象，它会在组件渲染的过程中把属性记录为依赖，之后当依赖项的 setter 被调用时，会通知 watcher 重新计算，从而致使它关联的组件得以更新。</p>
+<h2 id="对象-属性类型-访问器属性（小红书-p141）"><a href="#对象-属性类型-访问器属性（小红书-p141）" class="headerlink" title="对象-属性类型-访问器属性（小红书/p141）"></a>对象-属性类型-访问器属性（小红书/p141）</h2><p>访问器属性不包含数据值；它们包含一对儿 getter 和 setter 函数。<br>在读取访问器属性时，会调用 getter 函数，这个函数负责返回有效的值；在写入访问器属性时，会调用<br>setter 函数并传入新值，这个函数负责决定如何处理数据，访问器属性有如下 4 个特性：</p>
+<ul>
+<li>[[Configurable]]：表示能否通过 delete 删除属性从而重新定义属性，能否修改属性的特<br>性，或者能否把属性修改为数据属性。对于直接在对象上定义的属性，这个特性的默认值为<br>true。</li>
+<li>[[Enumerable]]：表示能否通过 for-in 循环返回属性。对于直接在对象上定义的属性，这<br>个特性的默认值为 true。</li>
+<li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
+<li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
 </ul>
 
           
@@ -773,6 +973,130 @@
 <li><code>git branch [branchName] [commitId]</code>  新建分支<br>此方法要优于 <code>git log -g</code> 因为如果删除的分支最后一次提交时间太久很难找到</li>
 </ol>
 </blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/02/06/slide/" itemprop="url">
+                  项目
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-02-06T20:14:17+08:00" content="2018-02-06">
+              2018-02-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/项目/" itemprop="url" rel="index">
+                    <span itemprop="name">项目</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="在线课件技术方案"><a href="#在线课件技术方案" class="headerlink" title="在线课件技术方案"></a>在线课件技术方案</h1><h2 id="复制粘贴"><a href="#复制粘贴" class="headerlink" title="复制粘贴"></a>复制粘贴</h2><h4 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h4><ol>
+<li>手动触发复制操作：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 编辑器暂不考虑兼容性</span><br><span class="line">document.execCommand(&apos;copy&apos;)</span><br><span class="line">``` </span><br><span class="line">2. 如需复制自定义的内容（自定义组件等）时，需要**拦截系统的复制操作**</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>e.preventDefault()<br>e.clipboardData.setData(‘text/plain’, ‘自定义内容’)<br>// jquery 需要多通过 e.originalEvent.clipboardData 获取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 粘贴</span><br><span class="line">1. 手动触发粘贴操作</span><br></pre></td></tr></table></figure></p>
+<p>document.execCommand(‘paste’)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. 如果想粘贴成文本</span><br></pre></td></tr></table></figure></p>
+<p>// 执行插入文本操作<br>document.execCommand(‘insertText’, false, “自定义的文本内容”)<br>e.stopPropagation()<br>e.preventDefault()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 如果想粘贴成图片</span><br></pre></td></tr></table></figure></p>
+<p>document.execCommand(‘insertImage’, false, “图片地址”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4. 如果想粘贴成自定义内容</span><br></pre></td></tr></table></figure></p>
+<p>e.preventDefault()<br>// 原生写法，获取文本到剪切板内的文本内容<br>const content = e.clipboardData.getData(‘Text’) || e.clipboardData.getData(‘text/plain’)<br>// 根据获取到的内容进行处理<br>toDoSomething(content)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 文本</span><br><span class="line">1. 利用 dom 标签的 contenteditable 属性实现</span><br><span class="line">2. 选择文本添加样式利用 rangy</span><br></pre></td></tr></table></figure></p>
+<p><div>1234567abc89</div><br>// 如鼠标选择了 abc 然后添加字体颜色，则需要重新生成一个标签将 abc 包住</p>
+<p><div>1234567<span style="color:red;">abc</span>89</div><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 其他的用原生api处理</span><br></pre></td></tr></table></figure></p>
+<p>// 移除光标所选的所有区域<br>window.getSelection().removeAllRanges()<br>// 返回一个布尔值，用于判断选区的起始点和终点是否在同一个位置。即判断鼠标是否选择了文本<br>window.getSelection().isCollapsed<br><code>`</code></p>
 
           
         

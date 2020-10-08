@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -354,6 +354,118 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/09/25/mobx/" itemprop="url">
+                  mobx
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-09-25T16:33:56+08:00" content="2020-09-25">
+              2020-09-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -461,7 +573,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 此选项可以将库中依赖的第三方不包含在打包生成的 bundle 文件中，从而减小发布包的体积</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  externals: &apos;events&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="todo-rollup-打包"><a href="#todo-rollup-打包" class="headerlink" title="todo: rollup 打包"></a>todo: rollup 打包</h2><p>rollup 对于 tree-shaking 支持较好，一些前端流行都是用 rollup 打包，下面罗列一些开发中遇到的点：</p>
+<h2 id="rollup-打包"><a href="#rollup-打包" class="headerlink" title="rollup 打包"></a>rollup 打包</h2><p>rollup 对于 tree-shaking 支持较好，一些前端流行都是用 rollup 打包，下面罗列一些开发中遇到的点：</p>
 <ol>
 <li>rollup 支持 umd 和 es 两种打包方式分别对应 package.json 中的 main 和 module 字段，直接 import 时会使用 es 文件对 tree-shaking 执行更好。</li>
 <li>d.ts 声明文件如何生成？<br>可以通 tsconfig.json 中的 compilerOptions.declarationDir 字段指定文件夹目录如：dist/types。<br>通过 rollup-plugin-typescript2 插件生成，通过配置 useTsconfigDeclarationDir: true 读取。<br>注意如果使用了rollup-plugin-typescript2不指定声明文件目录也会生成声明文件但目录结构比较混乱。</li>
@@ -470,6 +582,7 @@
 <h2 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h2><ul>
 <li>version 版本号发布时不能与已有的重复。</li>
 <li>dependencies 和 devDependencies<br>一直说开发环境的包要放到 devDependencies 中、生产环境的把放到 dependencies。但即使混淆也并不影响项目打包，对于平时开发似乎没什么影响。但作为包发布却有很大的差别，<strong>dependencies 里的依赖用 npm 安装的时候会自动添加到 node_modules 中，webpack externals 或 roolup external 中配置后可不打包在 bundle 中，减小包的体积。</strong></li>
+<li>peerDependencies<br><strong>字段指定的包在npm install 时不会在自动安装到当前宿主环境。</strong></li>
 </ul>
 <h2 id="2-npm-publish-发布"><a href="#2-npm-publish-发布" class="headerlink" title="2. npm publish 发布"></a>2. npm publish 发布</h2><blockquote>
 <p>通过 npm publish 发布时只需要将编译过的 dist 目录发布即可。此时可配置 package.json 下的 files 字段。（此时只会将 dist 文件夹以及根目录下的 README.md 发布）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;fuzhongfeng-test-slide-sdk&quot;, // npm 包的名称，install 时使用</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;, // 每次 npm publish 时需要与线上的版本号不同才能发布</span><br><span class="line">  &quot;description&quot;: &quot;slide-sdk publish&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;/dist/bundle.js&quot;, // 指定模块ID为程序的主入口。如果包的名称为 foo 并且用户安装了此包，然后又执行 require（&quot;foo&quot;)，则返回主模块所导出的对象。</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;files&quot;: [&quot;dist&quot;], // 指定需要发布的文件夹目录，这样不会将开发代码也发布上去</span><br><span class="line">  &quot;typings&quot;: &quot;dist/index.d.ts&apos;, // 指定 ts 项目的申明文件</span><br><span class="line">  &quot;keywords&quot;: [],</span><br><span class="line">  &quot;author&quot;: &quot;&quot;,</span><br><span class="line">  &quot;license&quot;: &quot;ISC&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -1669,146 +1782,6 @@
 <ul>
 <li>兼容性也很好：Edge12+、Firefox1+、Firefox for Android4+、及其他浏览器</li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/02/17/css-bfc/" itemprop="url">
-                  CSS-BFC
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-02-17T20:21:10+08:00" content="2019-02-17">
-              2019-02-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="BFC"><a href="#BFC" class="headerlink" title="BFC"></a>BFC</h2><blockquote>
-<p>BFC(Block Formatting Context)是 Web 页面中盒模型布局的 CSS 渲染模式，它的定位体系属于常规文档流。</p>
-</blockquote>
-<h4 id="创建-BFC"><a href="#创建-BFC" class="headerlink" title="创建 BFC"></a>创建 BFC</h4><ul>
-<li>根元素，即 HTML 元素</li>
-<li>float 的值不为 none</li>
-<li>overflow 的值不为 visible</li>
-<li>display 的值为 inline-block、table-cell、table-caption</li>
-<li>position 的值为 absolute 或 fixed</li>
-</ul>
-<h4 id="BFC-特性"><a href="#BFC-特性" class="headerlink" title="BFC 特性"></a>BFC 特性</h4><ul>
-<li>内部的 Box 会在垂直方向，从顶部开始一个接一个地放置</li>
-<li>Box 垂直方向的距离由 margin 决定。属于同一个 BFC 的两个相邻 Box 的 margin 会发生叠加</li>
-<li>每个元素的 margin box 的左边， 与包含块 border box 的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此</li>
-<li>BFC 的区域不会与 float box 叠加<br>例子：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--下面是css代码--&gt;</span><br><span class="line"> .aside &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 150px;</span><br><span class="line">    float: left;</span><br><span class="line">    background: #f66;</span><br><span class="line">  &#125;</span><br><span class="line">  .main &#123;</span><br><span class="line">    height: 200px;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    background: #fcc;</span><br><span class="line">  &#125;</span><br><span class="line">  .text&#123;</span><br><span class="line">    width: 500px;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;div class=&quot;aside&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;text&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;main&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">// 不添加 overflow: hidden 时会出现叠加的情况，加上之后不会再叠加</span><br></pre></td></tr></table></figure>
-<ul>
-<li>BFC 就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素，反之亦然</li>
-<li>计算 BFC 的高度时，浮动元素也参与计算</li>
-</ul>
-<h4 id="BFC-的作用"><a href="#BFC-的作用" class="headerlink" title="BFC 的作用"></a>BFC 的作用</h4><ul>
-<li>分属于不同的BFC时可以阻止 margin 重叠</li>
-<li>可以阻止元素被浮动元素覆盖</li>
-<li>通过定义一个 BFC 可以解决容器中由于存在浮动元素而导致的脱离常规文档流问题</li>
-<li>使用 BFC 防止文字环绕，看下面的例子：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    .container &#123;</span><br><span class="line">      height: 300px;</span><br><span class="line">      width: 300px;</span><br><span class="line">      background: red;</span><br><span class="line">    &#125;</span><br><span class="line">    .floated &#123;</span><br><span class="line">      height: 100px;</span><br><span class="line">      width: 100px;</span><br><span class="line">      background: green;</span><br><span class="line">      float: left;</span><br><span class="line">    &#125;</span><br><span class="line">    .bfc &#123;</span><br><span class="line">      overflow: hidden;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;floated&quot;&gt;浮动的div&lt;/div&gt;</span><br><span class="line">    &lt;p class=&quot;bfc&quot;&gt;</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    我们是社会主义接班人 我们是社会主义接班人 我们是社会主义接班人</span><br><span class="line">    &lt;/p&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">// 不加上 bfc class 文字将围绕在浮动的 div 周围，加上 bfc class 之后 文字将不会环绕</span><br></pre></td></tr></table></figure>
 
           
         
