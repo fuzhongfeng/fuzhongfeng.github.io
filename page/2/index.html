@@ -376,6 +376,156 @@
             
               
                 
+                <a class="post-title-link" href="/2019/03/08/2019-3-8-javascript-typeJudge/" itemprop="url">
+                  JavaScript-类型判断
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-08T20:05:21+08:00" content="2019-03-08">
+              2019-03-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><blockquote>
+<p>说到 javascript 中的类型判断方法有很多。如 typeof、instanceof、Array.isArray()、Object.prototype.toString.call()，下面会详细讲解优缺点及具体用法以及最佳方案。</p>
+</blockquote>
+<h3 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h3><blockquote>
+<p>typeof 适用于检测基本数据类型</p>
+</blockquote>
+<ul>
+<li><p>typeof 操作符可能返回下列字符串:<br>“undefined”——如果这个值未定义<br>“boolean”——如果这个值是布尔值<br>“string”——如果这个值是字符串<br>“number”——如果这个值是数值<br>“object”——如果这个值是对象或null<br>“function”——如果这个值是函数</p>
+</li>
+<li><p>看下面的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">typeof [] // &quot;object&quot;</span><br><span class="line">typeof new Date() // &quot;object&quot;</span><br><span class="line">typeof new RegExp() // &quot;object&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h3><blockquote>
+<p>instanceof 适用于检测引用类型的值，如果构造函数的prototype属性在实例的原型链中出现过则返回true。</p>
+</blockquote>
+<ul>
+<li><p>如果变量 variable 是引用类型 constructor 的实例，则返回 true</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">variable instanceof constructor;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>看下面的返回值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[] instanceof Array // true</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>但如果不在同一个全局环境中执行，instanceof 就不能正常使用，因为不同的全局环境下的构造函数时不同的。看下面的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// index.html 文件</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;iframe src=&quot;./inner.html&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    window.onload = function () &#123;</span><br><span class="line">        var arr = [1, 2, 3];</span><br><span class="line">        var f = function() &#123;&#125;</span><br><span class="line">        window.frames[0].func(arr, f);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(window.Array === window.frames[0].Array) // false</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">// inner.html</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        var func = function(arr, f) &#123;</span><br><span class="line">            console.log(arr instanceof Array) // false</span><br><span class="line">            console.log(f instanceof Function) // false</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>这里可以关于数组的判断可以使用 Array.isArray() 来判断。支持浏览器的方法有 IE9+、Firefox4+、Safari5+、Opera10.5+、chrome。</li>
+<li>从父级中传入的函数 f 无法判断。</li>
+</ol>
+<h3 id="最佳方案-Object-prototype-toString-call"><a href="#最佳方案-Object-prototype-toString-call" class="headerlink" title="最佳方案 Object.prototype.toString.call()"></a>最佳方案 Object.prototype.toString.call()</h3><blockquote>
+<p>在任何值上调用 Object 原生的方法 toString() 方法，都会返回一个[object NativeConstructorName]格式的字符串。每个类在内部都有一个[[Class]]属性，这个属性中就指定了上述字符串中的构造函数名。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">// 字符串</span><br><span class="line">Object.prototype.toString.call(&apos;a&apos;) // &quot;[object String]&quot;</span><br><span class="line">// 数字</span><br><span class="line">Object.prototype.toString.call(1) // &quot;[object Number]&quot;</span><br><span class="line">// Boolean</span><br><span class="line">Object.prototype.toString.call(true) // &quot;[object Boolean]&quot;</span><br><span class="line">// undefined </span><br><span class="line">Object.prototype.toString.call(undefined) // &quot;[object Undefined]&quot;</span><br><span class="line">// null</span><br><span class="line">Object.prototype.toString.call(null) // &quot;[object Null]&quot;</span><br><span class="line">// Symbol</span><br><span class="line">Object.prototype.toString.call(Symbol()) // &quot;[object Symbol]&quot;</span><br><span class="line">// 数组</span><br><span class="line">Object.prototype.toString.call([]) // &quot;[object Array]&quot;</span><br><span class="line">// 对象</span><br><span class="line">Object.prototype.toString.call(&#123;&#125;) // &quot;[object Object]&quot;</span><br><span class="line">// 函数</span><br><span class="line">Object.prototype.toString.call(function() &#123;&#125;) // &quot;[object Function]&quot;</span><br><span class="line">// RegExp</span><br><span class="line">Object.prototype.toString.call(/a/) // &quot;[object RegExp]&quot;</span><br><span class="line">// Date</span><br><span class="line">Object.prototype.toString.call(new Date()) // &quot;[object Date]&quot;</span><br><span class="line">// Map</span><br><span class="line">Object.prototype.toString.call(new Map()) // &quot;[object Map]&quot;</span><br><span class="line">// Set</span><br><span class="line">Object.prototype.toString.call(new Set()) // &quot;[object Set]&quot;</span><br><span class="line">// Math</span><br><span class="line">Object.prototype.toString.call(Math) // &quot;[object Math]&quot;</span><br><span class="line">// JSON</span><br><span class="line">Object.prototype.toString.call(JSON) // &quot;[object JSON]&quot;</span><br><span class="line">// Error</span><br><span class="line">Object.prototype.toString.call(new Error()) // &quot;[object Error]&quot;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>兼容性也很好：Edge12+、Firefox1+、Firefox for Android4+、及其他浏览器</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/02/17/css-bfc/" itemprop="url">
                   CSS-BFC
                 </a>
@@ -1360,6 +1510,119 @@
             
               
                 
+                <a class="post-title-link" href="/2018/05/24/javascript-clone/" itemprop="url">
+                  JavaScript-clone
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-24T11:02:18+08:00" content="2018-05-24">
+              2018-05-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><p><a href="https://www.jianshu.com/p/b4960aaec20b" target="_blank" rel="noopener">https://www.jianshu.com/p/b4960aaec20b</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/05/24/javascript-asyncAwait/" itemprop="url">
                   JavaScript-async/await
                 </a>
@@ -1644,119 +1907,6 @@ c(() =&gt; {
             
               
                 
-                <a class="post-title-link" href="/2018/05/24/javascript-clone/" itemprop="url">
-                  JavaScript-clone
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-24T11:02:18+08:00" content="2018-05-24">
-              2018-05-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><p><a href="https://www.jianshu.com/p/b4960aaec20b" target="_blank" rel="noopener">https://www.jianshu.com/p/b4960aaec20b</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2018/05/19/algorithm-questions/" itemprop="url">
                   算法题目
                 </a>
@@ -1858,127 +2008,6 @@ c(() =&gt; {
 </li>
 </ul>
 <h2 id="扑克牌顺序问题："><a href="#扑克牌顺序问题：" class="headerlink" title="扑克牌顺序问题："></a>扑克牌顺序问题：</h2><p>有一堆扑克牌, 将牌堆第一张放到桌子上，再将牌堆的第一张放到牌底，如此往复；最后桌子上的牌顺序为：（牌底）1,2,3,4,5,6,7,8,9,10,11,12,13(牌顶)；<br>问：原来那堆牌的顺序，用函数实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 分析与抽象：</span><br><span class="line">// 1. 最重要的想清楚这件事：每次将牌从牌头放到牌底和桌子上的这一系列操作是可逆的！</span><br><span class="line">// 如桌子上已经有了一张牌、那我一共做了两个操作即：a.将牌从牌头放到牌底 b. 将牌从牌头放到桌子上</span><br><span class="line">// 逆向还原时先执行b，再执行a即可还原为最初状态。多张牌还原相当于还原多次逆向操作。</span><br><span class="line">// 还原函数即为手拿扑克牌还原的过程。</span><br><span class="line">// 2. 牌堆可以看成数组，牌底对应数组尾部，牌顶对应数组头部。</span><br><span class="line">// 3. 最后牌堆抽象为数组为: var final = [13,12,11,10,9,8,7,6,5,4,3,2,1]</span><br><span class="line">// 4. 原来牌堆抽象可以抽象为一个新数组：var initial = []</span><br><span class="line"></span><br><span class="line">  var final = [13,12,11,10,9,8,7,6,5,4,3,2,1];</span><br><span class="line">  function reverse(arr) &#123;</span><br><span class="line">    var result = [];</span><br><span class="line">    for (var i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">      result.length &gt; 0 &amp;&amp; result.unshift(result.pop());</span><br><span class="line">      result.unshift(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  console.log(reverse(final)) // [1, 12, 2, 8, 3, 11, 4, 9, 5, 13, 6, 10, 7]</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/05/06/2019-9-2-compatibility/" itemprop="url">
-                  Browser- Compatibility
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
-              2018-05-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Compatibility/" itemprop="url" rel="index">
-                    <span itemprop="name">Compatibility</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="1-点击事件问题"><a href="#1-点击事件问题" class="headerlink" title="1. 点击事件问题"></a>1. 点击事件问题</h2><h3 id="移动端-click"><a href="#移动端-click" class="headerlink" title="移动端 click"></a>移动端 click</h3><p>由于手机端有些浏览器不存在 click 事件，可以在全局这样处理</p>
-<h4 id="解决方法1-亲测有效-："><a href="#解决方法1-亲测有效-：" class="headerlink" title="解决方法1(亲测有效)："></a>解决方法1(亲测有效)：</h4><p>可以规避当click和touchstart同时存在时点击一次但触发两次问题（如 ipad），此方法可以解决大部分问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var clickEvent = &apos;click&apos; in document.documentElement ? &apos;click&apos; : &apos;touchstart&apos;;</span><br></pre></td></tr></table></figure></p>
-<h3 id="事件委托问题："><a href="#事件委托问题：" class="headerlink" title="事件委托问题："></a>事件委托问题：</h3><p>此段代码在 ios12 系统下的 safari 和 webview 中显示无效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$(document).on(clickEvent, &apos;.slide&apos;, function(e) &#123;</span><br><span class="line">  if (!shouldPlayNext(e)) &#123;</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  Hj_Slide.playNextStep()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>原因：ios12 下利用 document 和 body 进行事件委托绑定 click 是无效的。</p>
-<h4 id="解决办法2-亲测有效-："><a href="#解决办法2-亲测有效-：" class="headerlink" title="解决办法2(亲测有效)："></a>解决办法2(亲测有效)：</h4><ul>
-<li>将 click 事件委托到​​​​​非 document 或 body 的​​父级元素上</li>
-<li>给​目标元素加一条样式规则 cursor: pointer;</li>
-<li>将目标​元素换成 <a> 或者 button 等可点击的​元素;</a></li>
-</ul>
 
           
         
