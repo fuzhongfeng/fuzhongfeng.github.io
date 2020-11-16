@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="队列 概念：队列是一种线性结构，特点是在某一端添加数据，在另一端删除数据，遵循先进先出的原则。  实现方式 单链队列1234567891011121314151617181920class Queue &amp;#123;    constructor() &amp;#123;        this.queue = []    &amp;#125;    enQueue(item) &amp;#123;        this">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-12T10:35:54.920Z">
+<meta property="og:updated_time" content="2020-10-16T02:05:59.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据结构">
 <meta name="twitter:description" content="队列 概念：队列是一种线性结构，特点是在某一端添加数据，在另一端删除数据，遵循先进先出的原则。  实现方式 单链队列1234567891011121314151617181920class Queue &amp;#123;    constructor() &amp;#123;        this.queue = []    &amp;#125;    enQueue(item) &amp;#123;        this">
@@ -355,7 +355,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#队列"><span class="nav-number">1.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方式"><span class="nav-number">1.1.</span> <span class="nav-text">实现方式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#队列"><span class="nav-number">1.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现方式"><span class="nav-number">1.1.</span> <span class="nav-text">实现方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#树"><span class="nav-number">2.</span> <span class="nav-text">树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉树"><span class="nav-number">2.1.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历"><span class="nav-number">2.1.1.</span> <span class="nav-text">遍历</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -462,6 +462,30 @@
 </li>
 </ol>
 <p>单链队列的出队操作的时间复杂度为O(n), 然而循环队列的出队操作的时间复杂度为O(1)</p>
+<h1 id="树"><a href="#树" class="headerlink" title="树"></a>树</h1><blockquote>
+<p>树里的每一个节点有一个值和一个包含所有子节点的列表。从图的观点来看，树也可视为一个拥有 N 个节点和 N-1 条边的一个有向无环图。</p>
+</blockquote>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><blockquote>
+<p>是一种更为典型的树状结构。如它名字所描述的那样，二叉树是每个节点最多有两个子树的树结构，通常子树被称作“左子树”和“右子树”。</p>
+</blockquote>
+<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>前中后序都是只根节点的顺序</p>
+<ul>
+<li><p>前序遍历</p>
+<blockquote>
+<p>前序遍历首先访问根节点，然后遍历左子树，最后遍历右子树。</p>
+</blockquote>
+</li>
+<li><p>中序遍历</p>
+<blockquote>
+<p>中序遍历是先遍历左子树，然后访问根节点，然后遍历右子树。</p>
+</blockquote>
+</li>
+<li><p>后序遍历</p>
+<blockquote>
+<p>后序遍历是先遍历左子树，然后遍历右子树，最后访问树的根节点。</p>
+</blockquote>
+</li>
+</ul>
 
       
     </div>

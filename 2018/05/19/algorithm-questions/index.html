@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="1. 排序算法 冒泡排序: 双层循环，两两比较交换位置。复杂度 O(n^2) 12345678910const bubbleSort = (arr) =&amp;gt; &amp;#123;  const len = arr.length;  for (let i = 0; i &amp;lt; len; i ++) &amp;#123;    for (let j = 0; j &amp;lt; len - 1 - i; j ++)">
+<meta name="description" content="二分查找 二分查找一般由三部分组成：  预处理 —— 如果集合未排序，则进行排序 二分查找 —— 使用循环或递归在每次比较后将查找空间划分为两半 后处理 —— 在剩余空间中确定可行的候选者    三个模板：  模板一1234567891011121314151617function binarySearch(nums, target)&amp;#123;  if(nums.length === 0) re">
 <meta name="keywords" content="Data Structure And Algorithm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="算法题目">
 <meta property="og:url" content="https://fuzhongfeng.github.io/2018/05/19/algorithm-questions/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="1. 排序算法 冒泡排序: 双层循环，两两比较交换位置。复杂度 O(n^2) 12345678910const bubbleSort = (arr) =&amp;gt; &amp;#123;  const len = arr.length;  for (let i = 0; i &amp;lt; len; i ++) &amp;#123;    for (let j = 0; j &amp;lt; len - 1 - i; j ++)">
+<meta property="og:description" content="二分查找 二分查找一般由三部分组成：  预处理 —— 如果集合未排序，则进行排序 二分查找 —— 使用循环或递归在每次比较后将查找空间划分为两半 后处理 —— 在剩余空间中确定可行的候选者    三个模板：  模板一1234567891011121314151617function binarySearch(nums, target)&amp;#123;  if(nums.length === 0) re">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-10-12T02:52:12.431Z">
+<meta property="og:updated_time" content="2020-10-25T09:21:10.491Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法题目">
-<meta name="twitter:description" content="1. 排序算法 冒泡排序: 双层循环，两两比较交换位置。复杂度 O(n^2) 12345678910const bubbleSort = (arr) =&amp;gt; &amp;#123;  const len = arr.length;  for (let i = 0; i &amp;lt; len; i ++) &amp;#123;    for (let j = 0; j &amp;lt; len - 1 - i; j ++)">
+<meta name="twitter:description" content="二分查找 二分查找一般由三部分组成：  预处理 —— 如果集合未排序，则进行排序 二分查找 —— 使用循环或递归在每次比较后将查找空间划分为两半 后处理 —— 在剩余空间中确定可行的候选者    三个模板：  模板一1234567891011121314151617function binarySearch(nums, target)&amp;#123;  if(nums.length === 0) re">
 
 
 
@@ -355,7 +355,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-排序算法"><span class="nav-number">1.</span> <span class="nav-text">1. 排序算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-给定一个整数数组和一个目标值，找出数组中和为目标值的两个数的做索引组成的数组。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。例子如下："><span class="nav-number">2.</span> <span class="nav-text">2. 给定一个整数数组和一个目标值，找出数组中和为目标值的两个数的做索引组成的数组。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。例子如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-实现数组乱序算法，要求每个数字出现在每个位置的概率是平均的。"><span class="nav-number">3.</span> <span class="nav-text">3. 实现数组乱序算法，要求每个数字出现在每个位置的概率是平均的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-一维数组转树形结构"><span class="nav-number">4.</span> <span class="nav-text">4. 一维数组转树形结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扑克牌顺序问题："><span class="nav-number">5.</span> <span class="nav-text">扑克牌顺序问题：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二分查找"><span class="nav-number">1.</span> <span class="nav-text">二分查找</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-排序算法"><span class="nav-number">2.</span> <span class="nav-text">1. 排序算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-给定一个整数数组和一个目标值，找出数组中和为目标值的两个数的做索引组成的数组。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。例子如下："><span class="nav-number">3.</span> <span class="nav-text">2. 给定一个整数数组和一个目标值，找出数组中和为目标值的两个数的做索引组成的数组。你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。例子如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-实现数组乱序算法，要求每个数字出现在每个位置的概率是平均的。"><span class="nav-number">4.</span> <span class="nav-text">3. 实现数组乱序算法，要求每个数字出现在每个位置的概率是平均的。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-一维数组转树形结构"><span class="nav-number">5.</span> <span class="nav-text">4. 一维数组转树形结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扑克牌顺序问题："><span class="nav-number">6.</span> <span class="nav-text">扑克牌顺序问题：</span></a></li></ol></div>
             
           </div>
         </section>
@@ -454,7 +454,48 @@
       
 
       
-        <h2 id="1-排序算法"><a href="#1-排序算法" class="headerlink" title="1. 排序算法"></a>1. 排序算法</h2><ol>
+        <h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><blockquote>
+<p>二分查找一般由三部分组成：</p>
+<ol>
+<li><strong>预处理</strong> —— 如果集合未排序，则进行排序</li>
+<li><strong>二分查找</strong> —— 使用循环或递归在每次比较后将查找空间划分为两半</li>
+<li><strong>后处理</strong> —— 在剩余空间中确定可行的候选者</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>三个模板：</p>
+<ol>
+<li>模板一<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function binarySearch(nums, target)&#123;</span><br><span class="line">  if(nums.length === 0) return -1;</span><br><span class="line"></span><br><span class="line">  var left = 0, right = nums.length - 1; // 初始条件</span><br><span class="line">  while(left &lt;= right)&#123; // 终止条件 left &gt; right, 等于是为了只有两个数时能最终取到值</span><br><span class="line">    int mid = left + (right - left) / 2;</span><br><span class="line">    if(nums[mid] == target)&#123;</span><br><span class="line">      return mid; </span><br><span class="line">    &#125; else if(nums[mid] &lt; target) &#123; </span><br><span class="line">      left = mid + 1; // 向右查找：left = mid+1</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      right = mid - 1; // 向左查找 right = mid-1</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<ol start="2">
+<li>模板二<blockquote>
+<p>用于查找需要访问数组中当前索引及其直接右邻居索引的元素或条件</p>
+</blockquote>
+</li>
+</ol>
+<ul>
+<li>一种实现二分查找的高级方法。</li>
+<li>查找条件需要访问元素的直接右邻居。</li>
+<li>使用元素的右邻居来确定是否满足条件，并决定是向左还是向右。</li>
+<li>保证查找空间在每一步中至少有 2 个元素。</li>
+<li>需要进行后处理。 当你剩下 1 个元素时，循环 / 递归结束。 需要评估剩余元素是否符合条件。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function binarySearch(nums, target) &#123;</span><br><span class="line"></span><br><span class="line">  var left = 0, right = nums.length;</span><br><span class="line"></span><br><span class="line">  while(left &lt; right) &#123;</span><br><span class="line">    var mid = (left + right) / 2;</span><br><span class="line">    if(nums[mid] == target)&#123; return mid; &#125;</span><br><span class="line">    else if(nums[mid] &lt; target) &#123; left = mid + 1; &#125;</span><br><span class="line">    else &#123; right = mid; &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if(left != nums.length &amp;&amp; nums[left] == target) return left;</span><br><span class="line"></span><br><span class="line">  return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol start="3">
+<li>模板三</li>
+</ol>
+<ul>
+<li>实现二分查找的另一种方法。</li>
+<li>搜索条件需要访问元素的直接左右邻居。</li>
+<li>使用元素的邻居来确定它是向右还是向左。</li>
+<li>保证查找空间在每个步骤中至少有 3 个元素。</li>
+<li>需要进行后处理。 当剩下 2 个元素时，循环 / 递归结束。 需要评估其余元素是否符合条件。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> function binarySearch(nums, target) &#123;</span><br><span class="line">    if (nums == null || nums.length == 0) return -1;</span><br><span class="line"></span><br><span class="line">    var left = 0, right = nums.length - 1;</span><br><span class="line">    while (left + 1 &lt; right)&#123;</span><br><span class="line">        var mid = Math.flor((right + left) / 2);</span><br><span class="line">        if (nums[mid] == target) &#123;</span><br><span class="line">            return mid;</span><br><span class="line">        &#125; else if (nums[mid] &lt; target) &#123;</span><br><span class="line">            left = mid;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            right = mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(nums[left] == target) return left;</span><br><span class="line">    if(nums[right] == target) return right;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<hr>
+<h2 id="1-排序算法"><a href="#1-排序算法" class="headerlink" title="1. 排序算法"></a>1. 排序算法</h2><ol>
 <li><p>冒泡排序: 双层循环，两两比较交换位置。复杂度 O(n^2)</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const bubbleSort = (arr) =&gt; &#123;</span><br><span class="line">  const len = arr.length;</span><br><span class="line">  for (let i = 0; i &lt; len; i ++) &#123;</span><br><span class="line">    for (let j = 0; j &lt; len - 1 - i; j ++) &#123; // 内循环每一轮结束后最后一个数为最大，此处可以减少多余的比较</span><br><span class="line">      if (arr[j] &gt; arr[j + 1]) &#123;</span><br><span class="line">        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
