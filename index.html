@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">30</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -354,6 +354,123 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/12/04/2020-12-4-programming-quesiton/" itemprop="url">
+                  JavaScript-programming
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2020-12-04T16:03:20+08:00" content="2020-12-04">
+              2020-12-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="编程题"><a href="#编程题" class="headerlink" title="编程题"></a>编程题</h2><ol>
+<li>将字符串 ‘abce-fgh-ijk’ 转为小驼峰：’abceFghIjk’</li>
+</ol>
+<p>a. 一次遍历<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var s = &apos;abce-fgh-ijk&apos;;</span><br><span class="line">var r = &apos;&apos;;</span><br><span class="line"></span><br><span class="line">for(let i = 0; i &lt; s.length; i++) &#123;</span><br><span class="line">    if (s[i] === &apos;-&apos; &amp;&amp; i !== 0) &#123;</span><br><span class="line">        // 关键点在于++i, 可以跳过一次循环</span><br><span class="line">        r += s[++i].toLocaleUpperCase()</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      r += s[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(r) // abceFghIjk</span><br></pre></td></tr></table></figure></p>
+<p>b.正则<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s.replace(/(-[A-Za-z]&#123;1&#125;)/g, (match, p1) =&gt; &#123; // match 表示匹配到的字符串（包含多个括号的内容），p1匹配第一个括号的内容。</span><br><span class="line">    // 因为是全局匹配，所以此函数会执行多次，返回值会替换一次匹配到的字符串。</span><br><span class="line">    return p1.toLocaleUpperCase().slice(1)</span><br><span class="line">&#125;)</span><br><span class="line">// abceFghIjk</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -1630,158 +1747,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2019/10/01/2019-10-1-javascript-recursion/" itemprop="url">
-                  JavaScript-递归
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2019-10-01T09:36:30+08:00" content="2019-10-01">
-              2019-10-01
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><blockquote>
-<p>递归函数是在一个函数通过名字调用自身的情况下构成的</p>
-</blockquote>
-<h3 id="看一个经典的递归阶乘函数"><a href="#看一个经典的递归阶乘函数" class="headerlink" title="看一个经典的递归阶乘函数"></a>看一个经典的递归阶乘函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 复杂度 O(n)</span><br><span class="line">function factorial(num) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return num</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return num * factorial(num - 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="递归函数调用自身问题"><a href="#递归函数调用自身问题" class="headerlink" title="递归函数调用自身问题"></a>递归函数调用自身问题</h3><ul>
-<li><p>递归调用的函数被重置后会出现问题</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var anotherFactorial = factorial</span><br><span class="line">factorial = null</span><br><span class="line">anotherFactorial(4) //出错!</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>arguments.callee 是一个指向正在执行函数的指针，因此可以用它来实现对函数的递归调用。但在严格模式下，不能通过脚本访问 arguments.callee，访问这个属性会导致错误</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function factorial(num) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return num</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">     return num * arguments.callee(num - 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用命名函数表达式来达成相同的结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var factorial = (function f() &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return num</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">     return num * f(num - 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>函数f是不对外暴露的，所以执行过程中不会被重置，这种方式在严格模式和 非严格模式下都行得通。</p>
-<h3 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h3><ul>
-<li>尾调用是指函数的最后一步是调用另一个函数。尾调用只保留内层函数的调用记录，可释放掉多余的内存占用。</li>
-<li>尾调用自身，就称为尾递归。递归非常耗费内存，很容易发生”栈溢出”错误（stack overflow）。尾调用指保存一个调用记录，所以不会发生栈溢出的问题。</li>
-</ul>
-<h3 id="利用尾递归重写阶乘函数"><a href="#利用尾递归重写阶乘函数" class="headerlink" title="利用尾递归重写阶乘函数"></a>利用尾递归重写阶乘函数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 复杂度 O(1)</span><br><span class="line">function factorial(num, total = 1) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return total</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    total = num * total</span><br><span class="line">    return factorial(num - 1, total)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">factorial(5)</span><br></pre></td></tr></table></figure>
-<p>只要函数执行的最后一步为自身函数调用即可。上面例子中的 num * factorial(num - 1) 也不算尾调用，因为一直保存着对 num 的引用。</p>
-<h3 id="但浏览器一定会识别尾递归的优化吗？"><a href="#但浏览器一定会识别尾递归的优化吗？" class="headerlink" title="但浏览器一定会识别尾递归的优化吗？"></a>但浏览器一定会识别尾递归的优化吗？</h3><ul>
-<li><p>下面在chrome控制台执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 经典阶乘递归函数</span><br><span class="line">function factorial(num) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return num</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return num + factorial(num - 1)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">factorial(100000)</span><br><span class="line">// 此时栈溢出：Maximum call stack size exceeded</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下面再使用尾递归就不会栈溢出了吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 尾递归</span><br><span class="line">function factorial(num, total) &#123;</span><br><span class="line">  if (num === 1) &#123;</span><br><span class="line">    return total</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return factorial(num - 1, num + total)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">factorial(100000)</span><br><span class="line">// 此时依然会栈溢出！！！：Maximum call stack size exceeded</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查询后发现各大浏览器（除了safari）根本就没部署尾调用优化，因为尾调用优化依旧有隐式优化（函数是否符合尾调用而被消除了尾递归很难被开发员自己辨别）和调用栈丢失的问题。</p>
-</li>
-<li><p>node 低版本中本中可以开启尾递归如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// node 6.6.0 版本通过指定参数开启：</span><br><span class="line">// PTC.js</span><br><span class="line">&apos;use strict&apos;;</span><br><span class="line">function f(n, sum = 1) &#123;</span><br><span class="line">    if (n &lt;= 1) &#123;</span><br><span class="line">        return sum;</span><br><span class="line">    &#125;</span><br><span class="line">    return f(n - 1, sum + n);</span><br><span class="line">&#125;</span><br><span class="line">const result = f(100000);</span><br><span class="line">console.log(result);</span><br><span class="line"></span><br><span class="line">$node --harmony_tailcalls PTC.js  // 5000050000</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
