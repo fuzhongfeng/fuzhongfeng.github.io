@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="虽然把正则表达式划分到了 JavaScript 里但要明确的一点是，正则在多种语言中都是通用的，js 仅仅是通过 RegExp 类型来支持正则表达式。对于正则表达式刚接触的时候会自己手写一些，但当遇到一些通用的需求（如手机号、邮箱等）之后就会习惯于直接套用网上现成的正则表达式，但是使用过程中最近感受到了正则的强大和自己会写正则的重要之处，下面举一个实际场景 1. 需求场景： 判断如下 html 字">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-12-09T03:03:11.372Z">
+<meta property="og:updated_time" content="2021-02-17T04:06:54.785Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript-RegExp">
 <meta name="twitter:description" content="虽然把正则表达式划分到了 JavaScript 里但要明确的一点是，正则在多种语言中都是通用的，js 仅仅是通过 RegExp 类型来支持正则表达式。对于正则表达式刚接触的时候会自己手写一些，但当遇到一些通用的需求（如手机号、邮箱等）之后就会习惯于直接套用网上现成的正则表达式，但是使用过程中最近感受到了正则的强大和自己会写正则的重要之处，下面举一个实际场景 1. 需求场景： 判断如下 html 字">
@@ -474,17 +474,14 @@
 <li><p>模式中所有元字符都必须转义，正则中的元字符：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">( [ &#123; \ ^ $ | ) ? * + . ] &#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>特殊字符<br>所谓特殊字符就是一些有特殊含义的字符</p>
+<li><p>特殊字符<br>所谓特殊字符就是一些有特殊含义的字符<br>?  匹配前面的字符串零次或者一次，或指明一个非贪婪限定符。要匹配 ? 字符串请使用 \?</p>
 <ul>
-<li><p>?  匹配前面的字符串零次或者一次，或指明一个非贪婪限定符。要匹配 ? 字符串请使用 \?</p>
-</li>
-<li><p>(?:pattern) 匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用’或’字符(|)来组合一个模式的各个部分是很有用的。例如 industr(?:y|ies) 就是一个比 ‘industry|industries’ 更简洁的表达式。</p>
-</li>
-<li><p>.(小数点）匹配除换行符之外的任何单个字符。<br>例如，/.n/将会匹配 “nay, an apple is on the tree” 中的 ‘an’ 和 ‘on’，但是不会匹配 ‘nay’。</p>
-</li>
+<li>匹配前面的字符串一次或多次。默认为贪婪模式。</li>
 </ul>
+<p>(?:pattern) 匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用’或’字符(|)来组合一个模式的各个部分是很有用的。例如 industr(?:y|ies) 就是一个比 ‘industry|industries’ 更简洁的表达式。</p>
+<p>.  (小数点）匹配除换行符之外的任何单个字符。<br>例如，/.n/将会匹配 “nay, an apple is on the tree” 中的 ‘an’ 和 ‘on’，但是不会匹配 ‘nay’。</p>
 <ul>
-<li>匹配前面的一个表达式0次或者多次，等价于{0,}<br>例如，/bo*/会匹配 “A ghost boooooed” 中的 ‘booooo’ 和 “A bird warbled” 中的 ‘b’，但是在 “A goat grunted” 中将不会匹配任何东西</li>
+<li>匹配前面的一个表达式0次或者多次，等价于{0,}。默认是贪婪的<br>例如，/bo*/会匹配 “A ghost boooooed” 中的 ‘booooo’ 和 “A bird warbled” 中的 ‘b’，但是在 “A goat grunted” 中将不会匹配任何东西</li>
 </ul>
 </li>
 </ol>
