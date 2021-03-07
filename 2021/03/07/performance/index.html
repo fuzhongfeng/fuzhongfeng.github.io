@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Performance," />
 
 
 
@@ -90,16 +90,18 @@
 
 
 
-<meta name="description" content="记录 整理 学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Feynman 的博客">
-<meta property="og:url" content="https://fuzhongfeng.github.io/archives/2019/index.html">
+<meta name="description" content="缓存 良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需">
+<meta name="keywords" content="Performance">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http cache">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2021/03/07/performance/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="记录 整理 学习">
+<meta property="og:description" content="缓存 良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-03-07T15:36:16.130Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feynman 的博客">
-<meta name="twitter:description" content="记录 整理 学习">
+<meta name="twitter:title" content="http cache">
+<meta name="twitter:description" content="缓存 良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需">
 
 
 
@@ -117,7 +119,7 @@
   };
 </script>
 
-  <title> 归档 | Feynman 的博客 </title>
+  <title> http cache | Feynman 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -148,7 +150,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,8 +270,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/me.jpg"
@@ -338,6 +349,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存"><span class="nav-number">1.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强缓存"><span class="nav-number">1.1.</span> <span class="nav-text">强缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协商缓存"><span class="nav-number">1.2.</span> <span class="nav-text">协商缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践："><span class="nav-number">1.3.</span> <span class="nav-text">最佳实践：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置及验证："><span class="nav-number">1.4.</span> <span class="nav-text">设置及验证：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考：https-web-dev-http-cache-examples"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">参考：https://web.dev/http-cache/#examples</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -352,402 +374,172 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 目前共计 32 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2019">2019</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/31/npm-publish/" itemprop="url">
-              
-                <span itemprop="name">发布一个 npm 包</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-31T11:41:50+08:00"
-              content="2019-10-31" >
-          10-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/24/npm-private/" itemprop="url">
-              
-                <span itemprop="name">npm 私服搭建</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-24T16:40:20+08:00"
-              content="2019-10-24" >
-          10-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/07/javascript-extend/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-继承</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-07T21:21:11+08:00"
-              content="2019-10-07" >
-          10-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/01/2019-10-1-javascript-throttle-debounce/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-节流和防抖</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-01T10:02:09+08:00"
-              content="2019-10-01" >
-          10-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/10/01/2019-10-1-javascript-recursion/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-递归</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-10-01T09:36:30+08:00"
-              content="2019-10-01" >
-          10-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/08/20/questions-1/" itemprop="url">
-              
-                <span itemprop="name">Question</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-08-20T16:55:11+08:00"
-              content="2019-08-20" >
-          08-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/07/05/data-structure/" itemprop="url">
-              
-                <span itemprop="name">数据结构</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-07-05T21:31:20+08:00"
-              content="2019-07-05" >
-          07-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/08/2019-3-8-javascript-typeJudge/" itemprop="url">
-              
-                <span itemprop="name">JavaScript-类型判断</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-03-08T20:05:21+08:00"
-              content="2019-03-08" >
-          03-08
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/17/css-bfc/" itemprop="url">
-              
-                <span itemprop="name">CSS-BFC</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-02-17T20:21:10+08:00"
-              content="2019-02-17" >
-          02-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/24/2019-1-28-webpack/" itemprop="url">
-              
-                <span itemprop="name">Webpack4</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-24T17:47:10+08:00"
-              content="2019-01-24" >
-          01-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/2019/page/2/">2</a><a class="extend next" rel="next" href="/archives/2019/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                http cache
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2021-03-07T23:35:23+08:00" content="2021-03-07">
+              2021-03-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Performance/" itemprop="url" rel="index">
+                    <span itemprop="name">Performance</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
 
 
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h1><hr>
+<p>良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存</p>
+<h2 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h2><blockquote>
+<p>在<em>响应头</em>中添加 <code>Expires: Thu, 28 Dec 2019 05:27:45 GMT</code> 或 <code>Cache-Control: public, max-age=2592000</code> 来控制强缓存。</p>
+<ul>
+<li>Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需再次请求。缺点：Expires 使用的是客户端本机时间不准确，所以引入了 Cache-Control:max-age。</li>
+<li>Cache-Control 是 HTTP/1.1 的字段，它规定了缓存过期的一个相对时间。优先级：Cache-Control &gt; Expires。常用指令如下：<br>public: 任意一方都能缓存该资源(客户端、代理服务器等)。<br>max-age(秒)：缓存的时长，也是响应的最大的Age值。<br>s-maxage(秒)：公共缓存服务器响应的最大Age值。<br>no-cache: 浏览器每次使用url的缓存版本之前都必须与服务器重新验证<br>no-store: 浏览器和其他中间缓存（如CDN）从不存储任何版本的文件<br>private: 浏览器可以缓存，但是中间缓存不能</li>
+<li>强缓存阶段如果本地缓存没有过期的话不会向服务器发送请求，状态码为200 (from disk cache)或是200 OK (from memory cache)</li>
+</ul>
+</blockquote>
+<h2 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h2><blockquote>
+<p>强缓存未命中将进入协商缓存。在<em>请求头</em>中添加 <code>If-Modified-Since: Tue, 28 Nov 2019 05:14:02 GMT</code> 或 <code>If-None-Match: W/&quot;5a1cf09a-63c6&quot;</code> 开启协商缓存，协商缓存阶段每次都会向浏览器发起请求。</p>
+<ul>
+<li>If-Modified-Since 中携带的信息为该资源上次请求的响应头中的 Last-Modified 字段。If-None-Match 中携带的信息为该资源上次请求的响应头中的 ETag 字段。服务器通过这两个字段来判断资源是否有修改，如果有修改则返回状态码200和新的内容，如果没有修改返回状态码304。</li>
+<li>Last-Modified 是 HTTP/1.0 的字段。在第一次请求改资源时把这个标识放到响应头传到客户端，标记此资源在服务器端最后被修改的时间。缺点：如果某个资源只是修改了，但实际内容并没有发生变化，Last-Modified 无法判断出来。</li>
+<li>ETag 是 HTTP/1.1 的字段。服务器通过某种算法对资源生成一个唯一的标识。在第一次请求该资源时把这个标识放到响应头传到客户端。优先级：ETag &gt; Last-Modified</li>
+</ul>
+</blockquote>
+<h2 id="最佳实践："><a href="#最佳实践：" class="headerlink" title="最佳实践："></a>最佳实践：</h2><ol>
+<li>通过版本化 URL 确定的资源，如 html 中引用的 css、js、图片等资源文件，需要随时更新。</li>
+</ol>
+<ul>
+<li>通过 webpack contentHash 生成资源地址</li>
+<li>设置长时间使用强缓存：<code>Cache-Control: max-age=31536000</code></li>
+</ul>
+<ol start="2">
+<li>不能通过版本化 URL 确定的资源，如 html 文件。<code>https://xxx.com/index.2s19fg.html</code>。</li>
+</ol>
+<ul>
+<li>响应头设置 <code>Cache-Control: no-cache</code> 使用前与服务器重新验证</li>
+<li>响应头设置 <code>ETag</code> 字段来验证过期缓存资源</li>
+</ul>
+<h2 id="设置及验证："><a href="#设置及验证：" class="headerlink" title="设置及验证："></a>设置及验证：</h2><p>这里给了一些 node express 服务器的配置、最佳实践方案、及验证方式：<a href="https://web.dev/codelab-http-cache" target="_blank" rel="noopener">https://web.dev/codelab-http-cache</a></p>
+<h4 id="参考：https-web-dev-http-cache-examples"><a href="#参考：https-web-dev-http-cache-examples" class="headerlink" title="参考：https://web.dev/http-cache/#examples"></a>参考：<a href="https://web.dev/http-cache/#examples" target="_blank" rel="noopener">https://web.dev/http-cache/#examples</a></h4>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Performance/" rel="tag">#Performance</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/10/minapp/" rel="next" title="小程序">
+                <i class="fa fa-chevron-left"></i> 小程序
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -755,6 +547,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
        
@@ -854,11 +650,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   
