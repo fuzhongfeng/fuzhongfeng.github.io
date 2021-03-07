@@ -44,34 +44,6 @@
   </entry>
   
   <entry>
-    <title>小程序</title>
-    <link href="https://fuzhongfeng.github.io/2021/01/10/minapp/"/>
-    <id>https://fuzhongfeng.github.io/2021/01/10/minapp/</id>
-    <published>2021-01-10T08:23:09.000Z</published>
-    <updated>2021-02-05T01:37:26.948Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li><a href="https://mp.weixin.qq.com/" target="_blank" rel="noopener">微信公众平台注册</a></li><li>获取AppID(小程序ID) 和 AppSecret(小程序密钥)</li><li><a href="https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html" target="_blank" rel="noopener">下载小程序开发中工具</a></li><li>打开开发者工具并登陆，创建小程序，勾选不使用云服务</li><li>小程序并没有一个完整浏览器对象，因而缺少相关的DOM API和BOM API。这一区别导致了前端开发非常熟悉的一些库，例如 jQuery、 Zepto 等，在小程序中是无法运行的。同时 JSCore 的环境同 NodeJS 环境也是不尽相同，所以一些 NPM 的包在小程序中也是无法运行的。</li><li>点击编译可以查看到效果，也可以点击预览在手机查看</li><li>app.json 是当前小程序的全局配置</li></ol><ul><li>pages 总的第一个路径代表小程序的第一个页面</li></ul><ol start="8"><li>css 使用 rpx 单位，小程序可以换算手机设备屏幕宽度和设备像素比</li><li><p>App生命周期：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">onLaunch--监听小程序初始化</span><br><span class="line">onShow--监听小程序启动或切前台</span><br><span class="line">onHide--监听小程序切后台</span><br><span class="line">onError--错误监听函数</span><br><span class="line">onPageNotFound--页面不存在监听函数</span><br><span class="line">onUnhandledRejection--未处理的 Promise 拒绝事件监听函数</span><br><span class="line">onThemeChange--监听系统主题变化</span><br></pre></td></tr></table></figure></li><li><p>Page 生命周期</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">onLoad---页面创建时执行</span><br><span class="line">onShow---页面出现在前台时执行</span><br><span class="line">onReady---页面首次渲染完毕时执行</span><br><span class="line">onHide---页面从前台变为后台时执行</span><br><span class="line">onUnload--页面销毁时执行</span><br><span class="line">onPullDownRefresh--触发下拉刷新时执行</span><br><span class="line">onReachBottom--页面触底时执行</span><br><span class="line">onShareAppMessage--页面被用户分享时执行</span><br><span class="line">onPageScroll--页面滚动时执行</span><br><span class="line">onResize--页面尺寸变化时执行</span><br><span class="line">onTabItemTap--当前是 tab 页时，点击 tab 时触发</span><br><span class="line">onShareAppMessage--用户点击右上角转发</span><br><span class="line">onAddToFavorites--用户点击右上角收藏</span><br></pre></td></tr></table></figure></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;https://mp.weixin.qq.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;微信公众平台注册&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;获取AppID(小程序ID) 和 AppSecret(小程序密钥)&lt;/li&gt;
-&lt;li
-      
-    
-    </summary>
-    
-      <category term="小程序" scheme="https://fuzhongfeng.github.io/categories/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
-    
-    
-      <category term="小程序" scheme="https://fuzhongfeng.github.io/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>JavaScript-programming</title>
     <link href="https://fuzhongfeng.github.io/2020/12/04/2020-12-4-programming-quesiton/"/>
     <id>https://fuzhongfeng.github.io/2020/12/04/2020-12-4-programming-quesiton/</id>
@@ -536,6 +508,32 @@
     
     
       <category term="JavaScript" scheme="https://fuzhongfeng.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Nodejs-基础</title>
+    <link href="https://fuzhongfeng.github.io/2018/07/13/node-base/"/>
+    <id>https://fuzhongfeng.github.io/2018/07/13/node-base/</id>
+    <published>2018-07-13T12:23:54.000Z</published>
+    <updated>2020-11-18T14:59:57.991Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="nodejs-垃圾回收机制"><a href="#nodejs-垃圾回收机制" class="headerlink" title="nodejs 垃圾回收机制"></a>nodejs 垃圾回收机制</h2><blockquote><p>v8 的内存使用是有限制的，64位系统下约为1.4GB，32位系统下约为0.7GB。垃圾回收机制尤为重要。</p><ul><li>内存分代：在V8中，主要将内存分为新生代和老生代两代。新生代中的对象为存活时间较短的对象，<br>老生代中的对象为存活时间较长或常驻内存的对象。</li></ul></blockquote><ol><li>Scavenge 算法</li></ol><ul><li>在分代的基础上，新生代中的对象主要通过Scavenge算法进行垃圾回收</li></ul><ol start="2"><li>V8在老生代中主要采 用了Mark-Sweep和Mark-Compact相结合的方式进行垃圾回收。Mark-Sweep是标记清除的意思。Mark-Compact是标记整理的意思。由于Mark-Compact需要移动对象， 所以它的执行速度不可能很快，所以在取舍上，V8主要使用Mark-Sweep，在空间不足以对从新 生代中晋升过来的对象进行分配时才使用Mark-Compact。</li></ol><h2 id="nodejs-事件循环"><a href="#nodejs-事件循环" class="headerlink" title="nodejs 事件循环"></a>nodejs 事件循环</h2><p><a href="https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout" target="_blank" rel="noopener">https://nodejs.org/en/docs/guides/event-loop-timers-and-nexttick/#setimmediate-vs-settimeout</a></p><h2 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h2><blockquote><p>死锁是指两个或两个以上的进程在执行过程中，由于竞争资源或者由于彼此通信而造成的一种阻塞的现象，若无外力作用，它们都将无法推进下去</p></blockquote><p>产生死锁的四个必要条件：</p><ul><li>不可剥夺条件：进程所获得的资源在未使用完毕之前，不能被其他进程强行夺走，即只能由占用该资源的进程自己来释放。</li><li>互斥条件：一段时间内某资源只由一个进程占用。如果此时还有其它进程请求资源，则请求者只能等待，直至占有资源的进程释放。</li><li>请求与保持条件：进程已经保持了至少一个资源，但又提出了新的资源请求而该资源已被其他进程占有，此时请求进程被阻塞，但对已获得的资源保持不放。</li><li>循环等待条件：指在发生死锁时，必然存在一个进程之间资源的循环调用，即进程集合{P0，P1，P2，···，Pn}中的P0正在等待一个P1占用的资源；P1正在等待P2占用的资源，···，Pn正在等待已被P0占用的资源。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;nodejs-垃圾回收机制&quot;&gt;&lt;a href=&quot;#nodejs-垃圾回收机制&quot; class=&quot;headerlink&quot; title=&quot;nodejs 垃圾回收机制&quot;&gt;&lt;/a&gt;nodejs 垃圾回收机制&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;v8 的内存使用是有限制的
+      
+    
+    </summary>
+    
+      <category term="Nodejs" scheme="https://fuzhongfeng.github.io/categories/Nodejs/"/>
+    
+    
+      <category term="Nodejs" scheme="https://fuzhongfeng.github.io/tags/Nodejs/"/>
     
   </entry>
   

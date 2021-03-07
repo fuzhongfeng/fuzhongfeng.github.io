@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -290,7 +290,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -299,7 +299,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -354,130 +354,6 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/02/06/slide/" itemprop="url">
-                  项目
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-02-06T20:14:17+08:00" content="2018-02-06">
-              2018-02-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/项目/" itemprop="url" rel="index">
-                    <span itemprop="name">项目</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="在线课件技术方案"><a href="#在线课件技术方案" class="headerlink" title="在线课件技术方案"></a>在线课件技术方案</h1><h2 id="复制粘贴"><a href="#复制粘贴" class="headerlink" title="复制粘贴"></a>复制粘贴</h2><h4 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h4><ol>
-<li>手动触发复制操作：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 编辑器暂不考虑兼容性</span><br><span class="line">document.execCommand(&apos;copy&apos;)</span><br><span class="line">``` </span><br><span class="line">2. 如需复制自定义的内容（自定义组件等）时，需要**拦截系统的复制操作**</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>e.preventDefault()<br>e.clipboardData.setData(‘text/plain’, ‘自定义内容’)<br>// jquery 需要多通过 e.originalEvent.clipboardData 获取<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 粘贴</span><br><span class="line">1. 手动触发粘贴操作</span><br></pre></td></tr></table></figure></p>
-<p>document.execCommand(‘paste’)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2. 如果想粘贴成文本</span><br></pre></td></tr></table></figure></p>
-<p>// 执行插入文本操作<br>document.execCommand(‘insertText’, false, “自定义的文本内容”)<br>e.stopPropagation()<br>e.preventDefault()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 如果想粘贴成图片</span><br></pre></td></tr></table></figure></p>
-<p>document.execCommand(‘insertImage’, false, “图片地址”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4. 如果想粘贴成自定义内容</span><br></pre></td></tr></table></figure></p>
-<p>e.preventDefault()<br>// 原生写法，获取文本到剪切板内的文本内容<br>const content = e.clipboardData.getData(‘Text’) || e.clipboardData.getData(‘text/plain’)<br>// 根据获取到的内容进行处理<br>toDoSomething(content)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 文本</span><br><span class="line">1. 利用 dom 标签的 contenteditable 属性实现</span><br><span class="line">2. 选择文本添加样式利用 rangy</span><br></pre></td></tr></table></figure></p>
-<p><div>1234567abc89</div><br>// 如鼠标选择了 abc 然后添加字体颜色，则需要重新生成一个标签将 abc 包住</p>
-<p><div>1234567<span style="color:red;">abc</span>89</div><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3. 其他的用原生api处理</span><br></pre></td></tr></table></figure></p>
-<p>// 移除光标所选的所有区域<br>window.getSelection().removeAllRanges()<br>// 返回一个布尔值，用于判断选区的起始点和终点是否在同一个位置。即判断鼠标是否选择了文本<br>window.getSelection().isCollapsed<br><code>`</code></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
     
       
 
