@@ -1890,6 +1890,14 @@
 <li>请求与保持条件：进程已经保持了至少一个资源，但又提出了新的资源请求而该资源已被其他进程占有，此时请求进程被阻塞，但对已获得的资源保持不放。</li>
 <li>循环等待条件：指在发生死锁时，必然存在一个进程之间资源的循环调用，即进程集合{P0，P1，P2，···，Pn}中的P0正在等待一个P1占用的资源；P1正在等待P2占用的资源，···，Pn正在等待已被P0占用的资源。</li>
 </ul>
+<h2 id="nodejs-调试"><a href="#nodejs-调试" class="headerlink" title="nodejs 调试"></a>nodejs 调试</h2><h3 id="一、vscode"><a href="#一、vscode" class="headerlink" title="一、vscode"></a>一、vscode</h3><p><img src="/2018/07/13/node-base/step1.png" alt="step1"><br><img src="/2018/07/13/node-base/step2.png" alt="step2-3"></p>
+<ul>
+<li>此时项目根目录下会创建出 .vscode/launch.json文件</li>
+</ul>
+<p><img src="/2018/07/13/node-base/step3.png" alt="step4-5"></p>
+<ul>
+<li>最后访问node服务即可触发断点进行调试</li>
+</ul>
 
           
         

@@ -98,10 +98,14 @@
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="nodejs 垃圾回收机制 v8 的内存使用是有限制的，64位系统下约为1.4GB，32位系统下约为0.7GB。垃圾回收机制尤为重要。  内存分代：在V8中，主要将内存分为新生代和老生代两代。新生代中的对象为存活时间较短的对象，老生代中的对象为存活时间较长或常驻内存的对象。    Scavenge 算法   在分代的基础上，新生代中的对象主要通过Scavenge算法进行垃圾回收   V8在老生代中">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-11-18T14:59:57.991Z">
+<meta property="og:image" content="https://fuzhongfeng.github.io/2018/07/13/node-base/step1.png">
+<meta property="og:image" content="https://fuzhongfeng.github.io/2018/07/13/node-base/step2.png">
+<meta property="og:image" content="https://fuzhongfeng.github.io/2018/07/13/node-base/step3.png">
+<meta property="og:updated_time" content="2021-05-29T12:48:45.963Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Nodejs-基础">
 <meta name="twitter:description" content="nodejs 垃圾回收机制 v8 的内存使用是有限制的，64位系统下约为1.4GB，32位系统下约为0.7GB。垃圾回收机制尤为重要。  内存分代：在V8中，主要将内存分为新生代和老生代两代。新生代中的对象为存活时间较短的对象，老生代中的对象为存活时间较长或常驻内存的对象。    Scavenge 算法   在分代的基础上，新生代中的对象主要通过Scavenge算法进行垃圾回收   V8在老生代中">
+<meta name="twitter:image" content="https://fuzhongfeng.github.io/2018/07/13/node-base/step1.png">
 
 
 
@@ -355,7 +359,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs-垃圾回收机制"><span class="nav-number">1.</span> <span class="nav-text">nodejs 垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs-事件循环"><span class="nav-number">2.</span> <span class="nav-text">nodejs 事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">3.</span> <span class="nav-text">死锁</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs-垃圾回收机制"><span class="nav-number">1.</span> <span class="nav-text">nodejs 垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs-事件循环"><span class="nav-number">2.</span> <span class="nav-text">nodejs 事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#死锁"><span class="nav-number">3.</span> <span class="nav-text">死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs-调试"><span class="nav-number">4.</span> <span class="nav-text">nodejs 调试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、vscode"><span class="nav-number">4.1.</span> <span class="nav-text">一、vscode</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -479,6 +483,14 @@
 <li>互斥条件：一段时间内某资源只由一个进程占用。如果此时还有其它进程请求资源，则请求者只能等待，直至占有资源的进程释放。</li>
 <li>请求与保持条件：进程已经保持了至少一个资源，但又提出了新的资源请求而该资源已被其他进程占有，此时请求进程被阻塞，但对已获得的资源保持不放。</li>
 <li>循环等待条件：指在发生死锁时，必然存在一个进程之间资源的循环调用，即进程集合{P0，P1，P2，···，Pn}中的P0正在等待一个P1占用的资源；P1正在等待P2占用的资源，···，Pn正在等待已被P0占用的资源。</li>
+</ul>
+<h2 id="nodejs-调试"><a href="#nodejs-调试" class="headerlink" title="nodejs 调试"></a>nodejs 调试</h2><h3 id="一、vscode"><a href="#一、vscode" class="headerlink" title="一、vscode"></a>一、vscode</h3><p><img src="/2018/07/13/node-base/step1.png" alt="step1"><br><img src="/2018/07/13/node-base/step2.png" alt="step2-3"></p>
+<ul>
+<li>此时项目根目录下会创建出 .vscode/launch.json文件</li>
+</ul>
+<p><img src="/2018/07/13/node-base/step3.png" alt="step4-5"></p>
+<ul>
+<li>最后访问node服务即可触发断点进行调试</li>
 </ul>
 
       
