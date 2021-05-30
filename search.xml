@@ -1159,10 +1159,11 @@
 <ul>
 <li>此时项目根目录下会创建出 .vscode/launch.json文件</li>
 </ul>
-<p><img src="/2018/07/13/node-base/step3.png" alt="step4-5"></p>
+<p><img src="/2018/07/13/node-base/step3.png" alt="step4-5"><br><img src="/2018/07/13/node-base/step4.png" alt="step6"></p>
 <ul>
-<li>最后访问node服务即可触发断点进行调试</li>
+<li>访问node服务即可触发断点进行调试</li>
 </ul>
+<p><img src="/2018/07/13/node-base/step5.png" alt="step7"></p>
 ]]></content>
       
         <categories>
