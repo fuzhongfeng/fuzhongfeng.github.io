@@ -94,16 +94,14 @@
 <meta name="keywords" content="Performance">
 <meta property="og:type" content="article">
 <meta property="og:title" content="http cache">
-<meta property="og:url" content="https://fuzhongfeng.github.io/2022/01/23/performance/index.html">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2022/01/23/http-cache/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
 <meta property="og:description" content="缓存 良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://fuzhongfeng.github.io/images/timing.webp">
-<meta property="og:updated_time" content="2022-01-28T08:48:25.502Z">
+<meta property="og:updated_time" content="2022-06-12T02:34:03.845Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="http cache">
 <meta name="twitter:description" content="缓存 良好的缓存策略可以降低资源的重复加载提高网页的整体加载速度，通常浏览器缓存策略分为两种：强缓存和协商缓存 强缓存 在响应头中添加 Expires: Thu, 28 Dec 2019 05:27:45 GMT 或 Cache-Control: public, max-age=2592000 来控制强缓存。  Expires 是 HTTP/1.0 的字段，它规定了缓存过期的一个绝对时间，过期后需">
-<meta name="twitter:image" content="https://fuzhongfeng.github.io/images/timing.webp">
 
 
 
@@ -293,7 +291,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -357,7 +355,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存"><span class="nav-number">1.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强缓存"><span class="nav-number">1.1.</span> <span class="nav-text">强缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协商缓存"><span class="nav-number">1.2.</span> <span class="nav-text">协商缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践："><span class="nav-number">1.3.</span> <span class="nav-text">最佳实践：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置及验证："><span class="nav-number">1.4.</span> <span class="nav-text">设置及验证：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考：https-web-dev-http-cache-examples"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">参考：https://web.dev/http-cache/#examples</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#chrome-performance"><span class="nav-number">2.</span> <span class="nav-text">chrome performance</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#performance-timing"><span class="nav-number">2.1.</span> <span class="nav-text">performance.timing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#白屏"><span class="nav-number">2.1.1.</span> <span class="nav-text">白屏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断网页内存溢出"><span class="nav-number">2.2.</span> <span class="nav-text">判断网页内存溢出</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存"><span class="nav-number">1.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强缓存"><span class="nav-number">1.1.</span> <span class="nav-text">强缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#协商缓存"><span class="nav-number">1.2.</span> <span class="nav-text">协商缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最佳实践："><span class="nav-number">1.3.</span> <span class="nav-text">最佳实践：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置及验证："><span class="nav-number">1.4.</span> <span class="nav-text">设置及验证：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#参考：https-web-dev-http-cache-examples"><span class="nav-number">1.4.0.1.</span> <span class="nav-text">参考：https://web.dev/http-cache/#examples</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -490,10 +488,7 @@
 </li>
 </ul>
 <h2 id="设置及验证："><a href="#设置及验证：" class="headerlink" title="设置及验证："></a>设置及验证：</h2><p>这里给了一些 node express 服务器的配置、最佳实践方案、及验证方式：<a href="https://web.dev/codelab-http-cache" target="_blank" rel="noopener">https://web.dev/codelab-http-cache</a></p>
-<h4 id="参考：https-web-dev-http-cache-examples"><a href="#参考：https-web-dev-http-cache-examples" class="headerlink" title="参考：https://web.dev/http-cache/#examples"></a>参考：<a href="https://web.dev/http-cache/#examples" target="_blank" rel="noopener">https://web.dev/http-cache/#examples</a></h4><h1 id="chrome-performance"><a href="#chrome-performance" class="headerlink" title="chrome performance"></a>chrome performance</h1><h2 id="performance-timing"><a href="#performance-timing" class="headerlink" title="performance.timing"></a>performance.timing</h2><p><img src="/images/timing.webp" alt="1"></p>
-<h3 id="白屏"><a href="#白屏" class="headerlink" title="白屏"></a>白屏</h3><p>白屏时间 = 地址栏输入网址后回车 - 浏览器出现第一个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 一般白屏结束时间定义为body渲染前，此script标签放在body前</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    window.whiteEnd = Date.now()</span><br><span class="line">    // 白屏时间</span><br><span class="line">    console.log(whiteEnd - performance.timing.navigationStart)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="判断网页内存溢出"><a href="#判断网页内存溢出" class="headerlink" title="判断网页内存溢出"></a>判断网页内存溢出</h2><p>问题：做课件撤销重做功能时，用两个数组存储页面的数据，上线一段时间后接到用户反馈页面崩溃的问题。初步猜测是内存溢出，那么如何验证是否为内存溢出呢？<br>验证方法：Chrome – More tools – Performance monitor – Js heap size<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 控制台手动模拟内存增加，查看 Js heap size 大小</span><br><span class="line">var arr = []</span><br><span class="line">for(let i = 0; i &lt; 100000000; i++) &#123;</span><br><span class="line">    arr.push(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
+<h4 id="参考：https-web-dev-http-cache-examples"><a href="#参考：https-web-dev-http-cache-examples" class="headerlink" title="参考：https://web.dev/http-cache/#examples"></a>参考：<a href="https://web.dev/http-cache/#examples" target="_blank" rel="noopener">https://web.dev/http-cache/#examples</a></h4>
       
     </div>
 

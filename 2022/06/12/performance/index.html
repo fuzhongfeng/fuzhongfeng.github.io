@@ -72,7 +72,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Performance," />
 
 
 
@@ -90,16 +90,20 @@
 
 
 
-<meta name="description" content="记录 整理 学习">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Feynman 的博客">
-<meta property="og:url" content="https://fuzhongfeng.github.io/archives/2019/02/index.html">
+<meta name="description" content="chrome performanceperformance.timing 白屏白屏时间 = 地址栏输入网址后回车 - 浏览器出现第一个元素123456// 一般白屏结束时间定义为body渲染前，此script标签放在body前&amp;lt;script&amp;gt;    window.whiteEnd = Date.now()    // 白屏时间    console.log(whiteEnd - per">
+<meta name="keywords" content="Performance">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能优化">
+<meta property="og:url" content="https://fuzhongfeng.github.io/2022/06/12/performance/index.html">
 <meta property="og:site_name" content="Feynman 的博客">
-<meta property="og:description" content="记录 整理 学习">
+<meta property="og:description" content="chrome performanceperformance.timing 白屏白屏时间 = 地址栏输入网址后回车 - 浏览器出现第一个元素123456// 一般白屏结束时间定义为body渲染前，此script标签放在body前&amp;lt;script&amp;gt;    window.whiteEnd = Date.now()    // 白屏时间    console.log(whiteEnd - per">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://fuzhongfeng.github.io/images/timing.webp">
+<meta property="og:updated_time" content="2022-06-12T02:35:50.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Feynman 的博客">
-<meta name="twitter:description" content="记录 整理 学习">
+<meta name="twitter:title" content="性能优化">
+<meta name="twitter:description" content="chrome performanceperformance.timing 白屏白屏时间 = 地址栏输入网址后回车 - 浏览器出现第一个元素123456// 一般白屏结束时间定义为body渲染前，此script标签放在body前&amp;lt;script&amp;gt;    window.whiteEnd = Date.now()    // 白屏时间    console.log(whiteEnd - per">
+<meta name="twitter:image" content="https://fuzhongfeng.github.io/images/timing.webp">
 
 
 
@@ -117,7 +121,7 @@
   };
 </script>
 
-  <title> 归档 | Feynman 的博客 </title>
+  <title> 性能优化 | Feynman 的博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -148,7 +152,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,8 +272,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/me.jpg"
@@ -338,6 +351,17 @@
       </section>
 
       
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#chrome-performance"><span class="nav-number">1.</span> <span class="nav-text">chrome performance</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#performance-timing"><span class="nav-number">1.1.</span> <span class="nav-text">performance.timing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#白屏"><span class="nav-number">1.1.1.</span> <span class="nav-text">白屏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#判断网页内存溢出"><span class="nav-number">1.2.</span> <span class="nav-text">判断网页内存溢出</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
 
     </div>
   </aside>
@@ -352,66 +376,142 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-      
-        
-      
-      嗯..! 目前共计 30 篇日志。 继续努力。
-    </span>
-
+  <div id="posts" class="posts-expand">
     
 
-      
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                性能优化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2022-06-12T10:34:00+08:00" content="2022-06-12">
+              2022-06-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Performance/" itemprop="url" rel="index">
+                    <span itemprop="name">Performance</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
 
       
+        <h1 id="chrome-performance"><a href="#chrome-performance" class="headerlink" title="chrome performance"></a>chrome performance</h1><h2 id="performance-timing"><a href="#performance-timing" class="headerlink" title="performance.timing"></a>performance.timing</h2><p><img src="/images/timing.webp" alt="1"></p>
+<h3 id="白屏"><a href="#白屏" class="headerlink" title="白屏"></a>白屏</h3><p>白屏时间 = 地址栏输入网址后回车 - 浏览器出现第一个元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 一般白屏结束时间定义为body渲染前，此script标签放在body前</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    window.whiteEnd = Date.now()</span><br><span class="line">    // 白屏时间</span><br><span class="line">    console.log(whiteEnd - performance.timing.navigationStart)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="判断网页内存溢出"><a href="#判断网页内存溢出" class="headerlink" title="判断网页内存溢出"></a>判断网页内存溢出</h2><p>问题：做课件撤销重做功能时，用两个数组存储页面的数据，上线一段时间后接到用户反馈页面崩溃的问题。初步猜测是内存溢出，那么如何验证是否为内存溢出呢？<br>验证方法：Chrome – More tools – Performance monitor – Js heap size<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 控制台手动模拟内存增加，查看 Js heap size 大小</span><br><span class="line">var arr = []</span><br><span class="line">for(let i = 0; i &lt; 100000000; i++) &#123;</span><br><span class="line">    arr.push(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
         
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2019">2019</h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Performance/" rel="tag">#Performance</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/02/20/vue-sourcecode/" rel="next" title="vue源码阅读">
+                <i class="fa fa-chevron-left"></i> vue源码阅读
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/17/css-bfc/" itemprop="url">
-              
-                <span itemprop="name">CSS-BFC</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-02-17T20:21:10+08:00"
-              content="2019-02-17" >
-          02-17
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -419,6 +519,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
        
@@ -518,11 +622,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
 
 
   

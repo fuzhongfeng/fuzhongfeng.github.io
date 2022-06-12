@@ -282,7 +282,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">29</span>
+              <span class="site-state-item-count">30</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -354,6 +354,278 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/06/28/javascript-base/" itemprop="url">
+                  JavaScript-基础
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-06-28T21:54:13+08:00" content="2018-06-28">
+              2018-06-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="null-和-0-比较"><a href="#null-和-0-比较" class="headerlink" title="null 和 0 比较"></a>null 和 0 比较</h2><p><em>最近在项目中修改 bug 时发现的一个不太理解的问题：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">params.estimatedStudentTime = values.estimatedStudentTime &gt;= 0 ? </span><br><span class="line">    values.estimatedStudentTime : -1</span><br></pre></td></tr></table></figure>
+<p>本意是想根据 values.estimatedStudentTime 的值如果存在并且值大于等于零时才赋值给 params.estimatedStudentTime，当 values.estimatedStudentTime 的值不存在时则取 -1 再传递给接口。<br>乍一看判断没问题啊，然而控制台却发现还是将 null 值传递了出去。因为在某一处给 values.estimatedStudentTime 赋值为 null，但是 values.estimatedStudentTime &gt;= 0 为什么不能过滤掉 null ？？？ 难道 null &gt;= 0 返回true ？？？ 果然 null &gt;= 0 返回 true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log(null &gt; 0);   // false</span><br><span class="line">console.log(null &lt; 0);   // false</span><br><span class="line">console.log(null &gt;= 0);   // true</span><br><span class="line">console.log(null &lt;= 0);   // true</span><br><span class="line">console.log(null == 0);   // false</span><br><span class="line">console.log(null === 0);    // false</span><br></pre></td></tr></table></figure></p>
+<p>why ？？？<br>首先明确概念：<br>关系运算符： &lt;、&gt;、&gt;=、&lt;=<br>相等运算符：==、!=、===、!==</p>
+<h3 id="关系运算符比较时会尝试将值转为-number-，Number-null-值为-0"><a href="#关系运算符比较时会尝试将值转为-number-，Number-null-值为-0" class="headerlink" title="关系运算符比较时会尝试将值转为 number ，Number(null)  值为 0"></a>关系运算符比较时会尝试将值转为 number ，Number(null)  值为 0</h3><p>然而 Number(undefined) 值却为 NaN, NaN &gt;= 0 返回 false</p>
+<h2 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h2><ul>
+<li>创建方式：调用另一个函数并为它传入要柯里化的函数和必要参数<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function curry(fn)&#123;</span><br><span class="line">  var args = Array.prototype.slice.call(arguments, 1);</span><br><span class="line">  return function()&#123;</span><br><span class="line">      var innerArgs = Array.prototype.slice.call(arguments);</span><br><span class="line">      var finalArgs = args.concat(innerArgs);</span><br><span class="line">      return fn.apply(null, finalArgs);</span><br><span class="line">  &#125;; </span><br><span class="line">&#125;</span><br><span class="line">function add(num1, num2)&#123; // 柯里化的函数</span><br><span class="line">    return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">var curriedAdd = curry(add, 5);</span><br><span class="line">curriedAdd(3) // 8</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>*问题1：实现一个 fn 函数返回如下结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fn(&apos;a&apos;, &apos;b&apos;, &apos;c&apos;) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br><span class="line">fn(&apos;a&apos;, &apos;b&apos;)(&apos;c&apos;) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br><span class="line">fn(&apos;a&apos;)(&apos;b&apos;)(&apos;c&apos;) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br><span class="line">fn(&apos;a&apos;)(&apos;b&apos;, &apos;c&apos;) // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>函数式 柯里化解决：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">function add (a, b, c) &#123;</span><br><span class="line">    console.log([a, b, c])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 第一种</span><br><span class="line">function curry(func) &#123;</span><br><span class="line">    var argLen = func.length // 函数参数的个数</span><br><span class="line"></span><br><span class="line">    return function _fn(...rest) &#123;</span><br><span class="line">         if(rest.length &lt; argLen) &#123;</span><br><span class="line">           return _fn.bind(null, ...rest)</span><br><span class="line">         &#125; else &#123;</span><br><span class="line">             return func.apply(null, rest)   </span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 第二种</span><br><span class="line">function curry(fn) &#123;</span><br><span class="line">    var len = fn.length;</span><br><span class="line"></span><br><span class="line">    return function _f() &#123;</span><br><span class="line">        if (arguments.length === len) &#123;</span><br><span class="line">            return fn.apply(null, arguments)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return _f.bind(null, ...arguments)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fn = curry(add)</span><br></pre></td></tr></table></figure></p>
+<h2 id="实现-Function-prototype-call"><a href="#实现-Function-prototype-call" class="headerlink" title="实现 Function.prototype.call"></a>实现 Function.prototype.call</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myCall = function(obj, ...args) &#123;</span><br><span class="line">    if (typeof this !== &apos;function&apos;) throw new Error(&apos;type error&apos;)</span><br><span class="line"></span><br><span class="line">    // 默认值 window</span><br><span class="line">    obj = obj || window</span><br><span class="line"></span><br><span class="line">    // 防止覆盖 obj 已有 fn 属性</span><br><span class="line">    const _fn = Symbol(&apos;fn&apos;)</span><br><span class="line"></span><br><span class="line">    // call 位于函数实例的原型上，因此调用时 call 函数内的 this 指向函数实例自身</span><br><span class="line">    obj[_fn] = this</span><br><span class="line"></span><br><span class="line">    const _result = obj[_fn](...args)</span><br><span class="line">    delete obj[_fn]</span><br><span class="line">    </span><br><span class="line">    return _result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试一下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">    name: &apos;fu&apos;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function test() &#123;</span><br><span class="line">    console.log(this.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">test() // undefined</span><br><span class="line">test.call(o) // &apos;fu&apos;</span><br><span class="line">test.myCall(o) // &apos;fu&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="实现-Function-prototype-apply"><a href="#实现-Function-prototype-apply" class="headerlink" title="实现 Function.prototype.apply"></a>实现 Function.prototype.apply</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myApply = function(obj, args) &#123;</span><br><span class="line">    if (typeof this !== &apos;function&apos;) throw new Error(&apos;type error&apos;)</span><br><span class="line"></span><br><span class="line">    // 默认值 window</span><br><span class="line">    obj = obj || window</span><br><span class="line"></span><br><span class="line">    // 防止覆盖 obj 已有 fn 属性</span><br><span class="line">    const _fn = Symbol(&apos;fn&apos;)</span><br><span class="line"></span><br><span class="line">    // call 位于函数实例的原型上，因此调用时 call 函数内的 this 指向函数实例自身</span><br><span class="line">    obj[_fn] = this</span><br><span class="line"></span><br><span class="line">    const _result = obj[_fn](...args)</span><br><span class="line">    delete obj[_fn]</span><br><span class="line">    </span><br><span class="line">    return _result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试一下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">    name: &apos;fu&apos;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function test(...args) &#123;</span><br><span class="line">    console.log(this.name, ...args)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arr = [1,2,3]</span><br><span class="line"></span><br><span class="line">test(arr) // [1,2,3]</span><br><span class="line">test.apply(o) // &apos;fu&apos; 1,2,3</span><br><span class="line">test.myApply(o) // &apos;fu&apos; 1,2,3</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="实现-Function-prototype-bind"><a href="#实现-Function-prototype-bind" class="headerlink" title="实现 Function.prototype.bind"></a>实现 Function.prototype.bind</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myBind = function (thisArg, ...args) &#123;</span><br><span class="line">    if (typeof this !== &quot;function&quot;) &#123;</span><br><span class="line">      throw Error(&quot;type error&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var self = this</span><br><span class="line">    var fn = function () &#123;</span><br><span class="line">        self.apply(this instanceof self ? this : thisArg, args.concat(Array.prototype.slice.call(arguments)))</span><br><span class="line">    &#125;</span><br><span class="line">    // 继承原型上的属性和方法</span><br><span class="line">    fn.prototype = Object.create(self.prototype);</span><br><span class="line"></span><br><span class="line">    return fn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试一下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var o = &#123;</span><br><span class="line">    name: &apos;fu&apos;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function test(...args) &#123;</span><br><span class="line">    console.log(this.name, args)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var t = test.myBind(o, 1,2,3)</span><br><span class="line"></span><br><span class="line">t() // fu [1,2,3]</span><br><span class="line">t(4) // fu [1,2,3,4]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="new-操作符"><a href="#new-操作符" class="headerlink" title="new 操作符"></a>new 操作符</h2><ul>
+<li>new 操作符都做了什么？</li>
+</ul>
+<ol>
+<li>在内存中创建一个新对象</li>
+<li>这个新对象内部的[[Prototype]]特性被赋值为构造函数的 prototype 属性</li>
+<li>构造函数内部的 this 被赋值为这个新对象（即this指向新对象）</li>
+<li>执行构造函数内部的代码（给新对象添加属性）</li>
+<li>如果构造函数返回非空对象，则返回该对象；否则，返回刚创建的新对象。</li>
+</ol>
+<ul>
+<li>实现一个 new<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * </span><br><span class="line"> * @param &#123;*&#125; constructor 第一个参数为</span><br><span class="line"> */</span><br><span class="line">var newFactory = function() &#123;</span><br><span class="line">  var obj = &#123;&#125;;</span><br><span class="line">  var Con = [].shift.apply(arguments);</span><br><span class="line">  obj.__proto__ = Con.prototype;</span><br><span class="line">  var ret = Con.apply(obj, arguments);</span><br><span class="line">  return typeof ret === &quot;object&quot; ? ret : obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// test</span><br><span class="line">function A(name) &#123;</span><br><span class="line">  this.name = name</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(newFactory(A, &apos;fffff&apos;)) // A &#123;name: &quot;fffff&quot;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="promise"><a href="#promise" class="headerlink" title="promise"></a>promise</h2><ul>
+<li>实现一个 promise<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">function myPromise(callback) &#123;</span><br><span class="line">  const self = this;</span><br><span class="line">  self.status = &quot;pending&quot;; // pending、resolved、rejected</span><br><span class="line">  self.value = undefined;</span><br><span class="line">  self.reason = undefined;</span><br><span class="line"></span><br><span class="line">  function resolve(value) &#123;</span><br><span class="line">    if (self.status === &quot;pending&quot;) &#123;</span><br><span class="line">      self.value = value;</span><br><span class="line">      self.status = &apos;resolved&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  function reject(reason) &#123;</span><br><span class="line">    if (self.status === &quot;pending&quot;) &#123;</span><br><span class="line">      self.reason = reason;</span><br><span class="line">      self.status = &apos;rejected&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  try &#123;</span><br><span class="line">    callback(resolve, reject)</span><br><span class="line">  &#125; catch(e) &#123;</span><br><span class="line">    reject(e)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">myPromise.prototype.then = function(onResolved, onRejected) &#123;</span><br><span class="line">  const self = this;</span><br><span class="line">  switch(self.status)&#123;</span><br><span class="line">    case &quot;resolved&quot;:</span><br><span class="line">      onResolved(self.value);</span><br><span class="line">      break;</span><br><span class="line">    case &quot;rejected&quot;:</span><br><span class="line">      onRejected(self.reason);</span><br><span class="line">      break;</span><br><span class="line">    default:       </span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试一下</span><br><span class="line">var p = new myPromise((r, j) =&gt; &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">      r(66666)</span><br><span class="line">  &#125;, 3000)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">p.then((v) =&gt; &#123;</span><br><span class="line">  console.log(v) // 6666</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="函数的this"><a href="#函数的this" class="headerlink" title="函数的this"></a>函数的this</h2><ol>
+<li>问一下两段代码各输出什么？<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">    console.log(value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line">    foo(); // 这里相当于window.foo()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar();</span><br><span class="line"></span><br><span class="line">// 1</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var value = 1;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">    var value = 2;</span><br><span class="line"></span><br><span class="line">    function foo() &#123;</span><br><span class="line">        console.log(value);</span><br><span class="line">    &#125;</span><br><span class="line">    foo(); // 这里在bar函数作用域内</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar();</span><br><span class="line"></span><br><span class="line">// 2</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/24/javascript-clone/" itemprop="url">
+                  JavaScript-clone
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-24T11:02:18+08:00" content="2018-05-24">
+              2018-05-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line">// lodash 中还添加了node中的数据类型，如ArrayBuffer等。</span><br><span class="line">const mapTag = &apos;[object Map]&apos;;</span><br><span class="line">const setTag = &apos;[object Set]&apos;;</span><br><span class="line">const arrayTag = &apos;[object Array]&apos;;</span><br><span class="line">const objectTag = &apos;[object Object]&apos;;</span><br><span class="line">const argsTag = &apos;[object Arguments]&apos;;</span><br><span class="line"></span><br><span class="line">const boolTag = &apos;[object Boolean]&apos;;</span><br><span class="line">const dateTag = &apos;[object Date]&apos;;</span><br><span class="line">const numberTag = &apos;[object Number]&apos;;</span><br><span class="line">const stringTag = &apos;[object String]&apos;;</span><br><span class="line">const symbolTag = &apos;[object Symbol]&apos;;</span><br><span class="line">const errorTag = &apos;[object Error]&apos;;</span><br><span class="line">const regexpTag = &apos;[object RegExp]&apos;;</span><br><span class="line">const funcTag = &apos;[object Function]&apos;;</span><br><span class="line"></span><br><span class="line">const deepTag = [mapTag, setTag, arrayTag, objectTag, argsTag];</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 判断是否为对象（lodash）</span><br><span class="line"> * isObject(&#123;&#125;) // =&gt; true</span><br><span class="line"> * isObject([1, 2, 3]) // =&gt; true</span><br><span class="line"> * isObject(Function) // =&gt; true</span><br><span class="line"> * isObject(null) // =&gt; false</span><br><span class="line"> */</span><br><span class="line">function isObject(value) &#123;</span><br><span class="line">  const type = typeof value</span><br><span class="line">  return value != null &amp;&amp; (type === &apos;object&apos; || type === &apos;function&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取初始化对象</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function getInit(target) &#123;</span><br><span class="line">  const Ctor = target.constructor;</span><br><span class="line">  return new Ctor();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取值类型</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function getType(target) &#123;</span><br><span class="line">  return Object.prototype.toString.call(target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 非遍历类型克隆</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> * @param &#123;*&#125; type </span><br><span class="line"> */</span><br><span class="line">function cloneOtherType(target, type) &#123;</span><br><span class="line">  const Ctor = target.constructor;</span><br><span class="line">  switch (type) &#123;</span><br><span class="line">    case boolTag:</span><br><span class="line">    case numberTag:</span><br><span class="line">    case stringTag:</span><br><span class="line">    case errorTag:</span><br><span class="line">    case dateTag:</span><br><span class="line">      return new Ctor(+target); // 传入时间戳兼容性更好，同lodash</span><br><span class="line">    case regexpTag:</span><br><span class="line">      return cloneRegExp(target);</span><br><span class="line">    case symbolTag:</span><br><span class="line">      return cloneSymbol(target);</span><br><span class="line">    case funcTag:</span><br><span class="line">      // return cloneFunction(target);</span><br><span class="line">      return target; // 函数可以不做处理，返回自身</span><br><span class="line">    default:</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆正则表达式（lodash）</span><br><span class="line"> * @param &#123;*&#125; regexp </span><br><span class="line"> */</span><br><span class="line">function cloneRegExp(regexp) &#123;</span><br><span class="line">  const reFlags = /\w*$/;</span><br><span class="line">  const result = new regexp.constructor(regexp.source, reFlags.exec(regexp));</span><br><span class="line">  result.lastIndex = regexp.lastIndex;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆Symbol(lodash)</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function cloneSymbol(target) &#123;</span><br><span class="line">  return Object(Symbol.prototype.valueOf.call(target));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆函数(可不处里)</span><br><span class="line"> * @param &#123;*&#125; func </span><br><span class="line"> */</span><br><span class="line">function cloneFunction(func) &#123;</span><br><span class="line">  const bodyReg = /(?&lt;=&#123;)(.|\n)+(?=&#125;)/m;</span><br><span class="line">  const paramReg = /(?&lt;=\().+(?=\)\s+&#123;)/;</span><br><span class="line">  const funcString = func.toString();</span><br><span class="line">  if (func.prototype) &#123;</span><br><span class="line">    const param = paramReg.exec(funcString);</span><br><span class="line">    const body = bodyReg.exec(funcString);</span><br><span class="line">    if (body) &#123;</span><br><span class="line">      if (param) &#123;</span><br><span class="line">        const paramArr = param[0].split(&apos;,&apos;);</span><br><span class="line">        return new Function(...paramArr, body[0]);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        return new Function(body[0]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return null;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return eval(funcString);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 遍历函数</span><br><span class="line"> * @param &#123;*&#125; array </span><br><span class="line"> * @param &#123;*&#125; iteratee </span><br><span class="line"> */</span><br><span class="line">function forEach(array, iteratee) &#123;</span><br><span class="line">  let index = -1;</span><br><span class="line">  const length = array.length;</span><br><span class="line">  while (++index &lt; length) &#123;</span><br><span class="line">    iteratee(array[index], index);</span><br><span class="line">  &#125;</span><br><span class="line">  return array;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆主函数</span><br><span class="line"> * @param &#123;*&#125; target 被克隆对象</span><br><span class="line"> * @param &#123;*&#125; map 处理循环引用, lodash用构建了一个栈来存储键值对，后续解析</span><br><span class="line"> */</span><br><span class="line">function clone(target, map = new WeakMap()) &#123;</span><br><span class="line">  // 克隆原始类型</span><br><span class="line">  if (!isObject(target)) return target;</span><br><span class="line"></span><br><span class="line">  // 初始化</span><br><span class="line">  const type = getType(target);</span><br><span class="line"></span><br><span class="line">  // 处理形如 new Number(1) 的原始值</span><br><span class="line">  if (!deepTag.includes(type)) return cloneOtherType(target, type);</span><br><span class="line"></span><br><span class="line">  // 原始类型</span><br><span class="line">  if (deepTag.includes(type)) &#123; // 引用类型</span><br><span class="line">    const cloneTarget = getInit(target, type);</span><br><span class="line">    const mapTarget = map.get(target);</span><br><span class="line"></span><br><span class="line">    // 防止循环引用</span><br><span class="line">    if (mapTarget) return mapTarget;</span><br><span class="line">    map.set(target, cloneTarget);</span><br><span class="line"></span><br><span class="line">    // 克隆set</span><br><span class="line">    if (type === setTag) &#123;</span><br><span class="line">      target.forEach(value =&gt; &#123;</span><br><span class="line">        cloneTarget.add(clone(value, map));</span><br><span class="line">      &#125;);</span><br><span class="line">      return cloneTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 克隆map</span><br><span class="line">    if (type === mapTag) &#123;</span><br><span class="line">      target.forEach((value, key) =&gt; &#123;</span><br><span class="line">        cloneTarget.set(key, clone(value, map));</span><br><span class="line">      &#125;);</span><br><span class="line">      return cloneTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 克隆对象和数组</span><br><span class="line">    const keys = type === arrayTag ? undefined : Object.keys(target);</span><br><span class="line">    forEach(keys || target, (value, key) =&gt; &#123;</span><br><span class="line">      if (keys) &#123;</span><br><span class="line">        // 对象结构键不使用索引</span><br><span class="line">        key = value;</span><br><span class="line">      &#125;</span><br><span class="line">      cloneTarget[key] = clone(target[key], map);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return cloneTarget;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default clone;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -660,118 +932,6 @@ c(() =&gt; {
             
               
                 
-                <a class="post-title-link" href="/2018/05/24/javascript-clone/" itemprop="url">
-                  JavaScript-clone
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-24T11:02:18+08:00" content="2018-05-24">
-              2018-05-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br></pre></td><td class="code"><pre><span class="line">// lodash 中还添加了node中的数据类型，如ArrayBuffer等。</span><br><span class="line">const mapTag = &apos;[object Map]&apos;;</span><br><span class="line">const setTag = &apos;[object Set]&apos;;</span><br><span class="line">const arrayTag = &apos;[object Array]&apos;;</span><br><span class="line">const objectTag = &apos;[object Object]&apos;;</span><br><span class="line">const argsTag = &apos;[object Arguments]&apos;;</span><br><span class="line"></span><br><span class="line">const boolTag = &apos;[object Boolean]&apos;;</span><br><span class="line">const dateTag = &apos;[object Date]&apos;;</span><br><span class="line">const numberTag = &apos;[object Number]&apos;;</span><br><span class="line">const stringTag = &apos;[object String]&apos;;</span><br><span class="line">const symbolTag = &apos;[object Symbol]&apos;;</span><br><span class="line">const errorTag = &apos;[object Error]&apos;;</span><br><span class="line">const regexpTag = &apos;[object RegExp]&apos;;</span><br><span class="line">const funcTag = &apos;[object Function]&apos;;</span><br><span class="line"></span><br><span class="line">const deepTag = [mapTag, setTag, arrayTag, objectTag, argsTag];</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 判断是否为对象（lodash）</span><br><span class="line"> * isObject(&#123;&#125;) // =&gt; true</span><br><span class="line"> * isObject([1, 2, 3]) // =&gt; true</span><br><span class="line"> * isObject(Function) // =&gt; true</span><br><span class="line"> * isObject(null) // =&gt; false</span><br><span class="line"> */</span><br><span class="line">function isObject(value) &#123;</span><br><span class="line">  const type = typeof value</span><br><span class="line">  return value != null &amp;&amp; (type === &apos;object&apos; || type === &apos;function&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取初始化对象</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function getInit(target) &#123;</span><br><span class="line">  const Ctor = target.constructor;</span><br><span class="line">  return new Ctor();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 获取值类型</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function getType(target) &#123;</span><br><span class="line">  return Object.prototype.toString.call(target);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 非遍历类型克隆</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> * @param &#123;*&#125; type </span><br><span class="line"> */</span><br><span class="line">function cloneOtherType(target, type) &#123;</span><br><span class="line">  const Ctor = target.constructor;</span><br><span class="line">  switch (type) &#123;</span><br><span class="line">    case boolTag:</span><br><span class="line">    case numberTag:</span><br><span class="line">    case stringTag:</span><br><span class="line">    case errorTag:</span><br><span class="line">    case dateTag:</span><br><span class="line">      return new Ctor(+target); // 传入时间戳兼容性更好，同lodash</span><br><span class="line">    case regexpTag:</span><br><span class="line">      return cloneRegExp(target);</span><br><span class="line">    case symbolTag:</span><br><span class="line">      return cloneSymbol(target);</span><br><span class="line">    case funcTag:</span><br><span class="line">      // return cloneFunction(target);</span><br><span class="line">      return target; // 函数可以不做处理，返回自身</span><br><span class="line">    default:</span><br><span class="line">      return null;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆正则表达式（lodash）</span><br><span class="line"> * @param &#123;*&#125; regexp </span><br><span class="line"> */</span><br><span class="line">function cloneRegExp(regexp) &#123;</span><br><span class="line">  const reFlags = /\w*$/;</span><br><span class="line">  const result = new regexp.constructor(regexp.source, reFlags.exec(regexp));</span><br><span class="line">  result.lastIndex = regexp.lastIndex;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆Symbol(lodash)</span><br><span class="line"> * @param &#123;*&#125; target </span><br><span class="line"> */</span><br><span class="line">function cloneSymbol(target) &#123;</span><br><span class="line">  return Object(Symbol.prototype.valueOf.call(target));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆函数(可不处里)</span><br><span class="line"> * @param &#123;*&#125; func </span><br><span class="line"> */</span><br><span class="line">function cloneFunction(func) &#123;</span><br><span class="line">  const bodyReg = /(?&lt;=&#123;)(.|\n)+(?=&#125;)/m;</span><br><span class="line">  const paramReg = /(?&lt;=\().+(?=\)\s+&#123;)/;</span><br><span class="line">  const funcString = func.toString();</span><br><span class="line">  if (func.prototype) &#123;</span><br><span class="line">    const param = paramReg.exec(funcString);</span><br><span class="line">    const body = bodyReg.exec(funcString);</span><br><span class="line">    if (body) &#123;</span><br><span class="line">      if (param) &#123;</span><br><span class="line">        const paramArr = param[0].split(&apos;,&apos;);</span><br><span class="line">        return new Function(...paramArr, body[0]);</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        return new Function(body[0]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      return null;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    return eval(funcString);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 遍历函数</span><br><span class="line"> * @param &#123;*&#125; array </span><br><span class="line"> * @param &#123;*&#125; iteratee </span><br><span class="line"> */</span><br><span class="line">function forEach(array, iteratee) &#123;</span><br><span class="line">  let index = -1;</span><br><span class="line">  const length = array.length;</span><br><span class="line">  while (++index &lt; length) &#123;</span><br><span class="line">    iteratee(array[index], index);</span><br><span class="line">  &#125;</span><br><span class="line">  return array;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 克隆主函数</span><br><span class="line"> * @param &#123;*&#125; target 被克隆对象</span><br><span class="line"> * @param &#123;*&#125; map 处理循环引用, lodash用构建了一个栈来存储键值对，后续解析</span><br><span class="line"> */</span><br><span class="line">function clone(target, map = new WeakMap()) &#123;</span><br><span class="line">  // 克隆原始类型</span><br><span class="line">  if (!isObject(target)) return target;</span><br><span class="line"></span><br><span class="line">  // 初始化</span><br><span class="line">  const type = getType(target);</span><br><span class="line"></span><br><span class="line">  // 处理形如 new Number(1) 的原始值</span><br><span class="line">  if (!deepTag.includes(type)) return cloneOtherType(target, type);</span><br><span class="line"></span><br><span class="line">  // 原始类型</span><br><span class="line">  if (deepTag.includes(type)) &#123; // 引用类型</span><br><span class="line">    const cloneTarget = getInit(target, type);</span><br><span class="line">    const mapTarget = map.get(target);</span><br><span class="line"></span><br><span class="line">    // 防止循环引用</span><br><span class="line">    if (mapTarget) return mapTarget;</span><br><span class="line">    map.set(target, cloneTarget);</span><br><span class="line"></span><br><span class="line">    // 克隆set</span><br><span class="line">    if (type === setTag) &#123;</span><br><span class="line">      target.forEach(value =&gt; &#123;</span><br><span class="line">        cloneTarget.add(clone(value, map));</span><br><span class="line">      &#125;);</span><br><span class="line">      return cloneTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 克隆map</span><br><span class="line">    if (type === mapTag) &#123;</span><br><span class="line">      target.forEach((value, key) =&gt; &#123;</span><br><span class="line">        cloneTarget.set(key, clone(value, map));</span><br><span class="line">      &#125;);</span><br><span class="line">      return cloneTarget;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 克隆对象和数组</span><br><span class="line">    const keys = type === arrayTag ? undefined : Object.keys(target);</span><br><span class="line">    forEach(keys || target, (value, key) =&gt; &#123;</span><br><span class="line">      if (keys) &#123;</span><br><span class="line">        // 对象结构键不使用索引</span><br><span class="line">        key = value;</span><br><span class="line">      &#125;</span><br><span class="line">      cloneTarget[key] = clone(target[key], map);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    return cloneTarget;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default clone;</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2018/05/19/algorithm-questions/" itemprop="url">
                   算法题目
                 </a>
@@ -888,6 +1048,188 @@ c(() =&gt; {
 </ul>
 <h2 id="扑克牌顺序问题："><a href="#扑克牌顺序问题：" class="headerlink" title="扑克牌顺序问题："></a>扑克牌顺序问题：</h2><p>有一堆扑克牌, 将牌堆第一张放到桌子上，再将牌堆的第一张放到牌底，如此往复；最后桌子上的牌顺序为：（牌底）1,2,3,4,5,6,7,8,9,10,11,12,13(牌顶)；<br>问：原来那堆牌的顺序，用函数实现。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">// 分析与抽象：</span><br><span class="line">// 1. 最重要的想清楚这件事：每次将牌从牌头放到牌底和桌子上的这一系列操作是可逆的！</span><br><span class="line">// 如桌子上已经有了一张牌、那我一共做了两个操作即：a.将牌从牌头放到牌底 b. 将牌从牌头放到桌子上</span><br><span class="line">// 逆向还原时先执行b，再执行a即可还原为最初状态。多张牌还原相当于还原多次逆向操作。</span><br><span class="line">// 还原函数即为手拿扑克牌还原的过程。</span><br><span class="line">// 2. 牌堆可以看成数组，牌底对应数组尾部，牌顶对应数组头部。</span><br><span class="line">// 3. 最后牌堆抽象为数组为: var final = [13,12,11,10,9,8,7,6,5,4,3,2,1]</span><br><span class="line">// 4. 原来牌堆抽象可以抽象为一个新数组：var initial = []</span><br><span class="line"></span><br><span class="line">  var final = [13,12,11,10,9,8,7,6,5,4,3,2,1];</span><br><span class="line">  function reverse(arr) &#123;</span><br><span class="line">    var result = [];</span><br><span class="line">    for (var i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">      result.length &gt; 0 &amp;&amp; result.unshift(result.pop());</span><br><span class="line">      result.unshift(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  console.log(reverse(final)) // [1, 12, 2, 8, 3, 11, 4, 9, 5, 13, 6, 10, 7]</span><br></pre></td></tr></table></figure></p>
 <h2 id="KMP-算法"><a href="#KMP-算法" class="headerlink" title="KMP 算法"></a>KMP 算法</h2>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
+                  JavaScript-setTimeout
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
+              2018-05-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p>
+<h2 id="1-setTimeout-（参考：小红书-p203，MDN）"><a href="#1-setTimeout-（参考：小红书-p203，MDN）" class="headerlink" title="1. setTimeout （参考：小红书 p203，MDN）"></a>1. setTimeout （参考：小红书 p203，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN</a>）</h2><h3 id="setTimeout-的基本概念："><a href="#setTimeout-的基本概念：" class="headerlink" title="setTimeout 的基本概念："></a>setTimeout 的基本概念：</h3><ul>
+<li>setTimeout 方法是 window 对象下的。</li>
+<li>JavaScript 是一个单线程序的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个 JavaScript 任务队列。这些任务会按照将它们添加到队列的顺序执行。setTimeout()的第二个参数告诉 JavaScript 再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。</li>
+<li><p>接收多个参数（function, delay, param1…paramN）这里的 parma 会在 delay 延迟后自动作为参数传入 function里，但在 IE9 及以下不支持这种写法。</p>
+<pre><code>setTimeout(function(p1, p2) {
+    console.log(p1, p2); // param1 param2
+}, 1000, &quot;param1&quot;, &quot;param2&quot;);
+</code></pre></li>
+<li><p>setTimeout()会返回一个表示超时调用的数值ID。这个超时调用 ID 是计划执行代码的唯一标识符，可以通过它来取消超时调用（clearTimeout()）。</p>
+</li>
+<li><p>超时延迟</p>
+<pre><code>function foo() {
+  console.log(&apos;foo has been called&apos;);
+}
+setTimeout(foo, 0);
+console.log(&apos;After setTimeout&apos;);
+// After setTimeout, foo has been called
+出现这个结果的原因是，尽管hsetTimeout 以0ms的延迟来调用函数，但这个任务已经被放入了队列中并且等待下一次执行；并不是立即执行；队列中的等待函数被调用之前，当前代码必须全部运行完毕，因此这里运行结果并非预想的那样。
+</code></pre></li>
+<li><p>最小延迟</p>
+<p>最小延时 &gt;=4ms（MDN说法），但是看下面的例子却是 2ms 甚至不到 2ms ？？？</p>
+<pre><code>// 转换为时间戳看一下
+console.log(new Date().getTime());
+setTimeout(function() {
+    console.log(new Date().getTime());
+}, 0);
+
+// 1525534082199, 1525534082201
+
+//  使用 console.time() 和 console.timeEnd() 来统计时间
+function testTimeout() {
+    //  启动任务计时器
+    console.time(&quot;Timeout&quot;)
+    //  启动浏览器定时任务 
+    setTimeout(function() {
+        //  统计任务消耗的时间
+        console.timeEnd(&quot;Timeout&quot;)
+    }, 0)
+}
+testTimeout(); 
+// Timeout: 1.34130859375ms
+</code></pre></li>
+<li>最大延时值<br>浏览器包括 IE, , Chrome, Safari, Firefox 以32个bit字节存储整数。这就会导致如果一个整数大于 2147483647 (大约24.8 天)时就会溢出，导致定时器将会被立即执行</li>
+</ul>
+<h3 id="看下面的例子："><a href="#看下面的例子：" class="headerlink" title="看下面的例子："></a>看下面的例子：</h3><pre><code>for (var i = 0; i &lt; 10; i++) {
+   setTimeout(function(){
+       console.log(new Date, i);
+   }, 1000) 
+}
+console.log(new Date, i);
+</code></pre><p>打印结果：</p>
+<ul>
+<li>last Sat May 05 2018 21:39:42 GMT+0800 (CST) 10 //  setTimeout 由于添加到队列的时间较晚（delay），所以会等到队列中其他任务结束之后再执行。</li>
+<li>last Sat May 05 2018 21:39:43 GMT+0800 (CST) 10 // 十次,注意这里不是重复打印而是分别打印共十次， for 循环里面的 setTimeout 只是在 delay 时间后将其添加到队列中，所以 setTimeout 并不会阻碍 for 循环的时间</li>
+</ul>
+<h4 id="下面是转成时间戳的打印："><a href="#下面是转成时间戳的打印：" class="headerlink" title="下面是转成时间戳的打印："></a>下面是转成时间戳的打印：</h4><pre><code>for (var i = 0; i &lt; 10; i++) {
+   setTimeout(function(){
+       console.log(new Date().getTime(), i);
+   }, 1000) 
+}
+console.log(&quot;last&quot;, new Date().getTime(), i);
+</code></pre><p>打印结果：</p>
+<ul>
+<li>last 1525527917027 10</li>
+<li>(3)1525527918030 10</li>
+<li>(3)1525527918031 10</li>
+<li>(4)1525527918032 10</li>
+</ul>
+<p>以上结果中的重复打印次数不是固定的，在执行一次也可能是：2，2，6；</p>
+
           
         
       
@@ -1147,188 +1489,6 @@ console.log(obj.key);
 <li>[[Get]]：在读取属性时调用的函数。默认值为 undefined。</li>
 <li>[[Set]]：在写入属性时调用的函数。默认值为 undefined。</li>
 </ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/05/06/2108-5-06-javascript-setTimeout/" itemprop="url">
-                  JavaScript-setTimeout
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-05-06T11:07:50+08:00" content="2018-05-06">
-              2018-05-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>setTimeout 之前也有过很多次接触，这次统一梳理一下，其中关于<code>最小延迟</code>和<code>超时延迟</code>还是不太理解</p>
-<h2 id="1-setTimeout-（参考：小红书-p203，MDN）"><a href="#1-setTimeout-（参考：小红书-p203，MDN）" class="headerlink" title="1. setTimeout （参考：小红书 p203，MDN）"></a>1. setTimeout （参考：小红书 p203，<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/setTimeout#Reasons_for_delays_longer_than_specified" target="_blank" rel="noopener">MDN</a>）</h2><h3 id="setTimeout-的基本概念："><a href="#setTimeout-的基本概念：" class="headerlink" title="setTimeout 的基本概念："></a>setTimeout 的基本概念：</h3><ul>
-<li>setTimeout 方法是 window 对象下的。</li>
-<li>JavaScript 是一个单线程序的解释器，因此一定时间内只能执行一段代码。为了控制要执行的代码，就有一个 JavaScript 任务队列。这些任务会按照将它们添加到队列的顺序执行。setTimeout()的第二个参数告诉 JavaScript 再过多长时间把当前任务添加到队列中。如果队列是空的，那么添加的代码会立即执行；如果队列不是空的，那么它就要等前面的代码执行完了以后再执行。</li>
-<li><p>接收多个参数（function, delay, param1…paramN）这里的 parma 会在 delay 延迟后自动作为参数传入 function里，但在 IE9 及以下不支持这种写法。</p>
-<pre><code>setTimeout(function(p1, p2) {
-    console.log(p1, p2); // param1 param2
-}, 1000, &quot;param1&quot;, &quot;param2&quot;);
-</code></pre></li>
-<li><p>setTimeout()会返回一个表示超时调用的数值ID。这个超时调用 ID 是计划执行代码的唯一标识符，可以通过它来取消超时调用（clearTimeout()）。</p>
-</li>
-<li><p>超时延迟</p>
-<pre><code>function foo() {
-  console.log(&apos;foo has been called&apos;);
-}
-setTimeout(foo, 0);
-console.log(&apos;After setTimeout&apos;);
-// After setTimeout, foo has been called
-出现这个结果的原因是，尽管hsetTimeout 以0ms的延迟来调用函数，但这个任务已经被放入了队列中并且等待下一次执行；并不是立即执行；队列中的等待函数被调用之前，当前代码必须全部运行完毕，因此这里运行结果并非预想的那样。
-</code></pre></li>
-<li><p>最小延迟</p>
-<p>最小延时 &gt;=4ms（MDN说法），但是看下面的例子却是 2ms 甚至不到 2ms ？？？</p>
-<pre><code>// 转换为时间戳看一下
-console.log(new Date().getTime());
-setTimeout(function() {
-    console.log(new Date().getTime());
-}, 0);
-
-// 1525534082199, 1525534082201
-
-//  使用 console.time() 和 console.timeEnd() 来统计时间
-function testTimeout() {
-    //  启动任务计时器
-    console.time(&quot;Timeout&quot;)
-    //  启动浏览器定时任务 
-    setTimeout(function() {
-        //  统计任务消耗的时间
-        console.timeEnd(&quot;Timeout&quot;)
-    }, 0)
-}
-testTimeout(); 
-// Timeout: 1.34130859375ms
-</code></pre></li>
-<li>最大延时值<br>浏览器包括 IE, , Chrome, Safari, Firefox 以32个bit字节存储整数。这就会导致如果一个整数大于 2147483647 (大约24.8 天)时就会溢出，导致定时器将会被立即执行</li>
-</ul>
-<h3 id="看下面的例子："><a href="#看下面的例子：" class="headerlink" title="看下面的例子："></a>看下面的例子：</h3><pre><code>for (var i = 0; i &lt; 10; i++) {
-   setTimeout(function(){
-       console.log(new Date, i);
-   }, 1000) 
-}
-console.log(new Date, i);
-</code></pre><p>打印结果：</p>
-<ul>
-<li>last Sat May 05 2018 21:39:42 GMT+0800 (CST) 10 //  setTimeout 由于添加到队列的时间较晚（delay），所以会等到队列中其他任务结束之后再执行。</li>
-<li>last Sat May 05 2018 21:39:43 GMT+0800 (CST) 10 // 十次,注意这里不是重复打印而是分别打印共十次， for 循环里面的 setTimeout 只是在 delay 时间后将其添加到队列中，所以 setTimeout 并不会阻碍 for 循环的时间</li>
-</ul>
-<h4 id="下面是转成时间戳的打印："><a href="#下面是转成时间戳的打印：" class="headerlink" title="下面是转成时间戳的打印："></a>下面是转成时间戳的打印：</h4><pre><code>for (var i = 0; i &lt; 10; i++) {
-   setTimeout(function(){
-       console.log(new Date().getTime(), i);
-   }, 1000) 
-}
-console.log(&quot;last&quot;, new Date().getTime(), i);
-</code></pre><p>打印结果：</p>
-<ul>
-<li>last 1525527917027 10</li>
-<li>(3)1525527918030 10</li>
-<li>(3)1525527918031 10</li>
-<li>(4)1525527918032 10</li>
-</ul>
-<p>以上结果中的重复打印次数不是固定的，在执行一次也可能是：2，2，6；</p>
 
           
         
